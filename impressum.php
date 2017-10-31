@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name:  Impressum
-Plugin URI:   https://impressum.plus
-Description:  Simple Impressum Generator
-Version:      0.1
-Author:       Matthias Kittsteiner, Simon Kraft
-License:      GPL3
-License URI:  https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain:  impressum
-Domain Path:  /languages
+Plugin Name:	Impressum
+Plugin URI:		https://impressum.plus
+Description:	Simple Impressum Generator
+Version:		0.1
+Author:			Matthias Kittsteiner, Simon Kraft
+License:		GPL3
+License URI:	https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain:	impressum
+Domain Path:	/languages
 
 
 Impressum is free software: you can redistribute it and/or modify

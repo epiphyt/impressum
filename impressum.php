@@ -68,7 +68,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'name',
 		__( 'Name', 'impressum' ),
-		'name_callback',
+		'impressum_input_text_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -82,7 +82,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'address',
 		__( 'Address', 'impressum' ),
-		'address_callback',
+		'impressum_textarea_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -96,7 +96,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'address_alternative',
 		__( 'Alternative Address', 'impressum' ),
-		'address_alternative_callback',
+		'impressum_textarea_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -110,7 +110,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'email',
 		__( 'Email Address', 'impressum' ),
-		'email_callback',
+		'impressum_email_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -124,7 +124,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'phone',
 		__( 'Telephone', 'impressum' ),
-		'phone_callback',
+		'impressum_phone_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -138,7 +138,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'fax',
 		__( 'Fax', 'impressum' ),
-		'fax_callback',
+		'impressum_phone_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -152,7 +152,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'press_law_checkbox',
 		__( 'Journalistic/Editorial Content', 'impressum' ),
-		'press_law_checkbox_callback',
+		'impressum_press_law_checkbox_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -166,7 +166,7 @@ function impressum_settings_init() {
 	add_settings_field(
 		'press_law_person',
 		__( 'Responsible according to the German Press Law', 'impressum' ),
-		'press_law_person_callback',
+		'impressum_textarea_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
@@ -174,7 +174,147 @@ function impressum_settings_init() {
 			'class' => 'impressum_row impressum_press_law',
 			'impressum_custom_data' => 'custom',
 		]
-	);	
+	);
+	
+	// vat id
+	add_settings_field(
+		'vat_id',
+		__( 'VAT ID', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'vat_id',
+			'class' => 'impressum_row vat_id',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// inspecting authority
+	add_settings_field(
+		'inspecting_authority',
+		__( 'Inspecting Authority', 'impressum' ),
+		'impressum_textarea_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'inspecting_authority',
+			'class' => 'impressum_row impressum_inspecting_authority',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// register
+	add_settings_field(
+		'register',
+		__( 'Register', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'register',
+			'class' => 'impressum_row impressum_register',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// business id
+	add_settings_field(
+		'business_id',
+		__( 'Business ID', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'business_id',
+			'class' => 'impressum_row impressum_business_id',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// representative
+	add_settings_field(
+		'representative',
+		__( 'Representative', 'impressum' ),
+		'impressum_textarea_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'representative',
+			'class' => 'impressum_row impressum_representative',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// capital stock
+	add_settings_field(
+		'capital_stock',
+		__( 'Capital Stock', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'capital_stock',
+			'class' => 'impressum_row impressum_capital_stock',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// pending deposits
+	add_settings_field(
+		'pending_deposits',
+		__( 'Pending Deposits', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'pending_deposits',
+			'class' => 'impressum_row impressum_pending_deposits',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// professional association
+	add_settings_field(
+		'professional_association',
+		__( 'Professional Association', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'professional_association',
+			'class' => 'impressum_row impressum_professional_association',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// legal job title
+	add_settings_field(
+		'legal_job_title',
+		__( 'Legal Job Title', 'impressum' ),
+		'impressum_input_text_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'legal_job_title',
+			'class' => 'impressum_row impressum_legal_job_title',
+			'impressum_custom_data' => 'custom',
+		]
+	);
+	
+	// professional regulations
+	add_settings_field(
+		'professional_regulations',
+		__( 'Professional Regulations', 'impressum' ),
+		'impressum_textarea_callback',
+		'impressum',
+		'impressum_section_developers',
+		[
+			'label_for' => 'professional_regulations',
+			'class' => 'impressum_row impressum_professional_regulations',
+			'impressum_custom_data' => 'custom',
+		]
+	);
 	
 	// comment subscription checkbox
 	add_settings_field(
@@ -388,47 +528,22 @@ function legal_entity_callback( $args ) {
 	// output the field
 	?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
-	<option value="individual" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
+	<option value="ag" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' ); ?>><?php esc_html_e( 'AG', 'impressum' ); ?></option>
+	<option value="ev" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ev', false ) ) : ( '' ); ?>><?php esc_html_e( 'e.V.', 'impressum' ); ?></option>
+	<option value="ek" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ek', false ) ) : ( '' ); ?>><?php esc_html_e( 'e.K.', 'impressum' ); ?></option>
+	<option value="einzelkaufmann" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'einzelkaufmann', false ) ) : ( '' ); ?>><?php esc_html_e( 'Einzelkaufmann', 'impressum' ); ?></option>
+	<option value="freelancer" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'freiberufler', false ) ) : ( '' ); ?>><?php esc_html_e( 'Freelancer', 'impressum' ); ?></option>
+	<option value="ggmbH" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ggmbh', false ) ) : ( '' ); ?>><?php esc_html_e( 'gGmbH', 'impressum' ); ?></option>
+	<option value="gmbh" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh', false ) ) : ( '' ); ?>><?php esc_html_e( 'GmbH', 'impressum' ); ?></option>
+	<option value="gbr" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gbr', false ) ) : ( '' ); ?>><?php esc_html_e( 'GbR', 'impressum' ); ?></option>
+	<option value="gmbh_co_kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh_co_kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'GmbH & Co. KG', 'impressum' ); ?></option>
+	<option value="kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'KG', 'impressum' ); ?></option>
+	<option value="kgag" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kgag', false ) ) : ( '' ); ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
+	<option value="ohg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ohg', false ) ) : ( '' ); ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
+	<option value="individual" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'individual', false ) ) : ( '' ); ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
+	<option value="ug" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug', false ) ) : ( '' ); ?>><?php esc_html_e( 'UG (haftungsbesschränkt)', 'impressum' ); ?></option>
+	<option value="ug_co_kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug_co_kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'UG (haftungsbesschränkt) & Co. KG', 'impressum' ); ?></option>
 </select>
-	<?php
-}
-
-/**
- * Name field callback.
- * @param $args array
- */
-function name_callback( $args ) {
-	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_imprint_options' );
-	// output the field
-	?>
-<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
-	<?php
-}
-
-/**
- * Address field callback.
- * @param $args array
- */
-function address_callback( $args ) {
-	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_imprint_options' );
-	// output the field
-	?>
-<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
-	<?php
-}
-
-/**
- * Address Alternative field callback.
- * @param $args array
- */
-function address_alternative_callback( $args ) {
-	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_imprint_options' );
-	// output the field
-	?>
-<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 	<?php
 }
 
@@ -436,7 +551,7 @@ function address_alternative_callback( $args ) {
  * Email field callback.
  * @param $args array
  */
-function email_callback( $args ) {
+function impressum_email_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
@@ -446,10 +561,10 @@ function email_callback( $args ) {
 }
 
 /**
- * Phone field callback.
+ * Text input field callback.
  * @param $args array
  */
-function phone_callback( $args ) {
+function impressum_input_text_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
@@ -459,10 +574,10 @@ function phone_callback( $args ) {
 }
 
 /**
- * Fax field callback.
+ * Phone field callback.
  * @param $args array
  */
-function fax_callback( $args ) {
+function impressum_phone_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
@@ -475,7 +590,7 @@ function fax_callback( $args ) {
  * Press Law Checkbox field callback.
  * @param $args array
  */
-function press_law_checkbox_callback( $args ) {
+function impressum_press_law_checkbox_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
@@ -487,15 +602,15 @@ function press_law_checkbox_callback( $args ) {
 }
 
 /**
- * Press Law Person field callback.
+ * Textarea callback.
  * @param $args array
  */
-function press_law_person_callback( $args ) {
+function impressum_textarea_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 	<?php
 }
 
@@ -797,14 +912,330 @@ function impressum_get_output( $atts = [] ) {
 	if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = true;
 	if ( ! isset( $atts['output']['press_law_checkbox'] ) ) $atts['output']['press_law_checkbox'] = false;
 	if ( ! isset( $atts['output']['press_law_person'] ) ) $atts['output']['press_law_person'] = true;
+	if ( ! isset( $atts['output']['vat_id'] ) ) $atts['output']['vat_id'] = true;
+	if ( ! isset( $atts['output']['inspecting_authority'] ) ) $atts['output']['inspecting_authority'] = true;
+	if ( ! isset( $atts['output']['register'] ) ) $atts['output']['register'] = true;
+	if ( ! isset( $atts['output']['business_id'] ) ) $atts['output']['business_id'] = true;
+	if ( ! isset( $atts['output']['representative'] ) ) $atts['output']['representative'] = true;
+	if ( ! isset( $atts['output']['capital_stock'] ) ) $atts['output']['capital_stock'] = true;
+	if ( ! isset( $atts['output']['pending_deposits'] ) ) $atts['output']['pending_deposits'] = true;
+	if ( ! isset( $atts['output']['professional_association'] ) ) $atts['output']['professional_association'] = true;
+	if ( ! isset( $atts['output']['legal_job_title'] ) ) $atts['output']['legal_job_title'] = true;
+	if ( ! isset( $atts['output']['professional_regulations'] ) ) $atts['output']['professional_regulations'] = true;
 	if ( ! isset( $atts['markup'] ) ) $atts['markup'] = true;
+	
+	// map displaying a field by its entity
+	$field_mapping = [
+		'address' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'address_alternative' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'email' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'fax' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'legal_entity' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'name' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'phone' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'press_law_person' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'vat_id' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'individual',
+			'ug',
+			'ug_co_kg'
+		],
+		'inspecting_authority' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'register' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'business_id' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'representative' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'capital_stock' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'pending_deposits' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'professional_association' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'legal_job_title' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
+		'professional_regulations' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		]
+	];
 	
 	// check the state if we generate markup
 	$do_markup = boolval( $atts['markup'] );
 	// get every imprint option
 	$options = get_option( 'impressum_imprint_options' );
+	// get entity
+	$entity = $options['legal_entity'];
 	// prepare the output
 	$output = '';
+	
+	// abort if there are no valid options
+	if ( empty( $options ) ) return '';
 	
 	if ( $do_markup ) {
 		// open imprint container
@@ -818,6 +1249,9 @@ function impressum_get_output( $atts = [] ) {
 		$do_output = boolval( $atts['output'][$field] ) && $value;
 		
 		if ( ! $do_output ) continue;
+		
+		// check if the given field should be displayed for this legal entity
+		if ( ! in_array( $entity, $field_mapping[$field] ) ) continue;
 		
 		// the field title
 		$title = '';
@@ -846,6 +1280,36 @@ function impressum_get_output( $atts = [] ) {
 			case 'press_law_person':
 				$title = __( 'Responsible according to the German Press Law', 'impressum' );
 				break;
+			case 'vat_id':
+				$title = __( 'VAT ID', 'impressum' );
+				break;
+			case 'inspecting_authority':
+				$title = __( 'Inspecting Authority', 'impressum' );
+				break;
+			case 'register':
+				$title = __( 'Register', 'impressum' );
+				break;
+			case 'business_id':
+				$title = __( 'Business ID', 'impressum' );
+				break;
+			case 'representative':
+				$title = __( 'Representative', 'impressum' );
+				break;
+			case 'capital_stock':
+				$title = __( 'Capital Stock', 'impressum' );
+				break;
+			case 'pending_deposits':
+				$title = __( 'Pending Deposits', 'impressum' );
+				break;
+			case 'professional_association':
+				$title = __( 'Professional Association', 'impressum' );
+				break;
+			case 'legal_job_title':
+				$title = __( 'Legal Job Title', 'impressum' );
+				break;
+			case 'professional_regulations':
+				$title = __( 'Professional Regulations', 'impressum' );
+				break;
 		}
 		
 		// check if field should be displayed
@@ -858,7 +1322,7 @@ function impressum_get_output( $atts = [] ) {
 			// definition term and description
 			$output .= '
 <dt>' . $title . '</dt>
-<dd>' . esc_html( $options[$field] ) . '</dd>
+<dd>' . nl2br( esc_html( $options[$field] ) ) . '</dd>
 ';
 		}
 		else {

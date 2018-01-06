@@ -347,6 +347,17 @@ function impressum_options_page_html() {
 <?php
 }
 
+
+/**
+ * Shortcode.
+ */
+function impressum_shortcode() {
+	$ausgabe = 'Hier könnte dein Impressum stehen.';
+	return $ausgabe;
+}
+
+add_shortcode( 'impressum', 'impressum_shortcode' );
+
 /**
  * Enqueue scripts.
  * 

@@ -756,15 +756,15 @@ function impressum_options_page_html() {
 
 
 /**
- * Shortcode.
+ * Imprint Shortcode.
  */
-function impressum_shortcode() {
+function impressum_imprint_shortcode() {
 	$output = impressum_get_output();
 	
 	return $output;
 }
 
-add_shortcode( 'impressum', 'impressum_shortcode' );
+add_shortcode( 'impressum', 'impressum_imprint_shortcode' );
 
 /**
  * @param array $atts All attributes to configure the output.

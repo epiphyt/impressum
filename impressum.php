@@ -35,7 +35,7 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
  */
 function impressum_settings_init() {
 	// register a new setting for "impressum" page
-	register_setting( 'impressum', 'impressum_options' );
+	register_setting( 'impressum', 'impressum_imprint_options' );
 	register_setting( 'impressum', 'impressum_privacy_options' );
 	
 	// register a new section in the "impressum" page
@@ -384,10 +384,10 @@ add_action( 'admin_init', 'impressum_settings_init' );
  */
 function legal_entity_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<select id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+<select id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
 	<option value="individual" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
 </select>
 	<?php
@@ -399,10 +399,10 @@ function legal_entity_callback( $args ) {
  */
 function name_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 	<?php
 }
 
@@ -412,10 +412,10 @@ function name_callback( $args ) {
  */
 function address_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
+<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 	<?php
 }
 
@@ -425,10 +425,10 @@ function address_callback( $args ) {
  */
 function address_alternative_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
+<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 	<?php
 }
 
@@ -438,10 +438,10 @@ function address_alternative_callback( $args ) {
  */
 function email_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 	<?php
 }
 
@@ -451,10 +451,10 @@ function email_callback( $args ) {
  */
 function phone_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 	<?php
 }
 
@@ -464,10 +464,10 @@ function phone_callback( $args ) {
  */
 function fax_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 	<?php
 }
 
@@ -477,10 +477,10 @@ function fax_callback( $args ) {
  */
 function press_law_checkbox_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
 </label>
 	<?php
@@ -492,10 +492,10 @@ function press_law_checkbox_callback( $args ) {
  */
 function press_law_person_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+<input id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? 'value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 	<?php
 }
 
@@ -789,7 +789,7 @@ function impressum_get_output( $atts = [] ) {
 	// check the state if we generate markup
 	$do_markup = boolval( $atts['markup'] );
 	// get every imprint option
-	$options = get_option( 'impressum_options' );
+	$options = get_option( 'impressum_imprint_options' );
 	// prepare the output
 	$output = '';
 	

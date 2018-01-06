@@ -766,6 +766,19 @@ function impressum_imprint_shortcode() {
 
 add_shortcode( 'impressum', 'impressum_imprint_shortcode' );
 
+
+/**
+ * Privacy Shortcode.
+ */
+function impressum_privacy_shortcode() {
+	$output = impressum_get_output();
+	
+	return $output;
+}
+
+add_shortcode( 'privacy', 'impressum_privacy_shortcode' );
+
+
 /**
  * @param array $atts All attributes to configure the output.
  * @return string

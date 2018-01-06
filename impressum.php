@@ -51,13 +51,13 @@ function impressum_settings_init() {
 	
 	// legal entity
 	add_settings_field(
-		'impressum_field_legal_entity',
+		'legal_entity',
 		__( 'Legal Entity', 'impressum' ),
-		'impressum_field_legal_entity_callback',
+		'legal_entity_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_legal_entity',
+			'label_for' => 'legal_entity',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -65,13 +65,13 @@ function impressum_settings_init() {
 	
 	// name
 	add_settings_field(
-		'impressum_field_name',
+		'name',
 		__( 'Name', 'impressum' ),
-		'impressum_field_name_callback',
+		'name_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_name',
+			'label_for' => 'name',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -79,13 +79,13 @@ function impressum_settings_init() {
 	
 	// address
 	add_settings_field(
-		'impressum_field_address',
+		'address',
 		__( 'Address', 'impressum' ),
-		'impressum_field_address_callback',
+		'address_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_address',
+			'label_for' => 'address',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -93,13 +93,13 @@ function impressum_settings_init() {
 	
 	// address alternative
 	add_settings_field(
-		'impressum_field_address_alternative',
+		'address_alternative',
 		__( 'Alternative Address', 'impressum' ),
-		'impressum_field_address_alternative_callback',
+		'address_alternative_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_address_alternative',
+			'label_for' => 'address_alternative',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -107,13 +107,13 @@ function impressum_settings_init() {
 	
 	// email
 	add_settings_field(
-		'impressum_field_email',
+		'email',
 		__( 'Email Address', 'impressum' ),
-		'impressum_field_email_callback',
+		'email_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_email',
+			'label_for' => 'email',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -121,13 +121,13 @@ function impressum_settings_init() {
 	
 	// phone
 	add_settings_field(
-		'impressum_field_phone',
+		'phone',
 		__( 'Telephone', 'impressum' ),
-		'impressum_field_phone_callback',
+		'phone_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_phone',
+			'label_for' => 'phone',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -135,13 +135,13 @@ function impressum_settings_init() {
 	
 	// fax
 	add_settings_field(
-		'impressum_field_fax',
+		'fax',
 		__( 'Fax', 'impressum' ),
-		'impressum_field_fax_callback',
+		'fax_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_fax',
+			'label_for' => 'fax',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -149,13 +149,13 @@ function impressum_settings_init() {
 	
 	// press law checkbox
 	add_settings_field(
-		'impressum_field_press_law_checkbox',
+		'press_law_checkbox',
 		__( 'Journalistic/Editorial Content', 'impressum' ),
-		'impressum_field_press_law_checkbox_callback',
+		'press_law_checkbox_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_press_law_checkbox',
+			'label_for' => 'press_law_checkbox',
 			'class' => 'impressum_row',
 			'impressum_custom_data' => 'custom',
 		]
@@ -163,13 +163,13 @@ function impressum_settings_init() {
 	
 	// press law person
 	add_settings_field(
-		'impressum_field_press_law_person',
+		'press_law_person',
 		__( 'Responsible according to the German Press Law', 'impressum' ),
-		'impressum_field_press_law_person_callback',
+		'press_law_person_callback',
 		'impressum',
 		'impressum_section_developers',
 		[
-			'label_for' => 'impressum_field_press_law_person',
+			'label_for' => 'press_law_person',
 			'class' => 'impressum_row impressum_press_law',
 			'impressum_custom_data' => 'custom',
 		]
@@ -185,7 +185,7 @@ add_action( 'admin_init', 'impressum_settings_init' );
  * Legal Entity field callback.
  * @param $args array
  */
-function impressum_field_legal_entity_callback( $args ) {
+function legal_entity_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -200,7 +200,7 @@ function impressum_field_legal_entity_callback( $args ) {
  * Name field callback.
  * @param $args array
  */
-function impressum_field_name_callback( $args ) {
+function name_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -213,7 +213,7 @@ function impressum_field_name_callback( $args ) {
  * Address field callback.
  * @param $args array
  */
-function impressum_field_address_callback( $args ) {
+function address_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -226,7 +226,7 @@ function impressum_field_address_callback( $args ) {
  * Address Alternative field callback.
  * @param $args array
  */
-function impressum_field_address_alternative_callback( $args ) {
+function address_alternative_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -239,7 +239,7 @@ function impressum_field_address_alternative_callback( $args ) {
  * Email field callback.
  * @param $args array
  */
-function impressum_field_email_callback( $args ) {
+function email_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -252,7 +252,7 @@ function impressum_field_email_callback( $args ) {
  * Phone field callback.
  * @param $args array
  */
-function impressum_field_phone_callback( $args ) {
+function phone_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -265,7 +265,7 @@ function impressum_field_phone_callback( $args ) {
  * Fax field callback.
  * @param $args array
  */
-function impressum_field_fax_callback( $args ) {
+function fax_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -278,7 +278,7 @@ function impressum_field_fax_callback( $args ) {
  * Press Law Checkbox field callback.
  * @param $args array
  */
-function impressum_field_press_law_checkbox_callback( $args ) {
+function press_law_checkbox_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -293,7 +293,7 @@ function impressum_field_press_law_checkbox_callback( $args ) {
  * Press Law Person field callback.
  * @param $args array
  */
-function impressum_field_press_law_person_callback( $args ) {
+function press_law_person_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_options' );
 	// output the field
@@ -352,11 +352,114 @@ function impressum_options_page_html() {
  * Shortcode.
  */
 function impressum_shortcode() {
-	$ausgabe = 'Hier könnte dein Impressum stehen.';
-	return $ausgabe;
+	$output = impressum_get_output();
+	
+	return $output;
 }
 
 add_shortcode( 'impressum', 'impressum_shortcode' );
+
+/**
+ * @param array $atts All attributes to configure the output.
+ * @return string
+ */
+function impressum_get_output( $atts = [] ) {
+	// create an empty output array if there isn’t any
+	if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
+	
+	// default values to configure output
+	if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = true;
+	if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = true;
+	if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = true;
+	if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = true;
+	if ( ! isset( $atts['output']['legal_entity'] ) ) $atts['output']['legal_entity'] = false;
+	if ( ! isset( $atts['output']['name'] ) ) $atts['output']['name'] = true;
+	if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = true;
+	if ( ! isset( $atts['output']['press_law_checkbox'] ) ) $atts['output']['press_law_checkbox'] = false;
+	if ( ! isset( $atts['output']['press_law_person'] ) ) $atts['output']['press_law_person'] = true;
+	if ( ! isset( $atts['markup'] ) ) $atts['markup'] = true;
+	
+	// check the state if we generate markup
+	$do_markup = boolval( $atts['markup'] );
+	// get every imprint option
+	$options = get_option( 'impressum_options' );
+	// prepare the output
+	$output = '';
+	
+	if ( $do_markup ) {
+		// open imprint container
+		$output .= '<div class="imprint-container">';
+		// open definition list
+		$output .= '<dl>';
+	}
+	
+	foreach ( $options as $field => $value ) {
+		// check if we output this value
+		$do_output = boolval( $atts['output'][$field] ) && $value;
+		
+		if ( ! $do_output ) continue;
+		
+		// the field title
+		$title = '';
+		
+		// get title according to field name
+		switch ( $field ) {
+			case 'address':
+			case 'address_alternative':
+				$title = __( 'Address', 'impressum' );
+				break;
+			case 'email':
+				$title = __( 'Email Address', 'impressum' );
+				break;
+			case 'fax':
+				$title = __( 'Fax', 'impressum' );
+				break;
+			case 'legal_entity':
+				$title = __( 'Legal Entity', 'impressum' );
+				break;
+			case 'name':
+				$title = __( 'Name', 'impressum' );
+				break;
+			case 'phone':
+				$title = __( 'Phone', 'impressum' );
+				break;
+			case 'press_law_person':
+				$title = __( 'Responsible according to the German Press Law', 'impressum' );
+				break;
+		}
+		
+		// check if field should be displayed
+		if ( $field === 'press_law_person' && ! isset( $options['press_law_checkbox'] ) ) {
+			continue;
+		}
+	
+		// generate output for this field
+		if ( $do_markup ) {
+			// definition term and description
+			$output .= '
+<dt>' . $title . '</dt>
+<dd>' . esc_html( $options[$field] ) . '</dd>
+';
+		}
+		else {
+			// comma separated list
+			$output .= esc_html( $options[$field] ) . ', ';
+		}
+	}
+	
+	if ( $do_markup ) {
+		// close definition list
+		$output .= '</dl>';
+		// close imprint container
+		$output .= '</div>';
+	}
+	else {
+		// remove last comma
+		$output = rtrim( $output, ', ' );
+	}
+	
+	return $output;
+}
 
 /**
  * Enqueue scripts.
@@ -368,8 +471,8 @@ function impressum_enqueue_assets( $hook ) {
 	if ( 'settings_page_impressum' != $hook ) return;
 	
 	// Check for SCRIPT_DEBUG
-	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-	$version = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? time() : get_plugin_data( __FILE__ )['Version'];
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	$version = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : get_plugin_data( __FILE__ )['Version'];
 	
 	// enqueue scripts
 	wp_enqueue_script( 'admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', __FILE__ ), [], $version );

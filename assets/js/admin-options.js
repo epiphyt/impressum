@@ -6,7 +6,7 @@
  * @license		GPL2 <https://www.gnu.org/licenses/gpl-3.0.html>
  */
 document.addEventListener( 'DOMContentLoaded', function() {
-	var press_law_checkbox = document.getElementById( 'impressum_field_press_law_checkbox' );
+	var press_law_checkbox = document.getElementById( 'press_law_checkbox' );
 	var press_law_input_row = document.getElementsByClassName( 'impressum_press_law' )[0];
 	
 	// return if there is no input row found

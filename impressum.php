@@ -895,6 +895,8 @@ add_shortcode( 'privacy', 'impressum_privacy_shortcode' );
 
 
 /**
+ * Generate the output for the imprint shortcode.
+ * 
  * @param array $atts All attributes to configure the output.
  * @return string
  */

@@ -874,7 +874,7 @@ function impressum_options_page_html() {
  * Imprint Shortcode.
  */
 function impressum_imprint_shortcode() {
-	$output = impressum_get_output();
+	$output = impressum_get_imprint_output();
 	
 	return $output;
 }
@@ -886,7 +886,7 @@ add_shortcode( 'impressum', 'impressum_imprint_shortcode' );
  * Privacy Shortcode.
  */
 function impressum_privacy_shortcode() {
-	$output = impressum_get_output();
+	$output = impressum_get_privacy_output();
 	
 	return $output;
 }
@@ -900,7 +900,7 @@ add_shortcode( 'privacy', 'impressum_privacy_shortcode' );
  * @param array $atts All attributes to configure the output.
  * @return string
  */
-function impressum_get_output( $atts = [] ) {
+function impressum_get_imprint_output( $atts = [] ) {
 	// create an empty output array if there isn’t any
 	if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
 	
@@ -1342,6 +1342,131 @@ function impressum_get_output( $atts = [] ) {
 	else {
 		// remove last comma
 		$output = rtrim( $output, ', ' );
+	}
+	
+	return $output;
+}
+
+/**
+ * Generate the output for the privacy shortcode.
+ * 
+ * @param array $atts All attributes to configure the output.
+ * @return string
+ */
+function impressum_get_privacy_output( $atts = [] ) {
+	// create an empty output array if there isn’t any
+	if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
+	
+	// default output values
+	if ( ! isset( $atts['output']['comment_subscription_checkbox'] ) ) $atts['output']['comment_subscription_checkbox'] = true;
+	if ( ! isset( $atts['output']['newsletter_checkbox'] ) ) $atts['output']['newsletter_checkbox'] = true;
+	if ( ! isset( $atts['output']['third_party_content_checkbox'] ) ) $atts['output']['third_party_content_checkbox'] = true;
+	if ( ! isset( $atts['output']['cookie_checkbox'] ) ) $atts['output']['cookie_checkbox'] = true;
+	if ( ! isset( $atts['output']['user_registration_checkbox'] ) ) $atts['output']['user_registration_checkbox'] = true;
+	if ( ! isset( $atts['output']['google_analytics_checkbox'] ) ) $atts['output']['google_analytics_checkbox'] = true;
+	if ( ! isset( $atts['output']['piwik_checkbox'] ) ) $atts['output']['piwik_checkbox'] = true;
+	if ( ! isset( $atts['output']['facebook_checkbox'] ) ) $atts['output']['facebook_checkbox'] = true;
+	if ( ! isset( $atts['output']['twitter_checkbox'] ) ) $atts['output']['twitter_checkbox'] = true;
+	if ( ! isset( $atts['output']['google_plus_checkbox'] ) ) $atts['output']['google_plus_checkbox'] = true;
+	if ( ! isset( $atts['output']['tumblr_checkbox'] ) ) $atts['output']['tumblr_checkbox'] = true;
+	if ( ! isset( $atts['output']['jetpack_checkbox'] ) ) $atts['output']['jetpack_checkbox'] = true;
+	if ( ! isset( $atts['output']['google_adsense_checkbox'] ) ) $atts['output']['google_adsense_checkbox'] = true;
+	if ( ! isset( $atts['output']['amazon_partner_checkbox'] ) ) $atts['output']['amazon_partner_checkbox'] = true;
+	if ( ! isset( $atts['output'][''] ) ) $atts['output']['amazon_partner'] = true;
+	if ( ! isset( $atts['markup'] ) ) $atts['markup'] = true;
+	
+	// check the state if we generate markup
+	$do_markup = boolval( $atts['markup'] );
+	// get all privacy options
+	$options = get_option( 'impressum_privacy_options' );
+	// prepare the output
+	$output = '';
+	
+	// abort if there are no valid options
+	if ( empty( $options ) ) return '';
+	
+	foreach ( $options as $field => $value ) {
+		// check if we output this value
+		$do_output = boolval( $atts['output'][$field] ) && $value;
+		
+		if ( ! $do_output ) continue;
+		
+		// the field content
+		$content = '';
+		// the field title
+		$title = '';
+		
+		// get title according to field name
+		switch ( $field ) {
+			case 'comment_subscription_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for the comment subscription.', 'impressum' ) . '</p>' . PHP_EOL;
+				$content .= '<p>' . __( 'Line 2', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Comment subscription', 'impressum' ) . '</h2>';
+				break;
+			case 'newsletter_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for the newsletter.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Newsletter', 'impressum' ) . '</h2>';
+				break;
+			case 'third_party_content_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for 3rd party content.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( '3rd party content', 'impressum' ) . '</h2>';
+				break;
+			case 'cookie_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for cookies.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Cookies', 'impressum' ) . '</h2>';
+				break;
+			case 'user_registration_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for user registration.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'User registration', 'impressum' ) . '</h2>';
+				break;
+			case 'google_analytics_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Google Analytics.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Google Analytics', 'impressum' ) . '</h2>';
+				break;
+			case 'piwik_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Matomo/Piwik.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Matomo/Piwik', 'impressum' ) . '</h2>';
+				break;
+			case 'facebook_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Facebook.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Facebook', 'impressum' ) . '</h2>';
+				break;
+			case 'twitter_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Twitter.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Twitter', 'impressum' ) . '</h2>';
+				break;
+			case 'google_plus_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Google Plus.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Google Plus', 'impressum' ) . '</h2>';
+				break;
+			case 'tumblr_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Tumbler.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Tumbler', 'impressum' ) . '</h2>';
+				break;
+			case 'jetpack_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Jetpack.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Jetpack', 'impressum' ) . '</h2>';
+				break;
+			case 'google_adsense_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Google AdSense.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Google AdSense', 'impressum' ) . '</h2>';
+				break;
+			case 'amazon_partner_checkbox':
+				$content .= '<p>' . __( 'This is the privacy description for Amazon Partner.', 'impressum' ) . '</p>';
+				$title = '<h2>' . __( 'Amazon Partner', 'impressum' ) . '</h2>';
+				break;
+		}
+		
+		if ( $do_markup ) {
+			$output .= $title . PHP_EOL . $content . PHP_EOL . PHP_EOL;
+		}
+		else {
+			if ( empty( $output ) ) $output .= PHP_EOL;
+			
+			// remove HTML tags if we don't want a markup
+			$output .= strip_tags( $title ) . PHP_EOL;
+			$output .= strip_tags( $content );
+		}
 	}
 	
 	return $output;

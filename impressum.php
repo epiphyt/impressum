@@ -403,7 +403,7 @@ function impressum_settings_init() {
 	// piwik checkbox
 	add_settings_field(
 		'piwik_checkbox',
-		__( 'Piwik', 'impressum' ),
+		__( 'Matomo/Piwik', 'impressum' ),
 		'piwik_checkbox_callback',
 		'impressum',
 		'impressum_section_developers',
@@ -487,7 +487,7 @@ function impressum_settings_init() {
 	// google adsense checkbox
 	add_settings_field(
 		'google_adsense_checkbox',
-		__( 'Google Adsense', 'impressum' ),
+		__( 'Google AdSense', 'impressum' ),
 		'google_adsense_checkbox_callback',
 		'impressum',
 		'impressum_section_developers',
@@ -559,8 +559,8 @@ function legal_entity_callback( $args ) {
 	<option value="kgag" <?php echo $select_kgag; ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
 	<option value="ohg" <?php echo $select_ohg; ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
 	<option value="individual" <?php echo $select_individual; ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
-	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbesschränkt)', 'impressum' ); ?></option>
-	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbesschränkt) & Co. KG', 'impressum' ); ?></option>
+	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbeschränkt)', 'impressum' ); ?></option>
+	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ); ?></option>
 </select>
 	<?php
 }

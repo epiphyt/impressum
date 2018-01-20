@@ -595,7 +595,7 @@ function impressum_press_law_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_imprint_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
 </label>
 	<?php
@@ -623,7 +623,7 @@ function comment_subscription_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a comment subscription plugin.', 'impressum' ); ?>
 </label>
 	<?php
@@ -638,7 +638,7 @@ function newsletter_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a newsletter plugin or service.', 'impressum' ); ?>
 </label>
 	<?php
@@ -653,7 +653,7 @@ function third_party_content_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I embed tweets, YouTube videos or other 3rd-party content.', 'impressum' ); ?>
 </label>
 	<?php
@@ -668,7 +668,7 @@ function cookie_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use cookies on my site.', 'impressum' ); ?>
 </label>
 	<?php
@@ -683,7 +683,7 @@ function user_registration_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'Users can register on my site.', 'impressum' ); ?>
 </label>
 	<?php
@@ -698,7 +698,7 @@ function google_analytics_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use Google Analytics.', 'impressum' ); ?>
 </label>
 	<?php
@@ -713,7 +713,7 @@ function piwik_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use Matomo/Piwik.', 'impressum' ); ?>
 </label>
 	<?php
@@ -728,7 +728,7 @@ function facebook_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a Facebook social button on my website.', 'impressum' ); ?>
 </label>
 	<?php
@@ -743,7 +743,7 @@ function twitter_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a Twitter social button on my website.', 'impressum' ); ?>
 </label>
 	<?php
@@ -758,7 +758,7 @@ function google_plus_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a Google+ social button on my website.', 'impressum' ); ?>
 </label>
 	<?php
@@ -773,7 +773,7 @@ function tumblr_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use a tumblr social button on my website.', 'impressum' ); ?>
 </label>
 	<?php
@@ -788,7 +788,7 @@ function jetpack_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use the Jetpack plugin.', 'impressum' ); ?>
 </label>
 	<?php
@@ -803,7 +803,7 @@ function google_adsense_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use Google AdSense on my website.', 'impressum' ); ?>
 </label>
 	<?php
@@ -818,7 +818,7 @@ function amazon_partner_checkbox_callback( $args ) {
 	$options = get_option( 'impressum_privacy_options' );
 	// output the field
 	?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 	<?php _e( 'I use Amazon affiliate links on my website.', 'impressum' ); ?>
 </label>
 	<?php

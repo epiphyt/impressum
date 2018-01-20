@@ -654,7 +654,7 @@ function third_party_content_checkbox_callback( $args ) {
 	// output the field
 	?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I embed tweets, Youtube videos or other 3rd-party content.', 'impressum' ); ?>
+	<?php _e( 'I embed tweets, YouTube videos or other 3rd-party content.', 'impressum' ); ?>
 </label>
 	<?php
 }
@@ -705,7 +705,7 @@ function google_analytics_checkbox_callback( $args ) {
 }
 
 /**
- * Piwik Checkbox field callback.
+ * Matomo/Piwik Checkbox field callback.
  * @param $args array
  */
 function piwik_checkbox_callback( $args ) {
@@ -714,7 +714,7 @@ function piwik_checkbox_callback( $args ) {
 	// output the field
 	?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Piwik.', 'impressum' ); ?>
+	<?php _e( 'I use Matomo/Piwik.', 'impressum' ); ?>
 </label>
 	<?php
 }
@@ -804,7 +804,7 @@ function google_adsense_checkbox_callback( $args ) {
 	// output the field
 	?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Google Adsense on my website.', 'impressum' ); ?>
+	<?php _e( 'I use Google AdSense on my website.', 'impressum' ); ?>
 </label>
 	<?php
 }

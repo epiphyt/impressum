@@ -525,24 +525,42 @@ add_action( 'admin_init', 'impressum_settings_init' );
 function legal_entity_callback( $args ) {
 	// get the value of the setting we've registered with register_setting()
 	$options = get_option( 'impressum_imprint_options' );
+	
+	// check for selected option
+	$select_ag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' );
+	$select_ev = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ev', false ) ) : ( '' );
+	$select_ek = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ek', false ) ) : ( '' );
+	$select_einzelkaufmann = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'einzelkaufmann', false ) ) : ( '' );
+	$select_freelancer = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'freelancer', false ) ) : ( '' );
+	$select_ggmbH = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ggmbH', false ) ) : ( '' );
+	$select_gmbh = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh', false ) ) : ( '' );
+	$select_gbr = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gbr', false ) ) : ( '' );
+	$select_gmbh_co_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh_co_kg', false ) ) : ( '' );
+	$select_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kg', false ) ) : ( '' );
+	$select_kgag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kgag', false ) ) : ( '' );
+	$select_ohg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ohg', false ) ) : ( '' );
+	$select_individual = ! isset( $options['legal_entity'] ) ? ' selected' : ( isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'individual', false ) ) : ( '' ) );
+	$select_ug = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug', false ) ) : ( '' );
+	$select_ug_co_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug_co_kg', false ) ) : ( '' );
+	
 	// output the field
 	?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
-	<option value="ag" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' ); ?>><?php esc_html_e( 'AG', 'impressum' ); ?></option>
-	<option value="ev" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ev', false ) ) : ( '' ); ?>><?php esc_html_e( 'e.V.', 'impressum' ); ?></option>
-	<option value="ek" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ek', false ) ) : ( '' ); ?>><?php esc_html_e( 'e.K.', 'impressum' ); ?></option>
-	<option value="einzelkaufmann" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'einzelkaufmann', false ) ) : ( '' ); ?>><?php esc_html_e( 'Einzelkaufmann', 'impressum' ); ?></option>
-	<option value="freelancer" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'freiberufler', false ) ) : ( '' ); ?>><?php esc_html_e( 'Freelancer', 'impressum' ); ?></option>
-	<option value="ggmbH" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ggmbh', false ) ) : ( '' ); ?>><?php esc_html_e( 'gGmbH', 'impressum' ); ?></option>
-	<option value="gmbh" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh', false ) ) : ( '' ); ?>><?php esc_html_e( 'GmbH', 'impressum' ); ?></option>
-	<option value="gbr" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gbr', false ) ) : ( '' ); ?>><?php esc_html_e( 'GbR', 'impressum' ); ?></option>
-	<option value="gmbh_co_kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh_co_kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'GmbH & Co. KG', 'impressum' ); ?></option>
-	<option value="kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'KG', 'impressum' ); ?></option>
-	<option value="kgag" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kgag', false ) ) : ( '' ); ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
-	<option value="ohg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ohg', false ) ) : ( '' ); ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
-	<option value="individual" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'individual', false ) ) : ( '' ); ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
-	<option value="ug" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug', false ) ) : ( '' ); ?>><?php esc_html_e( 'UG (haftungsbesschränkt)', 'impressum' ); ?></option>
-	<option value="ug_co_kg" <?php echo isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug_co_kg', false ) ) : ( '' ); ?>><?php esc_html_e( 'UG (haftungsbesschränkt) & Co. KG', 'impressum' ); ?></option>
+	<option value="ag" <?php echo $select_ag; ?>><?php esc_html_e( 'AG', 'impressum' ); ?></option>
+	<option value="ev" <?php echo $select_ev; ?>><?php esc_html_e( 'e.V.', 'impressum' ); ?></option>
+	<option value="ek" <?php echo $select_ek; ?>><?php esc_html_e( 'e.K.', 'impressum' ); ?></option>
+	<option value="einzelkaufmann" <?php echo $select_einzelkaufmann; ?>><?php esc_html_e( 'Einzelkaufmann', 'impressum' ); ?></option>
+	<option value="freelancer" <?php echo $select_freelancer; ?>><?php esc_html_e( 'Freelancer', 'impressum' ); ?></option>
+	<option value="ggmbH" <?php echo $select_ggmbH; ?>><?php esc_html_e( 'gGmbH', 'impressum' ); ?></option>
+	<option value="gmbh" <?php echo $select_gmbh; ?>><?php esc_html_e( 'GmbH', 'impressum' ); ?></option>
+	<option value="gbr" <?php echo $select_gbr; ?>><?php esc_html_e( 'GbR', 'impressum' ); ?></option>
+	<option value="gmbh_co_kg" <?php echo $select_gmbh_co_kg; ?>><?php esc_html_e( 'GmbH & Co. KG', 'impressum' ); ?></option>
+	<option value="kg" <?php echo $select_kg; ?>><?php esc_html_e( 'KG', 'impressum' ); ?></option>
+	<option value="kgag" <?php echo $select_kgag; ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
+	<option value="ohg" <?php echo $select_ohg; ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
+	<option value="individual" <?php echo $select_individual; ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
+	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbesschränkt)', 'impressum' ); ?></option>
+	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbesschränkt) & Co. KG', 'impressum' ); ?></option>
 </select>
 	<?php
 }

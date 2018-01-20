@@ -872,9 +872,21 @@ function impressum_options_page_html() {
 
 /**
  * Imprint Shortcode.
+ * 
+ * @param array $atts Shortcode attributes
  */
-function impressum_imprint_shortcode() {
-	$output = impressum_get_imprint_output();
+function impressum_imprint_shortcode( $atts ) {
+	// get attributes as array
+	$sections = isset($atts['sections']) ? explode( ',', $atts['sections'] ) : [];
+	
+	foreach ( $sections as $section ) {
+		$key = trim( $section );
+		
+		// set output for this section
+		$atts['output'][$key] = true;
+	}
+	
+	$output = impressum_get_imprint_output( $atts );
 	
 	return $output;
 }
@@ -884,9 +896,21 @@ add_shortcode( 'impressum', 'impressum_imprint_shortcode' );
 
 /**
  * Privacy Shortcode.
+ * 
+ * @param array $atts Shortcode attributes
  */
-function impressum_privacy_shortcode() {
-	$output = impressum_get_privacy_output();
+function impressum_privacy_shortcode( $atts ) {
+	// get attributes as array
+	$sections = isset($atts['sections']) ? explode( ',', $atts['sections'] ) : [];
+	
+	foreach ( $sections as $section ) {
+		$key = trim( $section ) . '_checkbox';
+		
+		// set output for this section
+		$atts['output'][$key] = true;
+	}
+	
+	$output = impressum_get_privacy_output( $atts );
 	
 	return $output;
 }
@@ -901,30 +925,37 @@ add_shortcode( 'privacy', 'impressum_privacy_shortcode' );
  * @return string
  */
 function impressum_get_imprint_output( $atts = [] ) {
+	// check if there is a custom output
+	$custom_output = isset( $atts['sections'] ) ?: false;
 	// create an empty output array if there isn’t any
 	if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
 	
 	// default values to configure output
-	if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = true;
-	if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = true;
-	if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = true;
-	if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = true;
+	if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = !$custom_output;
+	if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = !$custom_output;
+	if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = !$custom_output;
+	if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = !$custom_output;
 	if ( ! isset( $atts['output']['legal_entity'] ) ) $atts['output']['legal_entity'] = false;
-	if ( ! isset( $atts['output']['name'] ) ) $atts['output']['name'] = true;
-	if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = true;
+	if ( ! isset( $atts['output']['name'] ) ) $atts['output']['name'] = !$custom_output;
+	if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = !$custom_output;
 	if ( ! isset( $atts['output']['press_law_checkbox'] ) ) $atts['output']['press_law_checkbox'] = false;
-	if ( ! isset( $atts['output']['press_law_person'] ) ) $atts['output']['press_law_person'] = true;
-	if ( ! isset( $atts['output']['vat_id'] ) ) $atts['output']['vat_id'] = true;
-	if ( ! isset( $atts['output']['inspecting_authority'] ) ) $atts['output']['inspecting_authority'] = true;
-	if ( ! isset( $atts['output']['register'] ) ) $atts['output']['register'] = true;
-	if ( ! isset( $atts['output']['business_id'] ) ) $atts['output']['business_id'] = true;
-	if ( ! isset( $atts['output']['representative'] ) ) $atts['output']['representative'] = true;
-	if ( ! isset( $atts['output']['capital_stock'] ) ) $atts['output']['capital_stock'] = true;
-	if ( ! isset( $atts['output']['pending_deposits'] ) ) $atts['output']['pending_deposits'] = true;
-	if ( ! isset( $atts['output']['professional_association'] ) ) $atts['output']['professional_association'] = true;
-	if ( ! isset( $atts['output']['legal_job_title'] ) ) $atts['output']['legal_job_title'] = true;
-	if ( ! isset( $atts['output']['professional_regulations'] ) ) $atts['output']['professional_regulations'] = true;
-	if ( ! isset( $atts['markup'] ) ) $atts['markup'] = true;
+	if ( ! isset( $atts['output']['press_law_person'] ) ) $atts['output']['press_law_person'] = !$custom_output;
+	if ( ! isset( $atts['output']['vat_id'] ) ) $atts['output']['vat_id'] = !$custom_output;
+	if ( ! isset( $atts['output']['inspecting_authority'] ) ) $atts['output']['inspecting_authority'] = !$custom_output;
+	if ( ! isset( $atts['output']['register'] ) ) $atts['output']['register'] = !$custom_output;
+	if ( ! isset( $atts['output']['business_id'] ) ) $atts['output']['business_id'] = !$custom_output;
+	if ( ! isset( $atts['output']['representative'] ) ) $atts['output']['representative'] = !$custom_output;
+	if ( ! isset( $atts['output']['capital_stock'] ) ) $atts['output']['capital_stock'] = !$custom_output;
+	if ( ! isset( $atts['output']['pending_deposits'] ) ) $atts['output']['pending_deposits'] = !$custom_output;
+	if ( ! isset( $atts['output']['professional_association'] ) ) $atts['output']['professional_association'] = !$custom_output;
+	if ( ! isset( $atts['output']['legal_job_title'] ) ) $atts['output']['legal_job_title'] = !$custom_output;
+	if ( ! isset( $atts['output']['professional_regulations'] ) ) $atts['output']['professional_regulations'] = !$custom_output;
+	if ( ! isset( $atts['markup'] ) ) {
+		$atts['markup'] = true;
+	}
+	else {
+		$atts['markup'] = $atts['markup'] !== 'false' && boolval( $atts['markup'] );
+	}
 	
 	// map displaying a field by its entity
 	$field_mapping = [
@@ -1354,26 +1385,33 @@ function impressum_get_imprint_output( $atts = [] ) {
  * @return string
  */
 function impressum_get_privacy_output( $atts = [] ) {
+	// check if there is a custom output
+	$custom_output = isset( $atts['sections'] ) ?: false;
 	// create an empty output array if there isn’t any
 	if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
 	
 	// default output values
-	if ( ! isset( $atts['output']['comment_subscription_checkbox'] ) ) $atts['output']['comment_subscription_checkbox'] = true;
-	if ( ! isset( $atts['output']['newsletter_checkbox'] ) ) $atts['output']['newsletter_checkbox'] = true;
-	if ( ! isset( $atts['output']['third_party_content_checkbox'] ) ) $atts['output']['third_party_content_checkbox'] = true;
-	if ( ! isset( $atts['output']['cookie_checkbox'] ) ) $atts['output']['cookie_checkbox'] = true;
-	if ( ! isset( $atts['output']['user_registration_checkbox'] ) ) $atts['output']['user_registration_checkbox'] = true;
-	if ( ! isset( $atts['output']['google_analytics_checkbox'] ) ) $atts['output']['google_analytics_checkbox'] = true;
-	if ( ! isset( $atts['output']['piwik_checkbox'] ) ) $atts['output']['piwik_checkbox'] = true;
-	if ( ! isset( $atts['output']['facebook_checkbox'] ) ) $atts['output']['facebook_checkbox'] = true;
-	if ( ! isset( $atts['output']['twitter_checkbox'] ) ) $atts['output']['twitter_checkbox'] = true;
-	if ( ! isset( $atts['output']['google_plus_checkbox'] ) ) $atts['output']['google_plus_checkbox'] = true;
-	if ( ! isset( $atts['output']['tumblr_checkbox'] ) ) $atts['output']['tumblr_checkbox'] = true;
-	if ( ! isset( $atts['output']['jetpack_checkbox'] ) ) $atts['output']['jetpack_checkbox'] = true;
-	if ( ! isset( $atts['output']['google_adsense_checkbox'] ) ) $atts['output']['google_adsense_checkbox'] = true;
-	if ( ! isset( $atts['output']['amazon_partner_checkbox'] ) ) $atts['output']['amazon_partner_checkbox'] = true;
-	if ( ! isset( $atts['output'][''] ) ) $atts['output']['amazon_partner'] = true;
-	if ( ! isset( $atts['markup'] ) ) $atts['markup'] = true;
+	if ( ! isset( $atts['output']['comment_subscription_checkbox'] ) ) $atts['output']['comment_subscription_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['newsletter_checkbox'] ) ) $atts['output']['newsletter_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['third_party_content_checkbox'] ) ) $atts['output']['third_party_content_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['cookie_checkbox'] ) ) $atts['output']['cookie_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['user_registration_checkbox'] ) ) $atts['output']['user_registration_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['google_analytics_checkbox'] ) ) $atts['output']['google_analytics_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['piwik_checkbox'] ) ) $atts['output']['piwik_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['facebook_checkbox'] ) ) $atts['output']['facebook_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['twitter_checkbox'] ) ) $atts['output']['twitter_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['google_plus_checkbox'] ) ) $atts['output']['google_plus_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['tumblr_checkbox'] ) ) $atts['output']['tumblr_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['jetpack_checkbox'] ) ) $atts['output']['jetpack_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['google_adsense_checkbox'] ) ) $atts['output']['google_adsense_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output']['amazon_partner_checkbox'] ) ) $atts['output']['amazon_partner_checkbox'] = !$custom_output;
+	if ( ! isset( $atts['output'][''] ) ) $atts['output']['amazon_partner'] = !$custom_output;
+	if ( ! isset( $atts['markup'] ) ) {
+		$atts['markup'] = true;
+	}
+	else {
+		$atts['markup'] = $atts['markup'] !== 'false' && boolval( $atts['markup'] );
+	}
 	
 	// check the state if we generate markup
 	$do_markup = boolval( $atts['markup'] );

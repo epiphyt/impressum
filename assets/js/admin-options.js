@@ -1,4 +1,4 @@
-/*!
+/**
  * JavaScript functions for the admin options page.
  * 
  * @version		0.1

@@ -14,9 +14,11 @@ require_once( __DIR__ . '/impressum.class.php' );
 class Impressum_Backend extends Impressum {
 	/**
 	 * Impressum Backend constructor.
+	 * 
+	 * @param string $plugin_file The path of the main plugin file
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct( $plugin_file ) {
+		parent::__construct( $plugin_file );
 		
 		// hooks
 		add_action( 'admin_init', [ $this, 'settings_init' ] );

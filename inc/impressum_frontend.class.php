@@ -317,21 +317,12 @@ class Impressum_Frontend extends Impressum {
 	];
 	
 	/**
-	 * The full path to the main plugin file.
-	 * @var string
-	 */
-	private $plugin_file = '';
-	
-	/**
 	 * Impressum Frontend constructor.
 	 * 
 	 * @param string $plugin_file The path of the main plugin file
 	 */
 	public function __construct( $plugin_file ) {
-		parent::__construct();
-		
-		// assign variables
-		$this->plugin_file = $plugin_file;
+		parent::__construct( $plugin_file );
 		
 		// hooks
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );

@@ -27,5 +27,5 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 require_once( __DIR__ . '/inc/impressum_backend.class.php' );
 require_once( __DIR__ . '/inc/impressum_frontend.class.php' );
 
-$impressum_backend = new Impressum_Backend();
+$impressum_backend = new Impressum_Backend( __FILE__ );
 $impressum_frontend = new Impressum_Frontend( __FILE__ );

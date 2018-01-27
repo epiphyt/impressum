@@ -780,7 +780,7 @@ class Impressum_Backend extends Impressum {
 		// output the field
 		?>
 	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-		<?php _e( 'I use a tumblr social button on my website.', 'impressum' ); ?>
+		<?php _e( 'I use a Tumblr social button on my website.', 'impressum' ); ?>
 	</label>
 		<?php
 	}

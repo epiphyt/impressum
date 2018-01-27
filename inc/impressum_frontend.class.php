@@ -645,11 +645,11 @@ class Impressum_Frontend extends Impressum {
 					break;
 				case 'google_plus_checkbox':
 					$content .= '<p>' . __( 'This is the privacy description for Google Plus.', 'impressum' ) . '</p>';
-					$title = '<h2>' . __( 'Google Plus', 'impressum' ) . '</h2>';
+					$title = '<h2>' . __( 'Google+', 'impressum' ) . '</h2>';
 					break;
 				case 'tumblr_checkbox':
-					$content .= '<p>' . __( 'This is the privacy description for Tumbler.', 'impressum' ) . '</p>';
-					$title = '<h2>' . __( 'Tumbler', 'impressum' ) . '</h2>';
+					$content .= '<p>' . __( 'This is the privacy description for Tumblr.', 'impressum' ) . '</p>';
+					$title = '<h2>' . __( 'Tumblr', 'impressum' ) . '</h2>';
 					break;
 				case 'jetpack_checkbox':
 					$content .= '<p>' . __( 'This is the privacy description for Jetpack.', 'impressum' ) . '</p>';

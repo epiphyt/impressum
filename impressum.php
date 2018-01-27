@@ -1,7 +1,4 @@
 <?php
-require_once( __DIR__ . '/inc/impressum_backend.class.php' );
-require_once( __DIR__ . '/inc/impressum_frontend.class.php' );
-
 /*
 Plugin Name:	Impressum
 Plugin URI:		https://impressum.plus
@@ -27,6 +24,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
+require_once( __DIR__ . '/inc/impressum_backend.class.php' );
+require_once( __DIR__ . '/inc/impressum_frontend.class.php' );
 
 $impressum_backend = new Impressum_Backend();
 $impressum_frontend = new Impressum_Frontend( __FILE__ );

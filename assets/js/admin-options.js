@@ -20,6 +20,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	function check_legal_entity() {
 		var business_id_row = document.getElementsByClassName( 'impressum_business_id' )[0];
 		var capital_stock_row = document.getElementsByClassName( 'impressum_capital_stock' )[0];
+		var coverage = document.getElementsByClassName( 'coverage' )[0];
 		var free_text = document.getElementsByClassName( 'free_text' )[0];
 		var inspecting_authority_row = document.getElementsByClassName( 'impressum_inspecting_authority' )[0];
 		var legal_job_title_row = document.getElementsByClassName( 'impressum_legal_job_title' )[0];
@@ -34,6 +35,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			case 'individual':
 				business_id_row.style.display = 'none';
 				capital_stock_row.style.display = 'none';
+				coverage.style.display = 'none';
 				free_text.style.display = 'none';
 				inspecting_authority_row.style.display = 'none';
 				legal_job_title_row.style.display = 'none';
@@ -53,6 +55,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 				case 'individual':
 					business_id_row.style.display = 'none';
 					capital_stock_row.style.display = 'none';
+					coverage.style.display = 'none';
 					free_text.style.display = 'none';
 					inspecting_authority_row.style.display = 'none';
 					legal_job_title_row.style.display = 'none';
@@ -65,6 +68,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 				default:
 					business_id_row.style.display = '';
 					capital_stock_row.style.display = '';
+					coverage.style.display = '';
 					free_text.style.display = '';
 					inspecting_authority_row.style.display = '';
 					legal_job_title_row.style.display = '';

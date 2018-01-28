@@ -55,7 +55,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'legal_entity',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -69,7 +68,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'name',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -83,7 +81,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'address',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -97,7 +94,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'address_alternative',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -111,7 +107,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'email',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -125,7 +120,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'phone',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -139,7 +133,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'fax',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -153,7 +146,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'press_law_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -167,7 +159,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'press_law_person',
 				'class' => 'impressum_row impressum_press_law',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -181,7 +172,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'vat_id',
 				'class' => 'impressum_row vat_id',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -195,7 +185,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'inspecting_authority',
 				'class' => 'impressum_row impressum_inspecting_authority',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -209,7 +198,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'register',
 				'class' => 'impressum_row impressum_register',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -223,7 +211,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'business_id',
 				'class' => 'impressum_row impressum_business_id',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -237,7 +224,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'representative',
 				'class' => 'impressum_row impressum_representative',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -251,7 +237,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'capital_stock',
 				'class' => 'impressum_row impressum_capital_stock',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -265,7 +250,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'pending_deposits',
 				'class' => 'impressum_row impressum_pending_deposits',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -279,7 +263,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'professional_association',
 				'class' => 'impressum_row impressum_professional_association',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -293,7 +276,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'legal_job_title',
 				'class' => 'impressum_row impressum_legal_job_title',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -307,7 +289,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'professional_regulations',
 				'class' => 'impressum_row impressum_professional_regulations',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -321,7 +302,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'comment_subscription_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -335,7 +315,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'newsletter_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -349,7 +328,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'third_party_content_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -363,7 +341,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'cookie_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -377,7 +354,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'user_registration_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -391,7 +367,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'google_analytics_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -405,7 +380,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'piwik_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -419,7 +393,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'facebook_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -433,7 +406,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'twitter_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -447,7 +419,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'google_plus_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -461,7 +432,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'tumblr_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -475,7 +445,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'jetpack_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -489,7 +458,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'google_adsense_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 		
@@ -503,7 +471,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'amazon_partner_checkbox',
 				'class' => 'impressum_row',
-				'impressum_custom_data' => 'custom',
 			]
 		);
 	}
@@ -535,7 +502,7 @@ class Impressum_Backend extends Impressum {
 		
 		// output the field
 		?>
-	<select id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+	<select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
 		<option value="ag" <?php echo $select_ag; ?>><?php esc_html_e( 'AG', 'impressum' ); ?></option>
 		<option value="ev" <?php echo $select_ev; ?>><?php esc_html_e( 'e.V.', 'impressum' ); ?></option>
 		<option value="ek" <?php echo $select_ek; ?>><?php esc_html_e( 'e.K.', 'impressum' ); ?></option>
@@ -564,7 +531,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
-	<input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+	<input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 		<?php
 	}
 	
@@ -577,7 +544,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
-	<input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+	<input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 		<?php
 	}
 	
@@ -590,7 +557,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
-	<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+	<input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 		<?php
 	}
 	
@@ -603,7 +570,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
 	</label>
 		<?php
@@ -618,7 +585,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
-	<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
+	<textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 		<?php
 	}
 	
@@ -631,7 +598,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a comment subscription plugin.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -646,7 +613,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a newsletter plugin or service.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -661,7 +628,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I embed tweets, YouTube videos or other 3rd-party content.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -676,7 +643,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use cookies on my site.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -691,7 +658,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'Users can register on my site.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -706,7 +673,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use Google Analytics.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -721,7 +688,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use Matomo/Piwik.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -736,7 +703,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a Facebook social button on my website.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -751,7 +718,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a Twitter social button on my website.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -766,7 +733,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a Google+ social button on my website.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -781,7 +748,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use a Tumblr social button on my website.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -796,7 +763,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use the Jetpack plugin.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -811,7 +778,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use Google AdSense on my website.', 'impressum' ); ?>
 	</label>
 		<?php
@@ -826,7 +793,7 @@ class Impressum_Backend extends Impressum {
 		$options = get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
-	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" data-custom="<?php echo esc_attr( $args['impressum_custom_data'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+	<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<?php _e( 'I use Amazon affiliate links on my website.', 'impressum' ); ?>
 	</label>
 		<?php

@@ -586,7 +586,6 @@ class Impressum_Frontend extends Impressum {
 		if ( ! isset( $atts['output']['jetpack_checkbox'] ) ) $atts['output']['jetpack_checkbox'] = ! $custom_output;
 		if ( ! isset( $atts['output']['google_adsense_checkbox'] ) ) $atts['output']['google_adsense_checkbox'] = ! $custom_output;
 		if ( ! isset( $atts['output']['amazon_partner_checkbox'] ) ) $atts['output']['amazon_partner_checkbox'] = ! $custom_output;
-		if ( ! isset( $atts['output'][''] ) ) $atts['output']['amazon_partner'] = ! $custom_output;
 		if ( ! isset( $atts['markup'] ) ) {
 			$atts['markup'] = true;
 		}

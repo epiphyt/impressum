@@ -188,6 +188,19 @@ class Impressum_Backend extends Impressum {
 			]
 		);
 		
+		// free text
+		add_settings_field(
+			'free_text',
+			__( 'Free Text', 'impressum' ),
+			[ __CLASS__, 'impressum_textarea_callback' ],
+			'impressum',
+			'impressum_section_developers',
+			[
+				'label_for' => 'free_text',
+				'class' => 'impressum_row free_text',
+			]
+		);
+		
 		// inspecting authority
 		add_settings_field(
 			'inspecting_authority',

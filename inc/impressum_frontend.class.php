@@ -186,6 +186,22 @@ class Impressum_Frontend extends Impressum {
 			'ug',
 			'ug_co_kg'
 		],
+		'free_text' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
 		'inspecting_authority' => [
 			'ag',
 			'ev',
@@ -414,6 +430,7 @@ class Impressum_Frontend extends Impressum {
 		if ( ! isset( $atts['output']['coverage'] ) ) $atts['output']['coverage'] = ! $custom_output;
 		if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = ! $custom_output;
 		if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = ! $custom_output;
+		if ( ! isset( $atts['output']['free_text'] ) ) $atts['output']['free_text'] = ! $custom_output;
 		if ( ! isset( $atts['output']['legal_entity'] ) ) $atts['output']['legal_entity'] = false;
 		if ( ! isset( $atts['output']['name'] ) ) $atts['output']['name'] = ! $custom_output;
 		if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = ! $custom_output;
@@ -481,6 +498,9 @@ class Impressum_Frontend extends Impressum {
 					break;
 				case 'fax':
 					$title = __( 'Fax', 'impressum' );
+					break;
+				case 'free_text':
+					$title = __( 'Free Text', 'impressum' );
 					break;
 				case 'legal_entity':
 					$title = __( 'Legal Entity', 'impressum' );

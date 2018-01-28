@@ -21,24 +21,31 @@ class Impressum_Backend extends Impressum {
 		parent::__construct( $plugin_file );
 		
 		// hooks
-		add_action( 'admin_init', [ $this, 'settings_init' ] );
-		add_action( 'admin_menu', [ $this, 'options_page' ] );
+		add_action( 'admin_init', [ $this, 'impressum_settings_init' ] );
+		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
 	}
 	
 	/**
 	 * Custom option and settings.
 	 */
-	public static function settings_init() {
+	public static function impressum_settings_init() {
 		// register a new setting for "impressum" page
-		register_setting( 'impressum', 'impressum_imprint_options' );
-		register_setting( 'impressum', 'impressum_privacy_options' );
+		register_setting( 'impressum_imprint', 'impressum_imprint_options' );
+		register_setting( 'impressum_privacy', 'impressum_privacy_options' );
 		
 		// register a new section in the "impressum" page
 		add_settings_section(
-			'impressum_section_developers',
+			'impressum_section_imprint',
 			__( '', 'impressum' ),
 			null,
-			'impressum'
+			'impressum_imprint'
+		);
+		// register a new section in the "impressum" page
+		add_settings_section(
+			'impressum_section_privacy',
+			__( '', 'impressum' ),
+			null,
+			'impressum_privacy'
 		);
 		
 		/**
@@ -50,8 +57,8 @@ class Impressum_Backend extends Impressum {
 			'legal_entity',
 			__( 'Legal Entity', 'impressum' ),
 			[ __CLASS__, 'legal_entity_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'legal_entity',
 				'class' => 'impressum_row',
@@ -63,8 +70,8 @@ class Impressum_Backend extends Impressum {
 			'name',
 			__( 'Name', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'name',
 				'class' => 'impressum_row',
@@ -76,8 +83,8 @@ class Impressum_Backend extends Impressum {
 			'address',
 			__( 'Address', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'address',
 				'class' => 'impressum_row',
@@ -89,8 +96,8 @@ class Impressum_Backend extends Impressum {
 			'address_alternative',
 			__( 'Alternative Address', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'address_alternative',
 				'class' => 'impressum_row',
@@ -102,8 +109,8 @@ class Impressum_Backend extends Impressum {
 			'email',
 			__( 'Email Address', 'impressum' ),
 			[ __CLASS__, 'impressum_email_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'email',
 				'class' => 'impressum_row',
@@ -115,8 +122,8 @@ class Impressum_Backend extends Impressum {
 			'phone',
 			__( 'Telephone', 'impressum' ),
 			[ __CLASS__, 'impressum_phone_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'phone',
 				'class' => 'impressum_row',
@@ -128,8 +135,8 @@ class Impressum_Backend extends Impressum {
 			'fax',
 			__( 'Fax', 'impressum' ),
 			[ __CLASS__, 'impressum_phone_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'fax',
 				'class' => 'impressum_row',
@@ -141,8 +148,8 @@ class Impressum_Backend extends Impressum {
 			'press_law_checkbox',
 			__( 'Journalistic/Editorial Content', 'impressum' ),
 			[ __CLASS__, 'impressum_press_law_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'press_law_checkbox',
 				'class' => 'impressum_row',
@@ -154,8 +161,8 @@ class Impressum_Backend extends Impressum {
 			'press_law_person',
 			__( 'Responsible according to the German Press Law', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'press_law_person',
 				'class' => 'impressum_row impressum_press_law',
@@ -167,8 +174,8 @@ class Impressum_Backend extends Impressum {
 			'vat_id',
 			__( 'VAT ID', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'vat_id',
 				'class' => 'impressum_row vat_id',
@@ -180,8 +187,8 @@ class Impressum_Backend extends Impressum {
 			'coverage',
 			__( 'Coverage', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'coverage',
 				'class' => 'impressum_row coverage',
@@ -193,8 +200,8 @@ class Impressum_Backend extends Impressum {
 			'free_text',
 			__( 'Free Text', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'free_text',
 				'class' => 'impressum_row free_text',
@@ -206,8 +213,8 @@ class Impressum_Backend extends Impressum {
 			'inspecting_authority',
 			__( 'Inspecting Authority', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'inspecting_authority',
 				'class' => 'impressum_row impressum_inspecting_authority',
@@ -219,8 +226,8 @@ class Impressum_Backend extends Impressum {
 			'register',
 			__( 'Register', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'register',
 				'class' => 'impressum_row impressum_register',
@@ -232,8 +239,8 @@ class Impressum_Backend extends Impressum {
 			'business_id',
 			__( 'Business ID', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'business_id',
 				'class' => 'impressum_row impressum_business_id',
@@ -245,8 +252,8 @@ class Impressum_Backend extends Impressum {
 			'representative',
 			__( 'Representative', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'representative',
 				'class' => 'impressum_row impressum_representative',
@@ -258,8 +265,8 @@ class Impressum_Backend extends Impressum {
 			'capital_stock',
 			__( 'Capital Stock', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'capital_stock',
 				'class' => 'impressum_row impressum_capital_stock',
@@ -271,8 +278,8 @@ class Impressum_Backend extends Impressum {
 			'pending_deposits',
 			__( 'Pending Deposits', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'pending_deposits',
 				'class' => 'impressum_row impressum_pending_deposits',
@@ -284,8 +291,8 @@ class Impressum_Backend extends Impressum {
 			'professional_association',
 			__( 'Professional Association', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'professional_association',
 				'class' => 'impressum_row impressum_professional_association',
@@ -297,8 +304,8 @@ class Impressum_Backend extends Impressum {
 			'legal_job_title',
 			__( 'Legal Job Title', 'impressum' ),
 			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'legal_job_title',
 				'class' => 'impressum_row impressum_legal_job_title',
@@ -310,8 +317,8 @@ class Impressum_Backend extends Impressum {
 			'professional_regulations',
 			__( 'Professional Regulations', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_imprint',
+			'impressum_section_imprint',
 			[
 				'label_for' => 'professional_regulations',
 				'class' => 'impressum_row impressum_professional_regulations',
@@ -323,8 +330,8 @@ class Impressum_Backend extends Impressum {
 			'comment_subscription_checkbox',
 			__( 'Comment subscription', 'impressum' ),
 			[ __CLASS__, 'comment_subscription_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'comment_subscription_checkbox',
 				'class' => 'impressum_row',
@@ -336,8 +343,8 @@ class Impressum_Backend extends Impressum {
 			'newsletter_checkbox',
 			__( 'Newsletter', 'impressum' ),
 			[ __CLASS__, 'newsletter_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'newsletter_checkbox',
 				'class' => 'impressum_row',
@@ -349,8 +356,8 @@ class Impressum_Backend extends Impressum {
 			'third_party_content_checkbox',
 			__( '3rd party content', 'impressum' ),
 			[ __CLASS__, 'third_party_content_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'third_party_content_checkbox',
 				'class' => 'impressum_row',
@@ -362,8 +369,8 @@ class Impressum_Backend extends Impressum {
 			'cookie_checkbox',
 			__( 'Cookies', 'impressum' ),
 			[ __CLASS__, 'cookie_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'cookie_checkbox',
 				'class' => 'impressum_row',
@@ -375,8 +382,8 @@ class Impressum_Backend extends Impressum {
 			'user_registration_checkbox',
 			__( 'User registration', 'impressum' ),
 			[ __CLASS__, 'user_registration_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'user_registration_checkbox',
 				'class' => 'impressum_row',
@@ -388,8 +395,8 @@ class Impressum_Backend extends Impressum {
 			'google_analytics_checkbox',
 			__( 'Google Analytics', 'impressum' ),
 			[ __CLASS__, 'google_analytics_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'google_analytics_checkbox',
 				'class' => 'impressum_row',
@@ -401,8 +408,8 @@ class Impressum_Backend extends Impressum {
 			'piwik_checkbox',
 			__( 'Matomo/Piwik', 'impressum' ),
 			[ __CLASS__, 'piwik_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'piwik_checkbox',
 				'class' => 'impressum_row',
@@ -414,8 +421,8 @@ class Impressum_Backend extends Impressum {
 			'facebook_checkbox',
 			__( 'Facebook', 'impressum' ),
 			[ __CLASS__, 'facebook_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'facebook_checkbox',
 				'class' => 'impressum_row',
@@ -427,8 +434,8 @@ class Impressum_Backend extends Impressum {
 			'twitter_checkbox',
 			__( 'Twitter', 'impressum' ),
 			[ __CLASS__, 'twitter_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'twitter_checkbox',
 				'class' => 'impressum_row',
@@ -440,8 +447,8 @@ class Impressum_Backend extends Impressum {
 			'google_plus_checkbox',
 			__( 'Google+', 'impressum' ),
 			[ __CLASS__, 'google_plus_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'google_plus_checkbox',
 				'class' => 'impressum_row',
@@ -453,8 +460,8 @@ class Impressum_Backend extends Impressum {
 			'tumblr_checkbox',
 			__( 'Tumblr', 'impressum' ),
 			[ __CLASS__, 'tumblr_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'tumblr_checkbox',
 				'class' => 'impressum_row',
@@ -466,8 +473,8 @@ class Impressum_Backend extends Impressum {
 			'jetpack_checkbox',
 			__( 'Jetpack', 'impressum' ),
 			[ __CLASS__, 'jetpack_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'jetpack_checkbox',
 				'class' => 'impressum_row',
@@ -479,8 +486,8 @@ class Impressum_Backend extends Impressum {
 			'google_adsense_checkbox',
 			__( 'Google AdSense', 'impressum' ),
 			[ __CLASS__, 'google_adsense_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'google_adsense_checkbox',
 				'class' => 'impressum_row',
@@ -492,8 +499,8 @@ class Impressum_Backend extends Impressum {
 			'amazon_partner_checkbox',
 			__( 'Amazon Partner', 'impressum' ),
 			[ __CLASS__, 'amazon_partner_checkbox_callback' ],
-			'impressum',
-			'impressum_section_developers',
+			'impressum_privacy',
+			'impressum_section_privacy',
 			[
 				'label_for' => 'amazon_partner_checkbox',
 				'class' => 'impressum_row',
@@ -828,7 +835,7 @@ class Impressum_Backend extends Impressum {
 	/**
 	* Add sub menu item in options menu.
 	*/
-	public static function options_page() {
+	public static function impressum_options_page() {
 		// add top level menu page
 		add_submenu_page(
 			'options-general.php',
@@ -850,22 +857,34 @@ class Impressum_Backend extends Impressum {
 		
 		// show error/update messages
 		settings_errors( 'impressum_messages' );
+		
+		// get current tab
+		$current_tab = isset( $_GET[ 'imprint_tab' ] ) ? $_GET[ 'imprint_tab' ] : 'imprint';
 ?>
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+	<h2 class="nav-tab-wrapper">
+		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
+	</h2>
 	
-	<form action="options.php" method="post">
 	<?php
-	// output security fields for the registered setting "impressum"
-	settings_fields( 'impressum' );
-	// output setting sections and their fields
-	// (sections are registered for "impressum", each field is registered to a specific section)
-	do_settings_sections( 'impressum' );
-	// output save settings button
-	submit_button( 'Save Settings' );
+	switch ( $current_tab ) {
+		case 'imprint':
+		case 'privacy':
+			echo '<form action="options.php" method="post">';
+			// output security fields for the registered setting "impressum"
+			settings_fields( 'impressum_' . $current_tab );
+			// output setting sections and their fields
+			// (sections are registered for "impressum", each field is registered to a specific section)
+			do_settings_sections( 'impressum_' . $current_tab );
+			// output save settings button
+			submit_button( __( 'Save Settings', 'impressum' ) );
+			echo '</form>';
+			break;
+	}
 	?>
-	</form>
 </div>
-<?php
+	<?php
 	}
 }

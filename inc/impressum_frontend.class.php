@@ -51,6 +51,22 @@ class Impressum_Frontend extends Impressum {
 			'ug',
 			'ug_co_kg'
 		],
+		'coverage' => [
+			'ag',
+			'ev',
+			'ek',
+			'einzelkaufmann',
+			'freelancer',
+			'ggmbH',
+			'gmbh',
+			'gbr',
+			'gmbh_co_kg',
+			'kg',
+			'kgag',
+			'ohg',
+			'ug',
+			'ug_co_kg'
+		],
 		'email' => [
 			'ag',
 			'ev',
@@ -395,6 +411,7 @@ class Impressum_Frontend extends Impressum {
 		// default values to configure output
 		if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = ! $custom_output;
 		if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = ! $custom_output;
+		if ( ! isset( $atts['output']['coverage'] ) ) $atts['output']['coverage'] = ! $custom_output;
 		if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = ! $custom_output;
 		if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = ! $custom_output;
 		if ( ! isset( $atts['output']['legal_entity'] ) ) $atts['output']['legal_entity'] = false;
@@ -455,6 +472,9 @@ class Impressum_Frontend extends Impressum {
 				case 'address':
 				case 'address_alternative':
 					$title = __( 'Address', 'impressum' );
+					break;
+				case 'coverage':
+					$title = __( 'Coverage', 'impressum' );
 					break;
 				case 'email':
 					$title = __( 'Email Address', 'impressum' );

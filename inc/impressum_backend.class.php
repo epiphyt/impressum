@@ -175,6 +175,19 @@ class Impressum_Backend extends Impressum {
 			]
 		);
 		
+		// coverage
+		add_settings_field(
+			'coverage',
+			__( 'Coverage', 'impressum' ),
+			[ __CLASS__, 'impressum_input_text_callback' ],
+			'impressum',
+			'impressum_section_developers',
+			[
+				'label_for' => 'coverage',
+				'class' => 'impressum_row coverage',
+			]
+		);
+		
 		// inspecting authority
 		add_settings_field(
 			'inspecting_authority',

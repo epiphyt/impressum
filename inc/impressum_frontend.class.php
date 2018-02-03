@@ -366,48 +366,18 @@ class Impressum_Frontend extends Impressum {
 	
 	/**
 	 * Imprint Shortcode.
-	 * 
-	 * @param array $atts Shortcode attributes
 	 */
-	public function imprint_shortcode( $atts ) {
-		// check for array
-		if ( ! is_array( $atts ) ) $atts = [];
-		
-		// get attributes as array
-		$sections = isset($atts['sections']) ? explode( ',', $atts['sections'] ) : [];
-		
-		foreach ( $sections as $section ) {
-			$key = trim( $section );
-			
-			// set output for this section
-			$atts['output'][$key] = true;
-		}
-		
-		$output = $this->get_imprint_output( $atts );
+	public function imprint_shortcode() {
+		$output = $this->get_imprint_output();
 		
 		return $output;
 	}
 	
 	/**
 	 * Privacy Shortcode.
-	 * 
-	 * @param array $atts Shortcode attributes
 	 */
-	public function privacy_shortcode( $atts ) {
-		// check for array
-		if ( ! is_array( $atts ) ) $atts = [];
-		
-		// get attributes as array
-		$sections = isset($atts['sections']) ? explode( ',', $atts['sections'] ) : [];
-		
-		foreach ( $sections as $section ) {
-			$key = trim( $section ) . '_checkbox';
-			
-			// set output for this section
-			$atts['output'][$key] = true;
-		}
-		
-		$output = $this->get_privacy_output( $atts );
+	public function privacy_shortcode() {
+		$output = $this->get_privacy_output();
 		
 		return $output;
 	}
@@ -427,25 +397,25 @@ class Impressum_Frontend extends Impressum {
 		// default values to configure output
 		if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = ! $custom_output;
 		if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = ! $custom_output;
-		if ( ! isset( $atts['output']['coverage'] ) ) $atts['output']['coverage'] = ! $custom_output;
+		if ( ! isset( $atts['output']['coverage'] ) ) $atts['output']['coverage'] = false;
 		if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = ! $custom_output;
 		if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = ! $custom_output;
-		if ( ! isset( $atts['output']['free_text'] ) ) $atts['output']['free_text'] = ! $custom_output;
+		if ( ! isset( $atts['output']['free_text'] ) ) $atts['output']['free_text'] = false;
 		if ( ! isset( $atts['output']['legal_entity'] ) ) $atts['output']['legal_entity'] = false;
 		if ( ! isset( $atts['output']['name'] ) ) $atts['output']['name'] = ! $custom_output;
 		if ( ! isset( $atts['output']['phone'] ) ) $atts['output']['phone'] = ! $custom_output;
 		if ( ! isset( $atts['output']['press_law_checkbox'] ) ) $atts['output']['press_law_checkbox'] = false;
 		if ( ! isset( $atts['output']['press_law_person'] ) ) $atts['output']['press_law_person'] = ! $custom_output;
 		if ( ! isset( $atts['output']['vat_id'] ) ) $atts['output']['vat_id'] = ! $custom_output;
-		if ( ! isset( $atts['output']['inspecting_authority'] ) ) $atts['output']['inspecting_authority'] = ! $custom_output;
-		if ( ! isset( $atts['output']['register'] ) ) $atts['output']['register'] = ! $custom_output;
-		if ( ! isset( $atts['output']['business_id'] ) ) $atts['output']['business_id'] = ! $custom_output;
-		if ( ! isset( $atts['output']['representative'] ) ) $atts['output']['representative'] = ! $custom_output;
-		if ( ! isset( $atts['output']['capital_stock'] ) ) $atts['output']['capital_stock'] = ! $custom_output;
-		if ( ! isset( $atts['output']['pending_deposits'] ) ) $atts['output']['pending_deposits'] = ! $custom_output;
-		if ( ! isset( $atts['output']['professional_association'] ) ) $atts['output']['professional_association'] = ! $custom_output;
-		if ( ! isset( $atts['output']['legal_job_title'] ) ) $atts['output']['legal_job_title'] = ! $custom_output;
-		if ( ! isset( $atts['output']['professional_regulations'] ) ) $atts['output']['professional_regulations'] = ! $custom_output;
+		if ( ! isset( $atts['output']['inspecting_authority'] ) ) $atts['output']['inspecting_authority'] = false;
+		if ( ! isset( $atts['output']['register'] ) ) $atts['output']['register'] = false;
+		if ( ! isset( $atts['output']['business_id'] ) ) $atts['output']['business_id'] = false;
+		if ( ! isset( $atts['output']['representative'] ) ) $atts['output']['representative'] = false;
+		if ( ! isset( $atts['output']['capital_stock'] ) ) $atts['output']['capital_stock'] = false;
+		if ( ! isset( $atts['output']['pending_deposits'] ) ) $atts['output']['pending_deposits'] = false;
+		if ( ! isset( $atts['output']['professional_association'] ) ) $atts['output']['professional_association'] = false;
+		if ( ! isset( $atts['output']['legal_job_title'] ) ) $atts['output']['legal_job_title'] = false;
+		if ( ! isset( $atts['output']['professional_regulations'] ) ) $atts['output']['professional_regulations'] = false;
 		if ( ! isset( $atts['markup'] ) ) {
 			$atts['markup'] = true;
 		}
@@ -725,5 +695,9 @@ class Impressum_Frontend extends Impressum {
 		
 		// enqueue scripts
 		wp_enqueue_script( 'admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
+		// prepare for translation
+		wp_localize_script( 'admin-options', 'imprintL10n', [
+			'error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual”, you need to purchase the Plus version.', 'impressum' ),
+		] );
 	}
 }

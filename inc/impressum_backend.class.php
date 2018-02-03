@@ -36,14 +36,14 @@ class Impressum_Backend extends Impressum {
 		// register a new section in the "impressum" page
 		add_settings_section(
 			'impressum_section_imprint',
-			__( '', 'impressum' ),
+			'',
 			null,
 			'impressum_imprint'
 		);
 		// register a new section in the "impressum" page
 		add_settings_section(
 			'impressum_section_privacy',
-			__( '', 'impressum' ),
+			'',
 			null,
 			'impressum_privacy'
 		);
@@ -179,149 +179,6 @@ class Impressum_Backend extends Impressum {
 			[
 				'label_for' => 'vat_id',
 				'class' => 'impressum_row vat_id',
-			]
-		);
-		
-		// coverage
-		add_settings_field(
-			'coverage',
-			__( 'Coverage', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'coverage',
-				'class' => 'impressum_row coverage',
-			]
-		);
-		
-		// free text
-		add_settings_field(
-			'free_text',
-			__( 'Free Text', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'free_text',
-				'class' => 'impressum_row free_text',
-			]
-		);
-		
-		// inspecting authority
-		add_settings_field(
-			'inspecting_authority',
-			__( 'Inspecting Authority', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'inspecting_authority',
-				'class' => 'impressum_row impressum_inspecting_authority',
-			]
-		);
-		
-		// register
-		add_settings_field(
-			'register',
-			__( 'Register', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'register',
-				'class' => 'impressum_row impressum_register',
-			]
-		);
-		
-		// business id
-		add_settings_field(
-			'business_id',
-			__( 'Business ID', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'business_id',
-				'class' => 'impressum_row impressum_business_id',
-			]
-		);
-		
-		// representative
-		add_settings_field(
-			'representative',
-			__( 'Representative', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'representative',
-				'class' => 'impressum_row impressum_representative',
-			]
-		);
-		
-		// capital stock
-		add_settings_field(
-			'capital_stock',
-			__( 'Capital Stock', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'capital_stock',
-				'class' => 'impressum_row impressum_capital_stock',
-			]
-		);
-		
-		// pending deposits
-		add_settings_field(
-			'pending_deposits',
-			__( 'Pending Deposits', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'pending_deposits',
-				'class' => 'impressum_row impressum_pending_deposits',
-			]
-		);
-		
-		// professional association
-		add_settings_field(
-			'professional_association',
-			__( 'Professional Association', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'professional_association',
-				'class' => 'impressum_row impressum_professional_association',
-			]
-		);
-		
-		// legal job title
-		add_settings_field(
-			'legal_job_title',
-			__( 'Legal Job Title', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'legal_job_title',
-				'class' => 'impressum_row impressum_legal_job_title',
-			]
-		);
-		
-		// professional regulations
-		add_settings_field(
-			'professional_regulations',
-			__( 'Professional Regulations', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'professional_regulations',
-				'class' => 'impressum_row impressum_professional_regulations',
 			]
 		);
 		

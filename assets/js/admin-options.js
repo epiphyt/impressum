@@ -18,67 +18,14 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 * Check for given values of the legal entity and show or hide elements.
 	 */
 	function check_legal_entity() {
-		var business_id_row = document.getElementsByClassName( 'impressum_business_id' )[0];
-		var capital_stock_row = document.getElementsByClassName( 'impressum_capital_stock' )[0];
-		var coverage = document.getElementsByClassName( 'coverage' )[0];
-		var free_text = document.getElementsByClassName( 'free_text' )[0];
-		var inspecting_authority_row = document.getElementsByClassName( 'impressum_inspecting_authority' )[0];
-		var legal_job_title_row = document.getElementsByClassName( 'impressum_legal_job_title' )[0];
-		var pending_deposits_row = document.getElementsByClassName( 'impressum_pending_deposits' )[0];
-		var professional_association_row = document.getElementsByClassName( 'impressum_professional_association' )[0];
-		var professional_regulations_row = document.getElementsByClassName( 'impressum_professional_regulations' )[0];
-		var register_row = document.getElementsByClassName( 'impressum_register' )[0];
-		var representative_row = document.getElementsByClassName( 'impressum_representative' )[0];
-		
 		// check on page load
-		switch ( legal_entity_select.value ) {
-			case 'individual':
-				business_id_row.style.display = 'none';
-				capital_stock_row.style.display = 'none';
-				coverage.style.display = 'none';
-				free_text.style.display = 'none';
-				inspecting_authority_row.style.display = 'none';
-				legal_job_title_row.style.display = 'none';
-				pending_deposits_row.style.display = 'none';
-				professional_association_row.style.display = 'none';
-				professional_regulations_row.style.display = 'none';
-				register_row.style.display = 'none';
-				representative_row.style.display = 'none';
-				break;
-		}
+		toggle_pro_message( legal_entity_select.value === 'individual' );
 		
 		// check on select change
 		legal_entity_select.addEventListener( 'change', function( event ) {
 			var current_target = event.currentTarget;
 			
-			switch ( current_target.value ) {
-				case 'individual':
-					business_id_row.style.display = 'none';
-					capital_stock_row.style.display = 'none';
-					coverage.style.display = 'none';
-					free_text.style.display = 'none';
-					inspecting_authority_row.style.display = 'none';
-					legal_job_title_row.style.display = 'none';
-					pending_deposits_row.style.display = 'none';
-					professional_association_row.style.display = 'none';
-					professional_regulations_row.style.display = 'none';
-					register_row.style.display = 'none';
-					representative_row.style.display = 'none';
-					break;
-				default:
-					business_id_row.style.display = '';
-					capital_stock_row.style.display = '';
-					coverage.style.display = '';
-					free_text.style.display = '';
-					inspecting_authority_row.style.display = '';
-					legal_job_title_row.style.display = '';
-					pending_deposits_row.style.display = '';
-					professional_association_row.style.display = '';
-					professional_regulations_row.style.display = '';
-					register_row.style.display = '';
-					representative_row.style.display = '';
-					break;
-			}
+			toggle_pro_message( current_target.value === 'individual' );
 		} );
 	}
 	
@@ -110,4 +57,58 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			}
 		} );
 	}
+	
+	/**
+	 * Toggle the notification about using the Pro version.
+	 * 
+	 * @param {Bool} is_individual
+	 */
+	function toggle_pro_message( is_individual ) {
+		var notice_container = document.querySelector( '#legal_entity + .notice' );
+		
+		if ( ! is_individual && notice_container === null ) {
+			var message = document.createElement( 'p' );
+			var notice = document.createElement( 'div' );
+			
+			message.innerText = imprintL10n.error_message;
+			notice.style.maxWidth = '436px';
+			notice.classList.add( 'notice' );
+			notice.classList.add( 'error' );
+			notice.appendChild( message );
+			legal_entity_select.after( notice );
+		}
+		else if ( is_individual ) {
+			if (notice_container !== null) notice_container.remove();
+		}
+	}
 } );
+
+/**
+ * Polyfill for Child.after()
+ * 
+ * @see https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/after()/after().md
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/after
+ */
+( function ( arr ) {
+	arr.forEach( function ( item ) {
+		if ( item.hasOwnProperty( 'after' ) ) {
+			return;
+		}
+		Object.defineProperty( item, 'after', {
+			configurable: true,
+			enumerable: true,
+			writable: true,
+			value: function after() {
+				var argArr = Array.prototype.slice.call( arguments ),
+					docFrag = document.createDocumentFragment();
+				
+				argArr.forEach( function ( argItem ) {
+					var isNode = argItem instanceof Node;
+					docFrag.appendChild( isNode ? argItem : document.createTextNode( String( argItem ) ) );
+				} );
+				
+				this.parentNode.insertBefore( docFrag, this.nextSibling );
+			}
+		} );
+	} );
+} ) ( [ Element.prototype, CharacterData.prototype, DocumentType.prototype ] );

@@ -456,7 +456,7 @@ class Impressum_Frontend extends Impressum {
 		// check the state if we generate markup
 		$do_markup = boolval( $atts['markup'] );
 		// get every imprint option
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// get entity
 		$entity = $options['legal_entity'];
 		// prepare the output
@@ -616,7 +616,7 @@ class Impressum_Frontend extends Impressum {
 		// check the state if we generate markup
 		$do_markup = boolval( $atts['markup'] );
 		// get all privacy options
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// prepare the output
 		$output = '';
 		

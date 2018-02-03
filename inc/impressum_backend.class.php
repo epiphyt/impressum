@@ -23,6 +23,8 @@ class Impressum_Backend extends Impressum {
 		// hooks
 		add_action( 'admin_init', [ $this, 'impressum_settings_init' ] );
 		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
+		add_action( 'network_admin_menu', [ $this, 'impressum_network_options_page' ] );
+		add_action( 'network_admin_edit_impressum_network_options_update', [ $this, 'impressum_network_options_update' ] );
 	}
 	
 	/**
@@ -514,7 +516,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function legal_entity_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		
 		// check for selected option
 		$select_ag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' );
@@ -561,7 +563,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_email_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -574,7 +576,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_input_text_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -587,7 +589,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_phone_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -600,7 +602,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_press_law_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -615,7 +617,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_textarea_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
@@ -628,7 +630,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function comment_subscription_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -643,7 +645,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function newsletter_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -658,7 +660,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function third_party_content_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -673,7 +675,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function cookie_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -688,7 +690,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function user_registration_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -703,7 +705,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function google_analytics_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -718,7 +720,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function piwik_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -733,7 +735,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function facebook_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -748,7 +750,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function twitter_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -763,7 +765,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function google_plus_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -778,7 +780,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function tumblr_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -793,7 +795,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function jetpack_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -808,7 +810,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function google_adsense_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -823,7 +825,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function amazon_partner_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
+		$options = self::impressum_get_option( 'impressum_privacy_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -848,6 +850,21 @@ class Impressum_Backend extends Impressum {
 	}
 	
 	/**
+	* Add sub menu item in network options menu.
+	*/
+	public static function impressum_network_options_page() {
+		// add top level menu page
+		add_submenu_page(
+			'settings.php',
+			'Impressum',
+			'Impressum',
+			'manage_network_options',
+			'impressum',
+			[ __CLASS__, 'options_page_html' ]
+		);
+	}
+	
+	/**
 	* Sub menu item:
 	* callback functions
 	*/
@@ -860,6 +877,22 @@ class Impressum_Backend extends Impressum {
 		
 		// get current tab
 		$current_tab = isset( $_GET[ 'imprint_tab' ] ) ? $_GET[ 'imprint_tab' ] : 'imprint';
+		
+		// set form action
+		$form_action = 'options.php';
+		
+		if ( is_network_admin() ) {
+			if ( isset( $_GET['updated'] ) ) {
+				?>
+				<div id="message" class="updated notice is-dismissible">
+					<p><?php _e( 'Options saved.', 'impressum' ) ?></p>
+				</div>
+				<?php
+			}
+			
+			// modify form action
+			$form_action = 'edit.php?action=impressum_network_options_update';
+		}
 ?>
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -872,7 +905,7 @@ class Impressum_Backend extends Impressum {
 	switch ( $current_tab ) {
 		case 'imprint':
 		case 'privacy':
-			echo '<form action="options.php" method="post">';
+			echo '<form action="' . $form_action . '" method="post">';
 			// output security fields for the registered setting "impressum"
 			settings_fields( 'impressum_' . $current_tab );
 			// output setting sections and their fields
@@ -886,5 +919,36 @@ class Impressum_Backend extends Impressum {
 	?>
 </div>
 	<?php
+	}
+	
+	/**
+	 * Update network options.
+	 */
+	public static function impressum_network_options_update() {
+		// get most recent active tab
+		$tab = substr( strstr( $_POST['option_page'], '_' ), 1 );
+		
+		// make sure we are posting from our options page
+		check_admin_referer( 'impressum_' . $tab . '-options' );
+		
+		// list of registered options
+		global $new_whitelist_options;
+		$options = array_merge(
+			$new_whitelist_options['impressum_imprint'],
+			$new_whitelist_options['impressum_privacy']
+		);
+		
+		foreach ( $options as $option ) {
+			if ( isset( $_POST[ $option ] ) ) {
+				update_site_option( $option, $_POST[ $option ] );
+			}
+		}
+		
+		// redirect to network options page
+		wp_redirect( add_query_arg( [
+			'page' => 'impressum&imprint_tab=' . $tab,
+			'updated' => 'true'
+		], network_admin_url( 'settings.php' ) ) );
+		exit;
 	}
 }

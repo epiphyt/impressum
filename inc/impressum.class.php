@@ -39,4 +39,30 @@ class Impressum {
 	public function load_textdomain() {
 		load_plugin_textdomain( 'impressum', false, basename( dirname( $this->plugin_file ) ) . '/languages/' );
 	}
+	
+	/**
+	 * Get an option or a site option with the same name.
+	 * The site option is received if there is no option
+	 * with the same name.
+	 * 
+	 * @param string $option The option you want to get
+	 * @return mixed|void
+	 */
+	protected static function impressum_get_option( $option ) {
+		if ( ! is_string( $option ) ) return;
+		
+		if ( ! is_network_admin() ) {
+			// try receive option
+			$options = get_option( $option );
+			
+			if ( ! $options ) {
+				$options = get_site_option( $option );
+			}
+		}
+		else {
+			$options = get_site_option( $option );
+		}
+		
+		return $options;
+	}
 }

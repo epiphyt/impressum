@@ -30,3 +30,5 @@ require_once( __DIR__ . '/inc/impressum_frontend.class.php' );
 
 $impressum_backend = new Impressum_Backend( __FILE__ );
 $impressum_frontend = new Impressum_Frontend( __FILE__ );
+
+if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );

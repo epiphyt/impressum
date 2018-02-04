@@ -4,8 +4,8 @@ Tags: impressum, legal notice, privacy policy, terms
 Requires at least: 4.7
 Tested up to: 4.9
 Requires PHP: 5.6
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Impressum provides you with a full-fledged easy to use imprint and privacy policy generator right within your WordPress site.
 

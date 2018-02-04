@@ -31,7 +31,6 @@ class Impressum {
 		$this->plugin_file = $plugin_file;
 		
 		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
-		add_filter( 'plugin_row_meta', [ 'Impressum_Backend', 'add_meta_link' ], 10, 2 );
 	}
 	
 	/**

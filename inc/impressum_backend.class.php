@@ -21,6 +21,7 @@ class Impressum_Backend extends Impressum {
 		parent::__construct( $plugin_file );
 		
 		// hooks
+		add_filter( 'plugin_row_meta', [ $this, 'add_meta_link' ], 10, 2 );
 		add_action( 'admin_init', [ $this, 'impressum_settings_init' ] );
 		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
 		add_action( 'network_admin_menu', [ $this, 'impressum_network_options_page' ] );
@@ -28,24 +29,22 @@ class Impressum_Backend extends Impressum {
 	}
 	
 	/**
-	 * Add plugin meta links
-	 *
-	 * @param   array  $input Registered links.
-	 * @param   string $file  Current plugin file.
-	 *
-	 * @return  array Merged links
+	 * Add plugin meta links.
+	 * 
+	 * @param array $input Registered links.
+	 * @param string $file  Current plugin file.
+	 * @return array Merged links
 	 */
 	public static function add_meta_link( $input, $file ) {
-		/* Bail on other plugins */
-		if ( IMPRESSUM_BASE !== $file ) {
-			return $input;
-		}
+		// bail on other plugins
+		if ( IMPRESSUM_BASE !== $file ) return $input;
+		
 		return array_merge(
 			$input,
-			array(
+			[
 				'<a href="https://impressum.plus/preise/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Get Plus', 'impressum' ) . '</a>',
 				'<a href="https://impressum.plus/dokumentation/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum' ) . '</a>',
-			)
+			]
 		);
 	}
 	

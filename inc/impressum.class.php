@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Impressum.
  * 
  * @version		0.1
- * @author		Matthias Kittsteiner, Simon Kraft
+ * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */
 class Impressum {

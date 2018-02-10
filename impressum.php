@@ -24,8 +24,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
-require_once( __DIR__ . '/inc/impressum_backend.class.php' );
-require_once( __DIR__ . '/inc/impressum_frontend.class.php' );
 
-$impressum_backend = new Impressum_Backend( __FILE__ );
-$impressum_frontend = new Impressum_Frontend( __FILE__ );
+if ( ! class_exists( 'Impressum_Backend' ) ) {
+	require plugin_dir_path( __FILE__ ) . '/inc/impressum_backend.class.php';
+	new Impressum_Backend( plugin_dir_path( __FILE__ ) );
+}
+
+if ( ! class_exists( 'Impressum_Frontend' ) ) {
+	require plugin_dir_path( __FILE__ ) . '/inc/impressum_frontend.class.php';
+	new Impressum_Frontend( plugin_dir_path( __FILE__ ) );
+}

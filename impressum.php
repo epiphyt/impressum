@@ -37,3 +37,9 @@ if ( ! class_exists( 'Impressum_Frontend' ) ) {
 }
 
 if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );
+
+if ( ! class_exists( 'Epiphyt_Update' ) ) {
+	require plugin_dir_path( __FILE__ ) . '/inc/lib/epiphyt_update.class.php';
+	new Epiphyt_Update( IMPRESSUM_BASE, 'impressum' );
+	Epiphyt_Update::$update_slug = 'impressum';
+}

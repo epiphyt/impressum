@@ -11,6 +11,11 @@ Impressum provides you with a full-fledged easy to use imprint and privacy polic
 
 == Description ==
 
+_Impressum_ adds a full-fledged and easy to use imprint and privacy policy generator in your WordPress dashboard. Once setup, Impressum takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on it's own or ask for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+
+As a freelancer, or private user, _Impressum_ is probably the perfect fit for your imprint needs. If your site is operated by another legal entity than a single person, _Impressum Plus_ is here for you. As _Impressums_ big brother, _Plus_ provides you with all additional data fields you need for your organizations imprint.
+So if you run a German GmbH or AG you should use _Impressum Plus_ to generate your imprint and privacy policy. [https://impressum.plus/](Learn more about _Impressum Plus_).
+
 
 == Installation ==
 

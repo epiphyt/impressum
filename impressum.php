@@ -4,7 +4,8 @@ Plugin Name:	Impressum
 Plugin URI:		https://impressum.plus
 Description:	Simple Impressum Generator
 Version:		0.1
-Author:			Matthias Kittsteiner, Simon Kraft
+Author:			Epiphyt
+Author URI:		https://epiph.yt/
 License:		GPL3
 License URI:	https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain:	impressum

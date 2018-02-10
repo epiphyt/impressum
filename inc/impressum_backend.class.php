@@ -723,6 +723,7 @@ class Impressum_Backend extends Impressum {
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
 		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=get_plus" class="nav-tab <?php echo $current_tab == 'get_plus' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Get Plus', 'impressum' ); ?></a>
 	</h2>
 	
 	<?php
@@ -738,6 +739,14 @@ class Impressum_Backend extends Impressum {
 			// output save settings button
 			submit_button( __( 'Save Settings', 'impressum' ) );
 			echo '</form>';
+			break;
+		case 'get_plus':
+			echo '<h3>' . __( 'Get an imprint for your company website!', 'impressum' ) . '</h3>';
+			echo '<p>' . __( 'We designed "Impressum" to be the perfect companion to individuals for all things imprint and privacy policy on their WordPress websites. However, if your site is operated by another legal entity than an individual person, Impressum Plus is the plugin you should use.', 'impressum' ) . '</p>';
+			echo '<p>' . __( 'For a small fee, Impressum Plus will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ) . '</p>';
+			echo '<h3>' . __( 'Go Plus to support development', 'impressum' ) . '</h3>';
+			echo '<p>' . __( 'Even as a private website owner you can upgrade to Impressum Plus anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, Plus is equipped to make handling imprints across your WordPress multisite an ease. We\'ll continue to add nifty features.', 'impressum' ) . '</p>';
+			echo '<p><a href="https://impressum.plus">' . __( 'Get Impressum Plus now', 'impressum' ) . '</a></p>';
 			break;
 	}
 	?>

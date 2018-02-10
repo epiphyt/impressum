@@ -157,6 +157,32 @@ class Epiphyt_Update {
 	}
 	
 	/**
+	 * Get an option or a site option with the same name.
+	 * The site option is received if there is no option
+	 * with the same name.
+	 * 
+	 * @param string $option The option you want to get
+	 * @return mixed|void
+	 */
+	protected static function get_real_option( $option ) {
+		if ( ! is_string( $option ) ) return;
+		
+		if ( ! is_network_admin() ) {
+			// try receive option
+			$options = get_option( $option );
+			
+			if ( ! $options ) {
+				$options = get_site_option( $option );
+			}
+		}
+		else {
+			$options = get_site_option( $option );
+		}
+		
+		return $options;
+	}
+	
+	/**
 	 * Send request to update server.
 	 * 
 	 * @param array|string $args Query arguments
@@ -164,13 +190,13 @@ class Epiphyt_Update {
 	 * @return bool|object
 	 */
 	public function request( $args = '', $raw = false ) {
-		// add email and API key to the request params.
-		$option = get_option( 'impressum_update', [] );
+		// add license key to the request params.
+		$option = get_option( 'epiphyt_update', [] );
 		// prepare args
 		$args = wp_parse_args( $args, $option );
 		$args = array_filter( $args );
-		// TODO: Remove after testing
-		$args['license_key'] = 'totallyvalid';
+		// get license key
+		$args = array_merge( $args, self::get_real_option( $this->text_domain . '_license_options' ) );
 		
 		// request plugin data
 		$request = wp_safe_remote_post( $this->update_url, [ 'body' => $args, ] );

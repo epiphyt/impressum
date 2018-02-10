@@ -26,6 +26,7 @@ class Impressum_Backend extends Impressum {
 		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
 		add_action( 'network_admin_menu', [ $this, 'impressum_network_options_page' ] );
 		add_action( 'network_admin_edit_impressum_network_options_update', [ $this, 'impressum_network_options_update' ] );
+		add_action( 'pre_update_option_impressum_license_options', [ $this, 'impressum_protect_license_key' ] );
 	}
 	
 	/**
@@ -55,19 +56,27 @@ class Impressum_Backend extends Impressum {
 	public static function impressum_settings_init() {
 		// register a new setting for "impressum" page
 		register_setting( 'impressum_imprint', 'impressum_imprint_options' );
+		register_setting( 'impressum_license', 'impressum_license_options' );
 		register_setting( 'impressum_privacy', 'impressum_privacy_options' );
 		
 		// register a new section in the "impressum" page
 		add_settings_section(
 			'impressum_section_imprint',
-			__( '', 'impressum' ),
+			null,
 			null,
 			'impressum_imprint'
 		);
 		// register a new section in the "impressum" page
 		add_settings_section(
+			'impressum_section_license',
+			null,
+			null,
+			'impressum_license'
+		);
+		// register a new section in the "impressum" page
+		add_settings_section(
 			'impressum_section_privacy',
-			__( '', 'impressum' ),
+			null,
 			null,
 			'impressum_privacy'
 		);
@@ -349,6 +358,19 @@ class Impressum_Backend extends Impressum {
 			]
 		);
 		
+		// license key
+		add_settings_field(
+			'license_key',
+			__( 'License Key', 'impressum' ),
+			[ __CLASS__, 'impressum_license_input_text_callback' ],
+			'impressum_license',
+			'impressum_section_license',
+			[
+				'label_for' => 'license_key',
+				'class' => 'impressum_row impressum_license_key',
+			]
+		);
+		
 		// comment subscription checkbox
 		add_settings_field(
 			'comment_subscription_checkbox',
@@ -602,6 +624,19 @@ class Impressum_Backend extends Impressum {
 		// output the field
 		?>
 <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+		<?php
+	}
+	
+	/**
+	 * Text input field callback.
+	 * @param $args array
+	 */
+	public static function impressum_license_input_text_callback( array $args ) {
+		// get the value of the setting we've registered with register_setting()
+		$options = self::impressum_get_option( 'impressum_license_options' );
+		// output the field
+		?>
+<input type="password" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_license_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . str_repeat( '*', strlen( $options[ $args['label_for'] ] ) ) . '"' : '' ); ?>>
 		<?php
 	}
 	
@@ -921,11 +956,13 @@ class Impressum_Backend extends Impressum {
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
 		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab == 'license' ? 'nav-tab-active' : ''; ?>"><?php _e( 'License', 'impressum' ); ?></a>
 	</h2>
 	
 	<?php
 	switch ( $current_tab ) {
 		case 'imprint':
+		case 'license':
 		case 'privacy':
 			echo '<form action="' . $form_action . '" method="post">';
 			// output security fields for the registered setting "impressum"
@@ -957,6 +994,7 @@ class Impressum_Backend extends Impressum {
 		global $new_whitelist_options;
 		$options = array_merge(
 			$new_whitelist_options['impressum_imprint'],
+			$new_whitelist_options['impressum_license'],
 			$new_whitelist_options['impressum_privacy']
 		);
 		
@@ -972,5 +1010,20 @@ class Impressum_Backend extends Impressum {
 			'updated' => 'true'
 		], network_admin_url( 'settings.php' ) ) );
 		exit;
+	}
+	
+	/**
+	 * Protect the license key against source code sniffing.
+	 * 
+	 * @param $value The new value
+	 * @return mixed|void
+	 */
+	public function impressum_protect_license_key( $value ) {
+		// if license key contains an asterisk, take the previous value
+		if ( strpos( $value['license_key'], '*' ) !== false ) {
+			return self::impressum_get_option( 'impressum_license_options' );
+		}
+		
+		return $value;
 	}
 }

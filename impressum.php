@@ -40,6 +40,16 @@ if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( 
 
 if ( ! class_exists( 'Epiphyt_Update' ) ) {
 	require plugin_dir_path( __FILE__ ) . '/inc/lib/epiphyt_update.class.php';
-	new Epiphyt_Update( IMPRESSUM_BASE, 'impressum' );
+	
+	// get mutlisite or singlesite home URL
+	$home = is_multisite() ? network_site_url() : home_url();
+	
+	new Epiphyt_Update( IMPRESSUM_BASE, 'impressum', 'Impressum Plus', $home );
 	Epiphyt_Update::$update_slug = 'impressum';
+}
+
+if ( ! class_exists( 'Epiphyt_License' ) ) {
+	require plugin_dir_path( __FILE__ ) . '/inc/lib/epiphyt_license.class.php';
+	
+	new Epiphyt_License( 'impressum_license_options', 'Impressum Plus', $home );
 }

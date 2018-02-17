@@ -11,6 +11,13 @@ defined( 'ABSPATH' ) || exit;
  */
 class Epiphyt_Update {
 	/**
+	 * The home URL of the current WordPress instance.
+	 * 
+	 * @var string
+	 */
+	private $home_url = '';
+	
+	/**
 	 * The base name of the plugin we want to check updates for.
 	 * 
 	 * @var string The base name 
@@ -30,6 +37,13 @@ class Epiphyt_Update {
 	 * @var string The name 
 	 */
 	public $plugin_name = '';
+	
+	/**
+	 * The Software Product ID in the WooCommerce shop
+	 * 
+	 * @var string The ID
+	 */
+	public $product_id = '';
 	
 	/**
 	 * The text domain of the plugin for translations.
@@ -57,11 +71,15 @@ class Epiphyt_Update {
 	 * 
 	 * @param string $plugin_base The base name of the plugin we want to check
 	 * @param string $text_domain The textdomain of the plugin
+	 * @param string $product_id The Software Product ID of the WooCommerce product
+	 * @param string $home_url The home URL of the current WordPress instance
 	 */
-	public function __construct( $plugin_base, $text_domain ) {
+	public function __construct( $plugin_base, $text_domain, $product_id, $home_url ) {
 		// assign variables
+		$this->home_url = $home_url;
 		$this->plugin_base = $plugin_base;
 		$this->plugin_data = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
+		$this->product_id = $product_id;
 		$this->text_domain = $text_domain;
 		
 		// hooks
@@ -190,16 +208,20 @@ class Epiphyt_Update {
 	 * @return bool|object
 	 */
 	public function request( $args = '', $raw = false ) {
-		// add license key to the request params.
 		$option = get_option( 'epiphyt_update', [] );
+		
 		// prepare args
 		$args = wp_parse_args( $args, $option );
 		$args = array_filter( $args );
+		// get home URL
+		$args = array_merge( $args, [ 'platform' => $this->home_url ] );
 		// get license key
 		$args = array_merge( $args, self::get_real_option( $this->text_domain . '_license_options' ) );
+		// get product id
+		$args = array_merge( $args, [ 'product_id' => $this->product_id ] );
 		
 		// request plugin data
-		$request = wp_safe_remote_post( $this->update_url, [ 'body' => $args, ] );
+		$request = wp_remote_post( $this->update_url, [ 'body' => $args ] );
 		$response = wp_remote_retrieve_body( $request );
 		
 		// check response

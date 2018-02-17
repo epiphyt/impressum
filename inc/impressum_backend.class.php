@@ -358,11 +358,24 @@ class Impressum_Backend extends Impressum {
 			]
 		);
 		
+		// email
+		add_settings_field(
+			'license_email',
+			__( 'Email Address', 'impressum' ),
+			[ __CLASS__, 'impressum_license_input_email_callback' ],
+			'impressum_license',
+			'impressum_section_license',
+			[
+				'label_for' => 'license_email',
+				'class' => 'impressum_row impressum_license_email',
+			]
+		);
+		
 		// license key
 		add_settings_field(
 			'license_key',
 			__( 'License Key', 'impressum' ),
-			[ __CLASS__, 'impressum_license_input_text_callback' ],
+			[ __CLASS__, 'impressum_license_input_license_callback' ],
 			'impressum_license',
 			'impressum_section_license',
 			[
@@ -628,10 +641,36 @@ class Impressum_Backend extends Impressum {
 	}
 	
 	/**
+	 * Email input field callback.
+	 * @param $args array
+	 */
+	public static function impressum_license_input_email_callback( array $args ) {
+		// get the value of the setting we've registered with register_setting()
+		$options = self::impressum_get_option( 'impressum_license_options' );
+		// output the field
+		?>
+<input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_license_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+		<?php
+	}
+	
+	/**
 	 * Text input field callback.
 	 * @param $args array
 	 */
 	public static function impressum_license_input_text_callback( array $args ) {
+		// get the value of the setting we've registered with register_setting()
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		// output the field
+		?>
+<input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_license_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
+		<?php
+	}
+	
+	/**
+	 * License (password) input field callback.
+	 * @param $args array
+	 */
+	public static function impressum_license_input_license_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
 		$options = self::impressum_get_option( 'impressum_license_options' );
 		// output the field
@@ -1021,7 +1060,8 @@ class Impressum_Backend extends Impressum {
 	public function impressum_protect_license_key( $value ) {
 		// if license key contains an asterisk, take the previous value
 		if ( strpos( $value['license_key'], '*' ) !== false ) {
-			return self::impressum_get_option( 'impressum_license_options' );
+			$old_value = self::impressum_get_option( 'impressum_license_options' )['license_key'];
+			$value['license_key'] = $old_value;
 		}
 		
 		return $value;

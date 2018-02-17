@@ -1,0 +1,28 @@
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+    - git clone --branch=master --depth=1 --quiet git@git.kittmedia.com:wordpress/deploy-script.git
+    - chmod +x deploy-script/*.sh
+
+
+stages:
+    - production
+    - test
+
+upload_zip:
+    stage: production
+
+    script:
+        - cd deploy-script
+        - ./deploy.sh -u $SSH_USER_PRODUCTION -d $DEPLOY_PATH -h $DEPLOY_SERVER -z impressum
+
+    only:
+        - master
+
+    variables:
+        DEPLOY_PATH: /var/www/wp-update-server/packages
+        DEPLOY_SERVER: yoda.kittmedia.com
+
+        # GitLab project variables:
+        # - SSH_USER_PRODUCTION

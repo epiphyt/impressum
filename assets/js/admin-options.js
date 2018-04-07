@@ -19,13 +19,15 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 */
 	function check_legal_entity() {
 		// check on page load
-		toggle_pro_message( legal_entity_select.value === 'individual' );
+		var need_pro_message = legal_entity_select.value === 'individual' || legal_entity_select.value === 'freelancer';
+		toggle_pro_message( need_pro_message );
 		
 		// check on select change
 		legal_entity_select.addEventListener( 'change', function( event ) {
 			var current_target = event.currentTarget;
+			need_pro_message = current_target.value === 'individual' || current_target.value === 'freelancer';
 			
-			toggle_pro_message( current_target.value === 'individual' );
+			toggle_pro_message( need_pro_message );
 		} );
 	}
 	

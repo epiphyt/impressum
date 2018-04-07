@@ -4,7 +4,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) die;
  
 $options = [
 	'impressum_imprint_options',
-	'impressum_privacy_options'
 ];
 
 foreach ($options as $option) {

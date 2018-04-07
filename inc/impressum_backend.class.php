@@ -31,7 +31,6 @@ class Impressum_Backend extends Impressum {
 	public static function impressum_settings_init() {
 		// register a new setting for "impressum" page
 		register_setting( 'impressum_imprint', 'impressum_imprint_options' );
-		register_setting( 'impressum_privacy', 'impressum_privacy_options' );
 		
 		// register a new section in the "impressum" page
 		add_settings_section(
@@ -39,13 +38,6 @@ class Impressum_Backend extends Impressum {
 			'',
 			null,
 			'impressum_imprint'
-		);
-		// register a new section in the "impressum" page
-		add_settings_section(
-			'impressum_section_privacy',
-			'',
-			null,
-			'impressum_privacy'
 		);
 		
 		/**
@@ -181,188 +173,6 @@ class Impressum_Backend extends Impressum {
 				'class' => 'impressum_row vat_id',
 			]
 		);
-		
-		// comment subscription checkbox
-		add_settings_field(
-			'comment_subscription_checkbox',
-			__( 'Comment subscription', 'impressum' ),
-			[ __CLASS__, 'comment_subscription_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'comment_subscription_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// newsletter checkbox
-		add_settings_field(
-			'newsletter_checkbox',
-			__( 'Newsletter', 'impressum' ),
-			[ __CLASS__, 'newsletter_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'newsletter_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// 3rd party content checkbox
-		add_settings_field(
-			'third_party_content_checkbox',
-			__( '3rd party content', 'impressum' ),
-			[ __CLASS__, 'third_party_content_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'third_party_content_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// cookie checkbox
-		add_settings_field(
-			'cookie_checkbox',
-			__( 'Cookies', 'impressum' ),
-			[ __CLASS__, 'cookie_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'cookie_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// sign up checkbox
-		add_settings_field(
-			'user_registration_checkbox',
-			__( 'User registration', 'impressum' ),
-			[ __CLASS__, 'user_registration_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'user_registration_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// google analytics checkbox
-		add_settings_field(
-			'google_analytics_checkbox',
-			__( 'Google Analytics', 'impressum' ),
-			[ __CLASS__, 'google_analytics_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'google_analytics_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// piwik checkbox
-		add_settings_field(
-			'piwik_checkbox',
-			__( 'Matomo/Piwik', 'impressum' ),
-			[ __CLASS__, 'piwik_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'piwik_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// facebook checkbox
-		add_settings_field(
-			'facebook_checkbox',
-			__( 'Facebook', 'impressum' ),
-			[ __CLASS__, 'facebook_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'facebook_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// twitter checkbox
-		add_settings_field(
-			'twitter_checkbox',
-			__( 'Twitter', 'impressum' ),
-			[ __CLASS__, 'twitter_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'twitter_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// google plus checkbox
-		add_settings_field(
-			'google_plus_checkbox',
-			__( 'Google+', 'impressum' ),
-			[ __CLASS__, 'google_plus_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'google_plus_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// tumblr checkbox
-		add_settings_field(
-			'tumblr_checkbox',
-			__( 'Tumblr', 'impressum' ),
-			[ __CLASS__, 'tumblr_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'tumblr_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// jetpack checkbox
-		add_settings_field(
-			'jetpack_checkbox',
-			__( 'Jetpack', 'impressum' ),
-			[ __CLASS__, 'jetpack_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'jetpack_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// google adsense checkbox
-		add_settings_field(
-			'google_adsense_checkbox',
-			__( 'Google AdSense', 'impressum' ),
-			[ __CLASS__, 'google_adsense_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'google_adsense_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// amazon partner checkbox
-		add_settings_field(
-			'amazon_partner_checkbox',
-			__( 'Amazon Partner', 'impressum' ),
-			[ __CLASS__, 'amazon_partner_checkbox_callback' ],
-			'impressum_privacy',
-			'impressum_section_privacy',
-			[
-				'label_for' => 'amazon_partner_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
 	}
 	
 	/**
@@ -480,216 +290,6 @@ class Impressum_Backend extends Impressum {
 	}
 	
 	/**
-	 * Comment subscription Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function comment_subscription_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a comment subscription plugin.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Newsletter Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function newsletter_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a newsletter plugin or service.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * 3rd party content Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function third_party_content_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I embed tweets, YouTube videos or other 3rd-party content.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Cookie Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function cookie_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use cookies on my site.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * User Registration Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function user_registration_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'Users can register on my site.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Google Analytics Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function google_analytics_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Google Analytics.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Matomo/Piwik Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function piwik_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Matomo/Piwik.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Facebook Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function facebook_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a Facebook social button on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Twitter Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function twitter_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a Twitter social button on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Google Plus Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function google_plus_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a Google+ social button on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * tumblr Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function tumblr_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use a Tumblr social button on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Jetpack Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function jetpack_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use the Jetpack plugin.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Google Adsense Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function google_adsense_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Google AdSense on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
-	 * Amazon Partner Checkbox field callback.
-	 * @param $args array
-	 */
-	public static function amazon_partner_checkbox_callback( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_privacy_options' );
-		// output the field
-		?>
-<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_privacy_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php _e( 'I use Amazon affiliate links on my website.', 'impressum' ); ?>
-</label>
-		<?php
-	}
-	
-	/**
 	* Add sub menu item in options menu.
 	*/
 	public static function impressum_options_page() {
@@ -722,14 +322,12 @@ class Impressum_Backend extends Impressum {
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
-		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
 		<a href="?page=impressum&imprint_tab=get_plus" class="nav-tab <?php echo $current_tab == 'get_plus' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Get Plus', 'impressum' ); ?></a>
 	</h2>
 	
 	<?php
 	switch ( $current_tab ) {
 		case 'imprint':
-		case 'privacy':
 			echo '<form action="options.php" method="post">';
 			// output security fields for the registered setting "impressum"
 			settings_fields( 'impressum_' . $current_tab );
@@ -742,7 +340,7 @@ class Impressum_Backend extends Impressum {
 			break;
 		case 'get_plus':
 			echo '<h3>' . __( 'Get an imprint for your company website!', 'impressum' ) . '</h3>';
-			echo '<p>' . __( 'We designed "Impressum" to be the perfect companion to individuals for all things imprint and privacy policy on their WordPress websites. However, if your site is operated by another legal entity than an individual person, Impressum Plus is the plugin you should use.', 'impressum' ) . '</p>';
+			echo '<p>' . __( 'We designed "Impressum" to be the perfect companion to individuals for all things of the imprint on their WordPress websites. However, if your site is operated by another legal entity than an individual person, Impressum Plus is the plugin you should use.', 'impressum' ) . '</p>';
 			echo '<p>' . __( 'For a small fee, Impressum Plus will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ) . '</p>';
 			echo '<h3>' . __( 'Go Plus to support development', 'impressum' ) . '</h3>';
 			echo '<p>' . __( 'Even as a private website owner you can upgrade to Impressum Plus anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, Plus is equipped to make handling imprints across your WordPress multisite an ease. We\'ll continue to add nifty features.', 'impressum' ) . '</p>';

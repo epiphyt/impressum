@@ -30,13 +30,13 @@ class Impressum {
 		// assign variables
 		$this->plugin_file = $plugin_file;
 		
-		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+		add_action( 'init', [ $this, 'load_textdomain' ] );
 	}
 	
 	/**
 	 * Load translations.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'impressum', false, basename( dirname( $this->plugin_file ) ) . '/languages/' );
+		load_plugin_textdomain( 'impressum', false, dirname( plugin_basename( $this->plugin_file ) ) . '/languages' );
 	}
 }

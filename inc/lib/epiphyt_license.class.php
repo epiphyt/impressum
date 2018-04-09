@@ -32,6 +32,9 @@ class Epiphyt_License extends Epiphyt_Update {
 	 * @param string $home_url The home URL of the current WordPress instance
 	 */
 	public function __construct( $option_name, $product_id, $home_url ) {
+		// on first activation, the option doesn’t exist yet
+		if ( ! is_array( self::get_real_option( $option_name ) ) ) return;
+		
 		// variable assignments
 		$this->options = array_merge( self::get_real_option( $option_name ), [
 			'platform' => $home_url,

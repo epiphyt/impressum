@@ -11,7 +11,7 @@ Impressum provides you with a full-fledged easy to use imprint generator right w
 
 == Description ==
 
-_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, Impressum takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on it's own or ask for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on it's own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
 
 
 == Installation ==
@@ -32,7 +32,7 @@ In certain countries like Germany and Austria, the law requires some website own
 
 Yes and they are great. But adding an imprint generator directly to your WordPress install makes it pretty easy for you to stay up to date.
 
-= How do I use _Impressum_? =
+= How do I use Impressum? =
 
 After you install and activate _Impressum_ we will kindly ask you to populate some form fields with all the data you are legally required to add to your imprint. _Impressum_ will guide you through this process.
 
@@ -42,11 +42,11 @@ After this initial setup, _Impressum_ just sits in your install serves your impr
 
 = Can I really use this plugin free of charge? =
 
-Yes. _Impressum_ is an always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. _Impressum Plus_ will be available soon.
+Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. _Impressum Plus_ will be available soon.
 
 = Who are you folks? =
 
-We are [Epiph.yt](https://epiph.yt/), your friendly neighborhood WordPress plugin shop from southern Germany.
+We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin shop from southern Germany.
 
 == Screenshots ==
 
@@ -55,7 +55,10 @@ We are [Epiph.yt](https://epiph.yt/), your friendly neighborhood WordPress plugi
 
 == Changelog ==
 
-= 1.0 =
+= 0.1.1 =
+* fixed typos, ❤️ [Florian Brinkmann](https://profiles.wordpress.org/florianbrinkmann)
+
+= 0.1 =
 * Initial release
 
 == Upgrade Notice ==

@@ -44,6 +44,10 @@ After this initial setup, _Impressum_ just sits in your install serves your impr
 
 Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. _Impressum Plus_ will be available soon.
 
+= Does Impressum share any of my data? (GDPR) =
+
+No. _Impressum_ keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of cause the '[impressum]' shortcode will be displayed publicly on your website.
+
 = Who are you folks? =
 
 We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin shop from southern Germany.
@@ -56,7 +60,7 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 == Changelog ==
 
 = 0.1.1 =
-* fixed typos, ❤️ [Florian Brinkmann](https://profiles.wordpress.org/florianbrinkmann)
+* Fixed typos, ❤️ [Florian Brinkmann](https://profiles.wordpress.org/florianbrinkmann)
 
 = 0.1 =
 * Initial release

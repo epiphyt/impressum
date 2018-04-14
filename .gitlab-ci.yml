@@ -22,7 +22,7 @@ upload_zip:
 
     variables:
         DEPLOY_PATH: /var/www/wp-update-server/packages
-        DEPLOY_SERVER: yoda.kittmedia.com
+        DEPLOY_SERVER: dagobah.kittmedia.com
 
         # GitLab project variables:
         # - SSH_USER_PRODUCTION

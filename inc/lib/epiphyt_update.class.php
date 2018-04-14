@@ -215,8 +215,13 @@ class Epiphyt_Update {
 		$args = array_filter( $args );
 		// get home URL
 		$args = array_merge( $args, [ 'platform' => $this->home_url ] );
-		// get license key
-		$args = array_merge( $args, self::get_real_option( $this->text_domain . '_license_options' ) );
+		// get license key if available, otherwise return false
+		if ( self::get_real_option( $this->text_domain . '_license_options' ) ) {
+			$args = array_merge( $args, self::get_real_option( $this->text_domain . '_license_options' ) );
+		}
+		else {
+			return false;
+		}
 		// get product id
 		$args = array_merge( $args, [ 'product_id' => $this->product_id ] );
 		

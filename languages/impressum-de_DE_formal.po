@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Impressum\n"
-"POT-Creation-Date: 2018-04-07 13:03+0200\n"
-"PO-Revision-Date: 2018-04-07 13:03+0200\n"
+"POT-Creation-Date: 2018-04-19 17:32+0200\n"
+"PO-Revision-Date: 2018-04-19 17:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE@formal\n"
@@ -54,8 +54,8 @@ msgid "Journalistic/Editorial Content"
 msgstr "Journalistischer/redaktioneller Inhalt"
 
 #: inc/impressum_backend.class.php:154 inc/impressum_frontend.class.php:475
-msgid "Responsible according to the German Press Law"
-msgstr "Verantwortlicher i.S.d. Presserechts"
+msgid "Responsible for content according to § 55 paragraph 2 RStV"
+msgstr "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV"
 
 #: inc/impressum_backend.class.php:167 inc/impressum_frontend.class.php:478
 msgid "VAT ID"
@@ -266,6 +266,9 @@ msgstr "Epiphyt"
 #. Author URI of the plugin/theme
 msgid "https://epiph.yt/"
 msgstr "https://epiph.yt/"
+
+#~ msgid "Responsible according to the German Press Law"
+#~ msgstr "Verantwortlicher i.S.d. Presserechts"
 
 #~ msgid "Comment subscription"
 #~ msgstr "Kommentar-Abonnement"

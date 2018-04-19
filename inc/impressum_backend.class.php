@@ -151,7 +151,7 @@ class Impressum_Backend extends Impressum {
 		// press law person
 		add_settings_field(
 			'press_law_person',
-			__( 'Responsible according to the German Press Law', 'impressum' ),
+			__( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' ),
 			[ __CLASS__, 'impressum_textarea_callback' ],
 			'impressum_imprint',
 			'impressum_section_imprint',

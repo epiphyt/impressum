@@ -472,7 +472,7 @@ class Impressum_Frontend extends Impressum {
 					$title = __( 'Phone', 'impressum' );
 					break;
 				case 'press_law_person':
-					$title = __( 'Responsible according to the German Press Law', 'impressum' );
+					$title = __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' );
 					break;
 				case 'vat_id':
 					$title = __( 'VAT ID', 'impressum' );

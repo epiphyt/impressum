@@ -358,6 +358,9 @@ class Impressum_Frontend extends Impressum {
 		
 		// hooks
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_notices', [ $this, 'invalid_notice' ] );
+		add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
+		add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		
 		// shortcodes
 		add_shortcode( 'impressum', [ $this, 'imprint_shortcode' ] );
@@ -553,10 +556,83 @@ class Impressum_Frontend extends Impressum {
 		$version = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : get_plugin_data( __FILE__ )['Version'];
 		
 		// enqueue scripts
-		wp_enqueue_script( 'admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
+		wp_enqueue_script( 'impressum-admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
+		wp_add_inline_script( 'impressum-admin-options', "
+jQuery(function($) {
+	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function () {
+		var type = $( this ).closest( '.impressum-validation-notice' ).data( 'notice' );
+		$.ajax( ajaxurl, {
+			type: 'POST',
+			data: {
+				action: 'impressum_dismissed_notice_handler',
+				type: type,
+			}
+		} );
+	} );
+});
+		" );
 		// prepare for translation
-		wp_localize_script( 'admin-options', 'imprintL10n', [
+		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
 			'error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Freelancer”, you need to purchase the Plus version.', 'impressum' ),
 		] );
+	}
+	
+	/**
+	 * Add a warning notice if the current imprint is not valid yet.
+	 */
+	public static function invalid_notice() {
+		if ( ! get_option( 'dismissed-impressum_validation_notice' ) && ! self::is_valid() ) :
+		?>
+<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
+	<p><?php _e( 'Your imprint has not been configured successfully, yet. <a href="options-general.php?page=impressum&imprint_tab=imprint">Configure now!</a>', 'impressum' ); ?></p>
+</div>
+		<?php
+		endif;
+	}
+	
+	/**
+	 * Check if the current imprint is valid.
+	 * 
+	 * @return bool
+	 */
+	public static function is_valid() {
+		$options = get_option( 'impressum_imprint_options' );
+		
+		// return false if there is no imprint option yet
+		if ( ! $options || ! isset( $options['legal_entity'] ) || empty( $options['legal_entity'] ) ) {
+			return false;
+		}
+		
+		// check for legal entity
+		switch ( $options['legal_entity'] ) {
+			default:
+				if (
+					! isset( $options['address'] ) || empty( $options['address'] ) ||
+					! isset( $options['email'] ) || empty( $options['email'] ) ||
+					! isset( $options['name'] ) || empty( $options['name'] ) ||
+					! isset( $options['phone'] ) || empty( $options['phone'] )
+				) {
+					return false;
+				}
+				break;
+		}
+		
+		// the default
+		return true;
+	}
+	
+	/**
+	 * AJAX handler to store the state of dismissible notices.
+	 */
+	public static function ajax_notice_handler() {
+		$type = esc_attr( $_POST['type'] );
+		update_option( 'dismissed-' . $type, true );
+	}
+	
+	/**
+	 * Updated option to reset the dismiss of the imprint validation notice.
+	 */
+	public static function reset_invalid_notice() {
+		update_option( 'dismissed-impressum_validation_notice', false );
 	}
 }

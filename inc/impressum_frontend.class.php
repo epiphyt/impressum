@@ -519,8 +519,10 @@ class Impressum_Frontend extends Impressum {
 				// definition term and description
 				$output .= '
 	<dt>' . $title . '</dt>
-	<dd>' . nl2br( esc_html( $options[$field] ) ) . '</dd>
-	';
+	' . ( $field == 'email'
+		? '<dd><a href="mailto:' . $options[ $field ] . '">' . $options[ $field ] . '</a>'
+		: '<dd>' . nl2br( esc_html( $options[ $field ] ) ) . '</dd>'
+	);
 			}
 			else {
 				// comma separated list

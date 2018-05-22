@@ -611,6 +611,7 @@ class Impressum_Backend extends Impressum {
 	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbeschränkt)', 'impressum' ); ?></option>
 	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ); ?></option>
 </select>
+<p><?php _e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum' ); ?></p>
 		<?php
 	}
 	
@@ -718,6 +719,14 @@ class Impressum_Backend extends Impressum {
 		?>
 <textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>
 		<?php
+		switch ( $args['label_for'] ) {
+			case 'address':
+				echo '<p>' . __( 'You need to set at least your street with number, your zip code and your city.', 'impressum' ) . '</p>';
+				break;
+			case 'address_alternative':
+				echo '<p>' . __( 'You can set an alternative address to be displayed in your imprint.', 'impressum' ) . '</p>';
+				break;
+		}
 	}
 	
 	/**

@@ -639,6 +639,17 @@ class Impressum_Backend extends Impressum {
 		?>
 <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
 		<?php
+		switch ( $args['label_for'] ) {
+			case 'coverage':
+				echo '<p>' . __( 'If you link to this imprint from several other domains, enter them here.', 'impressum' ) . '</p>';
+				break;
+			case 'register':
+				echo '<p>' . __( 'You need at least enter your register number and the register where your company is registered.', 'impressum' ) . '</p>';
+				break;
+			case 'vat_id':
+				echo '<p>' . __( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ) . '</p>';
+				break;
+		}
 	}
 	
 	/**
@@ -725,6 +736,9 @@ class Impressum_Backend extends Impressum {
 				break;
 			case 'address_alternative':
 				echo '<p>' . __( 'You can set an alternative address to be displayed in your imprint.', 'impressum' ) . '</p>';
+				break;
+			case 'free_text':
+				echo '<p>' . __( 'You can add some additional free text if the predefined input fields don’t suite your needs.', 'impressum' ) . '</p>';
 				break;
 		}
 	}

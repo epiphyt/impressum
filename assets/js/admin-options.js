@@ -33,6 +33,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		// check on page load
 		switch ( legal_entity_select.value ) {
 			case 'individual':
+			case 'self':
 				business_id_row.style.display = 'none';
 				capital_stock_row.style.display = 'none';
 				coverage.style.display = 'none';
@@ -53,6 +54,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			
 			switch ( current_target.value ) {
 				case 'individual':
+				case 'self':
 					business_id_row.style.display = 'none';
 					capital_stock_row.style.display = 'none';
 					coverage.style.display = 'none';

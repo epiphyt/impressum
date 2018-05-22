@@ -31,6 +31,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -48,6 +49,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -81,6 +83,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -98,6 +101,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -115,6 +119,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -132,6 +137,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -149,6 +155,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -166,6 +173,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -183,6 +191,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],

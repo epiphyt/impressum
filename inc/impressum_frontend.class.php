@@ -31,6 +31,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -48,6 +49,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -81,6 +83,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -98,6 +101,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -115,6 +119,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -132,6 +137,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -149,6 +155,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -166,6 +173,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -183,6 +191,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'individual',
+			'self',
 			'ug',
 			'ug_co_kg'
 		],
@@ -575,7 +584,7 @@ jQuery(function($) {
 		" );
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
-			'error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Freelancer”, you need to purchase the Plus version.', 'impressum' ),
+			'error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),
 		] );
 	}
 	

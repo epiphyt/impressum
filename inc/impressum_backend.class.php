@@ -197,6 +197,7 @@ class Impressum_Backend extends Impressum {
 		$select_kgag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kgag', false ) ) : ( '' );
 		$select_ohg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ohg', false ) ) : ( '' );
 		$select_individual = ! isset( $options['legal_entity'] ) ? ' selected' : ( isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'individual', false ) ) : ( '' ) );
+		$select_self = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'self', false ) ) : ( '' );
 		$select_ug = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug', false ) ) : ( '' );
 		$select_ug_co_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug_co_kg', false ) ) : ( '' );
 		
@@ -216,6 +217,7 @@ class Impressum_Backend extends Impressum {
 	<option value="kgag" <?php echo $select_kgag; ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
 	<option value="ohg" <?php echo $select_ohg; ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
 	<option value="individual" <?php echo $select_individual; ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
+	<option value="self" <?php echo $select_self; ?>><?php esc_html_e( 'Self-employed', 'impressum' ); ?></option>
 	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbeschränkt)', 'impressum' ); ?></option>
 	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ); ?></option>
 </select>

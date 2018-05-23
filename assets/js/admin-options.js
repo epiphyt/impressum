@@ -22,7 +22,11 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			var current_target = event.currentTarget;
 			
 			// replace any whitespaces
-			current_target.value = current_target.value.replace( /[^A-Za-z0-9]+/g, '' );
+			var regex = new RegExp( /[^A-Za-z0-9]+/g );
+			// test before, otherwise you can’t select the value
+			if ( regex.test( current_target.value ) ) {
+				current_target.value = current_target.value.replace( /[^A-Za-z0-9]+/g, '' );
+			}
 			
 			// do the check
 			if ( ! is_valid_vat_id_format( current_target.value ) ) {

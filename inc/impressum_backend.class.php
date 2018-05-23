@@ -348,6 +348,9 @@ class Impressum_Backend extends Impressum {
 			// output save settings button
 			submit_button( __( 'Save Settings', 'impressum' ) );
 			echo '</form>';
+			// usage description
+			echo '<h3>' . __( 'Usage', 'impressum' ) . '</h3>';
+			echo '<p>' . __( 'Add the <code>[impressum]</code> shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere shortcodes work).', 'impressum' ) . '</p>';
 			break;
 		case 'get_plus':
 			echo '<h3>' . __( 'Get an imprint for your company website!', 'impressum' ) . '</h3>';

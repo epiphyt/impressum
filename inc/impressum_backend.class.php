@@ -1033,6 +1033,9 @@ class Impressum_Backend extends Impressum {
 			// output setting sections and their fields
 			// (sections are registered for "impressum", each field is registered to a specific section)
 			do_settings_sections( 'impressum_' . $current_tab );
+			// disclaimer
+			echo '<h3>' . __( 'Disclaimer', 'impressum' ) . '</h3>';
+			echo '<p>' . __( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum” helps you to fill all necessary fields.', 'impressum' ) . '</p>';
 			// output save settings button
 			submit_button( __( 'Save Settings', 'impressum' ) );
 			echo '</form>';

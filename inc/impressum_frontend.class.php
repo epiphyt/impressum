@@ -730,29 +730,18 @@ class Impressum_Frontend extends Impressum {
 	 * @param string $hook The current admin page.
 	 */
 	public function enqueue_assets( $hook ) {
-		// check for settings page
-		if ( 'settings_page_impressum' != $hook ) return;
-		
 		// Check for SCRIPT_DEBUG
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$version = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : get_plugin_data( __FILE__ )['Version'];
 		
+		wp_enqueue_script( 'impressum-dismissable-notice', plugins_url( '/assets/js/ajax-dismissable-notice' . $suffix . '.js', $this->plugin_file ), [], $version );
+		
+		// check for settings page
+		if ( 'settings_page_impressum' != $hook ) return;
+		
 		// enqueue scripts
 		wp_enqueue_script( 'impressum-admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
-		wp_add_inline_script( 'impressum-admin-options', "
-jQuery(function($) {
-	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function () {
-		var type = $( this ).closest( '.impressum-validation-notice' ).data( 'notice' );
-		$.ajax( ajaxurl, {
-			type: 'POST',
-			data: {
-				action: 'impressum_dismissed_notice_handler',
-				type: type,
-			}
-		} );
-	} );
-});
-		" );
+		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
 			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),

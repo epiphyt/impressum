@@ -1023,6 +1023,7 @@ class Impressum_Backend extends Impressum {
 		<a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab == 'license' ? 'nav-tab-active' : ''; ?>"><?php _e( 'License', 'impressum' ); ?></a>
 	</h2>
 	
+	<div class="impressum-content-wrapper">
 	<?php
 	switch ( $current_tab ) {
 		case 'imprint':
@@ -1053,6 +1054,7 @@ class Impressum_Backend extends Impressum {
 			break;
 	}
 	?>
+	</div>
 </div>
 	<?php
 	}

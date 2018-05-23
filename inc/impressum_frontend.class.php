@@ -742,6 +742,9 @@ class Impressum_Frontend extends Impressum {
 		// enqueue scripts
 		wp_enqueue_script( 'impressum-admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
 		
+		// enqueue styles
+		wp_enqueue_style( 'impressum-admin-style', plugins_url( '/assets/style/style' . $suffix . '.css', $this->plugin_file ), [], $version );
+		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
 			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),

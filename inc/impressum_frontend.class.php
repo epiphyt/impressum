@@ -753,6 +753,10 @@ jQuery(function($) {
 	} );
 });
 		" );
+		// prepare for translation
+		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
+			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
+		] );
 	}
 	
 	/**

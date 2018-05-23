@@ -336,6 +336,7 @@ class Impressum_Backend extends Impressum {
 		<a href="?page=impressum&imprint_tab=get_plus" class="nav-tab <?php echo $current_tab == 'get_plus' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Get Plus', 'impressum' ); ?></a>
 	</h2>
 	
+	<div class="impressum-content-wrapper">
 	<?php
 	switch ( $current_tab ) {
 		case 'imprint':
@@ -362,6 +363,7 @@ class Impressum_Backend extends Impressum {
 			break;
 	}
 	?>
+	</div>
 </div>
 	<?php
 	}

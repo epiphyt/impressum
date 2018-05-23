@@ -571,6 +571,9 @@ class Impressum_Frontend extends Impressum {
 		// enqueue scripts
 		wp_enqueue_script( 'impressum-admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
 		
+		// enqueue styles
+		wp_enqueue_style( 'impressum-admin-style', plugins_url( '/assets/style/style' . $suffix . '.css', $this->plugin_file ), [], $version );
+		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
 			'legal_entity_error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),

@@ -1026,6 +1026,19 @@ class Impressum_Backend extends Impressum {
 	<?php
 	switch ( $current_tab ) {
 		case 'imprint':
+			echo '<form action="' . $form_action . '" method="post">';
+			// output security fields for the registered setting "impressum"
+			settings_fields( 'impressum_' . $current_tab );
+			// output setting sections and their fields
+			// (sections are registered for "impressum", each field is registered to a specific section)
+			do_settings_sections( 'impressum_' . $current_tab );
+			// output save settings button
+			submit_button( __( 'Save Settings', 'impressum' ) );
+			echo '</form>';
+			// usage description
+			echo '<h3>' . __( 'Usage', 'impressum' ) . '</h3>';
+			echo '<p>' . __( 'Add the <code>[impressum]</code> shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere shortcodes work).', 'impressum' ) . '</p>';
+			break;
 		case 'license':
 		case 'privacy':
 			echo '<form action="' . $form_action . '" method="post">';

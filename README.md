@@ -59,8 +59,20 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 
 == Changelog ==
 
+= 0.2 =
+* Added default `mailto://` links for mailadresses
+* Added a couple of descriptive texts
+* Added "self-employed" as a new option
+* Added VAT ID checkup
+* Added a notice in case no field all fields are left empty
+* Added a nice reminder to use the `[impressum]` shortcode
+* Added a disclaimer to remind everyone, we can't guarantee legal compliance
+* Fixed some additional small bugs 
+
+Thanks [@pixolin](https://profiles.wordpress.org/pixolin) & [@zodiac1978](https://profiles.wordpress.org/zodiac1978) for testing v0.1 and suggesting most of these new feature. ❤️
+
 = 0.1.1 =
-* Fixed typos, ❤️ [Florian Brinkmann](https://profiles.wordpress.org/florianbrinkmann)
+* Fixed typos, ❤️ [@florianbrinkmann](https://profiles.wordpress.org/florianbrinkmann)
 
 = 0.1 =
 * Initial release

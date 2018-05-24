@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:	Impressum
-Plugin URI:		https://impressum.plus
+Plugin URI:		https://wordpress.org/plugins/impressum/
 Description:	Simple Impressum Generator
 Version:		0.1
 Author:			Epiphyt

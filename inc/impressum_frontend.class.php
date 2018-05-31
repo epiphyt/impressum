@@ -755,6 +755,11 @@ class Impressum_Frontend extends Impressum {
 	 * Add a warning notice if the current imprint is not valid yet.
 	 */
 	public static function invalid_notice() {
+		global $pagenow;
+		
+		// hide invalid notice on impressum options|settings page
+		if ( ( $pagenow == 'options-general.php' || $pagenow == 'settings.php' ) && isset( $_GET['page'] ) && $_GET['page'] == 'impressum' ) return;
+		
 		if ( ! get_option( 'dismissed-impressum_validation_notice' ) && ! self::is_valid() ) :
 		?>
 <div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">

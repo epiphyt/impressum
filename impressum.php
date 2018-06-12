@@ -1,5 +1,7 @@
 <?php
 namespace epiphyt\Impressum;
+use epiphyt\Update\Epiphyt_License;
+use epiphyt\Update\Epiphyt_Update;
 
 /*
 Plugin Name:	Impressum

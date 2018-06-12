@@ -1,4 +1,6 @@
 <?php
+namespace epiphyt\Update;
+
 // exit if ABSPATH is not defined
 defined( 'ABSPATH' ) || exit;
 

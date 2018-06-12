@@ -1,4 +1,6 @@
 <?php
+namespace epiphyt\Impressum;
+
 // exit if ABSPATH is not defined
 defined( 'ABSPATH' ) || exit;
 

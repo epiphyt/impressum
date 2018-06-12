@@ -1,4 +1,6 @@
 <?php
+namespace epiphyt\Impressum;
+
 /*
 Plugin Name:	Impressum
 Plugin URI:		https://impressum.plus

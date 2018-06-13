@@ -259,7 +259,7 @@ class Epiphyt_Update {
 	 */
 	protected function prepare_response( $response ) {
 		$plugin = json_decode( $response, true );
-		$pluginObj = new stdClass();
+		$pluginObj = new \stdClass();
 		$pluginObj->new_version = $plugin['version'];
 		$pluginObj->package = isset( $plugin['download_url'] ) ? $plugin['download_url'] : '';
 		$pluginObj->plugin = $this->plugin_base;

@@ -6,12 +6,14 @@
  * @license		GPL2 <https://www.gnu.org/licenses/gpl-3.0.html>
  */
 document.addEventListener( 'DOMContentLoaded', function() {
+	var country_select = document.getElementById( 'country' );
 	var legal_entity_select = document.getElementById( 'legal_entity' );
 	var press_law_checkbox = document.getElementById( 'press_law_checkbox' );
 	var press_law_input_row = document.querySelector( '.impressum_press_law' );
 	var vat_id = document.getElementById( 'vat_id' );
 	
 	// function calls
+	check_country();
 	check_legal_entity();
 	check_press_law();
 	
@@ -37,6 +39,25 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			else {
 				toggle_message( true, vat_id, '' );
 			}
+		} );
+	}
+	
+	/**
+	 * Check given value of the country and show or hide elements.
+	 */
+	function check_country() {
+		// check on page load
+		var message = imprintL10n.country_error_message;
+		var hide_message = country_select.value.length !== 0;
+		
+		toggle_message( hide_message, country_select, message );
+		
+		// check on select change
+		country_select.addEventListener( 'change', function( event ) {
+			var current_target = event.currentTarget;
+			hide_message = current_target.value.length !== 0;
+			
+			toggle_message( hide_message, country_select, message );
 		} );
 	}
 	

@@ -749,6 +749,7 @@ class Impressum_Frontend extends Impressum {
 		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
+			'country_error_message' => esc_html__( 'You need to select a country.', 'impressum' ),
 			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
 		] );
 	}

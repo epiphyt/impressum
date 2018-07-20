@@ -87,6 +87,19 @@ class Impressum_Backend extends Impressum {
 		 * Register option fields
 		 */
 		
+		// country
+		add_settings_field(
+			'country',
+			__( 'Country', 'impressum' ),
+			[ __CLASS__, 'country_callback' ],
+			'impressum_imprint',
+			'impressum_section_imprint',
+			[
+				'label_for' => 'country',
+				'class' => 'impressum_row',
+			]
+		);
+		
 		// legal entity
 		add_settings_field(
 			'legal_entity',
@@ -567,6 +580,28 @@ class Impressum_Backend extends Impressum {
 				'class' => 'impressum_row',
 			]
 		);
+	}
+	
+	/**
+	 * Country field callback.
+	 * @param array $args
+	 */
+	public static function country_callback( array $args ) {
+		// get the value of the setting we've registered with register_setting()
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		?>
+<select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+	<option value=""><?php _e( 'Please select &hellip;', 'impressum' ); ?></option>
+		<?php
+		foreach ( self::$countries as $country_code => $country ) {
+			$is_selected = ( isset( $options['country'] ) ? selected( $options['country'], $country_code, false ) : '' );
+			
+			echo '<option value="' . $country_code . '"' . ( $is_selected ?: '' ) . '>' . esc_html( $country ) . '</option>';
+		}
+		?>
+</select>
+<p><?php _e( 'In order to determine the needed fields for your imprint we need to know your country.', 'impressum' ); ?></p>
+		<?php
 	}
 	
 	/**

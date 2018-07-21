@@ -17,7 +17,7 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * @var		array[] Map displaying a field by its entity.
 	 */
-	public $field_mapping = [
+	public static $field_mapping = [
 		'address' => [
 			'ag',
 			'ev',
@@ -373,14 +373,14 @@ class Impressum_Frontend extends Impressum {
 		add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		
 		// shortcodes
-		add_shortcode( 'impressum', [ $this, 'imprint_shortcode' ] );
+		add_shortcode( 'impressum', [ __CLASS__, 'imprint_shortcode' ] );
 	}
 	
 	/**
 	 * Imprint Shortcode.
 	 */
-	public function imprint_shortcode() {
-		$output = $this->get_imprint_output();
+	public static function imprint_shortcode() {
+		$output = self::get_imprint_output();
 		
 		return $output;
 	}
@@ -391,7 +391,7 @@ class Impressum_Frontend extends Impressum {
 	 * @param	array		$atts All attributes to configure the output.
 	 * @return	string
 	 */
-	public function get_imprint_output( array $atts = [] ) {
+	public static function get_imprint_output( array $atts = [] ) {
 		// check if there is a custom output
 		$custom_output = isset( $atts['sections'] ) ?: false;
 		// create an empty output array if there isn’t any
@@ -453,7 +453,7 @@ class Impressum_Frontend extends Impressum {
 			if ( ! $do_output ) continue;
 			
 			// check if the given field should be displayed for this legal entity
-			if ( ! in_array( $entity, $this->field_mapping[ $field ] ) ) continue;
+			if ( ! in_array( $entity, self::$field_mapping[ $field ] ) ) continue;
 			
 			// the field title
 			$title = '';

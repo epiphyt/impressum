@@ -17,7 +17,7 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * @var		array[] Map displaying a field by its entity.
 	 */
-	public $field_mapping = [
+	public static $field_mapping = [
 		'address' => [
 			'ag',
 			'ev',
@@ -373,16 +373,16 @@ class Impressum_Frontend extends Impressum {
 		add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		
 		// shortcodes
-		add_shortcode( 'impressum', [ $this, 'imprint_shortcode' ] );
-		add_shortcode( 'privacy', [ $this, 'privacy_shortcode' ] );
+		add_shortcode( 'impressum', [ __CLASS__, 'imprint_shortcode' ] );
+		add_shortcode( 'privacy', [ __CLASS__, 'privacy_shortcode' ] );
 	}
 	
 	/**
 	 * Imprint Shortcode.
 	 * 
-	 * @param array $atts Shortcode attributes
+	 * @param	array		$atts Shortcode attributes
 	 */
-	public function imprint_shortcode( $atts ) {
+	public static function imprint_shortcode( $atts ) {
 		// check for array
 		if ( ! is_array( $atts ) ) $atts = [];
 		
@@ -396,7 +396,7 @@ class Impressum_Frontend extends Impressum {
 			$atts['output'][ $key ] = true;
 		}
 		
-		$output = $this->get_imprint_output( $atts );
+		$output = self::get_imprint_output( $atts );
 		
 		return $output;
 	}
@@ -404,9 +404,9 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * Privacy Shortcode.
 	 * 
-	 * @param array $atts Shortcode attributes
+	 * @param	array		$atts Shortcode attributes
 	 */
-	public function privacy_shortcode( $atts ) {
+	public static function privacy_shortcode( $atts ) {
 		// check for array
 		if ( ! is_array( $atts ) ) $atts = [];
 		
@@ -420,7 +420,7 @@ class Impressum_Frontend extends Impressum {
 			$atts['output'][ $key ] = true;
 		}
 		
-		$output = $this->get_privacy_output( $atts );
+		$output = self::get_privacy_output( $atts );
 		
 		return $output;
 	}
@@ -431,7 +431,7 @@ class Impressum_Frontend extends Impressum {
 	 * @param	array		$atts All attributes to configure the output.
 	 * @return	string
 	 */
-	public function get_imprint_output( array $atts = [] ) {
+	public static function get_imprint_output( array $atts = [] ) {
 		// check if there is a custom output
 		$custom_output = isset( $atts['sections'] ) ?: false;
 		// create an empty output array if there isn’t any
@@ -493,7 +493,7 @@ class Impressum_Frontend extends Impressum {
 			if ( ! $do_output ) continue;
 			
 			// check if the given field should be displayed for this legal entity
-			if ( ! in_array( $entity, $this->field_mapping[ $field ] ) ) continue;
+			if ( ! in_array( $entity, self::$field_mapping[ $field ] ) ) continue;
 			
 			// the field title
 			$title = '';

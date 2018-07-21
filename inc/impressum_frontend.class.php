@@ -442,6 +442,7 @@ class Impressum_Frontend extends Impressum {
 		if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = ! $custom_output;
 		if ( ! isset( $atts['output']['address_alternative'] ) ) $atts['output']['address_alternative'] = ! $custom_output;
 		if ( ! isset( $atts['output']['coverage'] ) ) $atts['output']['coverage'] = ! $custom_output;
+		if ( ! isset( $atts['output']['country'] ) ) $atts['output']['country'] = false;
 		if ( ! isset( $atts['output']['email'] ) ) $atts['output']['email'] = ! $custom_output;
 		if ( ! isset( $atts['output']['fax'] ) ) $atts['output']['fax'] = ! $custom_output;
 		if ( ! isset( $atts['output']['free_text'] ) ) $atts['output']['free_text'] = ! $custom_output;

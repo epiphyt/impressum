@@ -609,7 +609,7 @@ class Impressum_Frontend extends Impressum {
 	 * @return bool
 	 */
 	public static function is_valid() {
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		
 		// return false if there is no imprint option yet
 		if ( ! $options || ! isset( $options['legal_entity'] ) || empty( $options['legal_entity'] ) ) {

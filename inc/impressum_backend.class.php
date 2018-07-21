@@ -371,13 +371,13 @@ class Impressum_Backend extends Impressum {
 		settings_errors( 'impressum_messages' );
 		
 		// get current tab
-		$current_tab = isset( $_GET[ 'imprint_tab' ] ) ? $_GET[ 'imprint_tab' ] : 'imprint';
+		$current_tab = isset( $_GET['imprint_tab'] ) ? wp_unslash( $_GET['imprint_tab'] ) : 'imprint';
 ?>
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
-		<a href="?page=impressum&imprint_tab=get_plus" class="nav-tab <?php echo $current_tab == 'get_plus' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Get Plus', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab === 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=get_plus" class="nav-tab <?php echo $current_tab === 'get_plus' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Get Plus', 'impressum' ); ?></a>
 	</h2>
 	
 	<div class="impressum-content-wrapper">

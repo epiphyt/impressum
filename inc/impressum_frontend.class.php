@@ -34,7 +34,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'address_alternative' => [
 			'ag',
@@ -52,7 +52,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'coverage' => [
 			'ag',
@@ -68,7 +68,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'email' => [
 			'ag',
@@ -86,7 +86,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'fax' => [
 			'ag',
@@ -104,7 +104,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'legal_entity' => [
 			'ag',
@@ -122,7 +122,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'name' => [
 			'ag',
@@ -140,7 +140,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'phone' => [
 			'ag',
@@ -158,7 +158,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'press_law_person' => [
 			'ag',
@@ -176,7 +176,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'vat_id' => [
 			'ag',
@@ -194,7 +194,7 @@ class Impressum_Frontend extends Impressum {
 			'individual',
 			'self',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'free_text' => [
 			'ag',
@@ -210,7 +210,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'inspecting_authority' => [
 			'ag',
@@ -226,7 +226,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'register' => [
 			'ag',
@@ -242,7 +242,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'business_id' => [
 			'ag',
@@ -258,7 +258,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'representative' => [
 			'ag',
@@ -274,7 +274,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'capital_stock' => [
 			'ag',
@@ -290,7 +290,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'pending_deposits' => [
 			'ag',
@@ -306,7 +306,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'professional_association' => [
 			'ag',
@@ -322,7 +322,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'legal_job_title' => [
 			'ag',
@@ -338,7 +338,7 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
+			'ug_co_kg',
 		],
 		'professional_regulations' => [
 			'ag',
@@ -354,8 +354,8 @@ class Impressum_Frontend extends Impressum {
 			'kgag',
 			'ohg',
 			'ug',
-			'ug_co_kg'
-		]
+			'ug_co_kg',
+		],
 	];
 	
 	/**
@@ -448,12 +448,12 @@ class Impressum_Frontend extends Impressum {
 		
 		foreach ( $options as $field => $value ) {
 			// check if we output this value
-			$do_output = boolval( $atts['output'][$field] ) && $value;
+			$do_output = boolval( $atts['output'][ $field ] ) && $value;
 			
 			if ( ! $do_output ) continue;
 			
 			// check if the given field should be displayed for this legal entity
-			if ( ! in_array( $entity, $this->field_mapping[$field] ) ) continue;
+			if ( ! in_array( $entity, $this->field_mapping[ $field ] ) ) continue;
 			
 			// the field title
 			$title = '';
@@ -530,14 +530,14 @@ class Impressum_Frontend extends Impressum {
 				// definition term and description
 				$output .= '
 	<dt>' . $title . '</dt>
-	' . ( $field == 'email'
+	' . ( $field === 'email'
 		? '<dd><a href="mailto:' . $options[ $field ] . '">' . $options[ $field ] . '</a>'
 		: '<dd>' . nl2br( esc_html( $options[ $field ] ) ) . '</dd>'
 	);
 			}
 			else {
 				// comma separated list
-				$output .= esc_html( $options[$field] ) . ', ';
+				$output .= esc_html( $options[ $field ] ) . ', ';
 			}
 		}
 		
@@ -568,7 +568,7 @@ class Impressum_Frontend extends Impressum {
 		wp_enqueue_script( 'impressum-dismissable-notice', plugins_url( '/assets/js/ajax-dismissable-notice' . $suffix . '.js', $this->plugin_file ), [], $version );
 		
 		// check for settings page
-		if ( 'settings_page_impressum' != $hook ) return;
+		if ( 'settings_page_impressum' !== $hook ) return;
 		
 		// enqueue scripts
 		wp_enqueue_script( 'impressum-admin-options', plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], $version );
@@ -591,7 +591,7 @@ class Impressum_Frontend extends Impressum {
 		global $pagenow;
 		
 		// hide invalid notice on impressum options|settings page
-		if ( ( $pagenow == 'options-general.php' || $pagenow == 'settings.php' ) && isset( $_GET['page'] ) && $_GET['page'] == 'impressum' ) return;
+		if ( ( $pagenow === 'options-general.php' || $pagenow === 'settings.php' ) && isset( $_GET['page'] ) && $_GET['page'] === 'impressum' ) return;
 		
 		if ( ! get_option( 'dismissed-impressum_validation_notice' ) && ! self::is_valid() ) :
 		?>
@@ -637,7 +637,7 @@ class Impressum_Frontend extends Impressum {
 	 * AJAX handler to store the state of dismissible notices.
 	 */
 	public static function ajax_notice_handler() {
-		$type = esc_attr( $_POST['type'] );
+		$type = esc_attr( wp_unslash( $_POST['type'] ) );
 		update_option( 'dismissed-' . $type, true );
 	}
 	

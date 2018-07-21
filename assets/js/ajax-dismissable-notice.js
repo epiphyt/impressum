@@ -5,9 +5,10 @@
  * @author		Matthias Kittsteiner, Simon Kraft
  * @license		GPL2 <https://www.gnu.org/licenses/gpl-3.0.html>
  */
-jQuery(function($) {
-	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function () {
+jQuery( function( $ ) {
+	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function() {
 		var type = $( this ).closest( '.impressum-validation-notice' ).data( 'notice' );
+		
 		$.ajax( ajaxurl, {
 			type: 'POST',
 			data: {
@@ -16,4 +17,4 @@ jQuery(function($) {
 			}
 		} );
 	} );
-});
+} );

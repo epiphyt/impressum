@@ -52,7 +52,7 @@ class Epiphyt_Update {
 	 * 
 	 * @var string The text domain
 	 */
-	public $text_domain = '';
+	public static $text_domain = '';
 	
 	/**
 	 * The slug of the plugin you want to check updates for.
@@ -82,7 +82,7 @@ class Epiphyt_Update {
 		$this->plugin_base = $plugin_base;
 		$this->plugin_data = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
 		$this->product_id = $product_id;
-		$this->text_domain = $text_domain;
+		self::$text_domain = $text_domain;
 		
 		// hooks
 		add_filter( 'plugins_api', [ $this, 'get_info' ], 10, 3 );
@@ -95,7 +95,7 @@ class Epiphyt_Update {
 		 * For whatever reason, it seems to be working better here in an
 		 * anonymous function rather than in a method.
 		 */
-		add_filter( 'site_transient_update_plugins', function ( $transient ) {
+		add_filter( 'site_transient_update_plugins', function( $transient ) {
 			if ( empty ( $transient->response ) ) return $transient;
 			
 			if ( array_key_exists( $this->plugin_base, $transient->response ) && strpos( $transient->response[ $this->plugin_base ]->package, $this->update_url ) === false ) {
@@ -168,7 +168,7 @@ class Epiphyt_Update {
 		$info->author = $plugin_data['author'];
 		$info->homepage = $plugin_data['homepage'];
 		$info->sections = [
-			'changelog' => sprintf( __( 'Please visit our website to receive notifications about the latest updates:<br><a href="%1$s">%1$s</a>', $this->text_domain ), 'https://epiph.yt' ),
+			'changelog' => sprintf( __( 'Please visit our website to receive notifications about the latest updates:<br><a href="%1$s">%1$s</a>', self::$text_domain ), 'https://epiph.yt' ),
 		];
 		$info->slug = $plugin_data['slug'];
 		$info->version = $plugin_data['version'];
@@ -218,8 +218,8 @@ class Epiphyt_Update {
 		// get home URL
 		$args = array_merge( $args, [ 'platform' => $this->home_url ] );
 		// get license key if available, otherwise return false
-		if ( self::get_real_option( $this->text_domain . '_license_options' ) ) {
-			$args = array_merge( $args, self::get_real_option( $this->text_domain . '_license_options' ) );
+		if ( self::get_real_option( self::$text_domain . '_license_options' ) ) {
+			$args = array_merge( $args, self::get_real_option( self::$text_domain . '_license_options' ) );
 		}
 		else {
 			return false;
@@ -259,14 +259,14 @@ class Epiphyt_Update {
 	 */
 	protected function prepare_response( $response ) {
 		$plugin = json_decode( $response, true );
-		$pluginObj = new \stdClass();
-		$pluginObj->new_version = $plugin['version'];
-		$pluginObj->package = isset( $plugin['download_url'] ) ? $plugin['download_url'] : '';
-		$pluginObj->plugin = $this->plugin_base;
-		$pluginObj->slug = $this->plugin_base;
-		$pluginObj->url = $plugin['homepage'];
+		$plugin_obj = new \stdClass();
+		$plugin_obj->new_version = $plugin['version'];
+		$plugin_obj->package = isset( $plugin['download_url'] ) ? $plugin['download_url'] : '';
+		$plugin_obj->plugin = $this->plugin_base;
+		$plugin_obj->slug = $this->plugin_base;
+		$plugin_obj->url = $plugin['homepage'];
 		$array = [];
-		$array[ $this->plugin_base ] = $pluginObj;
+		$array[ $this->plugin_base ] = $plugin_obj;
 		
 		return $array;
 	}

@@ -1041,7 +1041,7 @@ class Impressum_Backend extends Impressum {
 		settings_errors( 'impressum_messages' );
 		
 		// get current tab
-		$current_tab = isset( $_GET[ 'imprint_tab' ] ) ? $_GET[ 'imprint_tab' ] : 'imprint';
+		$current_tab = isset( $_GET['imprint_tab'] ) ? wp_unslash( $_GET['imprint_tab'] ) : 'imprint';
 		
 		// set form action
 		$form_action = 'options.php';
@@ -1062,9 +1062,9 @@ class Impressum_Backend extends Impressum {
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab == 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
-		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
-		<a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab == 'license' ? 'nav-tab-active' : ''; ?>"><?php _e( 'License', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab === 'imprint' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Imprint', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=privacy" class="nav-tab <?php echo $current_tab === 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy', 'impressum' ); ?></a>
+		<a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab === 'license' ? 'nav-tab-active' : ''; ?>"><?php _e( 'License', 'impressum' ); ?></a>
 	</h2>
 	
 	<div class="impressum-content-wrapper">
@@ -1133,7 +1133,7 @@ class Impressum_Backend extends Impressum {
 		// redirect to network options page
 		wp_redirect( add_query_arg( [
 			'page' => 'impressum&imprint_tab=' . $tab,
-			'updated' => 'true'
+			'updated' => 'true',
 		], network_admin_url( 'settings.php' ) ) );
 		exit;
 	}

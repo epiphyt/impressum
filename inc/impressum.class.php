@@ -13,14 +13,19 @@ defined( 'ABSPATH' ) || exit;
  */
 class Impressum {
 	/**
-	 * @var		string The full path to the main plugin file
-	 */
-	public $plugin_file = '';
-	
-	/**
 	 * @var		array Countries with their country codes in 3-digit ISO form
 	 */
 	protected static $countries = [];
+	
+	/**
+	 * @var		array All legal entities we support
+	 */
+	protected static $legal_entities = [];
+	
+	/**
+	 * @var		string The full path to the main plugin file
+	 */
+	public $plugin_file = '';
 	
 	/**
 	 * Impressum constructor.
@@ -98,8 +103,28 @@ class Impressum {
 			'other' => __( 'other', 'impressum' ),
 		];
 		
+		self::$legal_entities = [
+			'ag' => __( 'AG', 'impressum' ),
+			'ev' => __( 'e.V.', 'impressum' ),
+			'ek' => __( 'e.K.', 'impressum' ),
+			'einzelkaufmann' => __( 'Einzelkaufmann', 'impressum' ),
+			'freelancer' => __( 'Freelancer', 'impressum' ),
+			'ggmbh' => __( 'gGmbH', 'impressum' ),
+			'gmbh' => __( 'GmbH', 'impressum' ),
+			'gbr' => __( 'GbR', 'impressum' ),
+			'gmbh_co_kg' => __( 'GmbH & Co. KG', 'impressum' ),
+			'kg' => __( 'KG', 'impressum' ),
+			'kgag' => __( 'KGaA', 'impressum' ),
+			'ohg' => __( 'OHG', 'impressum' ),
+			'individual' => __( 'Individual', 'impressum' ),
+			'self' => __( 'Self-employed', 'impressum' ),
+			'ug' => __( 'UG (haftungsbeschränkt)', 'impressum' ),
+			'ug_co_kg' => __( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ),
+		];
+		
 		// make sure the array is always sorted depending on localization
 		asort( self::$countries );
+		natcasesort( self::$legal_entities );
 	}
 	
 	/**

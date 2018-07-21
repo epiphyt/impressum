@@ -222,43 +222,16 @@ class Impressum_Backend extends Impressum {
 		// get the value of the setting we've registered with register_setting()
 		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		
-		// check for selected option
-		$select_ag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' );
-		$select_ev = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ev', false ) ) : ( '' );
-		$select_ek = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ek', false ) ) : ( '' );
-		$select_einzelkaufmann = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'einzelkaufmann', false ) ) : ( '' );
-		$select_freelancer = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'freelancer', false ) ) : ( '' );
-		$select_ggmbH = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ggmbH', false ) ) : ( '' );
-		$select_gmbh = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh', false ) ) : ( '' );
-		$select_gbr = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gbr', false ) ) : ( '' );
-		$select_gmbh_co_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'gmbh_co_kg', false ) ) : ( '' );
-		$select_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kg', false ) ) : ( '' );
-		$select_kgag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'kgag', false ) ) : ( '' );
-		$select_ohg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ohg', false ) ) : ( '' );
-		$select_individual = ! isset( $options['legal_entity'] ) ? ' selected' : ( isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'individual', false ) ) : ( '' ) );
-		$select_self = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'self', false ) ) : ( '' );
-		$select_ug = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug', false ) ) : ( '' );
-		$select_ug_co_kg = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ug_co_kg', false ) ) : ( '' );
-		
 		// output the field
 		?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
-	<option value="ag" <?php echo $select_ag; ?>><?php esc_html_e( 'AG', 'impressum' ); ?></option>
-	<option value="ev" <?php echo $select_ev; ?>><?php esc_html_e( 'e.V.', 'impressum' ); ?></option>
-	<option value="ek" <?php echo $select_ek; ?>><?php esc_html_e( 'e.K.', 'impressum' ); ?></option>
-	<option value="einzelkaufmann" <?php echo $select_einzelkaufmann; ?>><?php esc_html_e( 'Einzelkaufmann', 'impressum' ); ?></option>
-	<option value="freelancer" <?php echo $select_freelancer; ?>><?php esc_html_e( 'Freelancer', 'impressum' ); ?></option>
-	<option value="ggmbH" <?php echo $select_ggmbH; ?>><?php esc_html_e( 'gGmbH', 'impressum' ); ?></option>
-	<option value="gmbh" <?php echo $select_gmbh; ?>><?php esc_html_e( 'GmbH', 'impressum' ); ?></option>
-	<option value="gbr" <?php echo $select_gbr; ?>><?php esc_html_e( 'GbR', 'impressum' ); ?></option>
-	<option value="gmbh_co_kg" <?php echo $select_gmbh_co_kg; ?>><?php esc_html_e( 'GmbH & Co. KG', 'impressum' ); ?></option>
-	<option value="kg" <?php echo $select_kg; ?>><?php esc_html_e( 'KG', 'impressum' ); ?></option>
-	<option value="kgag" <?php echo $select_kgag; ?>><?php esc_html_e( 'KGaA', 'impressum' ); ?></option>
-	<option value="ohg" <?php echo $select_ohg; ?>><?php esc_html_e( 'OHG', 'impressum' ); ?></option>
-	<option value="individual" <?php echo $select_individual; ?>><?php esc_html_e( 'Individual', 'impressum' ); ?></option>
-	<option value="self" <?php echo $select_self; ?>><?php esc_html_e( 'Self-employed', 'impressum' ); ?></option>
-	<option value="ug" <?php echo $select_ug; ?>><?php esc_html_e( 'UG (haftungsbeschränkt)', 'impressum' ); ?></option>
-	<option value="ug_co_kg" <?php echo $select_ug_co_kg; ?>><?php esc_html_e( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ); ?></option>
+		<?php
+		foreach ( self::$legal_entities as $abbr => $entity ) {
+			$is_selected = ( isset( $options['legal_entity'] ) ? selected( $options['legal_entity'], $abbr, false ) : '' );
+			
+			echo '<option value="' . $abbr . '"' . ( $is_selected ?: '' ) . '>' . esc_html( $entity ) . '</option>';
+		}
+		?>
 </select>
 <p><?php _e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum' ); ?></p>
 		<?php

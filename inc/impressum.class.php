@@ -5,7 +5,7 @@ namespace epiphyt\Impressum;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Impressum.
+ * The main Impressum class.
  * 
  * @version		0.1
  * @author		Epiphyt
@@ -13,21 +13,19 @@ defined( 'ABSPATH' ) || exit;
  */
 class Impressum {
 	/**
-	 * The full path to the main plugin file.
-	 * @var string
+	 * @var		string The full path to the main plugin file
 	 */
 	public $plugin_file = '';
 	
 	/**
-	 * Countries with their country codes in 3-digit ISO form.
-	 * @var array
+	 * @var		array Countries with their country codes in 3-digit ISO form
 	 */
 	protected static $countries = [];
 	
 	/**
 	 * Impressum constructor.
 	 * 
-	 * @param string $plugin_file The path of the main plugin file
+	 * @param	string		$plugin_file The path of the main plugin file
 	 */
 	public function __construct( $plugin_file ) {
 		// return on Ajax or autosave
@@ -105,10 +103,11 @@ class Impressum {
 	}
 	
 	/**
-	 * Get an option fromt he database.
+	 * Get an option from the database.
+	 * The real function of the wrapper is in the Plus version only.
 	 * 
-	 * @param string $option The option you want to get
-	 * @return mixed|void
+	 * @param	string		$option The option you want to get
+	 * @return	mixed|void
 	 */
 	protected static function impressum_get_option( $option ) {
 		if ( ! is_string( $option ) ) return;

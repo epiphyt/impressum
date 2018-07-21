@@ -15,8 +15,7 @@ require_once( __DIR__ . '/impressum.class.php' );
  */
 class Impressum_Frontend extends Impressum {
 	/**
-	 * Map displaying a field by its entity.
-	 * @var		array[]
+	 * @var		array[] Map displaying a field by its entity.
 	 */
 	public $field_mapping = [
 		'address' => [
@@ -362,7 +361,7 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * Impressum Frontend constructor.
 	 * 
-	 * @param string $plugin_file The path of the main plugin file
+	 * @param	string		$plugin_file The path of the main plugin file
 	 */
 	public function __construct( $plugin_file ) {
 		parent::__construct( $plugin_file );
@@ -389,8 +388,8 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * Generate the output for the imprint shortcode.
 	 * 
-	 * @param array $atts All attributes to configure the output.
-	 * @return string
+	 * @param	array		$atts All attributes to configure the output.
+	 * @return	string
 	 */
 	public function get_imprint_output( array $atts = [] ) {
 		// check if there is a custom output
@@ -559,7 +558,7 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * Enqueue scripts.
 	 * 
-	 * @param string $hook The current admin page.
+	 * @param	string		$hook The current admin page.
 	 */
 	public function enqueue_assets( $hook ) {
 		// Check for SCRIPT_DEBUG
@@ -606,7 +605,7 @@ class Impressum_Frontend extends Impressum {
 	/**
 	 * Check if the current imprint is valid.
 	 * 
-	 * @return bool
+	 * @return	bool
 	 */
 	public static function is_valid() {
 		$options = self::impressum_get_option( 'impressum_imprint_options' );

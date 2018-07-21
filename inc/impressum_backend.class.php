@@ -17,7 +17,7 @@ class Impressum_Backend extends Impressum {
 	/**
 	 * Impressum Backend constructor.
 	 * 
-	 * @param string $plugin_file The path of the main plugin file
+	 * @param	string		$plugin_file The path of the main plugin file
 	 */
 	public function __construct( $plugin_file ) {
 		parent::__construct( $plugin_file );
@@ -192,7 +192,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Country field callback.
-	 * @param array $args
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function country_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -214,7 +215,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Legal Entity field callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function legal_entity_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -264,7 +266,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Email field callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function impressum_email_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -277,7 +280,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Text input field callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function impressum_input_text_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -290,7 +294,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Phone field callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function impressum_phone_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -303,7 +308,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Press Law Checkbox field callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function impressum_press_law_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
@@ -318,7 +324,8 @@ class Impressum_Backend extends Impressum {
 	
 	/**
 	 * Textarea callback.
-	 * @param $args array
+	 * 
+	 * @param	array		$args The arguments from the HTML field
 	 */
 	public static function impressum_textarea_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()

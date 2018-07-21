@@ -103,4 +103,18 @@ class Impressum {
 		// make sure the array is always sorted depending on localization
 		asort( self::$countries );
 	}
+	
+	/**
+	 * Get an option fromt he database.
+	 * 
+	 * @param string $option The option you want to get
+	 * @return mixed|void
+	 */
+	protected static function impressum_get_option( $option ) {
+		if ( ! is_string( $option ) ) return;
+		
+		$options = get_option( $option );
+		
+		return $options;
+	}
 }

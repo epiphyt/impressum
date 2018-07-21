@@ -196,7 +196,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function country_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
 	<option value=""><?php _e( 'Please select &hellip;', 'impressum' ); ?></option>
@@ -218,7 +218,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function legal_entity_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		
 		// check for selected option
 		$select_ag = isset( $options['legal_entity'] ) ? ( selected( $options['legal_entity'], 'ag', false ) ) : ( '' );
@@ -268,7 +268,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_email_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="email" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -281,7 +281,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_input_text_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -294,7 +294,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_phone_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <input type="tel" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . $options[ $args['label_for'] ] . '"' : '' ); ?>>
@@ -307,7 +307,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_press_law_checkbox_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
@@ -322,7 +322,7 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_textarea_callback( array $args ) {
 		// get the value of the setting we've registered with register_setting()
-		$options = get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		// output the field
 		?>
 <textarea cols="50" rows="10" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]"><?php echo ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : '' ); ?></textarea>

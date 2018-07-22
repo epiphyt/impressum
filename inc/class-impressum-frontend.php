@@ -4,7 +4,7 @@ namespace epiphyt\Impressum;
 // exit if ABSPATH is not defined
 defined( 'ABSPATH' ) || exit;
 
-require_once( __DIR__ . '/impressum.class.php' );
+require_once( __DIR__ . '/class-impressum.php' );
 
 /**
  * Impressum frontend functions.
@@ -453,7 +453,7 @@ class Impressum_Frontend extends Impressum {
 			if ( ! $do_output ) continue;
 			
 			// check if the given field should be displayed for this legal entity
-			if ( ! in_array( $entity, self::$field_mapping[ $field ] ) ) continue;
+			if ( ! in_array( $entity, self::$field_mapping[ $field ], true ) ) continue;
 			
 			// the field title
 			$title = '';
@@ -591,12 +591,17 @@ class Impressum_Frontend extends Impressum {
 		global $pagenow;
 		
 		// hide invalid notice on impressum options|settings page
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
 		if ( ( $pagenow === 'options-general.php' || $pagenow === 'settings.php' ) && isset( $_GET['page'] ) && $_GET['page'] === 'impressum' ) return;
+		// phpcs:enable
 		
 		if ( ! get_option( 'dismissed-impressum_validation_notice' ) && ! self::is_valid() ) :
 		?>
 <div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
-	<p><?php _e( 'Your imprint has not been configured successfully, yet. <a href="options-general.php?page=impressum&imprint_tab=imprint">Configure now!</a>', 'impressum' ); ?></p>
+	<p>
+		<?php esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
+		<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php esc_html_e( 'Configure now!', 'impressum' ); ?></a>
+	</p>
 </div>
 		<?php
 		endif;
@@ -637,7 +642,11 @@ class Impressum_Frontend extends Impressum {
 	 * AJAX handler to store the state of dismissible notices.
 	 */
 	public static function ajax_notice_handler() {
-		$type = esc_attr( wp_unslash( $_POST['type'] ) );
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+		if ( ! isset( $_POST['type'] ) ) return;
+		
+		$type = esc_attr( sanitize_text_field( wp_unslash( $_POST['type'] ) ) );
+		// phpcs:enable
 		update_option( 'dismissed-' . $type, true );
 	}
 	

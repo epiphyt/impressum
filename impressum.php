@@ -29,11 +29,11 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
 
 if ( ! class_exists( 'Impressum_Backend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/impressum_backend.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-backend.php';
 	new Impressum_Backend( __FILE__ );
 }
 
 if ( ! class_exists( 'Impressum_Frontend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/impressum_frontend.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-frontend.php';
 	new Impressum_Frontend( __FILE__ );
 }

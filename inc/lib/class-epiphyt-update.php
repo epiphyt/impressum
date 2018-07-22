@@ -168,7 +168,10 @@ class Epiphyt_Update {
 		$info->author = $plugin_data['author'];
 		$info->homepage = $plugin_data['homepage'];
 		$info->sections = [
+			// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralDomain
+			/* translators: the website url for news etc. */
 			'changelog' => sprintf( __( 'Please visit our website to receive notifications about the latest updates:<br><a href="%1$s">%1$s</a>', self::$text_domain ), 'https://epiph.yt' ),
+			// phpcs:enable
 		];
 		$info->slug = $plugin_data['slug'];
 		$info->version = $plugin_data['version'];

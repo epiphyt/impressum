@@ -88,7 +88,7 @@ class Epiphyt_License extends Epiphyt_Update {
 		$request = wp_remote_get( $this->woo_server, [ 'body' => $this->options ] );
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );
 		
-		if ( ! $response['success'] || ! isset( $response['activations'] ) || ! in_array( $this->options['platform'], array_column( $response['activations'], 'activation_platform' ) ) ) {
+		if ( ! $response['success'] || ! isset( $response['activations'] ) || ! in_array( $this->options['platform'], array_column( $response['activations'], 'activation_platform' ), true ) ) {
 			// activate new license if there isn’t anyone yet
 			$this->activate_or_deactivate( 'activation', $this->options );
 		}

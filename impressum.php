@@ -31,12 +31,12 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
 
 if ( ! class_exists( 'Impressum_Backend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/impressum_backend.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-backend.php';
 	new Impressum_Backend( __FILE__ );
 }
 
 if ( ! class_exists( 'Impressum_Frontend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/impressum_frontend.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-frontend.php';
 	new Impressum_Frontend( __FILE__ );
 }
 
@@ -44,7 +44,7 @@ if ( ! class_exists( 'Impressum_Frontend' ) ) {
 if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );
 
 if ( ! class_exists( 'Epiphyt_Update' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/lib/epiphyt_update.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-update.php';
 	
 	// get mutlisite or singlesite home URL
 	$home = is_multisite() ? network_site_url() : home_url();
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Epiphyt_Update' ) ) {
 }
 
 if ( ! class_exists( 'Epiphyt_License' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/lib/epiphyt_license.class.php';
+	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-license.php';
 	
 	new Epiphyt_License( 'impressum_license_options', 'Impressum Plus', $home );
 }

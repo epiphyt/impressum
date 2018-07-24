@@ -15,7 +15,6 @@ var fields_to_check = [
 	'phone',
 	'register',
 	'representative',
-	'vat_id',
 ];
 
 document.addEventListener( 'DOMContentLoaded', function() {
@@ -66,14 +65,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	function check_field_length( field, field_name ) {
 		var error_function = field_name + '_error_message';
 		var message = imprintL10n[error_function];
-		
-		// special cases
-		switch ( field_name ) {
-			case 'vat_id':
-				if ( [ 'individual', 'self' ].inArray( legal_entity_select.value ) ) {
-					return;
-				}
-		}
 		
 		// check on change or input
 		[ 'change', 'input' ].forEach( function( event ) {

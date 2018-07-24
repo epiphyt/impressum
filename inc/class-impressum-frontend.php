@@ -756,7 +756,6 @@ class Impressum_Frontend extends Impressum {
 			'phone_error_message' => esc_html__( 'You need to enter a phone number.', 'impressum' ),
 			'register_error_message' => esc_html__( 'You need to enter a register.', 'impressum' ),
 			'representative_error_message' => esc_html__( 'You need to enter a representative.', 'impressum' ),
-			'vat_id_error_message' => esc_html__( 'You need to enter a VAT ID.', 'impressum' ),
 			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
 		] );
 	}

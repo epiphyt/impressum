@@ -578,9 +578,15 @@ class Impressum_Frontend extends Impressum {
 		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
+			'address_error_message' => esc_html__( 'You need to enter an address.', 'impressum' ),
 			'country_error_message' => esc_html__( 'You need to select a country.', 'impressum' ),
 			'legal_entity_error_message' => esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),
-			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
+			'email_error_message' => esc_html__( 'You need to enter an email address.', 'impressum' ),
+			'name_error_message' => esc_html__( 'You need to enter a name.', 'impressum' ),
+			'phone_error_message' => esc_html__( 'You need to enter a phone number.', 'impressum' ),
+			'register_error_message' => esc_html__( 'You need to enter a register.', 'impressum' ),
+			'representative_error_message' => esc_html__( 'You need to enter a representative.', 'impressum' ),
+			'vat_id_error_message' => esc_html__( 'You need to enter a VAT ID.', 'impressum' ),
 		] );
 	}
 	

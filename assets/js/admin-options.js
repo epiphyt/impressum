@@ -2,18 +2,33 @@
  * JavaScript functions for the admin options page.
  * 
  * @version		0.1
- * @author		Matthias Kittsteiner, Simon Kraft
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-3.0.html>
+ * @author		Epiphyt
+ * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */
+
+// all fields that should be be checked by there value
+var fields_to_check = [
+	'address',
+	'country',
+	'email',
+	'name',
+	'phone',
+	'register',
+	'representative',
+	'vat_id',
+];
+
 document.addEventListener( 'DOMContentLoaded', function() {
-	var country_select = document.getElementById( 'country' );
 	var legal_entity_select = document.getElementById( 'legal_entity' );
 	var press_law_checkbox = document.getElementById( 'press_law_checkbox' );
 	var press_law_input_row = document.querySelector( '.impressum_press_law' );
 	var vat_id = document.getElementById( 'vat_id' );
 	
 	// function calls
-	check_country();
+	for ( var i = 0; i < fields_to_check.length; i++ ) {
+		check_field_length( document.getElementById( fields_to_check[ i ] ), fields_to_check[ i ] );
+	}
+	
 	check_legal_entity();
 	check_press_law();
 	
@@ -43,21 +58,33 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	}
 	
 	/**
-	 * Check given value of the country and show or hide elements.
+	 * Check given value of a field and show or hide a message.
+	 * 
+	 * @param	{Element}		field The field DOM element to check
+	 * @param	{String}		field_name The name of the field
 	 */
-	function check_country() {
-		// check on page load
-		var message = imprintL10n.country_error_message;
-		var hide_message = country_select.value.length !== 0;
+	function check_field_length( field, field_name ) {
+		var error_function = field_name + '_error_message';
+		var message = imprintL10n[error_function];
 		
-		toggle_message( hide_message, country_select, message );
+		// special cases
+		switch ( field_name ) {
+			case 'vat_id':
+				if ( [ 'individual', 'self' ].inArray( legal_entity_select.value ) ) {
+					return;
+				}
+		}
 		
-		// check on select change
-		country_select.addEventListener( 'change', function( event ) {
-			var current_target = event.currentTarget;
-			hide_message = current_target.value.length !== 0;
+		// check on change or input
+		[ 'change', 'input' ].forEach( function( event ) {
+			if ( ! field ) return;
 			
-			toggle_message( hide_message, country_select, message );
+			field.addEventListener( event, function( event ) {
+				var current_target = event.currentTarget;
+				var hide_message = current_target.value.length !== 0;
+				
+				toggle_message( hide_message, field, message );
+			} );
 		} );
 	}
 	
@@ -138,7 +165,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			message.innerText = text;
 			notice.style.maxWidth = '436px';
 			notice.classList.add( 'notice' );
-			notice.classList.add( 'error' );
+			notice.classList.add( 'notice-warning' );
 			notice.appendChild( message );
 			container.after( notice );
 		}
@@ -149,6 +176,24 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		}
 	}
 } );
+
+if ( ! Array.prototype.inArray ) {
+	/**
+	 * Check if an array contains a specified value.
+	 * 
+	 * @param	{String}	needle
+	 * @return	{boolean}
+	 */
+	Array.prototype.inArray = function( needle ) {
+		var length = this.length;
+		
+		for ( var i = 0; i < length; i++ ) {
+			if ( this[ i ] === needle ) return true;
+		}
+		
+		return false;
+	}
+}
 
 /**
  * Polyfill for Child.after()

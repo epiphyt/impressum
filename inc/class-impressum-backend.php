@@ -130,6 +130,11 @@ class Impressum_Backend extends Impressum {
 		?>
 <input type="text" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo ( isset( $options[ $args['label_for'] ] ) ? ' value="' . esc_attr( $options[ $args['label_for'] ] ) . '"' : '' ); ?>>
 		<?php
+		switch ( $args['label_for'] ) {
+			case 'vat_id':
+				echo '<p>' . esc_html__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ) . '</p>';
+				break;
+		}
 	}
 	
 	/**

@@ -45,149 +45,16 @@ class Impressum_Backend extends Impressum {
 		/**
 		 * Register option fields
 		 */
-		
-		// country
-		add_settings_field(
-			'country',
-			__( 'Country', 'impressum' ),
-			[ __CLASS__, 'country_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'country',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// legal entity
-		add_settings_field(
-			'legal_entity',
-			__( 'Legal Entity', 'impressum' ),
-			[ __CLASS__, 'legal_entity_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'legal_entity',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// name
-		add_settings_field(
-			'name',
-			__( 'Name', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'name',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// address
-		add_settings_field(
-			'address',
-			__( 'Address', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'address',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// address alternative
-		add_settings_field(
-			'address_alternative',
-			__( 'Alternative Address', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'address_alternative',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// email
-		add_settings_field(
-			'email',
-			__( 'Email Address', 'impressum' ),
-			[ __CLASS__, 'impressum_email_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'email',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// phone
-		add_settings_field(
-			'phone',
-			__( 'Telephone', 'impressum' ),
-			[ __CLASS__, 'impressum_phone_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'phone',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// fax
-		add_settings_field(
-			'fax',
-			__( 'Fax', 'impressum' ),
-			[ __CLASS__, 'impressum_phone_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'fax',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// press law checkbox
-		add_settings_field(
-			'press_law_checkbox',
-			__( 'Journalistic/Editorial Content', 'impressum' ),
-			[ __CLASS__, 'impressum_press_law_checkbox_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'press_law_checkbox',
-				'class' => 'impressum_row',
-			]
-		);
-		
-		// press law person
-		add_settings_field(
-			'press_law_person',
-			__( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' ),
-			[ __CLASS__, 'impressum_textarea_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'press_law_person',
-				'class' => 'impressum_row impressum_press_law',
-			]
-		);
-		
-		// vat id
-		add_settings_field(
-			'vat_id',
-			__( 'VAT ID', 'impressum' ),
-			[ __CLASS__, 'impressum_input_text_callback' ],
-			'impressum_imprint',
-			'impressum_section_imprint',
-			[
-				'label_for' => 'vat_id',
-				'class' => 'impressum_row vat_id',
-			]
-		);
+		foreach ( self::$settings_fields as $id => $settings_field ) {
+			add_settings_field(
+				$id,
+				$settings_field['title'],
+				[ __CLASS__, $settings_field['callback'] ],
+				$settings_field['page'],
+				$settings_field['section'],
+				$settings_field['args']
+			);
+		}
 	}
 	
 	/**

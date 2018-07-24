@@ -28,6 +28,11 @@ class Impressum {
 	public $plugin_file = '';
 	
 	/**
+	 * @var		array All settings fields for the backend.
+	 */
+	protected static $settings_fields = [];
+	
+	/**
 	 * Impressum constructor.
 	 * 
 	 * @param	string		$plugin_file The path of the main plugin file
@@ -42,6 +47,126 @@ class Impressum {
 		$this->plugin_file = $plugin_file;
 		
 		add_action( 'init', [ $this, 'load_textdomain' ] );
+		// need to run after text domain has been loaded
+		add_action( 'init', [ __CLASS__, 'load_settings' ] );
+	}
+	
+	/**
+	 * Load our settings in an array.
+	 */
+	public static function load_settings() {
+		self::$settings_fields = [
+			'country' => [
+				'title' => __( 'Country', 'impressum' ),
+				'callback' => 'country_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'country',
+					'class' => 'impressum_row',
+				],
+			],
+			'legal_entity' => [
+				'title' => __( 'Legal Entity', 'impressum' ),
+				'callback' => 'legal_entity_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'legal_entity',
+					'class' => 'impressum_row',
+				],
+			],
+			'name' => [
+				'title' => __( 'Name', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'name',
+					'class' => 'impressum_row',
+				],
+			],
+			'address' => [
+				'title' => __( 'Address', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'address',
+					'class' => 'impressum_row',
+				],
+			],
+			'address_alternative' => [
+				'title' => __( 'Alternative Address', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'address_alternative',
+					'class' => 'impressum_row',
+				],
+			],
+			'email' => [
+				'title' => __( 'Email Address', 'impressum' ),
+				'callback' => 'impressum_email_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'email',
+					'class' => 'impressum_row',
+				],
+			],
+			'phone' => [
+				'title' => __( 'Telephone', 'impressum' ),
+				'callback' => 'impressum_phone_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'phone',
+					'class' => 'impressum_row',
+				],
+			],
+			'fax' => [
+				'title' => __( 'Fax', 'impressum' ),
+				'callback' => 'impressum_phone_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'fax',
+					'class' => 'impressum_row',
+				],
+			],
+			'press_law_checkbox' => [
+				'title' => __( 'Journalistic/Editorial Content', 'impressum' ),
+				'callback' => 'impressum_press_law_checkbox_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'press_law_checkbox',
+					'class' => 'impressum_row',
+				],
+			],
+			'press_law_person' => [
+				'title' => __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'press_law_person',
+					'class' => 'impressum_row impressum_press_law',
+				],
+			],
+			'vat_id' => [
+				'title' => __( 'VAT ID', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'vat_id',
+					'class' => 'impressum_row vat_id',
+				],
+			],
+		];
 	}
 	
 	/**

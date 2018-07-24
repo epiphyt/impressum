@@ -430,7 +430,7 @@ class Impressum_Backend extends Impressum {
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php esc_html__( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
+	<?php esc_html_e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
 </label>
 		<?php
 	}

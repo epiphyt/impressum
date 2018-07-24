@@ -773,15 +773,66 @@ class Impressum_Frontend extends Impressum {
 		// phpcs:enable
 		
 		if ( ! get_option( 'dismissed-impressum_validation_notice' ) && ! self::is_valid() ) :
+		$invalid_fields = self::get_invalid_fields();
 		?>
 <div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
 	<p>
 		<?php esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
 		<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php esc_html_e( 'Configure now!', 'impressum' ); ?></a>
 	</p>
+	<?php if ( ! empty( $invalid_fields ) ) : ?>
+	<p>
+		<?php
+		esc_html_e( 'At least the following fields are invalid:', 'impressum' );
+		echo '<br>' . esc_html( implode( ', ', $invalid_fields ) );
+		?>
+	</p>
+	<?php endif; ?>
 </div>
 		<?php
 		endif;
+	}
+	
+	/**
+	 * Get all invalid fields.
+	 * 
+	 * @return	array
+	 */
+	public static function get_invalid_fields() {
+		$invalid_fields = [];
+		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		
+		// detect required fields according to the legal entity
+		switch ( $options['legal_entity'] ) {
+			case 'individual':
+			case 'self':
+				$required_fields = [
+					'address',
+					'email',
+					'name',
+					'phone',
+				];
+				break;
+			default:
+				$required_fields = [
+					'address',
+					'email',
+					'name',
+					'phone',
+					'register',
+					'representative',
+					'vat_id',
+				];
+				break;
+		}
+		
+		foreach ( $required_fields as $field ) {
+			if ( ! in_array( $field, $options, true ) || ! empty( $options[ $field ] ) ) {
+				$invalid_fields[ $field ] = self::$settings_fields[ $field ]['title'];
+			}
+		}
+		
+		return $invalid_fields;
 	}
 	
 	/**
@@ -799,12 +850,26 @@ class Impressum_Frontend extends Impressum {
 		
 		// check for legal entity
 		switch ( $options['legal_entity'] ) {
+			case 'individual':
+			case 'self':
+				if (
+					! isset( $options['address'] ) || empty( $options['address'] )
+					|| ! isset( $options['email'] ) || empty( $options['email'] )
+					|| ! isset( $options['name'] ) || empty( $options['name'] )
+					|| ! isset( $options['phone'] ) || empty( $options['phone'] )
+				) {
+					return false;
+				}
+				break;
 			default:
 				if (
-					! isset( $options['address'] ) || empty( $options['address'] ) ||
-					! isset( $options['email'] ) || empty( $options['email'] ) ||
-					! isset( $options['name'] ) || empty( $options['name'] ) ||
-					! isset( $options['phone'] ) || empty( $options['phone'] )
+					! isset( $options['address'] ) || empty( $options['address'] )
+					|| ! isset( $options['email'] ) || empty( $options['email'] )
+					|| ! isset( $options['name'] ) || empty( $options['name'] )
+					|| ! isset( $options['phone'] ) || empty( $options['phone'] )
+					|| ! isset( $options['register'] ) || empty( $options['register'] )
+					|| ! isset( $options['representative'] ) || empty( $options['representative'] )
+					|| ! isset( $options['vat_id'] ) || empty( $options['vat_id'] )
 				) {
 					return false;
 				}

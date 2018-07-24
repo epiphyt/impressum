@@ -28,6 +28,11 @@ class Impressum {
 	public $plugin_file = '';
 	
 	/**
+	 * @var		array All settings fields for the backend.
+	 */
+	protected static $settings_fields = [];
+	
+	/**
 	 * Impressum constructor.
 	 * 
 	 * @param	string		$plugin_file The path of the main plugin file
@@ -42,6 +47,256 @@ class Impressum {
 		$this->plugin_file = $plugin_file;
 		
 		add_action( 'init', [ $this, 'load_textdomain' ] );
+		// need to run after text domain has been loaded
+		add_action( 'init', [ __CLASS__, 'load_settings' ] );
+	}
+	
+	/**
+	 * Load our settings in an array.
+	 */
+	public static function load_settings() {
+		self::$settings_fields = [
+			'country' => [
+				'title' => __( 'Country', 'impressum' ),
+				'callback' => 'country_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'country',
+					'class' => 'impressum_row',
+				],
+			],
+			'legal_entity' => [
+				'title' => __( 'Legal Entity', 'impressum' ),
+				'callback' => 'legal_entity_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'legal_entity',
+					'class' => 'impressum_row',
+				],
+			],
+			'name' => [
+				'title' => __( 'Name', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'name',
+					'class' => 'impressum_row',
+				],
+			],
+			'address' => [
+				'title' => __( 'Address', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'address',
+					'class' => 'impressum_row',
+				],
+			],
+			'address_alternative' => [
+				'title' => __( 'Alternative Address', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'address_alternative',
+					'class' => 'impressum_row',
+				],
+			],
+			'email' => [
+				'title' => __( 'Email Address', 'impressum' ),
+				'callback' => 'impressum_email_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'email',
+					'class' => 'impressum_row',
+				],
+			],
+			'phone' => [
+				'title' => __( 'Telephone', 'impressum' ),
+				'callback' => 'impressum_phone_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'phone',
+					'class' => 'impressum_row',
+				],
+			],
+			'fax' => [
+				'title' => __( 'Fax', 'impressum' ),
+				'callback' => 'impressum_phone_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'fax',
+					'class' => 'impressum_row',
+				],
+			],
+			'press_law_checkbox' => [
+				'title' => __( 'Journalistic/Editorial Content', 'impressum' ),
+				'callback' => 'impressum_press_law_checkbox_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'press_law_checkbox',
+					'class' => 'impressum_row',
+				],
+			],
+			'press_law_person' => [
+				'title' => __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'press_law_person',
+					'class' => 'impressum_row impressum_press_law',
+				],
+			],
+			'vat_id' => [
+				'title' => __( 'VAT ID', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'vat_id',
+					'class' => 'impressum_row vat_id',
+				],
+			],
+			'coverage' => [
+				'title' => __( 'Coverage', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'coverage',
+					'class' => 'impressum_row coverage',
+				],
+			],
+			'free_text' => [
+				'title' => __( 'Free Text', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'free_text',
+					'class' => 'impressum_row free_text',
+				],
+			],
+			'inspecting_authority' => [
+				'title' => __( 'Inspecting Authority', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'inspecting_authority',
+					'class' => 'impressum_row impressum_inspecting_authority',
+				],
+			],
+			'register' => [
+				'title' => __( 'Register', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'register',
+					'class' => 'impressum_row impressum_register',
+				],
+			],
+			'business_id' => [
+				'title' => __( 'Business ID', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'business_id',
+					'class' => 'impressum_row impressum_business_id',
+				],
+			],
+			'representative' => [
+				'title' => __( 'Representative', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'representative',
+					'class' => 'impressum_row impressum_representative',
+				],
+			],
+			'capital_stock' => [
+				'title' => __( 'Capital Stock', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'capital_stock',
+					'class' => 'impressum_row impressum_capital_stock',
+				],
+			],
+			'pending_deposits' => [
+				'title' => __( 'Pending Deposits', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'pending_deposits',
+					'class' => 'impressum_row impressum_pending_deposits',
+				],
+			],
+			'professional_association' => [
+				'title' => __( 'Professional Association', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'professional_association',
+					'class' => 'impressum_row impressum_professional_association',
+				],
+			],
+			'legal_job_title' => [
+				'title' => __( 'Legal Job Title', 'impressum' ),
+				'callback' => 'impressum_input_text_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'legal_job_title',
+					'class' => 'impressum_row impressum_legal_job_title',
+				],
+			],
+			'professional_regulations' => [
+				'title' => __( 'Professional Regulations', 'impressum' ),
+				'callback' => 'impressum_textarea_callback',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'args' => [
+					'label_for' => 'professional_regulations',
+					'class' => 'impressum_row impressum_professional_regulations',
+				],
+			],
+			'license_email' => [
+				'title' => __( 'Email Address', 'impressum' ),
+				'callback' => 'impressum_license_input_email_callback',
+				'page' => 'impressum_license',
+				'section' => 'impressum_section_license',
+				'args' => [
+					'label_for' => 'license_email',
+					'class' => 'impressum_row impressum_license_email',
+				],
+			],
+			'license_key' => [
+				'title' => __( 'License Key', 'impressum' ),
+				'callback' => 'impressum_license_input_license_callback',
+				'page' => 'impressum_license',
+				'section' => 'impressum_section_license',
+				'args' => [
+					'label_for' => 'license_key',
+					'class' => 'impressum_row impressum_license_key',
+				],
+			],
+		];
 	}
 	
 	/**

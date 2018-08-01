@@ -826,7 +826,7 @@ class Impressum_Frontend extends Impressum {
 		}
 		
 		foreach ( $required_fields as $field ) {
-			if ( ! array_key_exists( $field, $options ) || empty( $options[ $field ] ) ) {
+			if ( ! is_array( $options ) || ! array_key_exists( $field, $options ) || empty( $options[ $field ] ) ) {
 				if ( ! isset( self::$settings_fields[ $field ] ) ) continue;
 				$invalid_fields[ $field ] = self::$settings_fields[ $field ]['title'];
 			}

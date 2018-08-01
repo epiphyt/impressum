@@ -30,6 +30,9 @@ You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
 
+// get mutlisite or singlesite home URL
+$home = is_multisite() ? network_site_url() : home_url();
+
 if ( ! class_exists( 'Impressum_Backend' ) ) {
 	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-backend.php';
 	new Impressum_Backend( __FILE__ );
@@ -45,9 +48,6 @@ if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( 
 
 if ( ! class_exists( 'Epiphyt_Update' ) ) {
 	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-update.php';
-	
-	// get mutlisite or singlesite home URL
-	$home = is_multisite() ? network_site_url() : home_url();
 	
 	new Epiphyt_Update( IMPRESSUM_BASE, 'impressum', 'Impressum Plus', $home );
 	Epiphyt_Update::$update_slug = 'impressum';

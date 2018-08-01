@@ -82,8 +82,10 @@ class Epiphyt_License extends Epiphyt_Update {
 		$this->options = array_merge( $this->options, $value );
 		
 		// rename email key
-		$this->options['email'] = $this->options['license_email'];
-		unset($this->options['license_email']);
+		if ( isset( $this->options['license_email'] ) ) {
+			$this->options['email'] = $this->options['license_email'];
+			unset( $this->options['license_email'] );
+		}
 		
 		$request = wp_remote_get( $this->woo_server, [ 'body' => $this->options ] );
 		$response = json_decode( wp_remote_retrieve_body( $request ), true );

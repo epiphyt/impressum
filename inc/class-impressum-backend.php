@@ -812,7 +812,7 @@ class Impressum_Backend extends Impressum {
 				$option_sanitized = [];
 				
 				// sanitize
-				foreach ( $_POST[ $option ] as $key => $value ) {
+				foreach ( sanitize_key( wp_unslash( $_POST[ $option ] ) ) as $key => $value ) {
 					$option_sanitized[ $key ] = sanitize_text_field( wp_unslash( $value ) );
 				}
 				

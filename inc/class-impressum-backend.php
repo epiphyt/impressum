@@ -789,8 +789,8 @@ class Impressum_Backend extends Impressum {
 	 */
 	public static function impressum_network_options_update() {
 		if (
-			! isset( $_POST['option_page'], $_POST['option_page_nonce'] )
-			|| ! wp_verify_nonce( sanitize_key( $_POST['option_page_nonce'] ) )
+			! isset( $_POST['option_page'], $_POST['_wpnonce'] )
+			|| ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), sanitize_key( $_POST['option_page'] ) . '-options' )
 		) return;
 		
 		// get most recent active tab
@@ -809,7 +809,14 @@ class Impressum_Backend extends Impressum {
 		
 		foreach ( $options as $option ) {
 			if ( isset( $_POST[ $option ] ) ) {
-				update_site_option( $option, sanitize_text_field( wp_unslash( $_POST[ $option ] ) ) );
+				$option_sanitized = [];
+				
+				// sanitize
+				foreach ( $_POST[ $option ] as $key => $value ) {
+					$option_sanitized[ $key ] = sanitize_text_field( wp_unslash( $value ) );
+				}
+				
+				update_site_option( $option, $option_sanitized );
 			}
 		}
 		

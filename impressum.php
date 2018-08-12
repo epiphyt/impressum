@@ -57,4 +57,5 @@ if ( ! class_exists( 'Epiphyt_License' ) ) {
 	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-license.php';
 	
 	new Epiphyt_License( 'impressum_license_options', 'Impressum Plus', $home );
+	Epiphyt_License::$update_slug = 'impressum';
 }

@@ -28,8 +28,8 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		check_field_length( document.getElementById( fields_to_check[ i ] ), fields_to_check[ i ] );
 	}
 	
-	check_legal_entity();
-	check_press_law();
+	if ( legal_entity_select ) check_legal_entity();
+	if ( press_law_checkbox && press_law_input_row ) check_press_law();
 	
 	// check formal vat id validity
 	if ( vat_id ) {

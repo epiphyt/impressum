@@ -38,15 +38,14 @@ class Impressum_Backend extends Impressum {
 	 * @param string $file  Current plugin file.
 	 * @return array Merged links
 	 */
-	public static function add_meta_link( $input, $file ) {
+	public function add_meta_link( $input, $file ) {
 		// bail on other plugins
 		if ( IMPRESSUM_BASE !== $file ) return $input;
 		
 		return array_merge(
 			$input,
 			[
-				'<a href="https://impressum.plus/preise/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Get Plus', 'impressum' ) . '</a>',
-				'<a href="https://impressum.plus/dokumentation/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum' ) . '</a>',
+				'<a href="https://impressum.plus/dokumentation/?version=' . get_plugin_data( $this->plugin_file )['Version'] . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum' ) . '</a>',
 			]
 		);
 	}

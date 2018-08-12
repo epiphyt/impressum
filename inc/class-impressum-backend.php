@@ -23,8 +23,28 @@ class Impressum_Backend extends Impressum {
 		parent::__construct( $plugin_file );
 		
 		// hooks
+		add_filter( 'plugin_row_meta', [ $this, 'add_meta_link' ], 10, 2 );
 		add_action( 'admin_init', [ $this, 'impressum_settings_init' ] );
 		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
+	}
+	
+	/**
+	 * Add plugin meta links.
+	 * 
+	 * @param array $input Registered links.
+	 * @param string $file  Current plugin file.
+	 * @return array Merged links
+	 */
+	public function add_meta_link( $input, $file ) {
+		// bail on other plugins
+		if ( IMPRESSUM_BASE !== $file ) return $input;
+		
+		return array_merge(
+			$input,
+			[
+				'<a href="https://impressum.plus/dokumentation/?version=' . get_plugin_data( $this->plugin_file )['Version'] . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum' ) . '</a>',
+			]
+		);
 	}
 	
 	/**

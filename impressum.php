@@ -37,3 +37,5 @@ if ( ! class_exists( 'Impressum_Frontend' ) ) {
 	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-frontend.php';
 	new Impressum_Frontend( __FILE__ );
 }
+
+if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );

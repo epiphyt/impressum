@@ -4,9 +4,9 @@ use epiphyt\Update\Epiphyt_License;
 use epiphyt\Update\Epiphyt_Update;
 
 /*
-Plugin Name:	Impressum
+Plugin Name:	Impressum Plus
 Plugin URI:		https://impressum.plus
-Description:	Simple Impressum Generator
+Description:	Enhanced Impressum Generator
 Version:		0.1
 Author:			Epiphyt
 Author URI:		https://epiph.yt/

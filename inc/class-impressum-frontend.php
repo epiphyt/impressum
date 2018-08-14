@@ -368,6 +368,7 @@ class Impressum_Frontend extends Impressum {
 		
 		// hooks
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_notices', [ $this, 'welcome_notice' ] );
 		add_action( 'admin_notices', [ $this, 'invalid_notice' ] );
 		add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
 		add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
@@ -734,5 +735,71 @@ class Impressum_Frontend extends Impressum {
 	 */
 	public static function reset_invalid_notice() {
 		update_option( 'dismissed-impressum_validation_notice', false );
+	}
+	
+	/**
+	 * Add a welcome notice.
+	 */
+	public static function welcome_notice() {
+		global $pagenow;
+		
+		// hide invalid notice everywhere except on impressum options|settings page
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+		if (
+			$pagenow !== 'options-general.php'
+			&& $pagenow !== 'settings.php'
+			|| ( isset( $_GET['page'] ) && $_GET['page'] !== 'impressum' )
+			|| ! isset( $_GET['page'] )
+		) return;
+		// phpcs:enable
+		
+		if ( ! get_option( 'dismissed-impressum_welcome_notice' ) ) :
+		?>
+<div class="wrap">
+	<div class="impressum-welcome-panel" data-notice="impressum_welcome_notice">
+		<div class="impressum-welcome-panel-content">
+			<h2><?php \esc_html_e( 'Welcome to Impressum, we’re glad you’re here!', 'impressum' ); ?></h2>
+			<p class="about-description"><?php \esc_html_e( 'Impressum is a generator for legal texts, integrated into your WordPress interface.', 'impressum' ); ?></p>
+			<hr>
+			
+			<div class="impressum-welcome-panel-column-container">
+				<div class="impressum-welcome-panel-column">
+					<div>
+						<h3><?php \esc_html_e( 'Impressum is free, because we love you', 'impressum' ); ?></h3>
+						<p><?php \esc_html_e( 'Best things in live are free. That’s why we decided to make this plugin available for free for everyone running a WordPress site as private person, freelancer or single person business. That’s you? Awesome, then give', 'impressum' ); ?> <em>Impressum</em> <?php \esc_html_e( 'a spin and generate your first legal text without leaving your site.', 'impressum' ); ?></p>
+					</div>
+					
+					<div class="impressum-welcome-action">
+						<p><a class="button button-secondary button-hero impressum-welcome-notice-dismiss" data-notice="impressum_welcome_notice"><?php \esc_html_e( 'Hide this message', 'impressum' ); ?></a></p>
+					</div>
+				</div>
+				
+				<div class="impressum-welcome-panel-column">
+					<div>
+						<h3><?php \esc_html_e( 'Got bigger plans?', 'impressum' ); ?> <em>Impressum Plus</em> <?php \esc_html_e( 'is here for you', 'impressum' ); ?></h3>
+						<p><?php \esc_html_e( 'If this site is running by a corporation or partnership, you might like Impressum’s bigger brother Impressum Plus. With advanced features and support for multiple legal forms, Impressum Plus covers business from your local book shop to bigger multi-location corporations.', 'impressum' ); ?></p>
+					</div>
+					
+					<div class="impressum-welcome-action">
+						<p><a class="button button-primary button-hero" href="https://impressum.plus"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
+					</div>
+				</div>
+				
+				<div class="impressum-welcome-panel-column">
+					<div>
+						<h3><?php \esc_html_e( 'Hi there, we are Epiphyt 👋', 'impressum' ); ?></h3>
+						<p><?php \esc_html_e( 'Epiphyt is a small WordPress coding shop from southern Germany. As members of the German WordPress community we value clean code, straight forward communication and the GPL.', 'impressum' ); ?></p>
+					</div>
+					
+					<div class="impressum-welcome-action">
+						<p><a href="https://epiph.yt"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<?php
+		endif;
 	}
 }

@@ -13,3 +13,56 @@
 	margin-left: 3px;
 	margin-right: 3px;
 }
+
+.impressum-welcome-panel {
+	background: none #fff;
+	border: 1px solid #e5e5e5;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+	font-size: 13px;
+	line-height: 2.1em;
+	margin: 16px 0;
+	overflow: auto;
+	padding: 23px 10px;
+	position: relative;
+	
+	h2 {
+		font-size: 21px;
+		font-weight: 400;
+		line-height: 1.2;
+		margin: 0;
+	}
+	
+	h3 {
+		font-size: 16px;
+		line-height: 1.4;
+		margin: 17px 0 0;
+	}
+	
+	.about-description {
+		font-size: 16px;
+		margin: 0;
+	}
+	
+	.impressum-welcome-panel-content {
+		margin: 0 13px;
+		max-width: 1500px;
+	}
+	
+	.impressum-welcome-panel-column {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-rows: auto 48px;
+		grid-template-rows: auto 48px;
+		
+		> * {
+			padding-right: 40px;
+		}
+	}
+	
+	.impressum-welcome-panel-column-container {
+		display: grid;
+		-ms-grid-columns: 33% 33% 33%;
+		grid-template-columns: 33% 33% 33%;
+		margin-bottom: 13px;
+	}
+}

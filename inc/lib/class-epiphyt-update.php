@@ -111,6 +111,11 @@ class Epiphyt_Update {
 		 * WordPress uses the folder name for the destination inside
 		 * wp-content/plugins, not the plugin slug. And the name of the ZIP we
 		 * get from the update server is very random and not the plugin slug.
+		 * 
+		 * @param string $source File source location
+		 * @param string $remote_source Remote file source location
+		 * @param \WP_Upgrader $wp_upgrader WP_Upgrader instance
+		 * @param array $args Extra arguments passed to hooked filters
 		 */
 		add_filter( 'upgrader_source_selection', function ( $source, $remote_source, $wp_upgrader, $args ) {
 			$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );

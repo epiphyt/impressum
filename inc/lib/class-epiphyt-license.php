@@ -45,12 +45,15 @@ class Epiphyt_License extends Epiphyt_Update {
 		] );
 		
 		// rename email key
-		$this->options['email'] = $this->options['license_email'];
-		unset($this->options['license_email']);
+		if ( ! empty( $this->options['license_email'] ) ) {
+			$this->options['email'] = $this->options['license_email'];
+			unset( $this->options['license_email'] );
+		}
 		
 		// actions
 		add_action( 'admin_notices', [ $this, 'license_activation_failed' ], 100 );
 		add_action( 'update_option_' . $option_name, [ $this, 'check_activation' ], 10, 3 );
+		add_action( 'update_site_option_' . $option_name, [ $this, 'check_activation' ], 10, 3 );
 	}
 	
 	/**

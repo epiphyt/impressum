@@ -28,7 +28,8 @@ class Impressum_Backend extends Impressum {
 		add_action( 'admin_menu', [ $this, 'impressum_options_page' ] );
 		add_action( 'network_admin_menu', [ $this, 'impressum_network_options_page' ] );
 		add_action( 'network_admin_edit_impressum_network_options_update', [ $this, 'impressum_network_options_update' ] );
-		add_action( 'pre_update_option_impressum_license_options', [ $this, 'impressum_protect_license_key' ] );
+		add_action( 'pre_update_option_impressum_license_options', [ $this, 'impressum_protect_license_key' ], 10, 3 );
+		add_action( 'pre_update_site_option_impressum_license_options', [ $this, 'impressum_protect_license_key' ], 10, 3 );
 	}
 	
 	/**
@@ -811,8 +812,8 @@ class Impressum_Backend extends Impressum {
 				$option_sanitized = [];
 				
 				// sanitize
-				foreach ( sanitize_key( wp_unslash( $_POST[ $option ] ) ) as $key => $value ) {
-					$option_sanitized[ $key ] = sanitize_text_field( wp_unslash( $value ) );
+				foreach ( wp_unslash( $_POST[ $option ] ) as $key => $value ) {
+					$option_sanitized[ sanitize_key( $key ) ] = sanitize_text_field( wp_unslash( $value ) );
 				}
 				
 				update_site_option( $option, $option_sanitized );
@@ -831,13 +832,14 @@ class Impressum_Backend extends Impressum {
 	 * Protect the license key against source code sniffing.
 	 * 
 	 * @param $value The new value
+	 * @param $old_value The old value
+	 * @param $option The option name
 	 * @return mixed|void
 	 */
-	public function impressum_protect_license_key( $value ) {
+	public function impressum_protect_license_key( $value, $old_value, $option ) {
 		// if license key contains an asterisk, take the previous value
 		if ( strpos( $value['license_key'], '*' ) !== false ) {
-			$old_value = self::impressum_get_option( 'impressum_license_options' )['license_key'];
-			$value['license_key'] = $old_value;
+			$value['license_key'] = $old_value['license_key'];
 		}
 		
 		return $value;

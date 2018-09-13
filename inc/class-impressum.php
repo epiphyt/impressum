@@ -393,11 +393,11 @@ class Impressum {
 	protected static function impressum_get_option( $option ) {
 		if ( ! is_string( $option ) ) return;
 		
-		if ( ! is_network_admin() ) {
+		if ( ! is_multisite() ) {
 			// try receive option
 			$options = get_option( $option );
 			
-			if ( ! $options ) {
+			if ( empty( $options ) ) {
 				$options = get_site_option( $option );
 			}
 		}

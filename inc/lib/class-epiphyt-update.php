@@ -104,6 +104,40 @@ class Epiphyt_Update {
 			
 			return $transient;
 		} );
+		
+		/**
+		 * Before the files are copied to wp-content/plugins, we need to rename
+		 * the folder of the plugin, so it matches the slug. That is because
+		 * WordPress uses the folder name for the destination inside
+		 * wp-content/plugins, not the plugin slug. And the name of the ZIP we
+		 * get from the update server is very random and not the plugin slug.
+		 */
+		add_filter( 'upgrader_source_selection', function ( $source, $remote_source, $wp_upgrader, $args ) {
+			$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
+			
+			if ( empty( $option['plugins'] ) ) return $source;
+			
+			foreach ( $option['plugins'] as $plugin ) {
+				// check if the currently updated plugin matches our plugin base name
+				if ( $plugin !== false && $args['plugin'] === $plugin ) {
+					global $wp_filesystem;
+					
+					// create a folder with slug as name inside the folder
+					$plugin_dir_parts = explode( '/', $plugin );
+					$plugin_dir = $plugin_dir_parts[0];
+					$new_folder = WP_PLUGIN_DIR . '/' . $plugin_dir;
+					$wp_filesystem->mkdir( $new_folder );
+					// copy files from $source in new $new_folder
+					copy_dir( $source, $new_folder );
+					// remove the old $source directory
+					$wp_filesystem->delete( $source, true );
+					// set new folder as $source
+					$source = $new_folder;
+				}
+			}
+			
+			return $source;
+		}, 10, 4 );
 	}
 	
 	/**
@@ -131,10 +165,15 @@ class Epiphyt_Update {
 			}
 		}
 		
-		$option = get_option( 'epiphyt_update', [] );
+		$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
 		$option['plugins'] = array_keys( $this->plugin_data );
 		
-		update_option( 'epiphyt_update', $option );
+		if ( is_multisite() ) {
+			update_site_option( 'epiphyt_update', $option );
+		}
+		else {
+			update_option( 'epiphyt_update', $option );
+		}
 		
 		return $data;
 	}
@@ -148,7 +187,7 @@ class Epiphyt_Update {
 	 * @return object
 	 */
 	public function get_info( $data, $action, $args ) {
-		$option = get_option( 'epiphyt_update', [] );
+		$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
 		$plugins = isset( $option['plugins'] ) ? $option['plugins'] : [];
 		
 		if ( $action !== 'plugin_information' || ! isset( $args->slug ) || ! in_array( $args->slug, $plugins, true ) ) {
@@ -190,11 +229,11 @@ class Epiphyt_Update {
 	protected static function get_real_option( $option ) {
 		if ( ! is_string( $option ) ) return;
 		
-		if ( ! is_network_admin() ) {
+		if ( ! is_multisite() ) {
 			// try receive option
 			$options = get_option( $option );
 			
-			if ( ! $options ) {
+			if ( empty( $options ) ) {
 				$options = get_site_option( $option );
 			}
 		}
@@ -213,7 +252,7 @@ class Epiphyt_Update {
 	 * @return bool|object
 	 */
 	public function request( $args = '', $raw = false ) {
-		$option = get_option( 'epiphyt_update', [] );
+		$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
 		
 		// prepare args
 		$args = wp_parse_args( $args, $option );

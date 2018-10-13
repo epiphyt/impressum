@@ -7,9 +7,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Manage software licenses.
  * 
- * @version		0.1
  * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
+ * @version		0.1
  */
 class Epiphyt_License extends Epiphyt_Update {
 	/**

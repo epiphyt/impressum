@@ -9,9 +9,9 @@ require_once( __DIR__ . '/class-impressum.php' );
 /**
  * Impressum backend functions.
  * 
- * @version		0.1
  * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
+ * @version		0.1
  */
 class Impressum_Backend extends Impressum {
 	/**

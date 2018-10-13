@@ -338,7 +338,7 @@ class Impressum_Backend extends Impressum {
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab === 'imprint' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Imprint', 'impressum' ); ?></a>
-		<a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab === 'license' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'License', 'impressum' ); ?></a>
+		<?php if ( ! is_multisite() || is_network_admin() ) : ?><a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab === 'license' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'License', 'impressum' ); ?></a><?php endif; ?>
 	</h2>
 	<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 	
@@ -365,15 +365,17 @@ class Impressum_Backend extends Impressum {
 			echo '<p>' . sprintf( esc_html__( 'Add the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere shortcodes work).', 'impressum' ), '<code>[impressum]</code>' ) . '</p>';
 			break;
 		case 'license':
-			echo '<form action="' . esc_html( $form_action ) . '" method="post">';
-			// output security fields for the registered setting "impressum"
-			settings_fields( 'impressum_' . $current_tab );
-			// output setting sections and their fields
-			// (sections are registered for "impressum", each field is registered to a specific section)
-			do_settings_sections( 'impressum_' . $current_tab );
-			// output save settings button
-			submit_button( __( 'Save Settings', 'impressum' ) );
-			echo '</form>';
+			if ( ! is_multisite() || is_network_admin() ) {
+				echo '<form action="' . esc_html( $form_action ) . '" method="post">';
+				// output security fields for the registered setting "impressum"
+				settings_fields( 'impressum_' . $current_tab );
+				// output setting sections and their fields
+				// (sections are registered for "impressum", each field is registered to a specific section)
+				do_settings_sections( 'impressum_' . $current_tab );
+				// output save settings button
+				submit_button( __( 'Save Settings', 'impressum' ) );
+				echo '</form>';
+			}
 			break;
 	}
 	?>

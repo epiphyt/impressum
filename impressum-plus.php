@@ -51,7 +51,7 @@ $home = is_multisite() ? network_site_url() : home_url();
 	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
 	
 	if ( \file_exists( $maybe_file ) ) {
-		require_once( __DIR__ . '/inc/' . $class . '.php' );
+		require_once( $maybe_file );
 	}
 } );
 

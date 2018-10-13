@@ -411,7 +411,7 @@ class Impressum_Frontend extends Impressum {
 		// check if there is a custom output
 		$custom_output = isset( $atts['sections'] ) ?: false;
 		// create an empty output array if there isn’t any
-		if ( ! isset ( $atts['output'] ) ) $atts['output'] = [];
+		$atts['output'] = [];
 		
 		// default values to configure output
 		if ( ! isset( $atts['output']['address'] ) ) $atts['output']['address'] = ! $custom_output;

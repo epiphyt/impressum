@@ -118,26 +118,28 @@ class Epiphyt_Update {
 		 * @param array $args Extra arguments passed to hooked filters
 		 */
 		add_filter( 'upgrader_source_selection', function ( $source, $remote_source, $wp_upgrader, $args ) {
+			global $wp_filesystem;
+			
 			$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
 			
 			if ( empty( $option['plugins'] ) ) return $source;
 			
-			foreach ( $option['plugins'] as $plugin ) {
-				// check if the currently updated plugin matches our plugin base name
-				if ( $plugin !== false && $args['plugin'] === $plugin ) {
-					global $wp_filesystem;
-					
+			$plugin = reset( $option['plugins'] );
+			
+			// check if the currently updated plugin matches our plugin base name
+			if ( $plugin !== false && $args['plugin'] === $plugin ) {
+				if ( $wp_filesystem->exists( $remote_source ) ) {
 					// create a folder with slug as name inside the folder
-					$plugin_dir_parts = explode( '/', $plugin );
-					$plugin_dir = $plugin_dir_parts[0];
-					$new_folder = WP_PLUGIN_DIR . '/' . $plugin_dir;
-					$wp_filesystem->mkdir( $new_folder );
-					// copy files from $source in new $new_folder
-					copy_dir( $source, $new_folder );
-					// remove the old $source directory
-					$wp_filesystem->delete( $source, true );
-					// set new folder as $source
-					$source = $new_folder;
+					$upgrade_dir = trailingslashit( $remote_source ) . dirname( $plugin );
+					$wp_filesystem->mkdir( $upgrade_dir );
+					
+					// move all files into the new upgrade dir to match the 
+					foreach ( $wp_filesystem->dirlist( $remote_source ) as $file => $info ) {
+						if ( $file === dirname( $plugin ) ) continue;
+						rename( trailingslashit( $remote_source ) . $file, \trailingslashit( $upgrade_dir ) . $file );
+					}
+					
+					return trailingslashit( $source ) . dirname( $plugin );
 				}
 			}
 			

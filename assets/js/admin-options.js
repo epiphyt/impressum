@@ -3,7 +3,7 @@
  * 
  * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
- * @version		0.1
+ * @version		1.0.0
  */
 
 // all fields that should be be checked by there value

@@ -7,7 +7,7 @@ use epiphyt\Update\Epiphyt_Update;
 Plugin Name:	Impressum Plus
 Plugin URI:		https://impressum.plus/
 Description:	Enhanced Impressum Generator
-Version:		0.1
+Version:		1.0.0
 Author:			Epiphyt
 Author URI:		https://epiph.yt/
 License:		GPL3

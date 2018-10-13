@@ -355,7 +355,7 @@ class Impressum_Backend extends Impressum {
 			do_settings_sections( 'impressum_' . $current_tab );
 			// disclaimer
 			echo '<h3>' . esc_html__( 'Disclaimer', 'impressum' ) . '</h3>';
-			echo '<p>' . esc_html__( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum” helps you to fill all necessary fields.', 'impressum' ) . '</p>';
+			echo '<p>' . esc_html__( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum Plus” helps you to fill all necessary fields.', 'impressum' ) . '</p>';
 			// output save settings button
 			submit_button( esc_html__( 'Save Settings', 'impressum' ) );
 			echo '</form>';

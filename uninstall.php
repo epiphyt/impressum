@@ -3,10 +3,11 @@ namespace epiphyt\Impressum;
 
 // if uninstall.php is not called by WordPress, die
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) die;
+// do nothing if Impressum is also installed
+if ( \is_plugin_active( 'impressum/impressum.php' ) ) return;
 
 $options = [
 	'impressum_imprint_options',
-	'impressum_privacy_options',
 ];
 
 foreach ( $options as $option ) {

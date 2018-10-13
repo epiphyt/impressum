@@ -374,7 +374,6 @@ class Impressum_Frontend extends Impressum {
 		
 		// shortcodes
 		add_shortcode( 'impressum', [ __CLASS__, 'imprint_shortcode' ] );
-		add_shortcode( 'privacy', [ __CLASS__, 'privacy_shortcode' ] );
 	}
 	
 	/**

@@ -7,8 +7,8 @@ before_script:
 
 
 stages:
-    - production
     - test
+    - production
 
 upload_zip:
     stage: production
@@ -18,7 +18,7 @@ upload_zip:
         - ./deploy.sh -u $SSH_USER_PRODUCTION -d $DEPLOY_PATH -h $DEPLOY_SERVER -z impressum
 
     only:
-        - master
+        - tags
 
     variables:
         DEPLOY_PATH: /var/www/wp-update-server/packages

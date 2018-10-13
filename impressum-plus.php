@@ -5,7 +5,7 @@ use epiphyt\Update\Epiphyt_Update;
 
 /*
 Plugin Name:	Impressum Plus
-Plugin URI:		https://impressum.plus
+Plugin URI:		https://impressum.plus/
 Description:	Enhanced Impressum Generator
 Version:		0.1
 Author:			Epiphyt
@@ -30,32 +30,37 @@ You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
 
-// get mutlisite or singlesite home URL
+// get multisite or singlesite home URL
 $home = is_multisite() ? network_site_url() : home_url();
 
-if ( ! class_exists( 'Impressum_Backend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-backend.php';
-	new Impressum_Backend( __FILE__ );
-}
 
-if ( ! class_exists( 'Impressum_Frontend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-frontend.php';
-	new Impressum_Frontend( __FILE__ );
-}
+/**
+ * Autoload all necessary classes.
+ * 
+ * @param	string		$class The class name of the autoloaded class
+ */
+\spl_autoload_register( function( $class ) {
+	$path = \explode( '\\', $class );
+	$filename = \str_replace( '_', '-', \strtolower( \array_pop( $path ) ) );
+	$class = \str_replace(
+		[ 'epiphyt\impressum\\', 'epiphyt\update\\', '\\', '_' ],
+		[ '', 'lib\\', '/', '-' ],
+		\strtolower( $class )
+	);
+	$class = \str_replace( $filename, 'class-' . $filename, $class );
+	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
+	
+	if ( \file_exists( $maybe_file ) ) {
+		require_once( __DIR__ . '/inc/' . $class . '.php' );
+	}
+} );
 
+new Impressum_Backend( __FILE__ );
+new Impressum_Frontend( __FILE__ );
 
 if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );
 
-if ( ! class_exists( 'Epiphyt_Update' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-update.php';
-	
-	new Epiphyt_Update( IMPRESSUM_BASE, 'impressum', 'Impressum Plus', $home );
-	Epiphyt_Update::$update_slug = 'impressum';
-}
-
-if ( ! class_exists( 'Epiphyt_License' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/lib/class-epiphyt-license.php';
-	
-	new Epiphyt_License( 'impressum_license_options', 'Impressum Plus', $home );
-	Epiphyt_License::$update_slug = 'impressum';
-}
+new Epiphyt_Update( IMPRESSUM_BASE, 'impressum', 'Impressum Plus', $home );
+Epiphyt_Update::$update_slug = 'impressum';
+new Epiphyt_License( 'impressum_license_options', 'Impressum Plus', $home );
+Epiphyt_License::$update_slug = 'impressum';

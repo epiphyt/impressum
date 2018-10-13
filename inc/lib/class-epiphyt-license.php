@@ -34,15 +34,22 @@ class Epiphyt_License extends Epiphyt_Update {
 	 * @param string $home_url The home URL of the current WordPress instance
 	 */
 	public function __construct( $option_name, $product_id, $home_url ) {
-		// on first activation, the option doesn’t exist yet
-		if ( ! is_array( self::get_real_option( $option_name ) ) ) return;
-		
-		// variable assignments
-		$this->options = array_merge( self::get_real_option( $option_name ), [
-			'platform' => $home_url,
-			'product_id' => $product_id,
-			'request' => 'check',
-		] );
+		if ( is_array( self::get_real_option( $option_name ) ) ) {
+			// variable assignments
+			$this->options = array_merge( self::get_real_option( $option_name ), [
+				'platform' => $home_url,
+				'product_id' => $product_id,
+				'request' => 'check',
+			] );
+		}
+		else {
+			// on first activation, the option doesn’t exist yet
+			$this->options = [
+				'platform' => $home_url,
+				'product_id' => $product_id,
+				'request' => 'check',
+			];
+		}
 		
 		// rename email key
 		if ( ! empty( $this->options['license_email'] ) ) {
@@ -52,7 +59,9 @@ class Epiphyt_License extends Epiphyt_Update {
 		
 		// actions
 		add_action( 'admin_notices', [ $this, 'license_activation_failed' ], 100 );
+		add_action( 'add_option_' . $option_name, [ $this, 'check_activation_first' ], 10, 2 );
 		add_action( 'update_option_' . $option_name, [ $this, 'check_activation' ], 10, 3 );
+		add_action( 'add_site_option_' . $option_name, [ $this, 'check_activation_first' ], 10, 2 );
 		add_action( 'update_site_option_' . $option_name, [ $this, 'check_activation' ], 10, 3 );
 	}
 	
@@ -111,6 +120,16 @@ class Epiphyt_License extends Epiphyt_Update {
 		}
 		
 		// otherwise it’s already activated or there’s no such customer account
+	}
+	
+	/**
+	 * Wrapper for the activation check while add_option.
+	 * 
+	 * @param string $option Name of the option to add
+	 * @param string $value Value of the option
+	 */
+	public function check_activation_first( $option, $value ) {
+		$this->check_activation( '', $value, $option );
 	}
 	
 	/**

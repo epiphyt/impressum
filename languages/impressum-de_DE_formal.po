@@ -1,411 +1,673 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Impressum\n"
-"POT-Creation-Date: 2018-04-19 17:36+0200\n"
-"PO-Revision-Date: 2018-04-19 17:36+0200\n"
+"Project-Id-Version: Impressum Plus\n"
+"POT-Creation-Date: 2018-10-15 13:57+0200\n"
+"PO-Revision-Date: 2018-10-15 15:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: de_DE@formal\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: impressum.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: inc/impressum_backend.class.php:46
-msgid "Get Plus"
-msgstr ""
-
-#: inc/impressum_backend.class.php:47
+#: inc/class-impressum-backend.php:49
 msgid "Documentation"
+msgstr "Dokumentation"
+
+#: inc/class-impressum-backend.php:103
+msgid "Please select &hellip;"
+msgstr "Bitte wählen &hellip;"
+
+#: inc/class-impressum-backend.php:112
+msgid ""
+"In order to determine the needed fields for your imprint we need to know "
+"your country."
 msgstr ""
+"Um die benötigten Felder für Ihr Impressum zu ermitteln, müssen wir Ihr Land "
+"kennen."
 
-#: inc/impressum_backend.class.php:91 inc/impressum_frontend.class.php:506
-msgid "Legal Entity"
-msgstr "Rechtsform"
-
-#: inc/impressum_backend.class.php:104 inc/impressum_frontend.class.php:509
-msgid "Name"
-msgstr "Name"
-
-#: inc/impressum_backend.class.php:117 inc/impressum_frontend.class.php:491
-msgid "Address"
-msgstr "Adresse"
-
-#: inc/impressum_backend.class.php:130
-msgid "Alternative Address"
-msgstr "Alternative Adresse"
-
-#: inc/impressum_backend.class.php:143 inc/impressum_backend.class.php:364
-#: inc/impressum_frontend.class.php:497
-msgid "Email Address"
-msgstr "E-Mail-Adresse"
-
-#: inc/impressum_backend.class.php:156
-msgid "Telephone"
-msgstr "Telefon"
-
-#: inc/impressum_backend.class.php:169 inc/impressum_frontend.class.php:500
-msgid "Fax"
-msgstr "Fax"
-
-#: inc/impressum_backend.class.php:182
-msgid "Journalistic/Editorial Content"
-msgstr "Journalistischer/redaktioneller Inhalt"
-
-#: inc/impressum_backend.class.php:195 inc/impressum_frontend.class.php:515
-msgid "Responsible for content according to § 55 paragraph 2 RStV"
-msgstr "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV"
-
-#: inc/impressum_backend.class.php:208 inc/impressum_frontend.class.php:518
-msgid "VAT ID"
-msgstr "Umsatzsteuer-ID"
-
-#: inc/impressum_backend.class.php:221 inc/impressum_frontend.class.php:494
-msgid "Coverage"
-msgstr "Geltungsbereich"
-
-#: inc/impressum_backend.class.php:234 inc/impressum_frontend.class.php:503
-msgid "Free Text"
-msgstr "Freitext"
-
-#: inc/impressum_backend.class.php:247 inc/impressum_frontend.class.php:521
-msgid "Inspecting Authority"
-msgstr "Aufsichtsbehörde"
-
-#: inc/impressum_backend.class.php:260 inc/impressum_frontend.class.php:524
-msgid "Register"
-msgstr "Register"
-
-#: inc/impressum_backend.class.php:273 inc/impressum_frontend.class.php:527
-msgid "Business ID"
-msgstr "Wirtschafts-Identifikationsnummer"
-
-#: inc/impressum_backend.class.php:286 inc/impressum_frontend.class.php:530
-msgid "Representative"
-msgstr "Vertretungsberechtigter"
-
-#: inc/impressum_backend.class.php:299 inc/impressum_frontend.class.php:533
-msgid "Capital Stock"
-msgstr "Grundkapital"
-
-#: inc/impressum_backend.class.php:312 inc/impressum_frontend.class.php:536
-msgid "Pending Deposits"
-msgstr "Ausstehende Anlagen"
-
-#: inc/impressum_backend.class.php:325 inc/impressum_frontend.class.php:539
-msgid "Professional Association"
-msgstr "Berufsgenossenschaft"
-
-#: inc/impressum_backend.class.php:338 inc/impressum_frontend.class.php:542
-msgid "Legal Job Title"
-msgstr "Gesetzliche Berufsbezeichnung"
-
-#: inc/impressum_backend.class.php:351 inc/impressum_frontend.class.php:545
-msgid "Professional Regulations"
-msgstr "Berufsrechtliche Regelungen"
-
-#: inc/impressum_backend.class.php:377
-msgid "License Key"
+#: inc/class-impressum-backend.php:136
+msgid ""
+"In order to guide you the needed fields we need to know what kind of legal "
+"entity you are."
 msgstr ""
+"Um die korrekten Felder anzeigen zu können, müssen wir Ihre Rechtsform "
+"kennen."
 
-#: inc/impressum_backend.class.php:390 inc/impressum_frontend.class.php:642
-msgid "Comment subscription"
-msgstr "Kommentar-Abonnement"
+#: inc/class-impressum-backend.php:168
+msgid ""
+"If you link to this imprint from several other domains, enter them here."
+msgstr ""
+"Wenn Sie dieses Impressum auch für andere Domains nutzen, geben Sie diese "
+"hier an."
 
-#: inc/impressum_backend.class.php:403 inc/impressum_frontend.class.php:646
-msgid "Newsletter"
-msgstr "Newsletter"
+#: inc/class-impressum-backend.php:171
+msgid ""
+"You need at least enter your register number and the register where your "
+"company is registered."
+msgstr ""
+"Sie sollten die Registernummer und das Register, in welchem Ihre Firma "
+"eingetragen ist, angeben."
 
-#: inc/impressum_backend.class.php:416 inc/impressum_frontend.class.php:650
-msgid "3rd party content"
-msgstr "Inhalte von Drittanbietern"
+#: inc/class-impressum-backend.php:174
+msgid ""
+"Your VAT ID in format XX123456789, which means at least two letters by "
+"following some numbers (the amount depends on your country)."
+msgstr ""
+"Ihre Umsatzsteuer-ID im Format XX12345678, also zwei Buchstaben gefolgt von "
+"einigen Zahlen (die Anzahl hängt von Ihrem Land ab)."
 
-#: inc/impressum_backend.class.php:429 inc/impressum_frontend.class.php:654
-msgid "Cookies"
-msgstr "Cookies"
-
-#: inc/impressum_backend.class.php:442 inc/impressum_frontend.class.php:658
-msgid "User registration"
-msgstr "Benutzerregistrierung"
-
-#: inc/impressum_backend.class.php:455 inc/impressum_frontend.class.php:662
-msgid "Google Analytics"
-msgstr "Google Analytics"
-
-#: inc/impressum_backend.class.php:468 inc/impressum_frontend.class.php:666
-msgid "Matomo/Piwik"
-msgstr "Matomo/Piwik"
-
-#: inc/impressum_backend.class.php:481 inc/impressum_frontend.class.php:670
-msgid "Facebook"
-msgstr "Facebook"
-
-#: inc/impressum_backend.class.php:494 inc/impressum_frontend.class.php:674
-msgid "Twitter"
-msgstr "Twitter"
-
-#: inc/impressum_backend.class.php:507 inc/impressum_frontend.class.php:678
-msgid "Google+"
-msgstr "Google+"
-
-#: inc/impressum_backend.class.php:520 inc/impressum_frontend.class.php:682
-msgid "Tumblr"
-msgstr "Tumblr"
-
-#: inc/impressum_backend.class.php:533 inc/impressum_frontend.class.php:686
-msgid "Jetpack"
-msgstr "Jetpack"
-
-#: inc/impressum_backend.class.php:546 inc/impressum_frontend.class.php:690
-msgid "Google AdSense"
-msgstr "Google AdSense"
-
-#: inc/impressum_backend.class.php:559 inc/impressum_frontend.class.php:694
-msgid "Amazon Partner"
-msgstr "Amazon-Partner"
-
-#: inc/impressum_backend.class.php:598
-msgid "AG"
-msgstr "AG"
-
-#: inc/impressum_backend.class.php:599
-msgid "e.V."
-msgstr "e.V."
-
-#: inc/impressum_backend.class.php:600
-msgid "e.K."
-msgstr "e.K."
-
-#: inc/impressum_backend.class.php:601
-msgid "Einzelkaufmann"
-msgstr "Einzelkaufmann"
-
-#: inc/impressum_backend.class.php:602
-msgid "Freelancer"
-msgstr "Freiberufler"
-
-#: inc/impressum_backend.class.php:603
-msgid "gGmbH"
-msgstr "gGmbH"
-
-#: inc/impressum_backend.class.php:604
-msgid "GmbH"
-msgstr "GmbH"
-
-#: inc/impressum_backend.class.php:605
-msgid "GbR"
-msgstr "GbR"
-
-#: inc/impressum_backend.class.php:606
-msgid "GmbH & Co. KG"
-msgstr "GmbH & Co. KG"
-
-#: inc/impressum_backend.class.php:607
-msgid "KG"
-msgstr "KG"
-
-#: inc/impressum_backend.class.php:608
-msgid "KGaA"
-msgstr "KGaA"
-
-#: inc/impressum_backend.class.php:609
-msgid "OHG"
-msgstr "OHG"
-
-#: inc/impressum_backend.class.php:610
-msgid "Individual"
-msgstr "Privatperson"
-
-#: inc/impressum_backend.class.php:611
-msgid "UG (haftungsbeschränkt)"
-msgstr "UG (haftungsbeschränkt)"
-
-#: inc/impressum_backend.class.php:612
-msgid "UG (haftungsbeschränkt) & Co. KG"
-msgstr "UG (haftungsbeschränkt) &amp; Co. KG"
-
-#: inc/impressum_backend.class.php:705
+#: inc/class-impressum-backend.php:243
 msgid "I have journalistic/editorial content on my website"
 msgstr "Ich habe journalistische/redaktionelle Inhalte auf meiner Website"
 
-#: inc/impressum_backend.class.php:733
-msgid "I use a comment subscription plugin."
-msgstr "Ich benutze ein Kommentar-Abonnement-Plugin."
-
-#: inc/impressum_backend.class.php:748
-msgid "I use a newsletter plugin or service."
-msgstr "Ich benutze ein Newsletter-Plugin oder -Dienst."
-
-#: inc/impressum_backend.class.php:763
-msgid "I embed tweets, YouTube videos or other 3rd-party content."
+#: inc/class-impressum-backend.php:262
+msgid ""
+"You need to set at least your street with number, your zip code and your "
+"city."
 msgstr ""
-"Ich binde Tweets, YouTube-Videos oder ähnliche Inhalte von Drittanbietern "
-"ein."
+"Sie sollten eine Adresse mit Straße, Hausnummer, Postleitzahl und Stadt "
+"angeben."
 
-#: inc/impressum_backend.class.php:778
-msgid "I use cookies on my site."
-msgstr "Ich benutze Cookies auf meiner Website."
+#: inc/class-impressum-backend.php:265
+msgid "You can set an alternative address to be displayed in your imprint."
+msgstr ""
+"Sie können eine alternative Adresse angeben, die im Impressum angezeigt wird."
 
-#: inc/impressum_backend.class.php:793
-msgid "Users can register on my site."
-msgstr "Benutzer können sich auf meiner Website registrieren."
+#: inc/class-impressum-backend.php:268
+msgid ""
+"You can add some additional free text if the predefined input fields don’t "
+"suite your needs."
+msgstr ""
+"Sie können zusätzlichen Freitext einfügen, wenn die vordefinierten Felder "
+"nicht Ihre Bedürfnisse erfüllen."
 
-#: inc/impressum_backend.class.php:808
-msgid "I use Google Analytics."
-msgstr "Ich benutze Google Analytics."
-
-#: inc/impressum_backend.class.php:823
-msgid "I use Matomo/Piwik."
-msgstr "Ich benutze Matomo/Piwik."
-
-#: inc/impressum_backend.class.php:838
-msgid "I use a Facebook social button on my website."
-msgstr "Ich benutze eine Facebook-Social-Integration auf meiner Website."
-
-#: inc/impressum_backend.class.php:853
-msgid "I use a Twitter social button on my website."
-msgstr "Ich benutze eine Twitter-Social-Integration auf meiner Website."
-
-#: inc/impressum_backend.class.php:868
-msgid "I use a Google+ social button on my website."
-msgstr "Ich benutze eine Google+-Social-Integration auf meiner Website."
-
-#: inc/impressum_backend.class.php:883
-msgid "I use a Tumblr social button on my website."
-msgstr "Ich benutze eine Tumblr-Social-Integration auf meiner Website."
-
-#: inc/impressum_backend.class.php:898
-msgid "I use the Jetpack plugin."
-msgstr "Ich benutze ein Jetpack-Plugin."
-
-#: inc/impressum_backend.class.php:913
-msgid "I use Google AdSense on my website."
-msgstr "Ich benutze Google AdSense auf meiner Website."
-
-#: inc/impressum_backend.class.php:928
-msgid "I use Amazon affiliate links on my website."
-msgstr "Ich benutze Amazon-Partner-Links auf meiner Website."
-
-#: inc/impressum_backend.class.php:984
+#: inc/class-impressum-backend.php:328
 msgid "Options saved."
 msgstr "Einstellungen gespeichert."
 
-#: inc/impressum_backend.class.php:996
+#: inc/class-impressum-backend.php:340
 msgid "Imprint"
 msgstr "Impressum"
 
-#: inc/impressum_backend.class.php:997
-msgid "Privacy"
-msgstr "Datenschutz"
-
-#: inc/impressum_backend.class.php:998
+#: inc/class-impressum-backend.php:341
 msgid "License"
-msgstr ""
+msgstr "Lizenz"
 
-#: inc/impressum_backend.class.php:1013
+#: inc/class-impressum-backend.php:357
+msgid "Disclaimer"
+msgstr "Haftungsausschluss"
+
+#: inc/class-impressum-backend.php:358
+msgid ""
+"Please keep in mind that this plugin does not guarantee any legal "
+"compliance. You are responsible for the data you enter here. “Impressum "
+"Plus” helps you to fill all necessary fields."
+msgstr ""
+"Bitte bedenken Sie stets, dass dieses Plugin keine Rechtskonformität "
+"garantiert. Sie sind verantwortlich für die hier eingegebenen Daten. "
+"„Impressum Plus“ hilft Ihnen, alle notwendigen Felder auszufüllen."
+
+#: inc/class-impressum-backend.php:360 inc/class-impressum-backend.php:376
 msgid "Save Settings"
 msgstr "Änderungen übernehmen"
 
-#: inc/impressum_frontend.class.php:512
+#: inc/class-impressum-backend.php:363
+msgid "Usage"
+msgstr "Verwendung"
+
+#. translators: the shortcode
+#: inc/class-impressum-backend.php:365
+#, php-format
+msgid ""
+"Add the %1$s shortcode wherever you want to output your imprint. It works on "
+"pages, posts and even widgets (anywhere shortcodes work)."
+msgstr ""
+"Fügen Sie den %1$s-Shortcode an der Stelle ein, an der Sie Ihr Impressum "
+"ausgeben möchten. Er funktioniert auf Seiten, in Beiträgen und sogar Widgets "
+"(überall, wo Shortcodes unterstützt werden)."
+
+#: inc/class-impressum-frontend.php:480 inc/class-impressum.php:90
+msgid "Address"
+msgstr "Adresse"
+
+#: inc/class-impressum-frontend.php:483 inc/class-impressum.php:170
+msgid "Coverage"
+msgstr "Geltungsbereich"
+
+#: inc/class-impressum-frontend.php:486 inc/class-impressum.php:110
+#: inc/class-impressum.php:280
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: inc/class-impressum-frontend.php:489 inc/class-impressum.php:130
+msgid "Fax"
+msgstr "Fax"
+
+#: inc/class-impressum-frontend.php:492 inc/class-impressum.php:180
+msgid "Free Text"
+msgstr "Freitext"
+
+#: inc/class-impressum-frontend.php:495 inc/class-impressum.php:70
+msgid "Legal Entity"
+msgstr "Rechtsform"
+
+#: inc/class-impressum-frontend.php:498 inc/class-impressum.php:80
+msgid "Name"
+msgstr "Name"
+
+#: inc/class-impressum-frontend.php:501
 msgid "Phone"
 msgstr "Telefon"
 
-#: inc/impressum_frontend.class.php:640
-msgid "This is the privacy description for the comment subscription."
-msgstr ""
+#: inc/class-impressum-frontend.php:504 inc/class-impressum.php:150
+msgid "Responsible for content according to § 55 paragraph 2 RStV"
+msgstr "Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV"
 
-#: inc/impressum_frontend.class.php:641
-msgid "Line 2"
-msgstr ""
+#: inc/class-impressum-frontend.php:507 inc/class-impressum.php:160
+msgid "VAT ID"
+msgstr "Umsatzsteuer-ID"
 
-#: inc/impressum_frontend.class.php:645
-msgid "This is the privacy description for the newsletter."
-msgstr ""
+#: inc/class-impressum-frontend.php:510 inc/class-impressum.php:190
+msgid "Inspecting Authority"
+msgstr "Aufsichtsbehörde"
 
-#: inc/impressum_frontend.class.php:649
-msgid "This is the privacy description for 3rd party content."
-msgstr ""
+#: inc/class-impressum-frontend.php:513 inc/class-impressum.php:200
+msgid "Register"
+msgstr "Register"
 
-#: inc/impressum_frontend.class.php:653
-msgid "This is the privacy description for cookies."
-msgstr ""
+#: inc/class-impressum-frontend.php:516 inc/class-impressum.php:210
+msgid "Business ID"
+msgstr "Wirtschafts-Identifikationsnummer"
 
-#: inc/impressum_frontend.class.php:657
-msgid "This is the privacy description for user registration."
-msgstr ""
+#: inc/class-impressum-frontend.php:519 inc/class-impressum.php:220
+msgid "Representative"
+msgstr "Vertretungsberechtigter"
 
-#: inc/impressum_frontend.class.php:661
-msgid "This is the privacy description for Google Analytics."
-msgstr ""
+#: inc/class-impressum-frontend.php:522 inc/class-impressum.php:230
+msgid "Capital Stock"
+msgstr "Grundkapital"
 
-#: inc/impressum_frontend.class.php:665
-msgid "This is the privacy description for Matomo/Piwik."
-msgstr ""
+#: inc/class-impressum-frontend.php:525 inc/class-impressum.php:240
+msgid "Pending Deposits"
+msgstr "Ausstehende Anlagen"
 
-#: inc/impressum_frontend.class.php:669
-msgid "This is the privacy description for Facebook."
-msgstr ""
+#: inc/class-impressum-frontend.php:528 inc/class-impressum.php:250
+msgid "Professional Association"
+msgstr "Berufsgenossenschaft"
 
-#: inc/impressum_frontend.class.php:673
-msgid "This is the privacy description for Twitter."
-msgstr ""
+#: inc/class-impressum-frontend.php:531 inc/class-impressum.php:260
+msgid "Legal Job Title"
+msgstr "Gesetzliche Berufsbezeichnung"
 
-#: inc/impressum_frontend.class.php:677
-msgid "This is the privacy description for Google Plus."
-msgstr ""
+#: inc/class-impressum-frontend.php:534 inc/class-impressum.php:270
+msgid "Professional Regulations"
+msgstr "Berufsrechtliche Regelungen"
 
-#: inc/impressum_frontend.class.php:681
-msgid "This is the privacy description for Tumblr."
-msgstr ""
+#: inc/class-impressum-frontend.php:596
+msgid "You need to enter an address."
+msgstr "Sie sollten eine Adresse angeben."
 
-#: inc/impressum_frontend.class.php:685
-msgid "This is the privacy description for Jetpack."
-msgstr ""
+#: inc/class-impressum-frontend.php:597
+msgid "You need to select a country."
+msgstr "Sie sollten ein Land auswählen."
 
-#: inc/impressum_frontend.class.php:689
-msgid "This is the privacy description for Google AdSense."
-msgstr ""
+#: inc/class-impressum-frontend.php:598
+msgid "You need to enter an email address."
+msgstr "Sie sollten eine E-Mail-Adresse angeben."
 
-#: inc/impressum_frontend.class.php:693
-msgid "This is the privacy description for Amazon Partner."
-msgstr ""
+#: inc/class-impressum-frontend.php:599
+msgid "You need to enter a name."
+msgstr "Sie sollten einen Namen angeben."
 
-#: inc/lib/epiphyt_update.class.php:169
+#: inc/class-impressum-frontend.php:600
+msgid "You need to enter a phone number."
+msgstr "Sie sollten eine Telefonnummer angeben."
+
+#: inc/class-impressum-frontend.php:601
+msgid "You need to enter a register."
+msgstr "Sie sollten ein Register angeben."
+
+#: inc/class-impressum-frontend.php:602
+msgid "You need to enter a representative."
+msgstr "Sie sollten eine vertretungsberechtigte Person angeben."
+
+#: inc/class-impressum-frontend.php:603
+msgid ""
+"The entered value is not valid. Please use a valid format for your VAT ID."
+msgstr ""
+"Der eingegebene Wert ist ungültig. Bitte geben Sie ein gültiges Format für "
+"Ihre Umsatzsteuer-ID an."
+
+#: inc/class-impressum-frontend.php:623
+msgid "Your imprint has not been configured successfully, yet."
+msgstr "Ihr Impressum wurde noch nicht erfolgreich konfiguriert."
+
+#: inc/class-impressum-frontend.php:624
+msgid "Configure now!"
+msgstr "Jetzt konfigurieren!"
+
+#: inc/class-impressum-frontend.php:629
+msgid "At least the following fields are invalid:"
+msgstr "Mindestens die folgenden Felder sind ungültig:"
+
+#: inc/class-impressum.php:60
+msgid "Country"
+msgstr "Land"
+
+#: inc/class-impressum.php:100
+msgid "Alternative Address"
+msgstr "Alternative Adresse"
+
+#: inc/class-impressum.php:120
+msgid "Telephone"
+msgstr "Telefon"
+
+#: inc/class-impressum.php:140
+msgid "Journalistic/Editorial Content"
+msgstr "Journalistischer/redaktioneller Inhalt"
+
+#: inc/class-impressum.php:290
+msgid "License Key"
+msgstr "Lizenzschlüssel"
+
+#: inc/class-impressum.php:310
+msgid "Algeria"
+msgstr "Algerien"
+
+#: inc/class-impressum.php:311
+msgid "Argentinia"
+msgstr "Argentinien"
+
+#: inc/class-impressum.php:312
+msgid "Australia"
+msgstr "Australien"
+
+#: inc/class-impressum.php:313
+msgid "Austria"
+msgstr "Österreich"
+
+#: inc/class-impressum.php:314
+msgid "Belgium"
+msgstr "Belgien"
+
+#: inc/class-impressum.php:315
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: inc/class-impressum.php:316
+msgid "Bulgaria"
+msgstr "Bulgarien"
+
+#: inc/class-impressum.php:317
+msgid "Canada"
+msgstr "Kanada"
+
+#: inc/class-impressum.php:318
+msgid "Chile"
+msgstr "Chile"
+
+#: inc/class-impressum.php:319
+msgid "China"
+msgstr "China"
+
+#: inc/class-impressum.php:320
+msgid "Columbia"
+msgstr "Kolumbien"
+
+#: inc/class-impressum.php:321
+msgid "Croatia"
+msgstr "Kroatien"
+
+#: inc/class-impressum.php:322
+msgid "Czech Republic"
+msgstr "Tschechische Republik"
+
+#: inc/class-impressum.php:323
+msgid "Denmark"
+msgstr "Dänemark"
+
+#: inc/class-impressum.php:324
+msgid "Estonia"
+msgstr "Estland"
+
+#: inc/class-impressum.php:325
+msgid "Finland"
+msgstr "Finnland"
+
+#: inc/class-impressum.php:326
+msgid "France"
+msgstr "Frankreich"
+
+#: inc/class-impressum.php:327
+msgid "Germany"
+msgstr "Deutschland"
+
+#: inc/class-impressum.php:328
+msgid "Greece"
+msgstr "Griechenland"
+
+#: inc/class-impressum.php:329
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: inc/class-impressum.php:330
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: inc/class-impressum.php:331
+msgid "Indonesia"
+msgstr "Indonesien"
+
+#: inc/class-impressum.php:332
+msgid "Ireland"
+msgstr "Irland"
+
+#: inc/class-impressum.php:333
+msgid "Israel"
+msgstr "Israel"
+
+#: inc/class-impressum.php:334
+msgid "Italy"
+msgstr "Italien"
+
+#: inc/class-impressum.php:335
+msgid "Japan"
+msgstr "Japan"
+
+#: inc/class-impressum.php:336
+msgid "Lithuania"
+msgstr "Litauen"
+
+#: inc/class-impressum.php:337
+msgid "Netherlands"
+msgstr "Niederlande"
+
+#: inc/class-impressum.php:338
+msgid "New Zealand"
+msgstr "Neuseeland"
+
+#: inc/class-impressum.php:339
+msgid "Norway"
+msgstr "Norwegen"
+
+#: inc/class-impressum.php:340
+msgid "Poland"
+msgstr "Polen"
+
+#: inc/class-impressum.php:341
+msgid "Portugal"
+msgstr "Portugal"
+
+#: inc/class-impressum.php:342
+msgid "Romania"
+msgstr "Rumänien"
+
+#: inc/class-impressum.php:343
+msgid "Russia"
+msgstr "Russland"
+
+#: inc/class-impressum.php:344
+msgid "Serbia"
+msgstr "Serbien"
+
+#: inc/class-impressum.php:345
+msgid "Slowenia"
+msgstr "Slowenien"
+
+#: inc/class-impressum.php:346
+msgid "South Africa"
+msgstr "Südafrika"
+
+#: inc/class-impressum.php:347
+msgid "South Korea"
+msgstr "Südkorea"
+
+#: inc/class-impressum.php:348
+msgid "Spain"
+msgstr "Spanien"
+
+#: inc/class-impressum.php:349
+msgid "Sweden"
+msgstr "Schweden"
+
+#: inc/class-impressum.php:350
+msgid "Switzerland"
+msgstr "Schweiz"
+
+#: inc/class-impressum.php:351
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: inc/class-impressum.php:352
+msgid "Thailand"
+msgstr "Thailand"
+
+#: inc/class-impressum.php:353
+msgid "Turkey"
+msgstr "Türkei"
+
+#: inc/class-impressum.php:354
+msgid "United Kingdom"
+msgstr "Großbritannien"
+
+#: inc/class-impressum.php:355
+msgid "United States"
+msgstr "Vereinigte Staaten"
+
+#: inc/class-impressum.php:356
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: inc/class-impressum.php:357
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#: inc/class-impressum.php:358
+msgid "other"
+msgstr "anderes"
+
+#: inc/class-impressum.php:362
+msgid "AG"
+msgstr "AG"
+
+#: inc/class-impressum.php:363
+msgid "e.V."
+msgstr "e.V."
+
+#: inc/class-impressum.php:364
+msgid "e.K."
+msgstr "e.K."
+
+#: inc/class-impressum.php:365
+msgid "Einzelkaufmann"
+msgstr "Einzelkaufmann"
+
+#: inc/class-impressum.php:366
+msgid "Freelancer"
+msgstr "Freiberufler"
+
+#: inc/class-impressum.php:367
+msgid "gGmbH"
+msgstr "gGmbH"
+
+#: inc/class-impressum.php:368
+msgid "GmbH"
+msgstr "GmbH"
+
+#: inc/class-impressum.php:369
+msgid "GbR"
+msgstr "GbR"
+
+#: inc/class-impressum.php:370
+msgid "GmbH & Co. KG"
+msgstr "GmbH & Co. KG"
+
+#: inc/class-impressum.php:371
+msgid "KG"
+msgstr "KG"
+
+#: inc/class-impressum.php:372
+msgid "KGaA"
+msgstr "KGaA"
+
+#: inc/class-impressum.php:373
+msgid "OHG"
+msgstr "OHG"
+
+#: inc/class-impressum.php:374
+msgid "Individual"
+msgstr "Privatperson"
+
+#: inc/class-impressum.php:375
+msgid "Self-employed"
+msgstr "Selbstständig"
+
+#: inc/class-impressum.php:376
+msgid "UG (haftungsbeschränkt)"
+msgstr "UG (haftungsbeschränkt)"
+
+#: inc/class-impressum.php:377
+msgid "UG (haftungsbeschränkt) & Co. KG"
+msgstr "UG (haftungsbeschränkt) &amp; Co. KG"
+
+#: inc/lib/class-epiphyt-license.php:150
+msgid "License Activation failed:"
+msgstr "Lizenzaktivierung fehlgeschlagen:"
+
+#: inc/lib/class-epiphyt-license.php:153
+msgid "Unknown error."
+msgstr "Unbekannter Fehler."
+
+#. translators: the website url for news etc.
+#: inc/lib/class-epiphyt-update.php:219
 #, php-format
 msgid ""
 "Please visit our website to receive notifications about the latest updates:"
 "<br><a href=\"%1$s\">%1$s</a>"
 msgstr ""
+"Bitte besuchen Sie unsere Website, um Informationen über die letzte "
+"Aktualisierung zu erhalten:<br><a href=\"%1$s\">%1$s</a>"
 
 #. Plugin Name of the plugin/theme
-msgid "Impressum"
-msgstr "Impressum"
+msgid "Impressum Plus"
+msgstr "Impressum Plus"
 
 #. Plugin URI of the plugin/theme
-msgid "https://impressum.plus"
-msgstr "https://impressum.plus"
+msgid "https://impressum.plus/"
+msgstr "https://impressum.plus/"
 
 #. Description of the plugin/theme
-msgid "Simple Impressum Generator"
-msgstr "Einfacher Impressums-Generator"
+msgid "Enhanced Impressum Generator"
+msgstr "Erweiterter Impressums-Generator"
 
 #. Author of the plugin/theme
 msgid "Epiphyt"
-msgstr ""
+msgstr "Epiphyt"
 
 #. Author URI of the plugin/theme
 msgid "https://epiph.yt/"
-msgstr ""
+msgstr "https://epiph.yt/"
+
+#~ msgid "Comment subscription"
+#~ msgstr "Kommentar-Abonnement"
+
+#~ msgid "Newsletter"
+#~ msgstr "Newsletter"
+
+#~ msgid "3rd party content"
+#~ msgstr "Inhalte von Drittanbietern"
+
+#~ msgid "Cookies"
+#~ msgstr "Cookies"
+
+#~ msgid "User registration"
+#~ msgstr "Benutzerregistrierung"
+
+#~ msgid "Google Analytics"
+#~ msgstr "Google Analytics"
+
+#~ msgid "Matomo/Piwik"
+#~ msgstr "Matomo/Piwik"
+
+#~ msgid "Facebook"
+#~ msgstr "Facebook"
+
+#~ msgid "Twitter"
+#~ msgstr "Twitter"
+
+#~ msgid "Google+"
+#~ msgstr "Google+"
+
+#~ msgid "Tumblr"
+#~ msgstr "Tumblr"
+
+#~ msgid "Jetpack"
+#~ msgstr "Jetpack"
+
+#~ msgid "Google AdSense"
+#~ msgstr "Google AdSense"
+
+#~ msgid "Amazon Partner"
+#~ msgstr "Amazon-Partner"
+
+#~ msgid "I use a comment subscription plugin."
+#~ msgstr "Ich benutze ein Kommentar-Abonnement-Plugin."
+
+#~ msgid "I use a newsletter plugin or service."
+#~ msgstr "Ich benutze ein Newsletter-Plugin oder -Dienst."
+
+#~ msgid "I embed tweets, YouTube videos or other 3rd-party content."
+#~ msgstr ""
+#~ "Ich binde Tweets, YouTube-Videos oder ähnliche Inhalte von Drittanbietern "
+#~ "ein."
+
+#~ msgid "I use cookies on my site."
+#~ msgstr "Ich benutze Cookies auf meiner Website."
+
+#~ msgid "Users can register on my site."
+#~ msgstr "Benutzer können sich auf meiner Website registrieren."
+
+#~ msgid "I use Google Analytics."
+#~ msgstr "Ich benutze Google Analytics."
+
+#~ msgid "I use Matomo/Piwik."
+#~ msgstr "Ich benutze Matomo/Piwik."
+
+#~ msgid "I use a Facebook social button on my website."
+#~ msgstr "Ich benutze eine Facebook-Social-Integration auf meiner Website."
+
+#~ msgid "I use a Twitter social button on my website."
+#~ msgstr "Ich benutze eine Twitter-Social-Integration auf meiner Website."
+
+#~ msgid "I use a Google+ social button on my website."
+#~ msgstr "Ich benutze eine Google+-Social-Integration auf meiner Website."
+
+#~ msgid "I use a Tumblr social button on my website."
+#~ msgstr "Ich benutze eine Tumblr-Social-Integration auf meiner Website."
+
+#~ msgid "I use the Jetpack plugin."
+#~ msgstr "Ich benutze ein Jetpack-Plugin."
+
+#~ msgid "I use Google AdSense on my website."
+#~ msgstr "Ich benutze Google AdSense auf meiner Website."
+
+#~ msgid "I use Amazon affiliate links on my website."
+#~ msgstr "Ich benutze Amazon-Partner-Links auf meiner Website."
+
+#~ msgid "Privacy"
+#~ msgstr "Datenschutz"
 
 #~ msgid "Responsible according to the German Press Law"
 #~ msgstr "Verantwortlicher i.S.d. Presserechts"
@@ -418,10 +680,10 @@ msgstr ""
 #~ "If your legal entity is not “Individual”, you need to purchase the Plus "
 #~ "version."
 #~ msgstr ""
-#~ "Die kostenlose Version enthält nicht die benötigten Funktionen für Ihre "
-#~ "Auswahl. Wenn Ihre Rechtsform nicht „Privatperson“ ist, müssen Sie die "
+#~ "Die kostenlose Version enthält nicht die benötigten Funktionen für deine "
+#~ "Auswahl. Wenn deine Rechtsform nicht „Privatperson“ ist, musst du die "
 #~ "Plus-Version erwerben."
 
 #~ msgid "You need at least the Plus version to change this entry."
 #~ msgstr ""
-#~ "Zum Ändern dieses Eintrags benötigen Sie mindestens die Plus-Version."
+#~ "Zum Ändern dieses Eintrags benötigst du mindestens die Plus-Version."

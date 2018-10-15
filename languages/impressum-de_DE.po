@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Impressum Plus\n"
 "POT-Creation-Date: 2018-10-15 13:57+0200\n"
-"PO-Revision-Date: 2018-10-15 14:03+0200\n"
+"PO-Revision-Date: 2018-10-15 15:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -56,8 +56,8 @@ msgid ""
 "You need at least enter your register number and the register where your "
 "company is registered."
 msgstr ""
-"Du benötigst mindestens deine Registernummer und das Register, in welchem "
-"deine Firma eingetragen ist."
+"Du solltest die Registernummer und das Register, in welchem deine Firma "
+"eingetragen ist, angeben."
 
 #: inc/class-impressum-backend.php:174
 msgid ""
@@ -76,7 +76,8 @@ msgid ""
 "You need to set at least your street with number, your zip code and your "
 "city."
 msgstr ""
-"Du benötigst mindestens deine Straße mit Hausnummer, Postleitzahl und Stadt."
+"Du solltest eine Adresse mit Straße, Hausnummer, Postleitzahl und Stadt "
+"angeben."
 
 #: inc/class-impressum-backend.php:265
 msgid "You can set an alternative address to be displayed in your imprint."
@@ -215,31 +216,31 @@ msgstr "Berufsrechtliche Regelungen"
 
 #: inc/class-impressum-frontend.php:596
 msgid "You need to enter an address."
-msgstr "Du musst eine Adresse angeben."
+msgstr "Du solltest eine Adresse angeben."
 
 #: inc/class-impressum-frontend.php:597
 msgid "You need to select a country."
-msgstr "Du musst ein Land auswählen."
+msgstr "Du solltest ein Land auswählen."
 
 #: inc/class-impressum-frontend.php:598
 msgid "You need to enter an email address."
-msgstr "Du musst eine E-Mail-Adresse angeben."
+msgstr "Du solltest eine E-Mail-Adresse angeben."
 
 #: inc/class-impressum-frontend.php:599
 msgid "You need to enter a name."
-msgstr "Du musst einen Namen angeben."
+msgstr "Du solltest einen Namen angeben."
 
 #: inc/class-impressum-frontend.php:600
 msgid "You need to enter a phone number."
-msgstr "Du musst eine Telefonnummer angeben."
+msgstr "Du solltest eine Telefonnummer angeben."
 
 #: inc/class-impressum-frontend.php:601
 msgid "You need to enter a register."
-msgstr "Du musst ein Register angeben."
+msgstr "Du solltest ein Register angeben."
 
 #: inc/class-impressum-frontend.php:602
 msgid "You need to enter a representative."
-msgstr "Du musst eine vertretungsberechtigte Person angeben."
+msgstr "Du solltest eine vertretungsberechtigte Person angeben."
 
 #: inc/class-impressum-frontend.php:603
 msgid ""

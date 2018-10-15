@@ -10,7 +10,7 @@ stages:
     - test
     - production
 
-upload_zip:
+upload_zip_updateserver:
     stage: production
 
     script:
@@ -22,6 +22,23 @@ upload_zip:
 
     variables:
         DEPLOY_PATH: /var/www/wp-update-server/packages
+        DEPLOY_SERVER: dagobah.kittmedia.com
+
+        # GitLab project variables:
+        # - SSH_USER_PRODUCTION
+
+upload_zip_wordpress:
+    stage: production
+
+    script:
+        - cd deploy-script
+        - ./deploy.sh -u $SSH_USER_PRODUCTION -d $DEPLOY_PATH -h $DEPLOY_SERVER -z impressum
+
+    only:
+        - tags
+
+    variables:
+        DEPLOY_PATH: /var/www/epiphyt/wp-content/uploads/products/impressum-plus-fscw74q8ilntfz7arltz4a8tsa
         DEPLOY_SERVER: dagobah.kittmedia.com
 
         # GitLab project variables:

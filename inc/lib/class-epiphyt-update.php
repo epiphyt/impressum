@@ -127,7 +127,7 @@ class Epiphyt_Update {
 			$plugin = reset( $option['plugins'] );
 			
 			// check if the currently updated plugin matches our plugin base name
-			if ( $plugin !== false && $args['plugin'] === $plugin ) {
+			if ( $plugin !== false && isset( $args['plugin'] ) && $args['plugin'] === $plugin ) {
 				if ( $wp_filesystem->exists( $remote_source ) ) {
 					// create a folder with slug as name inside the folder
 					$upgrade_dir = trailingslashit( $remote_source ) . dirname( $plugin );

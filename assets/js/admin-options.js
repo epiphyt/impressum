@@ -101,8 +101,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			case 'self':
 				business_id_row.style.display = 'none';
 				capital_stock_row.style.display = 'none';
-				coverage.style.display = 'none';
-				free_text.style.display = 'none';
 				inspecting_authority_row.style.display = 'none';
 				legal_job_title_row.style.display = 'none';
 				pending_deposits_row.style.display = 'none';
@@ -122,8 +120,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 				case 'self':
 					business_id_row.style.display = 'none';
 					capital_stock_row.style.display = 'none';
-					coverage.style.display = 'none';
-					free_text.style.display = 'none';
 					inspecting_authority_row.style.display = 'none';
 					legal_job_title_row.style.display = 'none';
 					pending_deposits_row.style.display = 'none';
@@ -135,8 +131,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 				default:
 					business_id_row.style.display = '';
 					capital_stock_row.style.display = '';
-					coverage.style.display = '';
-					free_text.style.display = '';
 					inspecting_authority_row.style.display = '';
 					legal_job_title_row.style.display = '';
 					pending_deposits_row.style.display = '';

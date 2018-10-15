@@ -396,7 +396,10 @@ class Impressum {
 		
 		// get only local option if there is no multisite
 		// or if we are on a multisite in the admin area of a single site
-		if ( ! is_multisite() && ! is_network_admin() && is_admin() ) {
+		if (
+			( ! is_multisite() && ! is_network_admin() && is_admin() )
+			|| ( ! is_multisite() && ! is_admin() )
+		) {
 			// try receive option
 			$options = get_option( $option );
 			$options['default'] = get_site_option( $option );

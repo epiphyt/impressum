@@ -103,7 +103,7 @@ class Impressum_Backend extends Impressum {
 	<option value=""><?php esc_html_e( 'Please select &hellip;', 'impressum' ); ?></option>
 		<?php
 		foreach ( self::$countries as $country_code => $country ) {
-			$is_selected = ( ! empty( $options['country'] ) ? selected( $options['country'], $country_code, false ) : isset( $options['default']['country'] ) ? selected( $options['default']['country'], $country_code, false ) : '' );
+			$is_selected = ( ! empty( $options['country'] ) ? selected( $options['country'], $country_code, false ) : ( ! empty( $options['default']['country'] ) ? selected( $options['default']['country'], $country_code, false ) : '' ) );
 			
 			echo '<option value="' . esc_attr( $country_code ) . '"' . ( $is_selected ?: '' ) . '>' . esc_html( $country ) . '</option>';
 		}
@@ -126,7 +126,7 @@ class Impressum_Backend extends Impressum {
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
 		<?php
 		foreach ( self::$legal_entities as $abbr => $entity ) {
-			$is_selected = ( ! empty( $options['legal_entity'] ) ? selected( $options['legal_entity'], $abbr, false ) : isset( $options['default']['legal_entity'] ) ? selected( $options['default']['legal_entity'], $abbr, false ) : '' );
+			$is_selected = ( ! empty( $options['legal_entity'] ) ? selected( $options['legal_entity'], $abbr, false ) : ( ! empty( $options['default']['legal_entity'] ) ? selected( $options['default']['legal_entity'], $abbr, false ) : '' ) );
 			
 			echo '<option value="' . esc_attr( $abbr ) . '"' . ( $is_selected ?: '' ) . '>' . esc_html( $entity ) . '</option>';
 		}

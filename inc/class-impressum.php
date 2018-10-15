@@ -182,7 +182,7 @@ class Impressum {
 			'aus' => __( 'Australia', 'impressum' ),
 			'aut' => __( 'Austria', 'impressum' ),
 			'bel' => __( 'Belgium', 'impressum' ),
-			'bra' => __( 'Brasil', 'impressum' ),
+			'bra' => __( 'Brazil', 'impressum' ),
 			'bgr' => __( 'Bulgaria', 'impressum' ),
 			'can' => __( 'Canada', 'impressum' ),
 			'chl' => __( 'Chile', 'impressum' ),

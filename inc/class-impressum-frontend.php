@@ -445,7 +445,7 @@ class Impressum_Frontend extends Impressum {
 		// check the state if we generate markup
 		$do_markup = boolval( $atts['markup'] );
 		// get every imprint option
-		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options', true );
 		// get entity
 		$entity = $options['legal_entity'];
 		// prepare the output
@@ -643,7 +643,7 @@ class Impressum_Frontend extends Impressum {
 	 */
 	public static function get_invalid_fields() {
 		$invalid_fields = [];
-		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options', true );
 		
 		// detect required fields according to the legal entity
 		switch ( $options['legal_entity'] ) {
@@ -697,7 +697,7 @@ class Impressum_Frontend extends Impressum {
 	 * @return	bool
 	 */
 	public static function is_valid() {
-		$options = self::impressum_get_option( 'impressum_imprint_options' );
+		$options = self::impressum_get_option( 'impressum_imprint_options', true );
 		
 		// return false if there is no imprint option yet
 		if ( ! $options || ! isset( $options['legal_entity'] ) || empty( $options['legal_entity'] ) ) {

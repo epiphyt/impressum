@@ -72,7 +72,7 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			
 			field.addEventListener( event, function( event ) {
 				var current_target = event.currentTarget;
-				var hide_message = current_target.value.length !== 0;
+				var hide_message = current_target.value.length !== 0 || current_target.placeholder.length !== 0;
 				
 				toggle_message( hide_message, field, message );
 			} );
@@ -85,8 +85,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	function check_legal_entity() {
 		var business_id_row = document.getElementsByClassName( 'impressum_business_id' )[0];
 		var capital_stock_row = document.getElementsByClassName( 'impressum_capital_stock' )[0];
-		var coverage = document.getElementsByClassName( 'coverage' )[0];
-		var free_text = document.getElementsByClassName( 'free_text' )[0];
 		var inspecting_authority_row = document.getElementsByClassName( 'impressum_inspecting_authority' )[0];
 		var legal_job_title_row = document.getElementsByClassName( 'impressum_legal_job_title' )[0];
 		var pending_deposits_row = document.getElementsByClassName( 'impressum_pending_deposits' )[0];

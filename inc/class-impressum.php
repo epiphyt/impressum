@@ -383,26 +383,44 @@ class Impressum {
 	}
 	
 	/**
-	 * Get an option or a site option with the same name.
+	 * Get an option or a site option or both with the same name.
 	 * The site option is received if there is no option
-	 * with the same name.
+	 * with the same name, except they should be merged.
 	 * 
 	 * @param	string		$option The option you want to get
+	 * @param	string		$merge Whether site option and option should be merged
 	 * @return	mixed|void
 	 */
-	protected static function impressum_get_option( $option ) {
+	protected static function impressum_get_option( $option, $merge = false ) {
 		if ( ! is_string( $option ) ) return;
 		
-		if ( ! is_multisite() ) {
+		// get only local option if there is no multisite
+		// or if we are on a multisite in the admin area of a single site
+		if ( ! is_multisite() && ! is_network_admin() && is_admin() ) {
 			// try receive option
 			$options = get_option( $option );
-			
-			if ( empty( $options ) ) {
-				$options = get_site_option( $option );
-			}
+			$options['default'] = get_site_option( $option );
 		}
 		else {
-			$options = get_site_option( $option );
+			// get global elements
+			$options_global = get_site_option( $option );
+			// get local elements
+			$options_local = get_option( $option );
+			
+			// get both global and local options
+			if ( $merge === true && ! empty( $options_local ) ) {
+				// remove empty elements
+				$options_local = array_filter( $options_local );
+				// merge global and local options
+				$options = array_merge( $options_global, $options_local );
+			}
+			else if ( ! is_network_admin() ) {
+				$options = $options_local;
+				$options['default'] = $options_global;
+			}
+			else {
+				$options = $options_global;
+			}
 		}
 		
 		return $options;

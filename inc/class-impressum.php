@@ -350,7 +350,7 @@ class Impressum {
 			'che' => __( 'Switzerland', 'impressum' ),
 			'twn' => __( 'Taiwan', 'impressum' ),
 			'tha' => __( 'Thailand', 'impressum' ),
-			'tur' => __( 'Turky', 'impressum' ),
+			'tur' => __( 'Turkey', 'impressum' ),
 			'gbr' => __( 'United Kingdom', 'impressum' ),
 			'usa' => __( 'United States', 'impressum' ),
 			'ven' => __( 'Venezuela', 'impressum' ),

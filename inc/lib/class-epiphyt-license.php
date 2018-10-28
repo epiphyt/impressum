@@ -143,7 +143,11 @@ class Epiphyt_License extends Epiphyt_Update {
 		if ( empty( $response ) ) return;
 		// show notice only impressum options|settings page
 		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
-		if ( ! ( $pagenow === 'options-general.php' || $pagenow === 'settings.php' ) && isset( $_GET['page'] ) && $_GET['page'] === self::$update_slug ) return;
+		if (
+			! ( $pagenow === 'options-general.php' || $pagenow === 'settings.php' )
+			&& isset( $_GET['page'] ) && $_GET['page'] !== self::$update_slug
+			|| ! isset( $_GET['page'] )
+		) return;
 		// phpcs:enable
 		?>
 <div id="message" class="notice notice-error">

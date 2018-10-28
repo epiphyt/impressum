@@ -147,7 +147,7 @@ class Epiphyt_License extends Epiphyt_Update {
 		// phpcs:enable
 		?>
 <div id="message" class="notice notice-error">
-	<p><?php esc_html_e( 'License Activation failed:', 'impressum' ); ?><br>
+	<p><?php esc_html_e( 'License Activation failed:', 'impressum-plus' ); ?><br>
 	<?php
 	// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralDomain
 	echo ( isset( $response['error'] ) ? esc_html( $response['error'] ) : esc_html( __( 'Unknown error.', self::$text_domain ) ) );

@@ -46,7 +46,7 @@ class Impressum_Backend extends Impressum {
 		return array_merge(
 			$input,
 			[
-				'<a href="https://impressum.plus/dokumentation/?version=' . get_plugin_data( $this->plugin_file )['Version'] . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum' ) . '</a>',
+				'<a href="https://impressum.plus/dokumentation/?version=' . get_plugin_data( $this->plugin_file )['Version'] . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'impressum-plus' ) . '</a>',
 			]
 		);
 	}
@@ -100,7 +100,7 @@ class Impressum_Backend extends Impressum {
 		$options = self::impressum_get_option( 'impressum_imprint_options' );
 		?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
-	<option value=""><?php esc_html_e( 'Please select &hellip;', 'impressum' ); ?></option>
+	<option value=""><?php esc_html_e( 'Please select &hellip;', 'impressum-plus' ); ?></option>
 		<?php
 		foreach ( self::$countries as $country_code => $country ) {
 			$is_selected = ( ! empty( $options['country'] ) ? selected( $options['country'], $country_code, false ) : ( ! empty( $options['default']['country'] ) ? selected( $options['default']['country'], $country_code, false ) : '' ) );
@@ -109,7 +109,7 @@ class Impressum_Backend extends Impressum {
 		}
 		?>
 </select>
-<p><?php esc_html_e( 'In order to determine the needed fields for your imprint we need to know your country.', 'impressum' ); ?></p>
+<p><?php esc_html_e( 'In order to determine the needed fields for your imprint we need to know your country.', 'impressum-plus' ); ?></p>
 		<?php
 	}
 	
@@ -132,7 +132,7 @@ class Impressum_Backend extends Impressum {
 		}
 		?>
 </select>
-<p><?php esc_html_e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum' ); ?></p>
+<p><?php esc_html_e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum-plus' ); ?></p>
 		<?php
 	}
 	
@@ -166,13 +166,13 @@ class Impressum_Backend extends Impressum {
 		<?php
 		switch ( $args['label_for'] ) {
 			case 'coverage':
-				echo '<p>' . esc_html__( 'If you link to this imprint from several other domains, enter them here.', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'If you link to this imprint from several other domains, enter them here.', 'impressum-plus' ) . '</p>';
 				break;
 			case 'register':
-				echo '<p>' . esc_html__( 'You need at least enter your register number and the register where your company is registered.', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need at least enter your register number and the register where your company is registered.', 'impressum-plus' ) . '</p>';
 				break;
 			case 'vat_id':
-				echo '<p>' . esc_html__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum-plus' ) . '</p>';
 				break;
 		}
 	}
@@ -242,7 +242,7 @@ class Impressum_Backend extends Impressum {
 		// output the field
 		?>
 <label for="<?php echo esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]" value="1"<?php checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-	<?php esc_html_e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
+	<?php esc_html_e( 'I have journalistic/editorial content on my website', 'impressum-plus' ); ?>
 </label>
 		<?php
 	}
@@ -262,13 +262,13 @@ class Impressum_Backend extends Impressum {
 		<?php
 		switch ( $args['label_for'] ) {
 			case 'address':
-				echo '<p>' . esc_html__( 'You need to set at least your street with number, your zip code and your city.', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'You need to set at least your street with number, your zip code and your city.', 'impressum-plus' ) . '</p>';
 				break;
 			case 'address_alternative':
-				echo '<p>' . esc_html__( 'You can set an alternative address to be displayed in your imprint.', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'You can set an alternative address to be displayed in your imprint.', 'impressum-plus' ) . '</p>';
 				break;
 			case 'free_text':
-				echo '<p>' . esc_html__( 'You can add some additional free text if the predefined input fields don’t suite your needs.', 'impressum' ) . '</p>';
+				echo '<p>' . esc_html__( 'You can add some additional free text if the predefined input fields don’t suite your needs.', 'impressum-plus' ) . '</p>';
 				break;
 		}
 	}
@@ -328,7 +328,7 @@ class Impressum_Backend extends Impressum {
 			// phpcs:enable
 				?>
 				<div id="message" class="updated notice is-dismissible">
-					<p><?php esc_html_e( 'Options saved.', 'impressum' ) ?></p>
+					<p><?php esc_html_e( 'Options saved.', 'impressum-plus' ) ?></p>
 				</div>
 				<?php
 			}
@@ -340,8 +340,8 @@ class Impressum_Backend extends Impressum {
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab === 'imprint' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Imprint', 'impressum' ); ?></a>
-		<?php if ( ! is_multisite() || is_network_admin() ) : ?><a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab === 'license' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'License', 'impressum' ); ?></a><?php endif; ?>
+		<a href="?page=impressum&imprint_tab=imprint" class="nav-tab <?php echo $current_tab === 'imprint' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Imprint', 'impressum-plus' ); ?></a>
+		<?php if ( ! is_multisite() || is_network_admin() ) : ?><a href="?page=impressum&imprint_tab=license" class="nav-tab <?php echo $current_tab === 'license' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'License', 'impressum-plus' ); ?></a><?php endif; ?>
 	</h2>
 	<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 	
@@ -357,15 +357,15 @@ class Impressum_Backend extends Impressum {
 			// (sections are registered for "impressum", each field is registered to a specific section)
 			do_settings_sections( 'impressum_' . $current_tab );
 			// disclaimer
-			echo '<h3>' . esc_html__( 'Disclaimer', 'impressum' ) . '</h3>';
-			echo '<p>' . esc_html__( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum Plus” helps you to fill all necessary fields.', 'impressum' ) . '</p>';
+			echo '<h3>' . esc_html__( 'Disclaimer', 'impressum-plus' ) . '</h3>';
+			echo '<p>' . esc_html__( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum Plus” helps you to fill all necessary fields.', 'impressum-plus' ) . '</p>';
 			// output save settings button
-			submit_button( esc_html__( 'Save Settings', 'impressum' ) );
+			submit_button( esc_html__( 'Save Settings', 'impressum-plus' ) );
 			echo '</form>';
 			// usage description
-			echo '<h3>' . esc_html__( 'Usage', 'impressum' ) . '</h3>';
+			echo '<h3>' . esc_html__( 'Usage', 'impressum-plus' ) . '</h3>';
 			/* translators: the shortcode */
-			echo '<p>' . sprintf( esc_html__( 'Add the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere shortcodes work).', 'impressum' ), '<code>[impressum]</code>' ) . '</p>';
+			echo '<p>' . sprintf( esc_html__( 'Add the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere shortcodes work).', 'impressum-plus' ), '<code>[impressum]</code>' ) . '</p>';
 			break;
 		case 'license':
 			if ( ! is_multisite() || is_network_admin() ) {
@@ -376,7 +376,7 @@ class Impressum_Backend extends Impressum {
 				// (sections are registered for "impressum", each field is registered to a specific section)
 				do_settings_sections( 'impressum_' . $current_tab );
 				// output save settings button
-				submit_button( __( 'Save Settings', 'impressum' ) );
+				submit_button( __( 'Save Settings', 'impressum-plus' ) );
 				echo '</form>';
 			}
 			break;

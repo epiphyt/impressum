@@ -477,61 +477,61 @@ class Impressum_Frontend extends Impressum {
 			switch ( $field ) {
 				case 'address':
 				case 'address_alternative':
-					$title = __( 'Address', 'impressum' );
+					$title = __( 'Address', 'impressum-plus' );
 					break;
 				case 'coverage':
-					$title = __( 'Coverage', 'impressum' );
+					$title = __( 'Coverage', 'impressum-plus' );
 					break;
 				case 'email':
-					$title = __( 'Email Address', 'impressum' );
+					$title = __( 'Email Address', 'impressum-plus' );
 					break;
 				case 'fax':
-					$title = __( 'Fax', 'impressum' );
+					$title = __( 'Fax', 'impressum-plus' );
 					break;
 				case 'free_text':
-					$title = __( 'Free Text', 'impressum' );
+					$title = __( 'Free Text', 'impressum-plus' );
 					break;
 				case 'legal_entity':
-					$title = __( 'Legal Entity', 'impressum' );
+					$title = __( 'Legal Entity', 'impressum-plus' );
 					break;
 				case 'name':
-					$title = __( 'Name', 'impressum' );
+					$title = __( 'Name', 'impressum-plus' );
 					break;
 				case 'phone':
-					$title = __( 'Phone', 'impressum' );
+					$title = __( 'Phone', 'impressum-plus' );
 					break;
 				case 'press_law_person':
-					$title = __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' );
+					$title = __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum-plus' );
 					break;
 				case 'vat_id':
-					$title = __( 'VAT ID', 'impressum' );
+					$title = __( 'VAT ID', 'impressum-plus' );
 					break;
 				case 'inspecting_authority':
-					$title = __( 'Inspecting Authority', 'impressum' );
+					$title = __( 'Inspecting Authority', 'impressum-plus' );
 					break;
 				case 'register':
-					$title = __( 'Register', 'impressum' );
+					$title = __( 'Register', 'impressum-plus' );
 					break;
 				case 'business_id':
-					$title = __( 'Business ID', 'impressum' );
+					$title = __( 'Business ID', 'impressum-plus' );
 					break;
 				case 'representative':
-					$title = __( 'Representative', 'impressum' );
+					$title = __( 'Representative', 'impressum-plus' );
 					break;
 				case 'capital_stock':
-					$title = __( 'Capital Stock', 'impressum' );
+					$title = __( 'Capital Stock', 'impressum-plus' );
 					break;
 				case 'pending_deposits':
-					$title = __( 'Pending Deposits', 'impressum' );
+					$title = __( 'Pending Deposits', 'impressum-plus' );
 					break;
 				case 'professional_association':
-					$title = __( 'Professional Association', 'impressum' );
+					$title = __( 'Professional Association', 'impressum-plus' );
 					break;
 				case 'legal_job_title':
-					$title = __( 'Legal Job Title', 'impressum' );
+					$title = __( 'Legal Job Title', 'impressum-plus' );
 					break;
 				case 'professional_regulations':
-					$title = __( 'Professional Regulations', 'impressum' );
+					$title = __( 'Professional Regulations', 'impressum-plus' );
 					break;
 			}
 			
@@ -593,14 +593,14 @@ class Impressum_Frontend extends Impressum {
 		
 		// prepare for translation
 		wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
-			'address_error_message' => esc_html__( 'You need to enter an address.', 'impressum' ),
-			'country_error_message' => esc_html__( 'You need to select a country.', 'impressum' ),
-			'email_error_message' => esc_html__( 'You need to enter an email address.', 'impressum' ),
-			'name_error_message' => esc_html__( 'You need to enter a name.', 'impressum' ),
-			'phone_error_message' => esc_html__( 'You need to enter a phone number.', 'impressum' ),
-			'register_error_message' => esc_html__( 'You need to enter a register.', 'impressum' ),
-			'representative_error_message' => esc_html__( 'You need to enter a representative.', 'impressum' ),
-			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
+			'address_error_message' => esc_html__( 'You need to enter an address.', 'impressum-plus' ),
+			'country_error_message' => esc_html__( 'You need to select a country.', 'impressum-plus' ),
+			'email_error_message' => esc_html__( 'You need to enter an email address.', 'impressum-plus' ),
+			'name_error_message' => esc_html__( 'You need to enter a name.', 'impressum-plus' ),
+			'phone_error_message' => esc_html__( 'You need to enter a phone number.', 'impressum-plus' ),
+			'register_error_message' => esc_html__( 'You need to enter a register.', 'impressum-plus' ),
+			'representative_error_message' => esc_html__( 'You need to enter a representative.', 'impressum-plus' ),
+			'vat_id_error_message' => esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum-plus' ),
 		] );
 	}
 	
@@ -620,13 +620,13 @@ class Impressum_Frontend extends Impressum {
 		?>
 <div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
 	<p>
-		<?php esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
-		<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php esc_html_e( 'Configure now!', 'impressum' ); ?></a>
+		<?php esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum-plus' ); ?>
+		<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php esc_html_e( 'Configure now!', 'impressum-plus' ); ?></a>
 	</p>
 	<?php if ( ! empty( $invalid_fields ) ) : ?>
 	<p>
 		<?php
-		esc_html_e( 'At least the following fields are invalid:', 'impressum' );
+		esc_html_e( 'At least the following fields are invalid:', 'impressum-plus' );
 		echo '<br>' . esc_html( implode( ', ', $invalid_fields ) );
 		?>
 	</p>

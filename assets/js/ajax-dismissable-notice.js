@@ -1,7 +1,7 @@
 /**
  * JavaScript function to permanently dismiss a notice in admin.
  * 
- * @version		0.1
+ * @version		1.0.0
  * @author		Matthias Kittsteiner, Simon Kraft
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */

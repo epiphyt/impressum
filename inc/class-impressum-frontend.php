@@ -9,7 +9,7 @@ require_once( __DIR__ . '/class-impressum.php' );
 /**
  * Impressum frontend functions.
  * 
- * @version		0.1
+ * @version		1.0.0
  * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */

@@ -256,7 +256,7 @@ class Epiphyt_Update {
 	 * 
 	 * @param array|string $args Query arguments
 	 * @param bool $raw Should the response returned in raw format or not 
-	 * @return bool|object
+	 * @return array|bool|string
 	 */
 	public function request( $args = '', $raw = false ) {
 		$option = is_multisite() ? (array) get_site_option( 'epiphyt_update' ) : (array) get_option( 'epiphyt_update' );
@@ -279,9 +279,10 @@ class Epiphyt_Update {
 		// request plugin data
 		$request = wp_remote_post( $this->update_url, [ 'body' => $args ] );
 		$response = wp_remote_retrieve_body( $request );
+		$response_code = wp_remote_retrieve_response_code( $request );
 		
 		// check response
-		if ( ! is_wp_error( $request ) || $response === 200 ) {
+		if ( ! is_wp_error( $request ) || $response_code === 200 ) {
 			return $raw ? $response : $this->prepare_response( $response );
 		}
 		

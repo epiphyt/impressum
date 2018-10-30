@@ -15,7 +15,7 @@ upload_zip_updateserver:
 
     script:
         - cd deploy-script
-        - ./deploy.sh -u $SSH_USER_PRODUCTION -d $DEPLOY_PATH -h $DEPLOY_SERVER -z impressum-plus
+        - ./deploy.sh -u $SSH_USER_PRODUCTION -d $DEPLOY_PATH -h $DEPLOY_SERVER -z impressum
 
     only:
         - tags

@@ -54,8 +54,9 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 
 == Screenshots ==
 
-1. @TODO add screenshot description for  `/assets/screenshot-1.png`
-2. @TODO add screenshot description for  `/assets/screenshot-2.png`
+1. Manage your imprit with Impressums easy to use interface.
+2. Add the `[impressum]` shortcode wherever you want to output your imprint.
+3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
 

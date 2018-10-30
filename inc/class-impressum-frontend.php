@@ -626,7 +626,7 @@ class Impressum_Frontend extends Impressum {
 	<?php if ( ! empty( $invalid_fields ) ) : ?>
 	<p>
 		<?php
-		esc_html_e( 'At least the following fields are invalid:', 'impressum-plus' );
+		esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum-plus' );
 		echo '<br>' . esc_html( implode( ', ', $invalid_fields ) );
 		?>
 	</p>

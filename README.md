@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
 Requires at least: 4.7
-Tested up to: 4.9
+Tested up to: 5.0
 Requires PHP: 5.6
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,10 @@ Yes. _Impressum_ is and always will be available for free. However, if your site
 
 No. _Impressum_ keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of cause the '[impressum]' shortcode will be displayed publicly on your website.
 
+= Is Impressum compatible with the new WP block editor "Gutenberg"? =
+
+Yes. You can continue to use our shortcode with Gutenberg while we spend some time in the lab and play with the idea of Impressum blocks.
+
 = Who are you folks? =
 
 We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin shop from southern Germany.
@@ -59,6 +63,16 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 1.0.0 =
+* Improved admin notices
+* Improved user experience for first time users
+* Improved code structure (nerd stuff: namespaces, wrapper classes, and a bit of a cleanup)
+* Improve compatiblity with [Impressum Plus](https://impressum.plus/)
+* Added structured country data
+* Added check for required fields per legal entity
+
+And a final thank you to our friends [@pixolin](https://profiles.wordpress.org/pixolin) and [@mahype](https://profiles.wordpress.org/mahype) for their support and great feature suggestions. 🤗
 
 = 0.2 =
 * Added default `mailto://` links for mailadresses

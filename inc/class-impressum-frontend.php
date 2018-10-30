@@ -786,7 +786,7 @@ class Impressum_Frontend extends Impressum {
 				<div class="impressum-welcome-panel-column">
 					<div>
 						<h3><?php \esc_html_e( 'Got bigger plans?', 'impressum' ); ?> <em>Impressum Plus</em> <?php \esc_html_e( 'is here for you', 'impressum' ); ?></h3>
-						<p><?php \esc_html_e( 'If this site is running by a corporation or partnership, you might like Impressum’s bigger brother Impressum Plus. With advanced features and support for multiple legal forms, Impressum Plus covers business from your local book shop to bigger multi-location corporations.', 'impressum' ); ?></p>
+						<p><?php \esc_html_e( 'If this site is run by a corporation or partnership, you might like Impressum’s bigger brother Impressum Plus. With advanced features and support for multiple kinds of legal entities, Impressum Plus covers business from your local book shop to bigger multi-location corporations.', 'impressum' ); ?></p>
 					</div>
 					<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 					

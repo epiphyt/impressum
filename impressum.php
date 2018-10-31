@@ -5,7 +5,7 @@ namespace epiphyt\Impressum;
 Plugin Name:	Impressum
 Plugin URI:		https://wordpress.org/plugins/impressum/
 Description:	Simple Impressum Generator
-Version:		1.0.0
+Version:		1.0.1
 Author:			Epiphyt
 Author URI:		https://epiph.yt/
 License:		GPL3
@@ -28,14 +28,28 @@ You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
 */
 
-if ( ! class_exists( 'Impressum_Backend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-backend.php';
-	new Impressum_Backend( __FILE__ );
-}
+/**
+ * Autoload all necessary classes.
+ * 
+ * @param	string		$class The class name of the autoloaded class
+ */
+\spl_autoload_register( function( $class ) {
+	$path = \explode( '\\', $class );
+	$filename = \str_replace( '_', '-', \strtolower( \array_pop( $path ) ) );
+	$class = \str_replace(
+		[ 'epiphyt\impressum\\', '\\', '_' ],
+		[ '', '/', '-' ],
+		\strtolower( $class )
+	);
+	$class = \str_replace( $filename, 'class-' . $filename, $class );
+	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
+	
+	if ( \file_exists( $maybe_file ) ) {
+		require_once( $maybe_file );
+	}
+} );
 
-if ( ! class_exists( 'Impressum_Frontend' ) ) {
-	require plugin_dir_path( __FILE__ ) . '/inc/class-impressum-frontend.php';
-	new Impressum_Frontend( __FILE__ );
-}
+new Impressum_Backend( __FILE__ );
+new Impressum_Frontend( __FILE__ );
 
 if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );

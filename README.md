@@ -64,6 +64,9 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed a potential fatal error if Impressum and Impressum Plus are both enabled, ❤️ [@drivingralle](https://profiles.wordpress.org/drivingralle)
+
 = 1.0.0 =
 * Improved admin notices
 * Improved user experience for first time users

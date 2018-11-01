@@ -1,7 +1,7 @@
 /**
  * JavaScript functions for the admin options page.
  * 
- * @version		1.0.0
+ * @version		1.0.1
  * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */

@@ -758,7 +758,7 @@ class Impressum_Frontend extends Impressum {
 		
 		if ( ! get_option( 'dismissed-impressum_welcome_notice' ) ) :
 		?>
-<div class="wrap">
+<div class="impressum-wrap">
 	<div class="impressum-welcome-panel" data-notice="impressum_welcome_notice">
 		<div class="impressum-welcome-panel-content">
 			<h2><?php \esc_html_e( 'Welcome to Impressum, we’re glad you’re here!', 'impressum' ); ?></h2>

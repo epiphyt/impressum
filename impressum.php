@@ -5,7 +5,7 @@ namespace epiphyt\Impressum;
 Plugin Name:	Impressum
 Plugin URI:		https://wordpress.org/plugins/impressum/
 Description:	Simple Impressum Generator
-Version:		1.0.1
+Version:		1.0.2
 Author:			Epiphyt
 Author URI:		https://epiph.yt/
 License:		GPL3

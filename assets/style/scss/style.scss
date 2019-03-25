@@ -54,16 +54,27 @@
 		-ms-grid-rows: auto 48px;
 		grid-template-rows: auto 48px;
 		
+		&:not(:last-child) {
+			margin-bottom: 34px;
+			
+			@media (min-width: 1024px) {
+				margin-bottom: 0;
+			}
+		}
+		
 		> * {
 			padding-right: 40px;
 		}
 	}
 	
 	.impressum-welcome-panel-column-container {
-		display: grid;
-		-ms-grid-columns: 33% 33% 33%;
-		grid-template-columns: 33% 33% 33%;
 		margin-bottom: 13px;
+		
+		@media (min-width: 1024px) {
+			display: grid;
+			-ms-grid-columns: 33% 33% 33%;
+			grid-template-columns: 33% 33% 33%;
+		}
 	}
 }
 

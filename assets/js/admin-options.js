@@ -85,14 +85,14 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	function check_legal_entity() {
 		// check on page load
 		var message = imprintL10n.legal_entity_error_message;
-		var need_pro_message = legal_entity_select.value === 'individual' || legal_entity_select.value === 'self';
+		var need_pro_message = legal_entity_select.value === 'individual' || legal_entity_select.value === 'self' || current_target.value === '';;
 		toggle_message( need_pro_message, legal_entity_select, message );
 		
 		// check on select change
 		legal_entity_select.addEventListener( 'change', function( event ) {
 			var current_target = event.currentTarget;
 			
-			need_pro_message = current_target.value === 'individual' || current_target.value === 'self';
+			need_pro_message = current_target.value === 'individual' || current_target.value === 'self' || current_target.value === '';
 			toggle_message( need_pro_message, legal_entity_select, message );
 		} );
 	}

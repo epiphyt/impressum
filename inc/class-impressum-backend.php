@@ -112,6 +112,7 @@ class Impressum_Backend extends Impressum {
 		// output the field
 		?>
 <select id="<?php echo esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+	<option value=""><?php esc_html_e( 'Please select &hellip;', 'impressum' ); ?></option>
 		<?php
 		foreach ( self::$legal_entities as $abbr => $entity ) {
 			$is_selected = ( isset( $options['legal_entity'] ) ? selected( $options['legal_entity'], $abbr, false ) : '' );

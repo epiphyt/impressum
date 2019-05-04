@@ -64,6 +64,10 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 
 == Changelog ==
 
+= 1.0.3 =
+* Improved legal entity
+* Fixed issue causing the welcome panel to be misformatted on mobile devices.
+
 = 1.0.2 =
 * Removed the check if a VAT ID is entered. It is based on sales, not on a legal entity.
 * Fixed a design issue that leads to overlapped welcome panel by any dismissible notice.

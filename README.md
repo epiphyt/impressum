@@ -11,7 +11,7 @@ Impressum provides you with a full-fledged easy to use imprint generator right w
 
 == Description ==
 
-_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on it's own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
 
 
 == Installation ==
@@ -46,9 +46,9 @@ Yes. _Impressum_ is and always will be available for free. However, if your site
 
 = Does Impressum share any of my data? (GDPR) =
 
-No. _Impressum_ keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of cause the '[impressum]' shortcode will be displayed publicly on your website.
+No. _Impressum_ keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of course the '[impressum]' shortcode will be displayed publicly on your website.
 
-= Is Impressum compatible with the new WP block editor "Gutenberg"? =
+= Is Impressum compatible with the WP block editor "Gutenberg"? =
 
 Yes. You can continue to use our shortcode with Gutenberg while we spend some time in the lab and play with the idea of Impressum blocks.
 
@@ -79,7 +79,7 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 * Improved admin notices
 * Improved user experience for first time users
 * Improved code structure (nerd stuff: namespaces, wrapper classes, and a bit of a cleanup)
-* Improve compatiblity with [Impressum Plus](https://impressum.plus/)
+* Improve compatibility with [Impressum Plus](https://impressum.plus/)
 * Added structured country data
 * Added check for required fields per legal entity
 

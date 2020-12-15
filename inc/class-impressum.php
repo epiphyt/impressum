@@ -242,6 +242,7 @@ class Impressum {
 			'kgag' => __( 'KGaA', 'impressum' ),
 			'ohg' => __( 'OHG', 'impressum' ),
 			'individual' => __( 'Individual', 'impressum' ),
+			'partnership' => __( 'Partnership', 'impressum' ),
 			'self' => __( 'Self-employed', 'impressum' ),
 			'ug' => __( 'UG (haftungsbeschränkt)', 'impressum' ),
 			'ug_co_kg' => __( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ),

@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
 Requires at least: 4.7
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.6
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -30,7 +30,7 @@ In certain countries like Germany and Austria, the law requires some website own
 
 = But there are online generators for that =
 
-Yes and they are great. But adding an imprint generator directly to your WordPress install makes it pretty easy for you to stay up to date.
+Yes, and they are great. But adding an imprint generator directly to your WordPress install makes it pretty easy for you to stay up to date.
 
 = How do I use Impressum? =
 
@@ -38,7 +38,7 @@ After you install and activate _Impressum_ we will kindly ask you to populate so
 
 By adding the shortcode '[impressum]' anywhere on your site, you can choose where to output your imprint.
 
-After this initial setup, _Impressum_ just sits in your install serves your imprint. Once legal requirements change, _Impressum_ will notify you about necessary changes.
+After this initial setup, _Impressum_ just sits in your installation serves your imprint. Once legal requirements change, _Impressum_ will notify you about necessary changes.
 
 = Can I really use this plugin free of charge? =
 
@@ -63,6 +63,10 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 1.0.4 =
+* Added new select for "Partnership" legal entity.
+* Removed “according to § 55 paragraph 2 RStV” for the responsible person as it doesn’t reflect the correct legal base anymore (it’s been covered by § 18 Abs. 2 MStV now).
 
 = 1.0.3 =
 * Improved legal entity

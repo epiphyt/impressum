@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * The main Impressum class.
  * 
- * @version		1.0.3
+ * @version		1.0.4
  * @author		Epiphyt
  * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
  */

@@ -147,7 +147,7 @@ class Impressum {
 				],
 			],
 			'press_law_person' => [
-				'title' => __( 'Responsible for content according to § 55 paragraph 2 RStV', 'impressum' ),
+				'title' => __( 'Responsible for content', 'impressum' ),
 				'callback' => 'impressum_textarea_callback',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',

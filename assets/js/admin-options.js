@@ -1,57 +1,57 @@
 /**
  * JavaScript functions for the admin options page.
  * 
- * @version		1.0.4
  * @author		Epiphyt
- * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
+ * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
  */
 
 // all fields that should be be checked by there value
-var fields_to_check = [
+var fieldsToCheck = [
 	'address',
 	'country',
 	'email',
 	'name',
 	'phone',
-	'register',
-	'representative',
 ];
 
 document.addEventListener( 'DOMContentLoaded', function() {
-	var legal_entity_select = document.getElementById( 'legal_entity' );
-	var press_law_checkbox = document.getElementById( 'press_law_checkbox' );
-	var press_law_input_row = document.querySelector( '.impressum_press_law' );
-	var vat_id = document.getElementById( 'vat_id' );
+	var countrySelect = document.getElementById( 'country' );
+	var legalEntitySelect = document.getElementById( 'legal_entity' );
+	var pressLawCheckbox = document.getElementById( 'press_law_checkbox' );
+	var pressLawCheckboxRow = document.querySelector( '.impressum_press_law_checkbox' );
+	var pressLawInputRow = document.querySelector( '.impressum_press_law' );
+	var vatId = document.getElementById( 'vat_id' );
 	
 	// function calls
-	for ( var i = 0; i < fields_to_check.length; i++ ) {
-		check_field_length( document.getElementById( fields_to_check[ i ] ), fields_to_check[ i ] );
+	for ( var i = 0; i < fieldsToCheck.length; i++ ) {
+		checkFieldLength( document.getElementById( fieldsToCheck[ i ] ), fieldsToCheck[ i ] );
 	}
 	
-	if ( legal_entity_select ) check_legal_entity();
-	if ( press_law_checkbox && press_law_input_row ) check_press_law();
+	if ( countrySelect ) checkCountry();
+	if ( legalEntitySelect ) checkLegalEntity();
+	if ( pressLawCheckbox && pressLawInputRow ) checkPressLaw();
 	
 	// check formal vat id validity
-	if ( vat_id ) {
+	if ( vatId ) {
 		// use keyup instead of input to match also autocomplete values
-		vat_id.addEventListener( 'keyup', function( event ) {
-			var current_target = event.currentTarget;
+		vatId.addEventListener( 'keyup', function( event ) {
+			var currentTarget = event.currentTarget;
 			
 			// replace any whitespaces
-			var regex = new RegExp( /[^A-Za-z0-9]+/g );
+			var regex = new RegExp( /[^A-Za-z0-9\*\+]+/g );
 			// test before, otherwise you can’t select the value
-			if ( regex.test( current_target.value ) ) {
-				current_target.value = current_target.value.replace( /[^A-Za-z0-9]+/g, '' );
+			if ( regex.test( currentTarget.value ) ) {
+				currentTarget.value = currentTarget.value.replace( /[^A-Za-z0-9\*\+]+/g, '' );
 			}
 			
 			// do the check
-			if ( ! is_valid_vat_id_format( current_target.value ) ) {
-				var message = imprintL10n.vat_id_error_message;
+			if ( ! isValidVatIdFormat( currentTarget.value ) ) {
+				var message = imprintL10n.vatIdErrorMessage;
 				
-				toggle_message( false, vat_id, message );
+				toggleMessage( false, vatId, message );
 			}
 			else {
-				toggle_message( true, vat_id, '' );
+				toggleMessage( true, vatId, '' );
 			}
 		} );
 	}
@@ -59,69 +59,80 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	/**
 	 * Check given value of a field and show or hide a message.
 	 * 
-	 * @param	{Element}		field The field DOM element to check
-	 * @param	{String}		field_name The name of the field
+	 * @param	{Element}	field The field DOM element to check
+	 * @param	{String}	fieldName The name of the field
 	 */
-	function check_field_length( field, field_name ) {
-		var error_function = field_name + '_error_message';
-		var message = imprintL10n[error_function];
+	function checkFieldLength( field, fieldName ) {
+		var message = imprintL10n[ fieldName + 'ErrorMessage' ];
 		
 		// check on change or input
 		[ 'change', 'input' ].forEach( function( event ) {
 			if ( ! field ) return;
 			
 			field.addEventListener( event, function( event ) {
-				var current_target = event.currentTarget;
-				var hide_message = current_target.value.length !== 0;
+				var currentTarget = event.currentTarget;
+				var hideMessage = currentTarget.value.length !== 0 || currentTarget.placeholder.length !== 0;
 				
-				toggle_message( hide_message, field, message );
+				toggleMessage( hideMessage, field, message );
 			} );
+		} );
+	}
+	
+	/**
+	 * Check for given values of the country and show or hide elements.
+	 */
+	function checkCountry() {
+		toggleFieldsByCountry( countrySelect.value, legalEntitySelect.value );
+		
+		// check on select change
+		countrySelect.addEventListener( 'change', function( event ) {
+			toggleFieldsByCountry( event.currentTarget.value, legalEntitySelect.value );
 		} );
 	}
 	
 	/**
 	 * Check for given values of the legal entity and show or hide elements.
 	 */
-	function check_legal_entity() {
+	function checkLegalEntity() {
 		// check on page load
-		var message = imprintL10n.legal_entity_error_message;
-		var need_pro_message = legal_entity_select.value === 'individual' || legal_entity_select.value === 'self' || current_target.value === '';;
-		toggle_message( need_pro_message, legal_entity_select, message );
+		var message = imprintL10n.legalEntityErrorMessage;
+		var needProMessage = legalEntitySelect.value === 'individual' || legalEntitySelect.value === 'self';
+		toggleMessage( needProMessage, legalEntitySelect, message );
 		
 		// check on select change
-		legal_entity_select.addEventListener( 'change', function( event ) {
-			var current_target = event.currentTarget;
+		legalEntitySelect.addEventListener( 'change', function( event ) {
+			var currentTarget = event.currentTarget;
 			
-			need_pro_message = current_target.value === 'individual' || current_target.value === 'self' || current_target.value === '';
-			toggle_message( need_pro_message, legal_entity_select, message );
+			needProMessage = currentTarget.value === 'individual' || currentTarget.value === 'self';
+			toggleMessage( needProMessage, legalEntitySelect, message );
 		} );
 	}
 	
 	/**
 	 * Check if the user enabled the press law checkbox.
 	 */
-	function check_press_law() {
+	function checkPressLaw() {
 		// return if there is no input row found
-		if ( press_law_input_row === undefined ) return;
+		if ( pressLawInputRow === undefined ) return;
 		
 		// if checkbox is not checked
-		if ( ! press_law_checkbox.checked ) {
+		if ( ! pressLawCheckbox.checked ) {
 			// hide the input
-			press_law_input_row.style.display = 'none';
+			pressLawInputRow.style.display = 'none';
 		}
 		
 		// on click on checkbox
-		press_law_checkbox.addEventListener( 'click', function( event ) {
-			var current_target = event.currentTarget;
+		pressLawCheckbox.addEventListener( 'click', function( event ) {
+			var currentTarget = event.currentTarget;
 			
 			// if checkbox is checked
-			if ( current_target.checked ) {
+			if ( currentTarget.checked ) {
 				// remove inline style
-				press_law_input_row.removeAttribute( 'style' );
+				pressLawInputRow.removeAttribute( 'style' );
 			}
 			else {
 				// hide the input
-				press_law_input_row.style.display = 'none';
+				pressLawInputRow.style.display = 'none';
 			}
 		} );
 	}
@@ -129,40 +140,62 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	/**
 	 * Check if VAT ID has a valid format.
 	 * 
-	 * @param		{string}		value
-	 * @return		{boolean}
+	 * @param	{string}	value The value to check
+	 * @return	{boolean} True if VAT number is in valid format, false otherwise
 	 */
-	function is_valid_vat_id_format( value ) {
+	function isValidVatIdFormat( value ) {
 		// see: https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s21.html
-		var regex = new RegExp( '^((AT)?U[0-9]{8}|(BE)?0[0-9]{9}|(BG)?[0-9]{9,10}|(CY)?[0-9]{8}L|(CZ)?[0-9]{8,10}|(DE)?[0-9]{9}|(DK)?[0-9]{8}|(EE)?[0-9]{9}|(EL|GR)?[0-9]{9}|(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]|(FI)?[0-9]{8}|(FR)?[0-9A-Z]{2}[0-9]{9}|(GB)?([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|(HU)?[0-9]{8}|(IE)?[0-9]S[0-9]{5}L|(IT)?[0-9]{11}|(LT)?([0-9]{9}|[0-9]{12})|(LU)?[0-9]{8}|(LV)?[0-9]{11}|(MT)?[0-9]{8}|(NL)?[0-9]{9}B[0-9]{2}|(PL)?[0-9]{10}|(PT)?[0-9]{9}|(RO)?[0-9]{2,10}|(SE)?[0-9]{12}|(SI)?[0-9]{8}|(SK)?[0-9]{10})$' );
+		// modified to also allow * and + for Netherlands
+		var regex = new RegExp( '^((AT)?U[0-9]{8}|(BE)?0[0-9]{9}|(BG)?[0-9]{9,10}|(CY)?[0-9]{8}L|(CZ)?[0-9]{8,10}|(DE)?[0-9]{9}|(DK)?[0-9]{8}|(EE)?[0-9]{9}|(EL|GR)?[0-9]{9}|(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]|(FI)?[0-9]{8}|(FR)?[0-9A-Z]{2}[0-9]{9}|(GB)?([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|(HU)?[0-9]{8}|(IE)?[0-9]S[0-9]{5}L|(IT)?[0-9]{11}|(LT)?([0-9]{9}|[0-9]{12})|(LU)?[0-9]{8}|(LV)?[0-9]{11}|(MT)?[0-9]{8}|(NL)?[0-9\+\*]{9}B[0-9]{2}|(PL)?[0-9]{10}|(PT)?[0-9]{9}|(RO)?[0-9]{2,10}|(SE)?[0-9]{12}|(SI)?[0-9]{8}|(SK)?[0-9]{10})$' );
 		
 		return regex.test( value );
 	}
 	
 	/**
+	 * Toggle fields by selected country.
+	 * 
+	 * @param	{String}	country The selected country
+	 * @param	{String}	legalEntity The selected legal entity
+	 */
+	function toggleFieldsByCountry( country, legalEntity ) {
+		switch ( country ) {
+			case 'de-de':
+			case 'deu':
+				pressLawCheckboxRow.style.removeProperty( 'display' );
+				pressLawInputRow.style.removeProperty( 'display' );
+				break;
+			default:
+				pressLawCheckboxRow.style.display = 'none';
+				pressLawInputRow.style.display = 'none';
+				break;
+		}
+	}
+	
+	/**
 	 * Toggle the notification about using the Pro version.
 	 * 
-	 * @param		{boolean}		hide_message
-	 * @param		{element}		container
-	 * @param		{string}		text
+	 * @param	{Boolean}	hideMessage True if message should be hidden, false otherwise
+	 * @param	{Element}	container The container element that should contain the notification
+	 * @param	{String}	text The text the notification should contain
 	 */
-	function toggle_message( hide_message, container, text ) {
-		var notice_element = container.nextElementSibling;
+	function toggleMessage( hideMessage, container, text ) {
+		var noticeElement = container.nextElementSibling;
 		
-		if ( ! hide_message && ( notice_element === null || ! notice_element.classList.contains( 'notice' ) ) ) {
+		if ( ! hideMessage && ( noticeElement === null || ! noticeElement.classList.contains( 'notice' ) ) ) {
 			var message = document.createElement( 'p' );
 			var notice = document.createElement( 'div' );
 			
 			message.innerText = text;
 			notice.style.maxWidth = '436px';
 			notice.classList.add( 'notice' );
+			notice.classList.add( 'inline' ); // prevent moving the notice below the headline
 			notice.classList.add( 'notice-warning' );
 			notice.appendChild( message );
 			container.after( notice );
 		}
-		else if ( hide_message ) {
-			if ( notice_element !== null && notice_element.classList.contains( 'notice' ) ) {
-				notice_element.remove();
+		else if ( hideMessage ) {
+			if ( noticeElement !== null && noticeElement.classList.contains( 'notice' ) ) {
+				noticeElement.remove();
 			}
 		}
 	}
@@ -210,7 +243,7 @@ if ( ! Array.prototype.inArray ) {
 					docFrag.appendChild( isNode ? argItem : document.createTextNode( String( argItem ) ) );
 				} );
 				
-				this.parentNode.insertBefore( docFrag, this.nextSibling );
+				this.parentNode.insertBefore( docFrag, this.nextElementSibling );
 			}
 		} );
 	} );

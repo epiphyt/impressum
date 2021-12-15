@@ -1,12 +1,28 @@
 /**
  * The admin style SCSS file.
  * 
- * @author		Matthias Kittsteiner, Simon Kraft
- * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
- * @version		1.0.4
+ * @author		Epiphyt
+ * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
  */
 .impressum-content-wrapper {
 	max-width: 692px;
+	
+	> .nav-tab-content {
+		display: none;
+		margin-top: .5em;
+		
+		&-active {
+			display: block;
+		}
+	}
+	
+	.submit {
+		display: inline-block;
+		
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+	}
 }
 
 .impressum_row p {
@@ -16,7 +32,7 @@
 
 .impressum-welcome-panel {
 	background: none #fff;
-	border: 1px solid #e5e5e5;
+	border: 1px solid #c3c4c7;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 	font-size: 13px;
 	line-height: 2.1em;
@@ -49,9 +65,7 @@
 	}
 	
 	.impressum-welcome-panel-column {
-		display: -ms-grid;
 		display: grid;
-		-ms-grid-rows: auto 48px;
 		grid-template-rows: auto 48px;
 		
 		&:not(:last-child) {
@@ -72,7 +86,6 @@
 		
 		@media (min-width: 1024px) {
 			display: grid;
-			-ms-grid-columns: 33% 33% 33%;
 			grid-template-columns: 33% 33% 33%;
 		}
 	}

@@ -1,9 +1,8 @@
 /**
  * JavaScript function to permanently dismiss a notice in admin.
  * 
- * @version		1.0.4
- * @author		Matthias Kittsteiner, Simon Kraft
- * @license		GPL3 <https://www.gnu.org/licenses/gpl-3.0.html>
+ * @author		Epiphyt
+ * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
  */
 jQuery( function( $ ) {
 	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function() {
@@ -20,6 +19,7 @@ jQuery( function( $ ) {
 	
 	$( document ).on( 'click', '.impressum-welcome-notice-dismiss', function( event ) {
 		var type = $( event.currentTarget ).data( 'notice' );
+		console.log( type )
 		
 		$.ajax( ajaxurl, {
 			type: 'POST',
@@ -28,7 +28,7 @@ jQuery( function( $ ) {
 				type: type,
 			}
 		} ).done( function() {
-			$( '.impressum-welcome-panel' ).parent( '.wrap' ).hide();
+			$( '.impressum-welcome-panel' ).parent( '.impressum-wrap' ).hide();
 		} );
 	} );
 } );

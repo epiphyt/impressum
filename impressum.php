@@ -1,22 +1,39 @@
 <?php
 namespace epiphyt\Impressum;
+use function array_pop;
+use function define;
+use function defined;
+use function explode;
+use function file_exists;
+use function in_array;
+use function plugin_basename;
+use function preg_quote;
+use function preg_replace;
+use function spl_autoload_register;
+use function str_replace;
+use function strpos;
+use function strrpos;
+use function strtolower;
+use function substr;
 
 /*
-Plugin Name:	Impressum
-Plugin URI:		https://wordpress.org/plugins/impressum/
-Description:	Simple Impressum Generator
-Version:		1.0.4
-Author:			Epiphyt
-Author URI:		https://epiph.yt/
-License:		GPL3
-License URI:	https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain:	impressum
-Domain Path:	/languages
-
+Plugin Name:		Impressum
+Plugin URI:			https://wordpress.org/plugins/impressum/
+Description:		Simple Imprint Generator
+Version:			2.0.0
+Requires at least:	5.0
+Requires PHP:		5.6
+Tested up to:		5.8
+Author:				Epiphyt
+Author URI:			https://epiph.yt/
+License:			GPL2
+License URI:		https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:		impressum
+Domain Path:		/languages
 
 Impressum is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 any later version.
 
 Impressum is distributed in the hope that it will be useful,
@@ -25,31 +42,44 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Impressum. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
+along with Impressum Plus. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 
 /**
  * Autoload all necessary classes.
  * 
- * @param	string		$class The class name of the autoloaded class
+ * @param	string	$class The class name of the autoloaded class
  */
-\spl_autoload_register( function( $class ) {
-	$path = \explode( '\\', $class );
-	$filename = \str_replace( '_', '-', \strtolower( \array_pop( $path ) ) );
-	$class = \str_replace(
+spl_autoload_register( function( $class ) {
+	$path = explode( '\\', $class );
+	$filename = str_replace( '_', '-', strtolower( array_pop( $path ) ) );
+	$class = str_replace(
 		[ 'epiphyt\impressum\\', '\\', '_' ],
 		[ '', '/', '-' ],
-		\strtolower( $class )
+		strtolower( $class )
 	);
-	$class = \str_replace( $filename, 'class-' . $filename, $class );
+	$file_type = ( strpos( $filename, '-' ) !== false ? substr( $filename, strrpos( $filename, '-' ) + 1 ) : 'class' );
+	
+	if ( ! in_array( $file_type, [ 'class', 'controller', 'interface' ], true ) ) {
+		$file_type = 'class';
+	}
+	
+	if ( $file_type === 'class' ) {
+		$class = preg_replace( '/' . preg_quote( $filename, '/' ) . '$/', $file_type . '-' . $filename, $class );
+	}
+	else {
+		$filename = str_replace( '-' . $file_type, '', $filename );
+		$class = str_replace( $filename . '-' . $file_type, $file_type . '-' . $filename, $class );
+	}
+	
 	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
 	
-	if ( \file_exists( $maybe_file ) ) {
+	if ( file_exists( $maybe_file ) ) {
 		require_once( $maybe_file );
 	}
 } );
 
-new Impressum_Backend( __FILE__ );
-new Impressum_Frontend( __FILE__ );
-
 if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );
+
+Impressum::get_instance()->set_plugin_file( __FILE__ );
+Impressum::get_instance()->init();

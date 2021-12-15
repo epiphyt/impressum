@@ -1,9 +1,9 @@
 === Impressum ===
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
-Requires at least: 4.7
+Requires at least: 5.0
 Tested up to: 5.6
-Requires PHP: 5.6
+Requires PHP: 5.8
 License: GPL3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,15 +11,15 @@ Impressum provides you with a full-fledged easy to use imprint generator right w
 
 == Description ==
 
-_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal texts either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal content either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
 
 
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/impressum` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress.
-1. Use the Settings->Impressum screen to configure the plugin.
-1. Add the `[impressum]` shortcode wherever you want to output your imprint.
+1. Activate the plugin through the "Plugins" screen in WordPress.
+1. Use the **Settings > Impressum** screen to configure the plugin.
+1. Add the "Imprint" block wherever you want to output your imprint.
 
 
 == Frequently Asked Questions ==
@@ -36,13 +36,13 @@ Yes, and they are great. But adding an imprint generator directly to your WordPr
 
 After you install and activate _Impressum_ we will kindly ask you to populate some form fields with all the data you are legally required to add to your imprint. _Impressum_ will guide you through this process.
 
-By adding the shortcode '[impressum]' anywhere on your site, you can choose where to output your imprint.
+By adding the "Imprint" block anywhere on your site, you can choose where to output your imprint. Alternatively, you can use the shortcode `[impressum]`.
 
-After this initial setup, _Impressum_ just sits in your installation serves your imprint. Once legal requirements change, _Impressum_ will notify you about necessary changes.
+After this initial setup, _Impressum_ just sits in your installation and serves your imprint. Once legal requirements change, _Impressum_ will notify you about necessary changes.
 
 = Can I really use this plugin free of charge? =
 
-Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. _Impressum Plus_ will be available soon.
+Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. Get it from here: [https://impressum.plus](https://impressum.plus/).
 
 = Does Impressum share any of my data? (GDPR) =
 
@@ -50,7 +50,7 @@ No. _Impressum_ keeps all your data inside your own WordPress install. There is 
 
 = Is Impressum compatible with the WP block editor "Gutenberg"? =
 
-Yes. You can continue to use our shortcode with Gutenberg while we spend some time in the lab and play with the idea of Impressum blocks.
+Yes. Since version 2.0.0 there is a block "Imprint" for this exact purpose.
 
 = Who are you folks? =
 
@@ -58,11 +58,20 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 
 == Screenshots ==
 
-1. Manage your imprit with Impressums easy to use interface.
-2. Add the `[impressum]` shortcode wherever you want to output your imprint.
+1. Manage your imprint with _Impressum_'s easy to use interface.
+2. Add the "Imprint" block wherever you want to output your imprint.
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.0.0 =
+* Added imprint block
+* Allow setting the imprint page
+* Complete code refactoring
+* Add comparison table for _Impressum Plus_
+* Add possibility to output fields without title
+* Small user interface improvements
+* Fixed removing the welcome message
 
 = 1.0.4 =
 * Added new select for "Partnership" legal entity.

@@ -2,10 +2,10 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
 Requires at least: 5.0
-Tested up to: 5.6
-Requires PHP: 5.8
-License: GPL3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Tested up to: 5.8
+Requires PHP: 5.6
+License: GPL2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Impressum provides you with a full-fledged easy to use imprint generator right within your WordPress site.
 

@@ -19,7 +19,6 @@ jQuery( function( $ ) {
 	
 	$( document ).on( 'click', '.impressum-welcome-notice-dismiss', function( event ) {
 		var type = $( event.currentTarget ).data( 'notice' );
-		console.log( type )
 		
 		$.ajax( ajaxurl, {
 			type: 'POST',

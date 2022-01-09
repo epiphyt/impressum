@@ -35,21 +35,23 @@ const SidebarControls = ( props ) => {
 		return element !== null;
 	} );
 	
-	return ( <InspectorControls>
-		<PanelBody title={ __( 'Fields', 'impressum' ) }>
-			<div className="impressum-select-multiple">
-				<SelectControl
-					help={ __( '(Un-)Select multiple fields with STRG/CMD.', 'impressum' ) }
-					label={ __( 'Enabled Fields', 'impressum' ) }
-					multiple
-					onChange={ ( enabledFields ) => setAttributes( { enabledFields } ) }
-					options={ options }
-					size="10"
-					value={ enabledFields }
-				/>
-			</div>
-		</PanelBody>
-	</InspectorControls> );
+	return (
+		<InspectorControls>
+			<PanelBody title={ __( 'Fields', 'impressum' ) }>
+				<div className="impressum-select-multiple">
+					<SelectControl
+						help={ __( '(Un-)Select multiple fields with STRG/CMD.', 'impressum' ) }
+						label={ __( 'Enabled Fields', 'impressum' ) }
+						multiple
+						onChange={ ( enabledFields ) => setAttributes( { enabledFields } ) }
+						options={ options }
+						size="10"
+						value={ enabledFields }
+					/>
+				</div>
+			</PanelBody>
+		</InspectorControls>
+	);
 };
 
 const ImprintEdit = ( props ) => {
@@ -64,15 +66,13 @@ const ImprintEdit = ( props ) => {
 	
 	return (
 		<div className={ className }>
+			<SidebarControls
+				enabledFields={ enabledFields }
+				setAttributes={ setAttributes }
+			/>
 			{
 				fields.length
-				? <>
-					<SidebarControls
-						enabledFields={ enabledFields }
-						setAttributes={ setAttributes }
-					/>
-					{ fields }
-				</>
+				? fields
 				: <Placeholder
 					icon={ page }
 					label={ __( 'Imprint', 'impressum' ) }

@@ -483,7 +483,7 @@ class Admin {
 		<p>
 			<?php
 			/* translators: 1: plugin name, 2: commercial plugin name */
-			printf( esc_html__( 'We designed %1$s to be the perfect companion to individuals for all things imprint and privacy policy on their WordPress websites. However, if your site is operated by another legal entity than an individual person, %2$s is the plugin you should use.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>', '<em>' . esc_html__( 'Impressum Plus', 'impressum' ) . '</em>' );
+			printf( esc_html__( 'We designed %1$s to be the perfect companion to individuals for all things around the imprint on their WordPress websites. However, if your site is operated by another legal entity than an individual person, %2$s is the plugin you should use.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>', '<em>' . esc_html__( 'Impressum Plus', 'impressum' ) . '</em>' );
 			?>
 		</p>
 		<p>
@@ -651,7 +651,7 @@ class Admin {
 								<p>
 									<?php
 									/* translators: plugin name */
-									printf( esc_html__( 'Best things in live are free. That’s why we decided to make this plugin available for free for everyone running a WordPress site as private person, freelancer or single person business. That’s you? Awesome, then give %s a spin and generate your first legal content without leaving your site.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>' );
+									printf( esc_html__( 'Best things in life are free. That’s why we decided to make this plugin available for free for everyone running a WordPress site as private person or single person business. That’s you? Awesome, then give %s a spin and generate your first legal content without leaving your site.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>' );
 									?>
 								</p>
 							</div>
@@ -676,7 +676,7 @@ class Admin {
 								<p>
 									<?php
 									/* translators: 1: plugin name, 2: commercial plugin name */
-									printf( esc_html__( 'If this site is run by a corporation or partnership, you might like %1$s’s bigger brother %2$s. With advanced features and support for multiple kinds of legal entities, Impressum Plus covers business from your local book shop to bigger multi-location corporations.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>', '<em>' . esc_html__( 'Impressum Plus', 'impressum' ) . '</em>' );
+									printf( esc_html__( 'If this site is run by a corporation or partnership, you might like %1$s’s bigger brother %2$s. With advanced features and support for multiple kinds of legal entities, %2$s covers business from your local book shop to bigger multi-location corporations.', 'impressum' ), '<em>' . esc_html__( 'Impressum', 'impressum' ) . '</em>', '<em>' . esc_html__( 'Impressum Plus', 'impressum' ) . '</em>' );
 									?>
 								</p>
 							</div>

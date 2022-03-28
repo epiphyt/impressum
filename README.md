@@ -42,7 +42,7 @@ After this initial setup, _Impressum_ just sits in your installation and serves 
 
 = Can I really use this plugin free of charge? =
 
-Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. Get it from here: [https://impressum.plus](https://impressum.plus/).
+Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. Get it from here: [https://impressum.plus/en/](https://impressum.plus/en/).
 
 = Does Impressum share any of my data? (GDPR) =
 
@@ -54,7 +54,7 @@ Yes. Since version 2.0.0 there is a block "Imprint" for this exact purpose.
 
 = Who are you folks? =
 
-We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin shop from southern Germany.
+We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plugin shop from southern Germany.
 
 == Screenshots ==
 
@@ -92,7 +92,7 @@ We are [Epiphyt](https://epiph.yt/), your friendly neighborhood WordPress plugin
 * Improved admin notices
 * Improved user experience for first time users
 * Improved code structure (nerd stuff: namespaces, wrapper classes, and a bit of a cleanup)
-* Improve compatibility with [Impressum Plus](https://impressum.plus/)
+* Improve compatibility with [Impressum Plus](https://impressum.plus/en/)
 * Added structured country data
 * Added check for required fields per legal entity
 

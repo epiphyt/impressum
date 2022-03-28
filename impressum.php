@@ -25,7 +25,7 @@ Requires at least:	5.0
 Requires PHP:		5.6
 Tested up to:		5.8
 Author:				Epiphyt
-Author URI:			https://epiph.yt/
+Author URI:			https://epiph.yt/en/
 License:			GPL2
 License URI:		https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:		impressum

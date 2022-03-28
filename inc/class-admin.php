@@ -1,5 +1,6 @@
 <?php
 namespace epiphyt\Impressum;
+use function __;
 use function add_action;
 use function add_filter;
 use function add_settings_section;
@@ -14,6 +15,7 @@ use function esc_attr;
 use function esc_html;
 use function esc_html__;
 use function esc_html_e;
+use function esc_url;
 use function file_exists;
 use function filemtime;
 use function get_admin_page_title;
@@ -499,7 +501,7 @@ class Admin {
 			printf( esc_html__( 'Even as a private website owner you can upgrade to %s anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, we\'ll continue to add even more nifty features to Plus.', 'impressum' ), '<em>' . esc_html__( 'Impressum Plus', 'impressum' ) . '</em>' );
 			?>
 		</p>
-		<p><a href="https://impressum.plus/" class="button button-primary button-hero"><?php esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
+		<p><a href="<?php echo esc_url( __( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
 		
 		<h2><?php esc_html_e( 'Compare now', 'impressum' ); ?></h2>
 		<table class="wp-list-table widefat striped">
@@ -510,22 +512,22 @@ class Admin {
 					<td><strong><em><?php esc_html_e( 'Impressum Plus', 'impressum' ); ?></em></strong></td>
 				</tr>
 				<tr>
-					<td><strong><?php esc_html_e( 'Imprint generator', 'impressum' ); ?></strong></td>
+					<td><strong><?php esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
 					<td>✅</td>
 					<td>✅</td>
 				</tr>
 				<tr>
-					<td><strong><?php esc_html_e( 'Privacy policy generator', 'impressum' ); ?></strong></td>
+					<td><strong><?php esc_html_e( 'Privacy Policy Generator', 'impressum' ); ?></strong></td>
 					<td>❌</td>
 					<td>✅</td>
 				</tr>
 				<tr>
-					<td><?php esc_html_e( 'Multisite: basic compatibility', 'impressum' ); ?></td>
+					<td><?php esc_html_e( 'Multisite: Base Compatibility', 'impressum' ); ?></td>
 					<td>✅</td>
 					<td>✅</td>
 				</tr>
 				<tr>
-					<td><?php esc_html_e( 'Basic block editor support', 'impressum' ); ?></td>
+					<td><?php esc_html_e( 'Block Editor Support', 'impressum' ); ?></td>
 					<td>✅</td>
 					<td>✅</td>
 				</tr>
@@ -557,13 +559,13 @@ class Admin {
 				<tr>
 					<td><?php esc_html_e( 'Many filters for developers', 'impressum' ); ?></td>
 					<td>❌ <?php esc_html_e( '(10+)', 'impressum' ); ?></td>
-					<td>✅ <?php esc_html_e( '(40+)', 'impressum' ); ?></td>
+					<td>✅ <?php esc_html_e( '(50+)', 'impressum' ); ?></td>
 				</tr>
 				<tr>
 					<td><br></td>
 					<td></td>
 					<td>
-						<a href="https://epiph.yt/produkt/impressum-plus/" class="button button-primary"><?php esc_html_e( 'Purchase', 'impressum' ); ?></a>
+						<a href="<?php echo esc_url( __( 'https://epiph.yt/en/product/impressum-plus/', 'impressum' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Purchase', 'impressum' ); ?></a>
 					</td>
 				</tr>
 			</tbody>

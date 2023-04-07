@@ -75,7 +75,7 @@ spl_autoload_register( function( $class ) {
 	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
 	
 	if ( file_exists( $maybe_file ) ) {
-		require_once( $maybe_file );
+		require_once $maybe_file ;
 	}
 } );
 

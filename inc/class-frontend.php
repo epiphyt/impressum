@@ -8,8 +8,6 @@ use function array_merge;
 use function boolval;
 use function defined;
 use function esc_html;
-use function esc_html__;
-use function esc_url;
 use function explode;
 use function in_array;
 use function nl2br;

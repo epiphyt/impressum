@@ -13,11 +13,11 @@
   "author": "Epiphyt",
   "license": "GPL-2.0",
   "devDependencies": {
-    "@wordpress/block-editor": "^8.0.11",
-    "@wordpress/components": "^19.1.5",
-    "@wordpress/i18n": "^4.2.4",
-    "@wordpress/scripts": "^19.2.2",
-    "@wordpress/server-side-render": "^3.0.15",
+    "@wordpress/block-editor": "^11.7.0",
+    "@wordpress/components": "^23.7.0",
+    "@wordpress/i18n": "^4.30.0",
+    "@wordpress/scripts": "^26.1.0",
+    "@wordpress/server-side-render": "^4.7.0",
     "extract-loader": "^5.1.0",
     "ignore-emit-webpack-plugin": "^2.0.6"
   }

@@ -20,7 +20,7 @@ use function substr;
 Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
-Version:			2.0.0
+Version:			2.0.1
 Requires at least:	5.0
 Requires PHP:		5.6
 Tested up to:		5.8

@@ -123,18 +123,14 @@ class Admin {
 	 */
 	public function block_assets() {
 		// automatically load dependencies and version
-		/** @noinspection PhpIncludeInspection */
 		$asset_file = include plugin_dir_path( $this->plugin_file ) . 'build/imprint.asset.php' ;
+		
 		wp_enqueue_script( 'impressum-imprint-block', plugin_dir_url( $this->plugin_file ) . '/build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
 		wp_localize_script( 'impressum-imprint-block', 'impressum_fields', [
 			'fields' => Impressum::get_instance()->settings_fields,
 			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
 		] );
 		wp_set_script_translations( 'impressum-imprint-block', 'impressum', plugin_dir_path( $this->plugin_file ) . 'languages' );
-		
-		// automatically load dependencies and version
-		/** @noinspection PhpIncludeInspection */
-		$asset_file = include plugin_dir_path( $this->plugin_file ) . 'build/editor.asset.php' ;
 		wp_register_style( 'impressum-imprint-block-editor-styles', plugin_dir_url( $this->plugin_file ) . '/build/editor.css', [], $asset_file['version'] );
 	}
 	

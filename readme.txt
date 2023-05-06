@@ -65,6 +65,9 @@ We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plu
 
 == Changelog ==
 
+= 2.0.2 =
+* Fixed PHP error due to missing file
+
 = 2.0.1 =
 * Maintenance update
 

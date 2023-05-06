@@ -1,7 +1,7 @@
 {
   "name": "impressum",
   "description": "Simple Imprint Generator",
-  "main": "src/index.js",
+  "main": "src/blocks/imprint/index.js",
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build"

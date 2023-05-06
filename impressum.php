@@ -20,10 +20,10 @@ use function substr;
 Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
-Version:			2.0.1
+Version:			2.0.2
 Requires at least:	5.0
 Requires PHP:		5.6
-Tested up to:		5.8
+Tested up to:		6.2
 Author:				Epiphyt
 Author URI:			https://epiph.yt/en/
 License:			GPL2

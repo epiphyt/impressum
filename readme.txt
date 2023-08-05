@@ -65,6 +65,10 @@ We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plu
 
 == Changelog ==
 
+= 2.0.3 =
+* Added legal entity eG (requires _Impressum Plus_ to be usable)
+* Fixed loading translations for the block editor
+
 = 2.0.2 =
 * Fixed PHP error due to missing file
 

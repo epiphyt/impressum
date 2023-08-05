@@ -125,13 +125,13 @@ class Admin {
 		// automatically load dependencies and version
 		$asset_file = include plugin_dir_path( $this->plugin_file ) . 'build/imprint.asset.php' ;
 		
-		wp_enqueue_script( 'impressum-imprint-block', plugin_dir_url( $this->plugin_file ) . '/build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
+		wp_enqueue_script( 'impressum-imprint-block', plugin_dir_url( $this->plugin_file ) . 'build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
 		wp_localize_script( 'impressum-imprint-block', 'impressum_fields', [
 			'fields' => Impressum::get_instance()->settings_fields,
 			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
 		] );
-		wp_set_script_translations( 'impressum-imprint-block', 'impressum', plugin_dir_path( $this->plugin_file ) . 'languages' );
-		wp_register_style( 'impressum-imprint-block-editor-styles', plugin_dir_url( $this->plugin_file ) . '/build/editor.css', [], $asset_file['version'] );
+		wp_set_script_translations( 'impressum-imprint-block', 'impressum' );
+		wp_register_style( 'impressum-imprint-block-editor-styles', plugin_dir_url( $this->plugin_file ) . 'build/editor.css', [], $asset_file['version'] );
 	}
 	
 	/**
@@ -143,7 +143,7 @@ class Admin {
 		// check for SCRIPT_DEBUG
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		
-		$file_path = plugin_dir_path( $this->plugin_file ) . '/assets/js/ajax-dismissible-notice' . $suffix . '.js';
+		$file_path = plugin_dir_path( $this->plugin_file ) . 'assets/js/ajax-dismissible-notice' . $suffix . '.js';
 		
 		if ( file_exists( $file_path ) ) {
 			wp_enqueue_script( 'impressum-dismissible-notice', plugins_url( '/assets/js/ajax-dismissible-notice' . $suffix . '.js', $this->plugin_file ), [], filemtime( $file_path ) );

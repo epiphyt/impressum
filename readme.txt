@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
 Requires at least: 5.0
-Stable tag: 2.0.1
-Tested up to: 6.2
+Stable tag: 2.0.3
+Tested up to: 6.3
 Requires PHP: 5.6
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

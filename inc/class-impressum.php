@@ -553,8 +553,9 @@ class Impressum {
 		
 		$this->legal_entities = [
 			'ag' => __( 'AG', 'impressum' ),
-			'ev' => __( 'e.V.', 'impressum' ),
+			'eg' => __( 'eG', 'impressum' ),
 			'ek' => __( 'e.K.', 'impressum' ),
+			'ev' => __( 'e.V.', 'impressum' ),
 			'einzelkaufmann' => __( 'Einzelkaufmann', 'impressum' ),
 			'freelancer' => __( 'Freelancer', 'impressum' ),
 			'ggmbh' => __( 'gGmbH', 'impressum' ),

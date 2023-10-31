@@ -198,7 +198,7 @@ class Frontend {
 		 * @param	array	$attributes The field arguments
 		 * @param	string	$field The field name
 		 */
-		$title = apply_filters( "impressum_imprint_output_title_${field}", $title, $attributes, $field );
+		$title = apply_filters( "impressum_imprint_output_title_$field}", $title, $attributes, $field );
 		
 		// set the output
 		switch ( $field ) {

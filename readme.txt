@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, terms
 Requires at least: 5.0
-Stable tag: 2.0.3
-Tested up to: 6.3
+Stable tag: 2.0.4
+Tested up to: 6.4
 Requires PHP: 5.6
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,9 @@ We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plu
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.0.4 =
+* Fixed a PHP notice in PHP 8.2
 
 = 2.0.3 =
 * Added legal entity eG (requires _Impressum Plus_ to be usable)

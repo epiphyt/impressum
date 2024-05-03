@@ -57,6 +57,10 @@ Yes. Since version 2.0.0 there is a block "Imprint" for this exact purpose.
 
 We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plugin shop from southern Germany.
 
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/impressum)
+
 == Screenshots ==
 
 1. Manage your imprint with _Impressum_'s easy to use interface.

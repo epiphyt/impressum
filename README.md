@@ -51,6 +51,10 @@ Yes. Since version 2.0.0 there is a block "Imprint" for this exact purpose.
 
 We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plugin shop from southern Germany.
 
+## Security
+
+For security related information, please consult the [security policy](SECURITY.md).
+
 ## License
 
 Impressum is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.

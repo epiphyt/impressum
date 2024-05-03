@@ -23,7 +23,6 @@ Description:		Simple Imprint Generator
 Version:			2.0.4
 Requires at least:	5.0
 Requires PHP:		5.6
-Tested up to:		6.4
 Author:				Epiphyt
 Author URI:			https://epiph.yt/en/
 License:			GPL2

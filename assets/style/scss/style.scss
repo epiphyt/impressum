@@ -94,3 +94,21 @@
 .impressum-wrap {
 	margin: 10px 20px 0 2px;
 }
+
+.impressum__compare-table {
+	.green,
+	.red {
+		border-radius: 15px;
+		padding: 3px 8px;
+	}
+	
+	.green {
+		background-color: #48a03e;
+		color: #222;
+	}
+	
+	.red {
+		background-color: #c5443f;
+		color: #fff;
+	}
+}

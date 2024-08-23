@@ -405,7 +405,7 @@ class Admin {
 			<h3><?php esc_html_e( 'Usage', 'impressum' ); ?></h3>
 			<?php
 			/* translators: the shortcode */
-			echo '<p>' . sprintf( esc_html__( 'Add the "Imprint" block or the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere blocks and shortcodes work).', 'impressum' ), '<code>[impressum]</code>' ) . '</p>';
+			echo '<p>' . sprintf( esc_html__( 'Add the "Imprint" block or the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere blocks or shortcodes work).', 'impressum' ), '<code>[impressum]</code>' ) . '</p>';
 			?>
 		</div>
 		<?php
@@ -500,62 +500,62 @@ class Admin {
 		<p><a href="<?php echo esc_url( __( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
 		
 		<h2><?php esc_html_e( 'Compare now', 'impressum' ); ?></h2>
-		<table class="wp-list-table widefat striped">
+		<table class="wp-list-table widefat striped impressum__compare-table">
 			<tbody>
-				<tr>
-					<td><br></td>
-					<td><strong><em><?php esc_html_e( 'Impressum', 'impressum' ); ?></em></strong></td>
-					<td><strong><em><?php esc_html_e( 'Impressum Plus', 'impressum' ); ?></em></strong></td>
-				</tr>
+				<thead>
+					<th><strong><?php esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
+					<th><strong><em><?php esc_html_e( 'Impressum', 'impressum' ); ?></em></strong></th>
+					<th><strong><em><?php esc_html_e( 'Impressum Plus', 'impressum' ); ?></em></strong></th>
+				</thead>
 				<tr>
 					<td><strong><?php esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
-					<td>✅</td>
-					<td>✅</td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><strong><?php esc_html_e( 'Privacy Policy Generator', 'impressum' ); ?></strong></td>
-					<td>❌</td>
-					<td>✅</td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Multisite: Base Compatibility', 'impressum' ); ?></td>
-					<td>✅</td>
-					<td>✅</td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Block Editor Support', 'impressum' ); ?></td>
-					<td>✅</td>
-					<td>✅</td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Legal content for personal usage', 'impressum' ); ?></td>
-					<td>✅</td>
-					<td>✅<br></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span><br></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Legal content for private companies', 'impressum' ); ?></td>
-					<td>❌</td>
-					<td>✅</td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Legal content for corporations', 'impressum' ); ?></td>
-					<td>❌</td>
-					<td>✅</td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Multisite: preset for new sites', 'impressum' ); ?></td>
-					<td>❌</td>
-					<td>✅</td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Enhanced REST API', 'impressum' ); ?></td>
-					<td>❌</td>
-					<td>✅</td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'Many filters for developers', 'impressum' ); ?></td>
-					<td>❌ <?php esc_html_e( '(10+)', 'impressum' ); ?></td>
-					<td>✅ <?php esc_html_e( '(50+)', 'impressum' ); ?></td>
+					<td><span class="red"><?php esc_html_e( 'No', 'impressum' ); ?></span> <?php esc_html_e( '(10+)', 'impressum' ); ?></td>
+					<td><span class="green"><?php esc_html_e( 'Yes', 'impressum' ); ?></span> <?php esc_html_e( '(50+)', 'impressum' ); ?></td>
 				</tr>
 				<tr>
 					<td><br></td>

@@ -403,10 +403,18 @@ class Admin {
 			</form>
 			
 			<h3><?php esc_html_e( 'Usage', 'impressum' ); ?></h3>
-			<?php
-			/* translators: the shortcode */
-			echo '<p>' . sprintf( esc_html__( 'Add the "Imprint" block or the %1$s shortcode wherever you want to output your imprint. It works on pages, posts and even widgets (anywhere blocks or shortcodes work).', 'impressum' ), '<code>[impressum]</code>' ) . '</p>';
-			?>
+			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>
+			<ol>
+				<li><?php \esc_html_e( 'Add the "Imprint" block in your block editor wherever you want to output your imprint. It works everywhere the block editor is supported.', 'impressum' ); ?></li>
+				<li>
+					<?php
+					\printf(
+						/* translators: shortcode name */
+						\esc_html__( 'Add the %s in your editor wherever you want to output your imprint. It works everywhere shortcodes are supported.', 'impressum' ),
+						'<code>[impressum]</code>'
+					);
+					?></li>
+			</ol>
 		</div>
 		<?php
 		$content = ob_get_clean();

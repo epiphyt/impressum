@@ -21,7 +21,7 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 #### All features of Impressum Plus
 
 * Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, GbR, gGmbH, GmbH, GmbH & Co. KG, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
-* Privacy Policy generator
+* a feature rich and automated Privacy Policy generator
 * Preset for new sites in a multisite
 * Extensive REST API
 * Many more filters for developers
@@ -51,19 +51,19 @@ Yes, and they are great. But adding an imprint generator directly to your WordPr
 
 = How do I use Impressum? =
 
-After you install and activate _Impressum_ we will kindly ask you to populate some form fields with all the data you are legally required to add to your imprint. _Impressum_ will guide you through this process.
+After you install and activate Impressum we will kindly ask you to populate some form fields with all the data you are legally required to add to your imprint. Impressum will guide you through this process.
 
 By adding the "Imprint" block anywhere on your site, you can choose where to output your imprint. Alternatively, you can use the shortcode `[impressum]`.
 
-After this initial setup, _Impressum_ just sits in your installation and serves your imprint. Once legal requirements change, _Impressum_ will notify you about necessary changes.
+After this initial setup, Impressum just sits in your installation and serves your imprint. Once legal requirements change, Impressum will notify you about necessary changes.
 
 = Can I really use this plugin free of charge? =
 
-Yes. _Impressum_ is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. Get it from here: [https://impressum.plus/en/](https://impressum.plus/en/).
+Yes. Impressum is and always will be available for free. However, if your site is legally operated by a legal entity who's not an individual person, you must install _Impressum Plus_, in order to use all fields necessary for your legal entity. Get it from here: [https://impressum.plus/en/](https://impressum.plus/en/).
 
 = Does Impressum share any of my data? (GDPR) =
 
-No. _Impressum_ keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of course the '[impressum]' shortcode will be displayed publicly on your website.
+No. Impressum keeps all your data inside your own WordPress install. There is no data transmitted to us or a third party service. But of course the "Imprint" block or the '[impressum]' shortcode will be displayed publicly on your website.
 
 = Is Impressum compatible with the WP block editor "Gutenberg"? =
 
@@ -79,7 +79,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Screenshots ==
 
-1. Manage your imprint with _Impressum_'s easy to use interface.
+1. Manage your imprint with Impressum's easy to use interface.
 2. Add the "Imprint" block wherever you want to output your imprint.
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
@@ -133,7 +133,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 And a final thank you to our friends [@pixolin](https://profiles.wordpress.org/pixolin) and [@mahype](https://profiles.wordpress.org/mahype) for their support and great feature suggestions. 🤗
 
 = 0.2 =
-* Added default `mailto://` links for mailadresses
+* Added default `mailto://` links for mail adresses
 * Added a couple of descriptive texts
 * Added "self-employed" as a new option
 * Added VAT ID checkup

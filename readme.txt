@@ -1,6 +1,6 @@
 === Impressum ===
 Contributors: epiphyt, kittmedia, krafit
-Tags: impressum, legal notice, terms
+Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 5.0
 Stable tag: 2.0.4
 Tested up to: 6.5
@@ -12,7 +12,23 @@ Impressum provides you with a full-fledged easy to use imprint generator right w
 
 == Description ==
 
-_Impressum_ adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, _Impressum_ takes care of your legal notices. Once legal requirements change, _Impressum_ will update your legal content either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+Impressum adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, Impressum takes care of your legal notices. Once legal requirements change, Impressum will update your legal content either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
+
+### Impressum Plus
+
+Impressum Plus is the pro version of Impressum, which not only adds support for a wide variety of additional legal entities, but also provides a modular privacy policy and the opportunity to update your data via an extensive REST API endpoint.
+
+#### All features of Impressum Plus
+
+* Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, GbR, gGmbH, GmbH, GmbH & Co. KG, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
+* Privacy Policy generator
+* Preset for new sites in a multisite
+* Extensive REST API
+* Many more filters for developers
+
+[Buy now](https://epiph.yt/en/product/impressum-plus/)
+
+[Checkout all features of Impressum Plus](https://impressum.plus/en/features/)
 
 
 == Installation ==

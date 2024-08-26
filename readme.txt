@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 5.0
-Stable tag: 2.0.4
-Tested up to: 6.5
+Stable tag: 2.0.5
+Tested up to: 6.6
 Requires PHP: 5.6
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -84,6 +84,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.0.5 =
+* Improved: Made it more clear that you can also use the "Imprint" block in the block editor
+* Improved: The comparison table between Impressum and Impressum Plus is now accessible
 
 = 2.0.4 =
 * Fixed a PHP notice in PHP 8.2

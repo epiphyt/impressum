@@ -518,7 +518,8 @@ class Admin {
 					<td><br></td>
 					<td></td>
 					<td>
-						<a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/product/impressum-plus/', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?></a>
+						<a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
+						<a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?php echo \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></a>
 					</td>
 				</tr>
 			</tbody>

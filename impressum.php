@@ -1,20 +1,5 @@
 <?php
 namespace epiphyt\Impressum;
-use function array_pop;
-use function define;
-use function defined;
-use function explode;
-use function file_exists;
-use function in_array;
-use function plugin_basename;
-use function preg_quote;
-use function preg_replace;
-use function spl_autoload_register;
-use function str_replace;
-use function strpos;
-use function strrpos;
-use function strtolower;
-use function substr;
 
 /*
 Plugin Name:		Impressum
@@ -43,42 +28,51 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Impressum. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
+\defined( 'ABSPATH' ) || exit;
+
+\define( 'EPI_IMPRESSUM_VERSION', '1.11.0-dev' );
+
+if ( \file_exists( \WP_PLUGIN_DIR . '/impressum/' ) ) {
+	\define( 'EPI_IMPRESSUM_BASE', \WP_PLUGIN_DIR . '/impressum/' );
+}
+else if ( \file_exists( \WPMU_PLUGIN_DIR . '/impressum/' ) ) {
+	\define( 'EPI_IMPRESSUM_BASE', \WPMU_PLUGIN_DIR . '/impressum/' );
+}
+else {
+	\define( 'EPI_IMPRESSUM_BASE', \plugin_dir_path( __FILE__ ) );
+}
+
+\define( 'EPI_IMPRESSUM_FILE', __FILE__ );
+\define( 'EPI_IMPRESSUM_URL', \plugin_dir_url( \EPI_IMPRESSUM_BASE . 'impressum.php' ) );
 
 /**
  * Autoload all necessary classes.
  * 
- * @param	string	$class The class name of the autoloaded class
+ * @param	string	$class_name The class name of the auto-loaded class
  */
-spl_autoload_register( function( $class ) {
-	$path = explode( '\\', $class );
-	$filename = str_replace( '_', '-', strtolower( array_pop( $path ) ) );
-	$class = str_replace(
+\spl_autoload_register( static function( $class_name ) {
+	$path = \explode( '\\', $class_name );
+	$filename = \str_replace( '_', '-', \strtolower( \array_pop( $path ) ) );
+	$class_name = \str_replace(
 		[ 'epiphyt\impressum\\', '\\', '_' ],
 		[ '', '/', '-' ],
-		strtolower( $class )
+		\strtolower( $class_name )
 	);
-	$file_type = ( strpos( $filename, '-' ) !== false ? substr( $filename, strrpos( $filename, '-' ) + 1 ) : 'class' );
 	
-	if ( ! in_array( $file_type, [ 'class', 'controller', 'interface' ], true ) ) {
-		$file_type = 'class';
-	}
-	
-	if ( $file_type === 'class' ) {
-		$class = preg_replace( '/' . preg_quote( $filename, '/' ) . '$/', $file_type . '-' . $filename, $class );
-	}
-	else {
-		$filename = str_replace( '-' . $file_type, '', $filename );
-		$class = str_replace( $filename . '-' . $file_type, $file_type . '-' . $filename, $class );
-	}
-	
-	$maybe_file = __DIR__ . '/inc/' . $class . '.php';
-	
-	if ( file_exists( $maybe_file ) ) {
-		require_once $maybe_file ;
+	foreach ( [ 'class', 'interface', 'trait' ] as $file_type ) {
+		$type_class_name = \preg_replace( '/' . \preg_quote( $filename, '/' ) . '$/', $file_type . '-' . $filename, $class_name );
+		$maybe_file = __DIR__ . '/inc/' . $type_class_name . '.php';
+		
+		if ( \file_exists( $maybe_file ) ) {
+			require_once $maybe_file;
+			
+			break;
+		}
 	}
 } );
 
-if ( ! defined( 'IMPRESSUM_BASE' ) ) define( 'IMPRESSUM_BASE', plugin_basename( __FILE__ ) );
+// deprecated, don't use anymore
+if ( ! \defined( 'IMPRESSUM_BASE' ) ) \define( 'IMPRESSUM_BASE', \plugin_basename( __FILE__ ) );
 
 Impressum::get_instance()->set_plugin_file( __FILE__ );
 Impressum::get_instance()->init();

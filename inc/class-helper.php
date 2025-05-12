@@ -1,6 +1,5 @@
 <?php
 namespace epiphyt\Impressum;
-use function get_option;
 
 /**
  * Helper functions for the Impressum plugin.
@@ -15,9 +14,9 @@ class Helper {
 	 * 
 	 * @param	string	$option The option you want to get
 	 * @param	bool	$useless Useless in the free version
-	 * @return	mixed|void
+	 * @return	mixed Option value
 	 */
-	public static function get_option( $option, $useless = false ) {
-		return get_option( $option );
+	public static function get_option( $option, $useless = false ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+		return \get_option( $option );
 	}
 }

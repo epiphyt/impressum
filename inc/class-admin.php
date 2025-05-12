@@ -456,8 +456,8 @@ class Admin {
 			<tbody>
 				<thead>
 					<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
-					<th><strong><em><?php \esc_html_e( 'Impressum', 'impressum' ); ?></em></strong></th>
-					<th><strong><em><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></em></strong></th>
+					<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
+					<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
 				</thead>
 				<tr>
 					<td><strong><?php \esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
@@ -496,6 +496,11 @@ class Admin {
 				</tr>
 				<tr>
 					<td><?php \esc_html_e( 'Multisite: preset for new sites', 'impressum' ); ?></td>
+					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+				</tr>
+				<tr>
+					<td><?php \esc_html_e( 'WP-CLI support', 'impressum' ); ?></td>
 					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
 					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 				</tr>

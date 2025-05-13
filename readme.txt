@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 5.0
-Stable tag: 2.0.5
-Tested up to: 6.6
+Stable tag: 2.0.6
+Tested up to: 6.8
 Requires PHP: 5.6
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,7 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 * a feature rich and automated Privacy Policy generator
 * Preset for new sites in a multisite
 * Extensive REST API
+* WP-CLI support
 * Many more filters for developers
 
 [Buy now](https://epiph.yt/en/product/impressum-plus/)
@@ -84,6 +85,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.0.6 =
+* Improved: Compatibility with WordPress 6.8
+* Overhauled: Text passages
 
 = 2.0.5 =
 * Improved: Made it more clear that you can also use the "Imprint" block in the block editor

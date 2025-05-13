@@ -5,7 +5,7 @@ namespace epiphyt\Impressum;
 Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
-Version:			2.0.5
+Version:			2.0.6
 Requires at least:	5.0
 Requires PHP:		5.6
 Author:				Epiphyt
@@ -30,7 +30,7 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 \defined( 'ABSPATH' ) || exit;
 
-\define( 'EPI_IMPRESSUM_VERSION', '1.11.0-dev' );
+\define( 'EPI_IMPRESSUM_VERSION', '2.0.6' );
 
 if ( \file_exists( \WP_PLUGIN_DIR . '/impressum/' ) ) {
 	\define( 'EPI_IMPRESSUM_BASE', \WP_PLUGIN_DIR . '/impressum/' );

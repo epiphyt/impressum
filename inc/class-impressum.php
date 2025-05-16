@@ -106,37 +106,17 @@ class Impressum {
 	 * Load our settings in an array.
 	 */
 	public function load_settings() {
-		$this->settings_fields = [
-			'address' => [
-				'api' => [
-					'description' => \esc_html__( 'The address of the responsible person.', 'impressum' ),
-					'type' => 'string',
-				],
+		$this->settings_fields = [ // phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+			'page' => [
 				'args' => [
 					'class' => 'impressum_row',
-					'label_for' => 'address',
-					'required' => true,
+					'label_for' => 'page',
 				],
-				'callback' => 'textarea',
+				'callback' => 'page',
+				'no_output' => true,
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Address', 'impressum' ),
-			],
-			'address_alternative' => [
-				'api' => [
-					'description' => \esc_html__( 'An alternative address.', 'impressum' ),
-					'type' => 'string',
-				],
-				'args' => [
-					'class' => 'impressum_row',
-					'label_for' => 'address_alternative',
-					'required' => false,
-				],
-				'callback' => 'textarea',
-				'field_title' => \__( 'Address', 'impressum' ),
-				'page' => 'impressum_imprint',
-				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Alternative Address', 'impressum' ),
+				'title' => \__( 'Imprint Page', 'impressum' ),
 			],
 			'country' => [
 				'api' => [
@@ -154,36 +134,6 @@ class Impressum {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Country', 'impressum' ),
-			],
-			'email' => [
-				'api' => [
-					'description' => \esc_html__( 'The email address of the responsible person.', 'impressum' ),
-					'type' => 'string',
-				],
-				'args' => [
-					'class' => 'impressum_row',
-					'label_for' => 'email',
-					'required' => true,
-				],
-				'callback' => 'email',
-				'page' => 'impressum_imprint',
-				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Email Address', 'impressum' ),
-			],
-			'fax' => [
-				'api' => [
-					'description' => \esc_html__( 'The fax number of the responsible person.', 'impressum' ),
-					'type' => 'string',
-				],
-				'args' => [
-					'class' => 'impressum_row',
-					'label_for' => 'fax',
-					'required' => false,
-				],
-				'callback' => 'phone',
-				'page' => 'impressum_imprint',
-				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Fax', 'impressum' ),
 			],
 			'legal_entity' => [
 				'api' => [
@@ -217,16 +167,51 @@ class Impressum {
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Name', 'impressum' ),
 			],
-			'page' => [
+			'address' => [
+				'api' => [
+					'description' => \esc_html__( 'The address of the responsible person.', 'impressum' ),
+					'type' => 'string',
+				],
 				'args' => [
 					'class' => 'impressum_row',
-					'label_for' => 'page',
+					'label_for' => 'address',
+					'required' => true,
 				],
-				'callback' => 'page',
-				'no_output' => true,
+				'callback' => 'textarea',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Imprint Page', 'impressum' ),
+				'title' => \__( 'Address', 'impressum' ),
+			],
+			'address_alternative' => [
+				'api' => [
+					'description' => \esc_html__( 'An alternative address.', 'impressum' ),
+					'type' => 'string',
+				],
+				'args' => [
+					'class' => 'impressum_row',
+					'label_for' => 'address_alternative',
+					'required' => false,
+				],
+				'callback' => 'textarea',
+				'field_title' => \__( 'Address', 'impressum' ),
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'title' => \__( 'Alternative Address', 'impressum' ),
+			],
+			'email' => [
+				'api' => [
+					'description' => \esc_html__( 'The email address of the responsible person.', 'impressum' ),
+					'type' => 'string',
+				],
+				'args' => [
+					'class' => 'impressum_row',
+					'label_for' => 'email',
+					'required' => true,
+				],
+				'callback' => 'email',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'title' => \__( 'Email Address', 'impressum' ),
 			],
 			'phone' => [
 				'api' => [
@@ -242,6 +227,21 @@ class Impressum {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Telephone', 'impressum' ),
+			],
+			'fax' => [
+				'api' => [
+					'description' => \esc_html__( 'The fax number of the responsible person.', 'impressum' ),
+					'type' => 'string',
+				],
+				'args' => [
+					'class' => 'impressum_row',
+					'label_for' => 'fax',
+					'required' => false,
+				],
+				'callback' => 'phone',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'title' => \__( 'Fax', 'impressum' ),
 			],
 			'press_law_checkbox' => [
 				'api' => [

@@ -74,6 +74,10 @@ class Impressum {
 		$option = Helper::get_option( $option_name, true );
 		
 		foreach ( $this->settings_fields as $name => $field ) {
+			if ( $name === 'contact_form_page' && ! empty( $option[ $name ] ) ) {
+				$option[ $name ] = \get_permalink( $option[ $name ] );
+			}
+			
 			$fields[ $name ] = [
 				'field_title' => ( ! empty( $field['field_title'] ) ? $field['field_title'] : '' ),
 				'title' => $field['title'],
@@ -108,6 +112,10 @@ class Impressum {
 	public function load_settings() {
 		$this->settings_fields = [ // phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 			'page' => [
+				'api' => [
+					'description' => \esc_html__( 'The imprint page ID.', 'impressum' ),
+					'type' => 'integer',
+				],
 				'args' => [
 					'class' => 'impressum_row',
 					'label_for' => 'page',
@@ -221,12 +229,29 @@ class Impressum {
 				'args' => [
 					'class' => 'impressum_row',
 					'label_for' => 'phone',
-					'required' => true,
+					'required' => false,
 				],
 				'callback' => 'phone',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Telephone', 'impressum' ),
+			],
+			'contact_form_page' => [
+				'api' => [
+					'description' => \esc_html__( 'The contact form page ID.', 'impressum' ),
+					'type' => 'integer',
+				],
+				'args' => [
+					'class' => 'impressum_row',
+					'description' => \__( 'Since you need a fast contact possibility, you either have to publish your phone number or have a contact form where you can respond within 1 hour.', 'impressum' ),
+					'label_for' => 'contact_form_page',
+				],
+				'callback' => 'page',
+				'field_title' => \__( 'Contact', 'impressum' ),
+				'option' => 'impressum_imprint_options',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'title' => \__( 'Contact Form Page', 'impressum' ),
 			],
 			'fax' => [
 				'api' => [

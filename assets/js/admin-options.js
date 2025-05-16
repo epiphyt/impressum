@@ -8,11 +8,23 @@
 // all fields that should be be checked by there value
 var fieldsToCheck = [
 	'address',
+	'contact_form_page',
 	'country',
 	'email',
 	'name',
 	'phone',
 ];
+
+// at least one of the dependent fields must have a value when the current field
+// does not
+const fieldDependencies = {
+	contact_form_page: [
+		'phone',
+	],
+	phone: [
+		'contact_form_page',
+	],
+}
 
 document.addEventListener( 'DOMContentLoaded', function() {
 	const businessId = document.getElementById( 'business_id' );
@@ -103,19 +115,65 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 * @param	{String}	fieldName The name of the field
 	 */
 	function checkFieldLength( field, fieldName ) {
+		const snakeToCamel = ( str ) =>
+			str.toLowerCase().replace( /([-_][a-z])/g, ( group ) =>
+				group
+				.toUpperCase()
+				.replace('-', '')
+				.replace('_', '')
+			);
+		fieldName = snakeToCamel( fieldName );
 		var message = imprintL10n[ fieldName + 'ErrorMessage' ];
 		
 		// check on change or input
-		[ 'change', 'input' ].forEach( function( event ) {
-			if ( ! field ) return;
+		[ 'change', 'input' ].forEach( ( eventName ) => {
+			if ( ! field ) {
+				return;
+			}
 			
-			field.addEventListener( event, function( event ) {
-				var currentTarget = event.currentTarget;
-				var hideMessage = currentTarget.value.length !== 0 || currentTarget.placeholder.length !== 0;
-				
-				toggleMessage( hideMessage, field, message );
-			} );
+			field.addEventListener( eventName, ( event ) => checkFieldValue( event.currentTarget, fieldName, message ) );
 		} );
+	}
+	
+	/**
+	 * Check field values for content.
+	 * 
+	 * @param {HTMLElement} field Field to check
+	 * @param {string} fieldName Field name
+	 * @param {string} message Message to toggle
+	 */
+	function checkFieldValue( field, fieldName, message ) {
+		const hideMessage = field.value.length !== 0 || field?.placeholder?.length;
+		const dependenciesMet = checkFieldValueDependencies( fieldName, hideMessage );
+		
+		toggleMessage( hideMessage || dependenciesMet, field, message );
+	}
+	
+	/**
+	 * Check whether the dependencies of a field met their value requirements.
+	 * 
+	 * @param {string} fieldName Field name
+	 * @param {boolean} isCurrentMet Whether the current field met the requirements
+	 * @returns {boolean} Whether the field dependencies all met
+	 */
+	function checkFieldValueDependencies( fieldName, isCurrentMet ) {
+		if ( ! fieldDependencies[ fieldName ] ) {
+			return false;
+		}
+		
+		for ( const dependency of fieldDependencies[ fieldName ] ) {
+			const field = document.getElementById( dependency );
+		
+			if ( isCurrentMet ) {
+				toggleMessage( true, field );
+			}
+			
+			if ( field.value.length !== 0 || field?.placeholder?.length ) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	/**

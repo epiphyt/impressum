@@ -116,11 +116,12 @@ class Admin {
 			'addressErrorMessage' => \esc_html__( 'You need to enter an address.', 'impressum' ),
 			'businessIdErrorMessage' => \esc_html__( 'The entered value is not valid. Please use a valid format for your business ID.', 'impressum' ),
 			'businessIdOrVatIdMessage' => \esc_html__( 'Either the business ID or the VAT ID have to be set, if one of them is available.', 'impressum' ),
+			'contactFormPageErrorMessage' => \esc_html__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
 			'countryErrorMessage' => \esc_html__( 'You need to select a country.', 'impressum' ),
 			'emailErrorMessage' => \esc_html__( 'You need to enter an email address.', 'impressum' ),
 			'legalEntityErrorMessage' => \esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),
 			'nameErrorMessage' => \esc_html__( 'You need to enter a name.', 'impressum' ),
-			'phoneErrorMessage' => \esc_html__( 'You need to enter a phone number.', 'impressum' ),
+			'phoneErrorMessage' => \esc_html__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
 			'vatIdErrorMessage' => \esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
 		] );
 	}
@@ -166,7 +167,6 @@ class Admin {
 					'address',
 					'email',
 					'name',
-					'phone',
 				];
 				break;
 		}
@@ -181,8 +181,17 @@ class Admin {
 			}
 		}
 		
+		// special case for phone and contact_form_page
+		if ( empty( $options['phone'] ) && empty( $options['contact_form_page'] ) ) {
+			$invalid_fields['phone_contact_form'] = \sprintf(
+				/* translators: 1: a field title, 2: a field title */
+				\__( '%1$s or %2$s', 'impressum' ),
+				Impressum::get_instance()->settings_fields['phone']['title'],
+				Impressum::get_instance()->settings_fields['contact_form_page']['title']
+			);
+		}
 		// special case for VAT and business ID
-		if ( ! isset( $invalid_fields['vat_id'] ) ) {
+		else if ( ! isset( $invalid_fields['vat_id'] ) ) {
 			$regex = '/^(|(AT)?U[0-9]{8}|(BE)?0[0-9]{9}|(BG)?[0-9]{9,10}|(CY)?[0-9]{8}L|(CZ)?[0-9]{8,10}|(DE)?[0-9]{9}|(DK)?[0-9]{8}|(EE)?[0-9]{9}|(EL|GR)?[0-9]{9}|(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]|(FI)?[0-9]{8}|(FR)?[0-9A-Z]{2}[0-9]{9}|(GB)?([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|(HU)?[0-9]{8}|(IE)?[0-9]S[0-9]{5}L|(IT)?[0-9]{11}|(LT)?([0-9]{9}|[0-9]{12})|(LU)?[0-9]{8}|(LV)?[0-9]{11}|(MT)?[0-9]{8}|(NL)?[0-9]{9}B[0-9]{2}|(PL)?[0-9]{10}|(PT)?[0-9]{9}|(RO)?[0-9]{2,10}|(SE)?[0-9]{12}|(SI)?[0-9]{8}|(SK)?[0-9]{10})$/';
 			
 			if ( ! empty( $options['vat_id'] ) && ! \preg_match( $regex, $options['vat_id'] ) ) {
@@ -196,6 +205,8 @@ class Admin {
 				$invalid_fields['business_id'] = Impressum::get_instance()->settings_fields['vat_id']['title'];
 			}
 		}
+		
+		\asort( $invalid_fields, \SORT_NATURAL );
 		
 		return $invalid_fields;
 	}

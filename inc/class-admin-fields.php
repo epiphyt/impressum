@@ -121,16 +121,8 @@ class Admin_Fields {
 		?>
 		<input type="text" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value . $placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 		<?php
-		switch ( $args['label_for'] ) {
-			case 'coverage':
-				echo '<p>' . \esc_html__( 'If you link to this imprint from several other domains, enter them here.', 'impressum' ) . '</p>';
-				break;
-			case 'register':
-				echo '<p>' . \esc_html__( 'You need at least enter your register number and the register where your company is registered.', 'impressum' ) . '</p>';
-				break;
-			case 'vat_id':
-				echo '<p>' . \esc_html__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ) . '</p>';
-				break;
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
 		}
 		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {

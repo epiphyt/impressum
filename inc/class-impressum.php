@@ -281,6 +281,7 @@ class Impressum {
 				],
 				'args' => [
 					'class' => 'impressum_row vat_id',
+					'description' => \__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ),
 					'label_for' => 'vat_id',
 					'required' => false,
 				],
@@ -288,6 +289,23 @@ class Impressum {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'VAT ID', 'impressum' ),
+			],
+			'business_id' => [
+				'api' => [
+					'description' => \esc_html__( 'The business ID of the responsible person.', 'impressum' ),
+					'type' => 'string',
+				],
+				'args' => [
+					'class' => 'impressum_row impressum_business_id',
+					'description' => \__( 'Your business ID in format DE123456789-00001, which means two letters by following nine numbers, a dash and five additional numbers.', 'impressum' ),
+					'label_for' => 'business_id',
+					'required' => false,
+				],
+				'callback' => 'text',
+				'option' => 'impressum_imprint_options',
+				'page' => 'impressum_imprint',
+				'section' => 'impressum_section_imprint',
+				'title' => \__( 'Business ID', 'impressum' ),
 			],
 		];
 		

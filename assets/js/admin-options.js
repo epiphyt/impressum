@@ -15,6 +15,8 @@ var fieldsToCheck = [
 ];
 
 document.addEventListener( 'DOMContentLoaded', function() {
+	const businessId = document.getElementById( 'business_id' );
+	const businessIdRow = document.querySelector( '.impressum_business_id' );
 	var countrySelect = document.getElementById( 'country' );
 	var legalEntitySelect = document.getElementById( 'legal_entity' );
 	var pressLawCheckbox = document.getElementById( 'press_law_checkbox' );
@@ -32,28 +34,66 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	if ( pressLawCheckbox && pressLawInputRow ) checkPressLaw();
 	
 	// check formal vat id validity
+	if ( businessId ) {
+		// use keyup instead of input to match also autocomplete values
+		businessId.addEventListener( 'keyup', ( event ) => {
+			const currentTarget = event.currentTarget;
+			// replace any whitespaces
+			const regex = new RegExp( /[^A-Za-z0-9\*\+\-]+/g );
+			
+			if ( regex.test( currentTarget.value ) ) {
+				currentTarget.value = currentTarget.value.replace( /[^A-Za-z0-9\*\+\-]+/g, '' );
+			}
+		} );
+		// use keyup instead of input to match also autocomplete values
+		businessId.addEventListener( 'keyup', debounce( ( event ) => {
+			const currentTarget = event.target;
+			// replace any whitespaces
+			const regex = new RegExp( /[^A-Za-z0-9\*\+\-]+/g );
+			
+			if ( regex.test( currentTarget.value ) ) {
+				currentTarget.value = currentTarget.value.replace( /[^A-Za-z0-9\*\+\-]+/g, '' );
+			}
+			
+			// do the check
+			if ( ! isValidBusinessIdFormat( currentTarget.value ) ) {
+				toggleMessage( false, businessId, imprintL10n.businessIdErrorMessage );
+			}
+			else {
+				toggleMessage( true, businessId, '' );
+			}
+		} ) );
+	}
+	
+	// check formal vat id validity
 	if ( vatId ) {
 		// use keyup instead of input to match also autocomplete values
-		vatId.addEventListener( 'keyup', function( event ) {
-			var currentTarget = event.currentTarget;
-			
+		vatId.addEventListener( 'keyup', ( event ) => {
+			const currentTarget = event.currentTarget;
 			// replace any whitespaces
-			var regex = new RegExp( /[^A-Za-z0-9\*\+]+/g );
-			// test before, otherwise you can’t select the value
+			const regex = new RegExp( /[^A-Za-z0-9\*\+]+/g );
+			
+			if ( regex.test( currentTarget.value ) ) {
+				currentTarget.value = currentTarget.value.replace( /[^A-Za-z0-9\*\+]+/g, '' );
+			}
+		} );
+		vatId.addEventListener( 'keyup', debounce( ( event ) => {
+			const currentTarget = event.target;
+			// replace any whitespaces
+			const regex = new RegExp( /[^A-Za-z0-9\*\+]+/g );
+			
 			if ( regex.test( currentTarget.value ) ) {
 				currentTarget.value = currentTarget.value.replace( /[^A-Za-z0-9\*\+]+/g, '' );
 			}
 			
 			// do the check
 			if ( ! isValidVatIdFormat( currentTarget.value ) ) {
-				var message = imprintL10n.vatIdErrorMessage;
-				
-				toggleMessage( false, vatId, message );
+				toggleMessage( false, vatId, imprintL10n.vatIdErrorMessage );
 			}
 			else {
 				toggleMessage( true, vatId, '' );
 			}
-		} );
+		} ) );
 	}
 	
 	/**
@@ -83,10 +123,12 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 */
 	function checkCountry() {
 		toggleFieldsByCountry( countrySelect.value, legalEntitySelect.value );
+		toggleFieldsByCountry( countrySelect.value, businessId.value );
 		
 		// check on select change
 		countrySelect.addEventListener( 'change', function( event ) {
 			toggleFieldsByCountry( event.currentTarget.value, legalEntitySelect.value );
+			toggleFieldsByCountry( event.currentTarget.value, businessId.value );
 		} );
 	}
 	
@@ -138,6 +180,18 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	}
 	
 	/**
+	 * Check if business ID has a valid format.
+	 * 
+	 * @param	{string}	value The value to check
+	 * @return	{boolean} Whether business ID has valid format
+	 */
+	function isValidBusinessIdFormat( value ) {
+		const regex = new RegExp( '^(|DE[0-9]{9}\-[0-9]{5})$' );
+		
+		return regex.test( value );
+	}
+	
+	/**
 	 * Check if VAT ID has a valid format.
 	 * 
 	 * @param	{string}	value The value to check
@@ -145,8 +199,8 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 */
 	function isValidVatIdFormat( value ) {
 		// see: https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s21.html
-		// modified to also allow * and + for Netherlands
-		var regex = new RegExp( '^((AT)?U[0-9]{8}|(BE)?0[0-9]{9}|(BG)?[0-9]{9,10}|(CY)?[0-9]{8}L|(CZ)?[0-9]{8,10}|(DE)?[0-9]{9}|(DK)?[0-9]{8}|(EE)?[0-9]{9}|(EL|GR)?[0-9]{9}|(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]|(FI)?[0-9]{8}|(FR)?[0-9A-Z]{2}[0-9]{9}|(GB)?([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|(HU)?[0-9]{8}|(IE)?[0-9]S[0-9]{5}L|(IT)?[0-9]{11}|(LT)?([0-9]{9}|[0-9]{12})|(LU)?[0-9]{8}|(LV)?[0-9]{11}|(MT)?[0-9]{8}|(NL)?[0-9\+\*]{9}B[0-9]{2}|(PL)?[0-9]{10}|(PT)?[0-9]{9}|(RO)?[0-9]{2,10}|(SE)?[0-9]{12}|(SI)?[0-9]{8}|(SK)?[0-9]{10})$' );
+		// modified to also allow * and + for Netherlands and empty values
+		var regex = new RegExp( '^(|ATU[0-9]{8}|BE0[0-9]{9}|BG[0-9]{9,10}|CY[0-9]{8}L|CZ[0-9]{8,10}|DE[0-9]{9}|DK[0-9]{8}|EE[0-9]{9}|(EL|GR)[0-9]{9}|ES[0-9A-Z][0-9]{7}[0-9A-Z]|FI[0-9]{8}|FR[0-9A-Z]{2}[0-9]{9}|GB([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|HU[0-9]{8}|IE[0-9]S[0-9]{5}L|IT[0-9]{11}|LT([0-9]{9}|[0-9]{12})|LU[0-9]{8}|LV[0-9]{11}|MT[0-9]{8}|NL[0-9\+\*]{9}B[0-9]{2}|PL[0-9]{10}|PT[0-9]{9}|RO[0-9]{2,10}|SE[0-9]{12}|SI[0-9]{8}|SK[0-9]{10})$' );
 		
 		return regex.test( value );
 	}
@@ -158,16 +212,63 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	 * @param	{String}	legalEntity The selected legal entity
 	 */
 	function toggleFieldsByCountry( country, legalEntity ) {
+		let businessIdOrVatIdMessageContainerBusiness = businessId.parentNode.querySelector( '.is-business-or-vat-id-description' );
+		let businessIdOrVatIdMessageContainerVat = vatId.parentNode.querySelector( '.is-business-or-vat-id-description' );
+		
 		switch ( country ) {
 			case 'de-de':
 			case 'deu':
+				businessIdRow.style.removeProperty( 'display' );
 				pressLawCheckboxRow.style.removeProperty( 'display' );
 				pressLawInputRow.style.removeProperty( 'display' );
+				
+				businessIdOrVatIdMessageContainerBusiness = toggleDescription(
+					'show',
+					businessIdOrVatIdMessageContainerBusiness,
+					'is-business-or-vat-id-description',
+					imprintL10n.businessIdOrVatIdMessage,
+					businessId.parentNode
+				);
+				businessIdOrVatIdMessageContainerVat = toggleDescription(
+					'show',
+					businessIdOrVatIdMessageContainerBusiness,
+					'is-business-or-vat-id-description',
+					imprintL10n.businessIdOrVatIdMessage,
+					vatId.parentNode
+				);
 				break;
 			default:
+				businessIdRow.style.display = 'none';
 				pressLawCheckboxRow.style.display = 'none';
 				pressLawInputRow.style.display = 'none';
+				
+				toggleDescription( 'hide', businessIdOrVatIdMessageContainerBusiness );
+				toggleDescription( 'hide', businessIdOrVatIdMessageContainerVat );
 				break;
+		}
+	}
+	
+	/**
+	 * Toggle field descriptions.
+	 * 
+	 * @param {string} mode The mode to perform, 'show' or 'hide'
+	 * @param {?HTMLElement} element Element to show/hide/create
+	 * @param {?string} identifier Identifier to add as class
+	 * @param {?string} text Text to add to the element
+	 * @param {?HTMLElement} parentElement Parent element to add the element to
+	 * @returns {?HTMLElement} The created element or nothing
+	 */
+	function toggleDescription( mode, element, identifier, text, parentElement ) {
+		if ( mode === 'show' && ! element ) {
+			element = document.createElement( 'p' );
+			element.classList.add( 'description', 'impressum__description', identifier );
+			element.textContent = text;
+			parentElement.appendChild( element );
+			
+			return element;
+		}
+		else if ( mode === 'hide' ) {
+			element.remove();
 		}
 	}
 	
@@ -272,3 +373,22 @@ if ( ! Array.prototype.inArray ) {
 		} );
 	} );
 } )( [ Element.prototype, CharacterData.prototype, DocumentType.prototype ] );
+
+/**
+ * Debounce a function.
+ * 
+ * @param {Function} func Function to debounce
+ * @param {Number} timeout Debouncing timeout
+ * @return Function return value
+ */
+function debounce( func, timeout = 300 ) {
+	let timer;
+	
+	return ( ...args ) => {
+		clearTimeout( timer );
+		
+		timer = setTimeout( () => {
+			func.apply( this, args );
+		}, timeout );
+	};
+}

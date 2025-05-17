@@ -4,8 +4,9 @@ namespace epiphyt\Impressum;
 /**
  * Represents admin fields for the imprint of Impressum.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 class Admin_Fields {
 	use Singleton;
@@ -16,8 +17,7 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function country( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		?>
 		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
@@ -26,21 +26,22 @@ class Admin_Fields {
 					$is_selected = ( ! empty( $options['country'] ) ? \selected( $options['country'], $country_code, false ) : ( ! empty( $options['default']['country'] ) ? \selected( $options['default']['country'], $country_code, false ) : '' ) );
 					
 					if ( empty( $options['country'] ) && ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-						$is_selected = ( \strpos( \strtolower( \sanitize_text_field( \wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) ), $country_code ) !== false ? ' selected' : '' );
+						$accept_language = \sanitize_text_field( \wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
+						$is_selected = ( \strpos( \strtolower( $accept_language ), $country_code ) !== false ? ' selected' : '' );
 						
 						if ( empty( $is_selected ) && ! empty( $country['locale_primary'] ) ) {
-							$is_selected = ( \strpos( \strtolower( \sanitize_text_field( \wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) ), $country['locale_primary'] ) !== false ? ' selected' : '' );
+							$is_selected = ( \strpos( \strtolower( $accept_language ), $country['locale_primary'] ) !== false ? ' selected' : '' );
 						}
 					}
 					
-					echo '<option value="' . \esc_attr( $country_code ) . '"' . $is_selected . '>' . \esc_html( $country['title'] ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<option value="' . \esc_attr( $country_code ) . '"' . ( $is_selected ?: '' ) . '>' . \esc_html( $country['title'] ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 				?>
 		</select>
-		<p><?php \esc_html_e( 'In order to determine the needed fields for your imprint we need to know your country.', 'impressum' ); ?></p>
+		<p class="description impressum__description"><?php \esc_html_e( 'In order to determine the needed fields for your imprint we need to know your country.', 'impressum' ); ?></p>
 		<?php
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -50,16 +51,18 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function email( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
-		// output the field
 		?>
-		<input type="email" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value . $placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<input type="email" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
+		}
+		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -69,10 +72,25 @@ class Admin_Fields {
 	public function init_fields() {
 		// register option fields
 		foreach ( Impressum::get_instance()->settings_fields as $id => $settings_field ) {
+			/**
+			 * Filter the callback instance for admin fields.
+			 * 
+			 * @since	2.1.0
+			 * 
+			 * @param	callable	$this Current instance
+			 * @param	mixed[]		$settings_field Current settings field
+			 * @param	string		$id Current field ID
+			 */
+			$callback_instance = \apply_filters( 'impressum_admin_fields_callback_instance', $this, $settings_field, $id );
+			
+			if ( ! \is_callable( [ $callback_instance, $settings_field['callback'] ] ) ) {
+				continue;
+			}
+			
 			\add_settings_field(
 				$id,
 				$settings_field['title'],
-				[ $this, $settings_field['callback'] ],
+				[ $callback_instance, $settings_field['callback'] ],
 				$settings_field['page'],
 				$settings_field['section'],
 				$settings_field['args']
@@ -86,9 +104,7 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function legal_entity( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
-		// output the field
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		?>
 		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
@@ -96,14 +112,14 @@ class Admin_Fields {
 				foreach ( Impressum::get_instance()->get_legal_entities() as $abbr => $entity ) {
 					$is_selected = ( ! empty( $options['legal_entity'] ) ? \selected( $options['legal_entity'], $abbr, false ) : ( ! empty( $options['default']['legal_entity'] ) ? \selected( $options['default']['legal_entity'], $abbr, false ) : '' ) );
 					
-					echo '<option value="' . \esc_attr( $abbr ) . '"' . $is_selected . '>' . \esc_html( $entity ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo '<option value="' . \esc_attr( $abbr ) . '"' . ( $is_selected ?: '' ) . '>' . \esc_html( $entity ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 				?>
 		</select>
-		<p><?php \esc_html_e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum' ); ?></p>
+		<p class="description impressum__description"><?php \esc_html_e( 'In order to guide you the needed fields we need to know what kind of legal entity you are.', 'impressum' ); ?></p>
 		<?php
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -113,20 +129,18 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function text( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
-		// output the field
 		?>
-		<input type="text" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value . $placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<input type="text" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
 		}
 		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -142,30 +156,32 @@ class Admin_Fields {
 			return;
 		}
 		
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		$has_pages = (bool) \get_posts( [
 			'posts_per_page' => 1,
 			'post_status' => [ 'draft', 'publish' ],
 			'post_type' => 'page',
 		] );
 		
-		// output the field
 		if ( $has_pages ) {
 			\wp_dropdown_pages( [
-				'id' => \esc_attr( $args['label_for'] ),
-				'name' => 'impressum_imprint_options[' . \esc_attr( $args['label_for'] ) . ']',
+				'id' => \esc_html( $args['label_for'] ),
+				'name' => 'impressum_imprint_options[' . \esc_html( $args['label_for'] . ']' ),
 				'post_status' => [ 'draft', 'publish' ],
-				'selected' => ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				'show_option_none' => \esc_html__( '- Select -', 'impressum' ),
+				'selected' => ( isset( $options[ $args['label_for'] ] ) ? \esc_html( $options[ $args['label_for'] ] ) : ( isset( $options['default'][ $args['label_for'] ] ) ? \esc_html( $options['default'][ $args['label_for'] ] ) : '' ) ),
+				'show_option_none' => \esc_html__( '— Select —', 'impressum' ),
 			] );
 		}
 		else {
 			echo '<p>' . \esc_html__( 'There are no pages. Please create a page first.', 'impressum' ) . '</p>';
 		}
 		
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
+		}
+		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -175,16 +191,18 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function phone( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
-		// output the field
 		?>
-		<input type="tel" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value . $placeholder; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<input type="tel" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
+		}
+		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 	
@@ -194,9 +212,7 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function press_law_checkbox( array $args ) {
-		// get the value of the setting we've registered with register_setting()
 		$options = Helper::get_option( 'impressum_imprint_options', true );
-		// output the field
 		?>
 		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 			<?php \esc_html_e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
@@ -205,33 +221,51 @@ class Admin_Fields {
 	}
 	
 	/**
+	 * Select callback.
+	 * 
+	 * @since	2.3.0
+	 * 
+	 * @param	array	$args The field arguments
+	 */
+	public function select( array $args ) {
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) : '' );
+		$select_options = ! empty( $args['options'] ) ? $args['options'] : [];
+		?>
+		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
+			<option value=""><?php \esc_html_e( '— Select —', 'impressum' ); ?></option>
+			<?php foreach ( $select_options as $option ) : ?>
+			<option<?php \selected( $option['value'], $value ); ?> value="<?php echo \esc_attr( $option['value'] ); ?>"><?php echo \esc_html( $option['label'] ); ?></option>
+			<?php endforeach; ?>
+		</select>
+		<?php
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
+		}
+		
+		if ( isset( $args['required'] ) && $args['required'] === true ) {
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+		}
+	}
+	
+	/**
 	 * Textarea callback.
 	 * 
 	 * @param	array	$args The field arguments
 	 */
 	public function textarea( array $args ) {
-		// get the value of the setting we've registered with register_setting()
-		$options = Helper::get_option( 'impressum_imprint_options', \is_network_admin() );
+		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_html( \str_replace( "\r\n", ', ', $options['default'][ $args['label_for'] ] ) ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) : '' );
-		// output the field
 		?>
-		<textarea cols="50" rows="10" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]"<?php echo $placeholder; ?>><?php echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></textarea>
+		<textarea cols="50" rows="10" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]"<?php echo $placeholder; ?>><?php echo $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
-		switch ( $args['label_for'] ) {
-			case 'address':
-				echo '<p>' . \esc_html__( 'You need to set at least your street with number, your zip code and your city.', 'impressum' ) . '</p>';
-				break;
-			case 'address_alternative':
-				echo '<p>' . \esc_html__( 'You can set an alternative address to be displayed in your imprint.', 'impressum' ) . '</p>';
-				break;
-			case 'free_text':
-				echo '<p>' . \esc_html__( 'You can add some additional free text if the predefined input fields don’t suite your needs.', 'impressum' ) . '</p>';
-				break;
+		if ( ! empty( $args['description'] ) ) {
+			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
 		}
 		
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
-			echo '<p class="description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
+			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
 	}
 }

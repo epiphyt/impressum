@@ -4,8 +4,9 @@ namespace epiphyt\Impressum;
 /**
  * The main Impressum class.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 class Impressum {
 	use Singleton;
@@ -53,7 +54,7 @@ class Impressum {
 	 * Initialize the class.
 	 */
 	public function init() {
-		\add_action( 'init', [ $this, 'load_settings' ] );
+		\add_action( 'init', [ $this, 'load_settings' ], 10 );
 		\add_action( 'init', [ $this, 'load_textdomain' ], 5 );
 		\add_action( 'pre_update_option_impressum_imprint_options', [ $this, 'twice_daily_cron_activation' ] );
 		\register_activation_hook( $this->plugin_file, [ $this, 'twice_daily_cron_activation' ] );
@@ -556,9 +557,9 @@ class Impressum {
 		/**
 		 * Filter the countries before localized alphabetical sorting.
 		 * 
-		 * @param	array	$countries The current countries
+		 * @param	string[][]	$countries The current countries
 		 */
-		$this->countries = \apply_filters( 'impressum_country_pre_sort', $this->countries );
+		$this->countries = (array) \apply_filters( 'impressum_country_pre_sort', $this->countries );
 		
 		$this->legal_entities = [
 			'ag' => \__( 'AG', 'impressum' ),
@@ -584,9 +585,9 @@ class Impressum {
 		/**
 		 * Filter the legal entities before localized alphabetical sorting.
 		 * 
-		 * @param	array	$countries The current countries
+		 * @param	string[]	$countries The current countries
 		 */
-		$this->legal_entities = \apply_filters( 'impressum_legal_entity_pre_sort', $this->legal_entities );
+		$this->legal_entities = (array) \apply_filters( 'impressum_legal_entity_pre_sort', $this->legal_entities );
 		
 		// make sure the array is always sorted depending on localization
 		\uasort( $this->countries, static function( $a, $b ) {
@@ -640,12 +641,6 @@ class Impressum {
 	public function twice_daily_cron_activation( $value = [] ) {
 		if ( ! \wp_next_scheduled( 'impressum_twice_daily_cron' ) ) {
 			\wp_schedule_event( \time(), 'twicedaily', 'impressum_twice_daily_cron' );
-		}
-		
-		// if running before updating option, this represents the value
-		// just pass it
-		if ( $value ) {
-			return $value;
 		}
 		
 		return $value;

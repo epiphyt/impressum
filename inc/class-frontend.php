@@ -4,8 +4,9 @@ namespace epiphyt\Impressum;
 /**
  * Represents functions for the frontend in Impressum Plus.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 class Frontend {
 	use Singleton;
@@ -37,9 +38,22 @@ class Frontend {
 	 */
 	public function render( $attributes ) {
 		$attributes = (array) $attributes;
-		$fields = Helper::get_option( 'impressum_imprint_options', true );
+		$fields = \array_filter( (array) Helper::get_option( 'impressum_imprint_options', true ) );
+		$field_data = Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' );
 		$output = '';
 		$sections = ( ! empty( $attributes['sections'] ) ? \array_map( 'trim', \explode( ',', $attributes['sections'] ) ) : [] );
+		
+		/**
+		 * Filter fields to render.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	mixed[]		$fields Fields to render
+		 * @param	mixed[]		$attributes Render attributes
+		 * @param	mixed[][]	$field_data All fields with title and value
+		 * @param	string[]	$sections Sections to render
+		 */
+		$fields = (array) \apply_filters( 'impressum_render_imprint_fields', $fields, $attributes, $field_data, $sections );
 		
 		// merge global and local options
 		if ( ! empty( $fields['default'] ) ) {
@@ -86,8 +100,18 @@ class Frontend {
 			}
 			
 			// check block enabled fields
-			if ( ! empty( $attributes['enabledFields'] ) && ! \in_array( $field, $attributes['enabledFields'], true ) ) {
-				continue;
+			if ( ! empty( $attributes['enabledFields'] ) ) {
+				if (
+					(
+						! isset( $field_data[ $field ]['custom_title'] )
+						|| ! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
+					)
+					&& ! \in_array( $field_data[ $field ]['title'], $attributes['enabledFields'], true )
+					// deprecated old value
+					&& ! \in_array( $field, $attributes['enabledFields'], true )
+				) {
+					continue;
+				}
 			}
 			
 			// check whether the field should be displayed
@@ -104,7 +128,9 @@ class Frontend {
 			
 			// special case for press law person, which should only be displayed
 			// if the checkbox is checked
-			if ( $field === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) continue;
+			if ( $field === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) {
+				continue;
+			}
 			
 			$output .= $this->render_field( $field, $value, $attributes, $fields );
 		}
@@ -139,10 +165,10 @@ class Frontend {
 	 * @param	string	$field The field name (identifier)
 	 * @param	string	$value The field value
 	 * @param	array	$attributes The output attributes
-	 * @param	array	$unused Only used in the Plus version
+	 * @param	array	$fields All available fields
 	 * @return	string The formatted field value
 	 */
-	private function render_field( $field, $value, $attributes, $unused ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+	private function render_field( $field, $value, $attributes, $fields ) {
 		$output = '';
 		$title = '';
 		
@@ -165,7 +191,7 @@ class Frontend {
 		 * @param	array	$attributes The field arguments
 		 * @param	string	$field The field name
 		 */
-		$title = \apply_filters( "impressum_imprint_output_title_{$field}", $title, $attributes, $field );
+		$title = (string) \apply_filters( "impressum_imprint_output_title_{$field}", $title, $attributes, $field );
 		
 		// set the output
 		switch ( $field ) {
@@ -186,6 +212,32 @@ class Frontend {
 		
 		// remove last break
 		$field_output = \preg_replace( '/(<br>)+$/', '', $field_output );
+		
+		/**
+		 * Filter the output of a field.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	string		$field_output Field output
+		 * @param	string		$value Field value
+		 * @param	string		$field Field name
+		 * @param	mixed[]		$attributes Field rendering attributes
+		 * @param	mixed[][]	$fields All fields to render
+		 */
+		$field_output = (string) \apply_filters( "impressum_imprint_output_field_{$field}", $field_output, $value, $field, $attributes, $fields );
+		
+		/**
+		 * Filter the output of a field.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	string		$field_output Field output
+		 * @param	string		$value Field value
+		 * @param	string		$field Field name
+		 * @param	mixed[]		$attributes Field rendering attributes
+		 * @param	mixed[][]	$fields All fields to render
+		 */
+		$field_output = (string) \apply_filters( 'impressum_imprint_output_field', $field_output, $value, $field, $attributes, $fields );
 		
 		if ( $attributes['titles'] && $attributes['markup'] ) {
 			$output .= '<dt>' . \esc_html( $title ) . '</dt>';

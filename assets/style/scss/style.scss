@@ -1,8 +1,9 @@
 /**
  * The admin style SCSS file.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 .impressum-content-wrapper {
 	max-width: 692px;
@@ -89,10 +90,6 @@
 			grid-template-columns: 33% 33% 33%;
 		}
 	}
-}
-
-.impressum-wrap {
-	margin: 10px 20px 0 2px;
 }
 
 .impressum__compare-table {

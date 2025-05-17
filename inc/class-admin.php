@@ -4,8 +4,9 @@ namespace epiphyt\Impressum;
 /**
  * Represents functions for the admin in Impressum.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 class Admin {
 	use Singleton;
@@ -37,7 +38,7 @@ class Admin {
 		\add_action( 'enqueue_block_editor_assets', [ $this, 'block_assets' ] );
 		\add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		\add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
-		\add_filter( 'impressum_admin_tab', [ $this, 'register_plus_tab' ], 10, 3 );
+		\add_filter( 'impressum_admin_tab', [ $this, 'register_plus_tab' ] );
 	}
 	
 	/**
@@ -68,15 +69,15 @@ class Admin {
 	 */
 	public function block_assets() {
 		// automatically load dependencies and version
-		$asset_file = include \plugin_dir_path( $this->plugin_file ) . 'build/imprint.asset.php';
+		$asset_file = include \EPI_IMPRESSUM_BASE . 'build/imprint.asset.php';
 		
-		\wp_enqueue_script( 'impressum-imprint-block', \plugin_dir_url( $this->plugin_file ) . 'build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
+		\wp_enqueue_script( 'impressum-imprint-block', \EPI_IMPRESSUM_URL . 'build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
 		\wp_localize_script( 'impressum-imprint-block', 'impressum_fields', [
 			'fields' => Impressum::get_instance()->settings_fields,
 			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
 		] );
 		\wp_set_script_translations( 'impressum-imprint-block', 'impressum' );
-		\wp_register_style( 'impressum-imprint-block-editor-styles', \plugin_dir_url( $this->plugin_file ) . 'build/editor.css', [], $asset_file['version'] );
+		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_BASE . 'build/editor.css', [], $asset_file['version'] );
 	}
 	
 	/**
@@ -85,13 +86,13 @@ class Admin {
 	 * @param	string	$hook The current admin page
 	 */
 	public function enqueue_assets( $hook ) {
-		// check for SCRIPT_DEBUG
-		$suffix = \defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG ? '' : '.min';
-		
-		$file_path = \plugin_dir_path( $this->plugin_file ) . 'assets/js/ajax-dismissible-notice' . $suffix . '.js';
+		$is_debug = ( \defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG ) || ( \defined( 'WP_DEBUG' ) && \WP_DEBUG );
+		$suffix = $is_debug ? '' : '.min';
+		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/ajax-dismissible-notice' . $suffix . '.js';
+		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_script( 'impressum-dismissible-notice', \plugins_url( '/assets/js/ajax-dismissible-notice' . $suffix . '.js', $this->plugin_file ), [], \filemtime( $file_path ) );
+			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . '/assets/js/ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
 		}
 		
 		// check for settings page
@@ -99,16 +100,18 @@ class Admin {
 			return;
 		}
 		
-		$file_path = \plugin_dir_path( $this->plugin_file ) . '/assets/js/admin-options' . $suffix . '.js';
+		$file_path = \EPI_IMPRESSUM_BASE . '/assets/js/admin-options' . $suffix . '.js';
+		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_script( 'impressum-admin-options', \plugins_url( '/assets/js/admin-options' . $suffix . '.js', $this->plugin_file ), [], \filemtime( $file_path ) );
+			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/admin-options' . $suffix . '.js', [], $file_version );
 		}
 		
-		$file_path = \plugin_dir_path( $this->plugin_file ) . '/assets/style/style' . $suffix . '.css';
+		$file_path = \EPI_IMPRESSUM_BASE . '/assets/style/style' . $suffix . '.css';
+		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_style( 'impressum-admin-style', \plugins_url( '/assets/style/style' . $suffix . '.css', $this->plugin_file ), [], \filemtime( $file_path ) );
+			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . '/assets/style/style' . $suffix . '.css', [], $file_version );
 		}
 		
 		// prepare for translation
@@ -130,13 +133,8 @@ class Admin {
 	 * Custom option and settings.
 	 */
 	public function init_settings() {
-		// register a new setting for "impressum" page
 		\register_setting( 'impressum_imprint', 'impressum_imprint_options' );
-		
-		// register a new section in the "impressum" page
-		\add_settings_section( 'impressum_section_imprint', null, null, 'impressum_imprint' );
-		
-		// register option fields
+		\add_settings_section( 'impressum_section_imprint', null, '__return_null', 'impressum_imprint' );
 		Admin_Fields::get_instance()->init_fields();
 	}
 	
@@ -145,7 +143,7 @@ class Admin {
 	 * 
 	 * @return	array A list of invalid fields
 	 */
-	private function get_invalid_fields() {
+	public static function get_invalid_fields() {
 		$invalid_fields = [];
 		$options = Helper::get_option( 'impressum_imprint_options', true );
 		
@@ -160,16 +158,21 @@ class Admin {
 			$options['legal_entity'] = 'individual';
 		}
 		
-		// detect required fields according to the legal entity
-		switch ( $options['legal_entity'] ) {
-			default:
-				$required_fields = [
-					'address',
-					'email',
-					'name',
-				];
-				break;
-		}
+		$required_fields = [
+			'address',
+			'email',
+			'name',
+		];
+		
+		/**
+		 * Filter required fields.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	string[]	$required_fields List of required fields
+		 * @param	array		$options Imprint options
+		 */
+		$required_fields = (array) \apply_filters( 'impressum_required_fields', $required_fields, $options );
 		
 		foreach ( $required_fields as $field ) {
 			if ( ! \is_array( $options ) || ! \array_key_exists( $field, $options ) || empty( $options[ $field ] ) ) {
@@ -236,29 +239,29 @@ class Admin {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		
 		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) :
-		$invalid_fields = $this->get_invalid_fields();
+		$invalid_fields = self::get_invalid_fields();
 		?>
-<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
-	<p>
-		<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
-		<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
-	</p>
-	<?php if ( ! empty( $invalid_fields ) ) : ?>
-	<p>
-		<?php
-		\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
-		echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
-		?>
-	</p>
-	<?php endif; ?>
-</div>
+		<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
+			<p>
+				<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
+				<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
+			</p>
+			<?php if ( ! empty( $invalid_fields ) ) : ?>
+			<p>
+				<?php
+				\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
+				echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
+				?>
+			</p>
+			<?php endif; ?>
+		</div>
 		<?php
 		endif;
 	}
 	
 	/**
 	 * Check if the current imprint is valid.
-	 * Valid means: All necessary fields are filled with data.
+	 * Valid means: All required fields are filled with data.
 	 * 
 	 * @return	bool True if imprint is valid, false otherwise
 	 */
@@ -277,22 +280,41 @@ class Admin {
 			return false;
 		}
 		
-		// check for legal entity
-		switch ( $options['legal_entity'] ) {
-			default:
-				if (
-					! isset( $options['address'] ) || empty( $options['address'] )
-					|| ! isset( $options['email'] ) || empty( $options['email'] )
-					|| ! isset( $options['name'] ) || empty( $options['name'] )
-					|| ! isset( $options['phone'] ) || empty( $options['phone'] )
-				) {
-					return false;
-				}
-				break;
+		$required_fields = [
+			'address',
+			'email',
+			'name',
+		];
+		
+		/**
+		 * Filter required fields.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	string[]	$required_fields List of required fields
+		 * @param	array		$options Imprint options
+		 */
+		$required_fields = (array) \apply_filters( 'impressum_required_fields', $required_fields, $options );
+		
+		foreach ( $required_fields as $required_field ) {
+			if ( empty( $options[ $required_field ] ) ) {
+				return false;
+			}
 		}
 		
-		// the default
-		return true;
+		$is_valid = ! ( empty( $options['phone'] ) && empty( $options['contact_form_page'] ) );
+		
+		/**
+		 * Filter whether the imprint fields are valid.
+		 * 
+		 * @since	2.1.0
+		 * 
+		 * @param	bool	$is_valid Whether the imprint fields are valid
+		 * @param	array	$options Imprint options
+		 */
+		$is_valid = \apply_filters( 'impressum_is_valid_imprint', $is_valid, $options );
+		
+		return $is_valid;
 	}
 	
 	/**
@@ -344,26 +366,18 @@ class Admin {
 		
 		\ob_start();
 		?>
-		<div class="nav-tab-content<?php echo $current_tab === 'imprint' ? ' nav-tab-content-active' : ''; ?>" id="nav-tab-content-imprint">
-			<form action="<?php echo \esc_html( $form_action ); ?>" method="post">
-				<?php
-				// output security fields for the registered setting "impressum"
-				\settings_fields( 'impressum_imprint' );
-				// output setting sections and their fields
-				// (sections are registered for "impressum", each field is registered to a specific section)
-				\do_settings_sections( 'impressum_imprint' );
-				?>
-				<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
-				<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum” helps you to fill all necessary fields.', 'impressum' ); ?></p>
-				<?php
-				// output save settings button
-				\submit_button( \esc_html__( 'Save Settings', 'impressum' ) );
-				?>
-			</form>
+		<div class="nav-tab-content nav-tab-content-active" id="nav-tab-content-imprint">
+			<?php
+			// output setting sections and their fields
+			// (sections are registered for "impressum", each field is registered to a specific section)
+			Helper::do_settings_sections( 'impressum_imprint' );
+			?>
+			<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
+			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum Plus” helps you to fill all necessary fields.', 'impressum' ); ?></p>
 			
 			<h3><?php \esc_html_e( 'Usage', 'impressum' ); ?></h3>
 			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>
-			<ol>
+			<ul class="impressum__regular-list">
 				<li><?php \esc_html_e( 'Add the "Imprint" block in your block editor wherever you want to output your imprint. It works everywhere the block editor is supported.', 'impressum' ); ?></li>
 				<li>
 					<?php
@@ -372,8 +386,9 @@ class Admin {
 						\esc_html__( 'Add the %s in your editor wherever you want to output your imprint. It works everywhere shortcodes are supported.', 'impressum' ),
 						'<code>[impressum]</code>'
 					);
-					?></li>
-			</ol>
+					?>
+				</li>
+			</ul>
 		</div>
 		<?php
 		$content = \ob_get_clean();
@@ -407,34 +422,47 @@ class Admin {
 		?>
 		<div class="wrap impressum-wrap">
 			<h1><?php echo \esc_html( \get_admin_page_title() ); ?></h1>
-			<h2 class="nav-tab-wrapper">
-				<?php
-				foreach ( $tabs as $tab ) :
-				if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
-					continue;
-				}
-				?>
-				<a href="?page=impressum&imprint_tab=<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $current_tab === $tab['slug'] ? ' nav-tab-active' : ''; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>"><?php echo \esc_html( $tab['title'] ); ?></a>
-				<?php endforeach; ?>
-			</h2>
-			<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 			
-			<?php // phpcs:enable ?>
-			<div class="impressum-content-wrapper">
-				<?php
-				foreach ( $tabs as $tab ) {
-					if ( empty( $tab['content'] ) || empty( $tab['slug'] ) ) {
-						continue;
-					}
-					
-					if ( $current_tab !== $tab['slug'] ) {
-						continue;
-					}
-					
-					echo $tab['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
+			
+			<form action="<?php echo \esc_html( $form_action ); ?>" method="post">
+				<input type="hidden" name="option_page" value="impressum_settings" />
+				<input type="hidden" name="action" value="update" />
+				
+				<?php 
+				\wp_nonce_field( 'impressum_settings-options', '_wpnonce', false );
+				
+				$referer = \remove_query_arg( '_wp_http_referer' );
+				
+				if ( ! \str_contains( $referer, '&imprint_tab=' ) && $current_tab !== $default_tab ) {
+					$referer .= '&imprint_tab=' . $current_tab;
 				}
 				?>
-			</div>
+				<input type="hidden" name="_wp_http_referer" value="<?php echo \esc_url( $referer ); ?>" />
+				
+				<h2 class="nav-tab-wrapper">
+					<?php
+					foreach ( $tabs as $tab ) :
+					if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
+						continue;
+					}
+					?>
+					<a href="?page=impressum&imprint_tab=<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $current_tab === $tab['slug'] ? ' nav-tab-active' : ''; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>"><?php echo \esc_html( $tab['title'] ); ?></a>
+					<?php endforeach; ?>
+				</h2>
+				
+				<div class="impressum-content-wrapper">
+					<?php
+					foreach ( $tabs as $tab ) {
+						echo $tab['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					}
+					
+					\submit_button( \esc_html__( 'Save Settings', 'impressum' ) );
+					?>
+				</div>
+			</form>
+			
+			<?php \do_action( 'impressum_settings_form_after', $form_action, $current_tab, $default_tab ); ?>
 		</div>
 		<?php
 	}
@@ -558,6 +586,8 @@ class Admin {
 	/**
 	 * Set the plugin file.
 	 * 
+	 * @deprecated	2.1.0 Use \EPI_IMPRESSUM_PLUS_FILE instead
+	 * 
 	 * @param	string	$file The path to the file
 	 */
 	public function set_plugin_file( $file ) {
@@ -661,7 +691,7 @@ class Admin {
 							
 							<?php // phpcs:enable ?>
 							<div class="impressum-welcome-action">
-								<p><a class="button button-primary button-hero" href="https://impressum.plus"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
+								<p><a class="button button-primary button-hero" href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
 							</div>
 						</div>
 						<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
@@ -676,7 +706,7 @@ class Admin {
 							
 							<?php // phpcs:enable ?>
 							<div class="impressum-welcome-action">
-								<p><a href="https://epiph.yt"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
+								<p><a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
 							</div>
 						</div>
 					</div>

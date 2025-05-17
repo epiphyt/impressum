@@ -1,8 +1,9 @@
 /**
  * JavaScript functions for the admin options page.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 
 // all fields that should be be checked by there value

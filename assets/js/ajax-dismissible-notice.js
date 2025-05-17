@@ -1,8 +1,9 @@
 /**
  * JavaScript function to permanently dismiss a notice in admin.
  * 
- * @author		Epiphyt
- * @license		GPL2 <https://www.gnu.org/licenses/gpl-2.0.html>
+ * @author	Epiphyt
+ * @license	GPL2
+ * @package	epiphyt\Impressum
  */
 jQuery( function( $ ) {
 	$( document ).on( 'click', '.impressum-validation-notice > .notice-dismiss', function() {

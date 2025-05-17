@@ -30,20 +30,21 @@ along with Impressum. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
 */
 \defined( 'ABSPATH' ) || exit;
 
+if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
+	if ( \file_exists( \WP_PLUGIN_DIR . '/impressum/' ) ) {
+		\define( 'EPI_IMPRESSUM_BASE', \WP_PLUGIN_DIR . '/impressum/' );
+	}
+	else if ( \file_exists( \WPMU_PLUGIN_DIR . '/impressum/' ) ) {
+		\define( 'EPI_IMPRESSUM_BASE', \WPMU_PLUGIN_DIR . '/impressum/' );
+	}
+	else {
+		\define( 'EPI_IMPRESSUM_BASE', \plugin_dir_path( __FILE__ ) );
+	}
+}
+
+\define( 'EPI_IMPRESSUM_FILE', \EPI_IMPRESSUM_BASE . \basename( __FILE__ ) );
+\define( 'EPI_IMPRESSUM_URL', \plugin_dir_url( \EPI_IMPRESSUM_FILE ) );
 \define( 'EPI_IMPRESSUM_VERSION', '2.0.6' );
-
-if ( \file_exists( \WP_PLUGIN_DIR . '/impressum/' ) ) {
-	\define( 'EPI_IMPRESSUM_BASE', \WP_PLUGIN_DIR . '/impressum/' );
-}
-else if ( \file_exists( \WPMU_PLUGIN_DIR . '/impressum/' ) ) {
-	\define( 'EPI_IMPRESSUM_BASE', \WPMU_PLUGIN_DIR . '/impressum/' );
-}
-else {
-	\define( 'EPI_IMPRESSUM_BASE', \plugin_dir_path( __FILE__ ) );
-}
-
-\define( 'EPI_IMPRESSUM_FILE', __FILE__ );
-\define( 'EPI_IMPRESSUM_URL', \plugin_dir_url( \EPI_IMPRESSUM_BASE . 'impressum.php' ) );
 
 /**
  * Autoload all necessary classes.

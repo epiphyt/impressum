@@ -1,26 +1,24 @@
 {
   "name": "impressum",
   "description": "Simple Imprint Generator",
-  "main": "src/blocks/imprint/index.js",
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@git.kittmedia.com:wordpress/impressum.git"
   },
   "author": "Epiphyt",
   "license": "GPL-2.0",
   "devDependencies": {
     "@wordpress/block-editor": "^11.7.0",
     "@wordpress/components": "^23.7.0",
+    "@wordpress/eslint-plugin": "^22.9.0",
     "@wordpress/i18n": "^4.30.0",
+    "@wordpress/prettier-config": "^4.23.0",
     "@wordpress/scripts": "^26.1.0",
     "@wordpress/server-side-render": "^4.7.0",
     "extract-loader": "^5.1.0",
     "file-loader": "^6.2.0",
     "ignore-emit-webpack-plugin": "^2.0.6",
-    "mini-css-extract-plugin": "^2.7.5"
+    "mini-css-extract-plugin": "^2.7.5",
+    "prettier": "npm:wp-prettier@^3.0.3"
   }
 }

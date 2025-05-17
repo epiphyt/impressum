@@ -7,12 +7,20 @@ const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
 
 const jsFiles = {
-	'admin-options': path.resolve( process.cwd(), 'assets/js', 'admin-options.js' ),
+	'admin-options': path.resolve(
+		process.cwd(),
+		'assets/js',
+		'admin-options.js'
+	),
 	'admin-tabs': path.resolve( process.cwd(), 'assets/js', 'admin-tabs.js' ),
-	'ajax-dismissible-notice': path.resolve( process.cwd(), 'assets/js', 'ajax-dismissible-notice.js' ),
+	'ajax-dismissible-notice': path.resolve(
+		process.cwd(),
+		'assets/js',
+		'ajax-dismissible-notice.js'
+	),
 };
 const scssFiles = {
-	'style': path.resolve( process.cwd(), 'assets/style/scss', 'style.scss' ),
+	style: path.resolve( process.cwd(), 'assets/style/scss', 'style.scss' ),
 };
 
 module.exports = [
@@ -67,7 +75,10 @@ module.exports = [
 				},
 			],
 		},
-		plugins: [ new MiniCSSExtractPlugin( { filename: '[name].min.css' } ), new IgnoreEmitPlugin( [ '.js' ] ) ],
+		plugins: [
+			new MiniCSSExtractPlugin( { filename: '[name].min.css' } ),
+			new IgnoreEmitPlugin( [ '.js' ] ),
+		],
 	},
 	// compiled CSS
 	{
@@ -104,6 +115,9 @@ module.exports = [
 				},
 			],
 		},
-		plugins: [ new MiniCSSExtractPlugin( { filename: '[name].css' } ), new IgnoreEmitPlugin( [ '.js' ] ) ],
+		plugins: [
+			new MiniCSSExtractPlugin( { filename: '[name].css' } ),
+			new IgnoreEmitPlugin( [ '.js' ] ),
+		],
 	},
 ];

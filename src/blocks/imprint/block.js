@@ -5,9 +5,9 @@
 // external dependencies
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { page } from '@wordpress/icons';
 
-// internal dependencies
 import attributes from './attributes';
 import edit from './edit';
 
@@ -16,15 +16,10 @@ registerBlockType( 'impressum/imprint', {
 	title: __( 'Imprint', 'impressum' ),
 	icon: page,
 	category: 'common',
-	attributes: attributes,
-	edit: edit,
-	save: () => {
-		return null;
-	},
-	keywords: [
-		__( 'legal', 'impressum' ),
-		__( 'information', 'impressum' ),
-	],
+	attributes,
+	edit,
+	save: () => null,
+	keywords: [ __( 'legal', 'impressum' ), __( 'information', 'impressum' ) ],
 	styles: [
 		{
 			name: 'default',

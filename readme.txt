@@ -27,9 +27,9 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 * WP-CLI support
 * Many more filters for developers
 
-[Buy now](https://epiph.yt/en/product/impressum-plus/)
-
 [Check out all features of Impressum Plus](https://impressum.plus/en/features/)
+
+[Buy now](https://epiph.yt/en/?add-to-cart=26)
 
 
 == Installation ==

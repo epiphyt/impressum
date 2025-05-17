@@ -1,0 +1,22 @@
+{
+	"name": "epiphyt/impressum",
+	"description": "Simple Imprint Generator",
+	"type": "wordpress-plugin",
+	"homepage": "https://epiph.yt/en/",
+	"license": "GPL-2.0-only",
+	"require": {
+		"php": "^5.6|^7.0|^8.0"
+	},
+	"support": {
+		"email": "hey.composer@epiph.yt",
+		"docs": "https://impressum.plus/en/documentation/"
+	},
+	"authors": [
+		{
+			"name": "Matthias Kittsteiner",
+			"email": "matze.composer@epiph.yt",
+			"homepage": "https://kittsteiner.blog",
+			"role": "Developer"
+		}
+	]
+}

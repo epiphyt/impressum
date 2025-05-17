@@ -384,7 +384,7 @@ class Admin {
 			Helper::do_settings_sections( 'impressum_imprint' );
 			?>
 			<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
-			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. “Impressum Plus” helps you to fill all necessary fields.', 'impressum' ); ?></p>
+			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. This plugin helps you to fill all necessary fields.', 'impressum' ); ?></p>
 			
 			<h3><?php \esc_html_e( 'Usage', 'impressum' ); ?></h3>
 			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>

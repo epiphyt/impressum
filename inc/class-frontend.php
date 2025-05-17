@@ -2,7 +2,7 @@
 namespace epiphyt\Impressum;
 
 /**
- * Represents functions for the frontend in Impressum Plus.
+ * Represents functions for the frontend in Impressum.
  * 
  * @author	Epiphyt
  * @license	GPL2

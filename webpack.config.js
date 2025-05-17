@@ -1,86 +1,56 @@
 const defaultConfig = require( './node_modules/@wordpress/scripts/config/webpack.config' );
 const path = require( 'path' );
 const IgnoreEmitPlugin = require( 'ignore-emit-webpack-plugin' );
+const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 
 const isProduction = process.env.NODE_ENV === 'production';
-const myConfig = {
-	optimization: {
-		...defaultConfig.optimization,
-		splitChunks: {
-			cacheGroups: {
-				editor: {
-					name: 'editor',
-					test: /editor\.(sc|sa|c)ss$/,
-					chunks: 'all',
-					enforce: true,
-				},
-				default: false,
-			},
-		},
-	},
-	plugins: [
-		...defaultConfig.plugins,
-		new IgnoreEmitPlugin( [ 'editor.js', 'style.js' ] ),
-	],
+const mode = isProduction ? 'production' : 'development';
+
+const jsFiles = {
+	'admin-options': path.resolve( process.cwd(), 'assets/js', 'admin-options.js' ),
+	'ajax-dismissible-notice': path.resolve( process.cwd(), 'assets/js', 'ajax-dismissible-notice.js' ),
+};
+const scssFiles = {
+	'style': path.resolve( process.cwd(), 'assets/style/scss', 'style.scss' ),
 };
 
 module.exports = [
+	// blocks
+	{ ...defaultConfig },
 	// JavaScript minification
 	{
-		mode: defaultConfig.mode,
-		devtool: ! isProduction ? 'source-map' : 'eval',
-		entry: {
-			'admin-options': path.resolve( process.cwd(), 'assets/js', 'admin-options.js' ),
-			'ajax-dismissible-notice': path.resolve( process.cwd(), 'assets/js', 'ajax-dismissible-notice.js' ),
-		},
+		mode,
+		devtool: ! isProduction ? 'source-map' : 'hidden-source-map',
+		entry: jsFiles,
 		output: {
 			filename: '[name].min.js',
-			path: path.resolve( process.cwd(), 'assets/js' ),
+			path: path.resolve( process.cwd(), 'assets/js/build' ),
 		},
 		optimization: {
 			minimize: true,
 			minimizer: defaultConfig.optimization.minimizer,
 		},
 	},
-	// blocks
-	{
-		...defaultConfig,
-		...myConfig,
-		entry: {
-			imprint: path.resolve( process.cwd(), 'src/blocks/imprint', 'block.js' ),
-			editor: path.resolve( process.cwd(), 'src', 'editor.scss' ),
-		},
-	},
 	// compiled + minified CSS file
 	{
-		mode: defaultConfig.mode,
-		entry: {
-			style: path.resolve( process.cwd(), 'assets/style/scss', 'style.scss' ),
-		},
+		mode,
+		devtool: ! isProduction ? 'source-map' : 'hidden-source-map',
+		entry: scssFiles,
 		output: {
-			filename: '[name].js',
-			path: path.resolve( process.cwd(), 'build' ),
+			path: path.resolve( process.cwd(), 'assets/style/build' ),
 		},
 		module: {
 			rules: [
 				{
 					test: /\.(sc|sa)ss$/,
 					use: [
-						{
-							loader: 'file-loader',
-							options: {
-								name: '[name].min.css',
-								outputPath: '../assets/style',
-							}
-						},
-						{
-							loader: 'extract-loader',
-						},
+						MiniCSSExtractPlugin.loader,
 						{
 							loader: 'css-loader',
 							options: {
 								sourceMap: ! isProduction,
-							}
+								url: false,
+							},
 						},
 						{
 							loader: 'sass-loader',
@@ -89,44 +59,35 @@ module.exports = [
 								sassOptions: {
 									minimize: true,
 									outputStyle: 'compressed',
-								}
-							}
+								},
+							},
 						},
 					],
 				},
 			],
 		},
+		plugins: [ new MiniCSSExtractPlugin( { filename: '[name].min.css' } ), new IgnoreEmitPlugin( [ '.js' ] ) ],
 	},
-	// compiled CSS file
+	// compiled CSS
 	{
-		mode: defaultConfig.mode,
-		entry: {
-			style: path.resolve( process.cwd(), 'assets/style/scss', 'style.scss' ),
-		},
+		mode,
+		devtool: ! isProduction ? 'source-map' : 'hidden-source-map',
+		entry: scssFiles,
 		output: {
-			filename: '[name].js',
-			path: path.resolve( process.cwd(), 'build' ),
+			path: path.resolve( process.cwd(), 'assets/style/build' ),
 		},
 		module: {
 			rules: [
 				{
 					test: /\.(sc|sa)ss$/,
 					use: [
-						{
-							loader: 'file-loader',
-							options: {
-								name: '[name].css',
-								outputPath: '../assets/style',
-							}
-						},
-						{
-							loader: 'extract-loader',
-						},
+						MiniCSSExtractPlugin.loader,
 						{
 							loader: 'css-loader',
 							options: {
 								sourceMap: ! isProduction,
-							}
+								url: false,
+							},
 						},
 						{
 							loader: 'sass-loader',
@@ -135,12 +96,13 @@ module.exports = [
 								sassOptions: {
 									minimize: false,
 									outputStyle: 'expanded',
-								}
-							}
+								},
+							},
 						},
 					],
 				},
 			],
 		},
+		plugins: [ new MiniCSSExtractPlugin( { filename: '[name].css' } ), new IgnoreEmitPlugin( [ '.js' ] ) ],
 	},
 ];

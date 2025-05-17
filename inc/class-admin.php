@@ -69,15 +69,15 @@ class Admin {
 	 */
 	public function block_assets() {
 		// automatically load dependencies and version
-		$asset_file = include \EPI_IMPRESSUM_BASE . 'build/imprint.asset.php';
+		$asset_file = include \EPI_IMPRESSUM_BASE . 'build/index.asset.php';
 		
-		\wp_enqueue_script( 'impressum-imprint-block', \EPI_IMPRESSUM_URL . 'build/imprint.js', $asset_file['dependencies'], $asset_file['version'] );
+		\wp_enqueue_script( 'impressum-imprint-block', \EPI_IMPRESSUM_URL . 'build/index.js', $asset_file['dependencies'], $asset_file['version'] );
 		\wp_localize_script( 'impressum-imprint-block', 'impressum_fields', [
 			'fields' => Impressum::get_instance()->settings_fields,
 			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
 		] );
 		\wp_set_script_translations( 'impressum-imprint-block', 'impressum' );
-		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_URL . 'build/editor.css', [], $asset_file['version'] );
+		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_URL . 'build/index.css', [], $asset_file['version'] );
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class Admin {
 		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . '/assets/js/ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
 		}
 		
 		// check for settings page
@@ -104,14 +104,14 @@ class Admin {
 		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/admin-options' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
 		}
 		
 		$file_path = \EPI_IMPRESSUM_BASE . '/assets/style/style' . $suffix . '.css';
 		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
-			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . '/assets/style/style' . $suffix . '.css', [], $file_version );
+			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . '/assets/style/build/style' . $suffix . '.css', [], $file_version );
 		}
 		
 		// prepare for translation

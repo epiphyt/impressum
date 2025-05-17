@@ -77,6 +77,8 @@ class Frontend {
 			$output .= '<div class="impressum__imprint-container">';
 		}
 		
+		$output .= $attributes['titles'] && $attributes['markup'] ? '<dl>' : '';
+		
 		foreach ( $fields as $field => $value ) {
 			// check shortcode sections
 			if ( ! empty( $sections ) && ! \in_array( $field, $sections, true ) ) {
@@ -106,6 +108,8 @@ class Frontend {
 			
 			$output .= $this->render_field( $field, $value, $attributes, $fields );
 		}
+		
+		$output .= $attributes['titles'] && $attributes['markup'] ? '</dl>' : '';
 		
 		if ( $attributes['markup'] ) {
 			// close imprint container
@@ -184,11 +188,8 @@ class Frontend {
 		$field_output = \preg_replace( '/(<br>)+$/', '', $field_output );
 		
 		if ( $attributes['titles'] && $attributes['markup'] ) {
-			// definition list if markup and titles are enabled
-			$output .= '<dl>';
-			$output .= ( $attributes['markup'] ? '<dt>' : '' ) . \esc_html( $title ) . ( $attributes['markup'] ? '</dt>' : '' );
-			$output .= ( $attributes['markup'] ? '<dd>' : '' ) . $field_output . ( $attributes['markup'] ? '</dd>' : '' );
-			$output .= '</dl>';
+			$output .= '<dt>' . \esc_html( $title ) . '</dt>';
+			$output .= '<dd>' . $field_output . '</dd>';
 		}
 		else if ( $attributes['markup'] ) {
 			// paragraph if only markup but no titles are enabled

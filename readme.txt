@@ -87,7 +87,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Changelog ==
 
 = 2.1.0 =
+* Added: Field for contact form page as alternative for phone number
+* Added: Field for business ID (Germany only)
 * Added: JavaScript functionality for settings tabs
+* Fixed: Field sort order in settings
 
 = 2.0.6 =
 * Improved: Compatibility with WordPress 6.8

@@ -86,6 +86,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.1.0 =
+* Added: JavaScript functionality for settings tabs
+
 = 2.0.6 =
 * Improved: Compatibility with WordPress 6.8
 * Overhauled: Text passages

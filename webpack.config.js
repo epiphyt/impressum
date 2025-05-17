@@ -8,6 +8,7 @@ const mode = isProduction ? 'production' : 'development';
 
 const jsFiles = {
 	'admin-options': path.resolve( process.cwd(), 'assets/js', 'admin-options.js' ),
+	'admin-tabs': path.resolve( process.cwd(), 'assets/js', 'admin-tabs.js' ),
 	'ajax-dismissible-notice': path.resolve( process.cwd(), 'assets/js', 'ajax-dismissible-notice.js' ),
 };
 const scssFiles = {

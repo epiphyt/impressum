@@ -89,9 +89,10 @@ class Admin {
 		$is_debug = ( \defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG ) || ( \defined( 'WP_DEBUG' ) && \WP_DEBUG );
 		$suffix = $is_debug ? '' : '.min';
 		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/ajax-dismissible-notice' . $suffix . '.js';
-		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
+			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+			
 			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
 		}
 		
@@ -101,16 +102,26 @@ class Admin {
 		}
 		
 		$file_path = \EPI_IMPRESSUM_BASE . '/assets/js/admin-options' . $suffix . '.js';
-		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 		
 		if ( \file_exists( $file_path ) ) {
+			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+			
 			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
 		}
 		
-		$file_path = \EPI_IMPRESSUM_BASE . '/assets/style/style' . $suffix . '.css';
-		$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+		$file_path = \EPI_IMPRESSUM_BASE . '/assets/js/admin-tabs' . $suffix . '.js';
 		
 		if ( \file_exists( $file_path ) ) {
+			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+			
+			\wp_enqueue_script( 'impressum-admin-tabs', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js', [], $file_version );
+		}
+		
+		$file_path = \EPI_IMPRESSUM_BASE . '/assets/style/build/style' . $suffix . '.css';
+		
+		if ( \file_exists( $file_path ) ) {
+			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+			
 			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . '/assets/style/build/style' . $suffix . '.css', [], $file_version );
 		}
 		
@@ -477,101 +488,103 @@ class Admin {
 		$slug = 'get_plus';
 		\ob_start();
 		?>
-		<h3><?php \esc_html_e( 'Get an imprint for your company website!', 'impressum' ); ?></h3>
-		<p>
-			<?php
-			/* translators: 1: plugin name, 2: commercial plugin name */
-			\printf( \esc_html__( 'We designed %1$s to be the perfect companion to individuals for all things around the imprint on their WordPress websites. However, if your site is operated by another legal entity than an individual person, %2$s is the plugin you should use.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
-			?>
-		</p>
-		<p>
-			<?php
-			/* translators: commercial plugin name */
-			\printf( \esc_html__( 'For a small fee, %s will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
-			?>
-		</p>
-		<h3><?php \esc_html_e( 'Go Plus to support development', 'impressum' ); ?></h3>
-		<p>
-			<?php
-			/* translators: commercial plugin name */
-			\printf( \esc_html__( 'Even as a private website owner you can upgrade to %s anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, we\'ll continue to add even more nifty features to Plus.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
-			?>
-		</p>
-		<p><a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php \esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
-		
-		<h2><?php \esc_html_e( 'Compare now', 'impressum' ); ?></h2>
-		<table class="wp-list-table widefat striped impressum__compare-table">
-			<tbody>
-				<thead>
-					<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
-					<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
-					<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
-				</thead>
-				<tr>
-					<td><strong><?php \esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><strong><?php \esc_html_e( 'Privacy Policy Generator', 'impressum' ); ?></strong></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Multisite: Base Compatibility', 'impressum' ); ?></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Block Editor Support', 'impressum' ); ?></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Legal content for personal usage', 'impressum' ); ?></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span><br></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Legal content for private companies', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Legal content for corporations', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Multisite: preset for new sites', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'WP-CLI support', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Enhanced REST API', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
-				</tr>
-				<tr>
-					<td><?php \esc_html_e( 'Many filters for developers', 'impressum' ); ?></td>
-					<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span> <?php \esc_html_e( '(10+)', 'impressum' ); ?></td>
-					<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span> <?php \esc_html_e( '(50+)', 'impressum' ); ?></td>
-				</tr>
-				<tr>
-					<td><br></td>
-					<td></td>
-					<td>
-						<a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
-						<a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?php echo \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="nav-tab-content" id="nav-tab-content-get_plus">
+			<h3><?php \esc_html_e( 'Get an imprint for your company website!', 'impressum' ); ?></h3>
+			<p>
+				<?php
+				/* translators: 1: plugin name, 2: commercial plugin name */
+				\printf( \esc_html__( 'We designed %1$s to be the perfect companion to individuals for all things around the imprint on their WordPress websites. However, if your site is operated by another legal entity than an individual person, %2$s is the plugin you should use.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+				?>
+			</p>
+			<p>
+				<?php
+				/* translators: commercial plugin name */
+				\printf( \esc_html__( 'For a small fee, %s will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+				?>
+			</p>
+			<h3><?php \esc_html_e( 'Go Plus to support development', 'impressum' ); ?></h3>
+			<p>
+				<?php
+				/* translators: commercial plugin name */
+				\printf( \esc_html__( 'Even as a private website owner you can upgrade to %s anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, we\'ll continue to add even more nifty features to Plus.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+				?>
+			</p>
+			<p><a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php \esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
+			
+			<h2><?php \esc_html_e( 'Compare now', 'impressum' ); ?></h2>
+			<table class="wp-list-table widefat striped impressum__compare-table">
+				<tbody>
+					<thead>
+						<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
+						<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
+						<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
+					</thead>
+					<tr>
+						<td><strong><?php \esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><strong><?php \esc_html_e( 'Privacy Policy Generator', 'impressum' ); ?></strong></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Multisite: Base Compatibility', 'impressum' ); ?></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Block Editor Support', 'impressum' ); ?></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Legal content for personal usage', 'impressum' ); ?></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span><br></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Legal content for private companies', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Legal content for corporations', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Multisite: preset for new sites', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'WP-CLI support', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Enhanced REST API', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
+						<td><?php \esc_html_e( 'Many filters for developers', 'impressum' ); ?></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span> <?php \esc_html_e( '(10+)', 'impressum' ); ?></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span> <?php \esc_html_e( '(50+)', 'impressum' ); ?></td>
+					</tr>
+					<tr>
+						<td><br></td>
+						<td></td>
+						<td>
+							<a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
+							<a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?php echo \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<?php
 		$content = \ob_get_clean();
 		$tabs[] = [

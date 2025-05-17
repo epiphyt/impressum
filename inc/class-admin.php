@@ -77,7 +77,7 @@ class Admin {
 			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
 		] );
 		\wp_set_script_translations( 'impressum-imprint-block', 'impressum' );
-		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_BASE . 'build/editor.css', [], $asset_file['version'] );
+		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_URL . 'build/editor.css', [], $asset_file['version'] );
 	}
 	
 	/**

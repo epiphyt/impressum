@@ -66,7 +66,6 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
 		
 		if ( \file_exists( $maybe_file ) ) {
 			require_once $maybe_file;
-			
 			break;
 		}
 	}

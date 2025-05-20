@@ -83,7 +83,10 @@ class Admin_Fields {
 			 */
 			$callback_instance = \apply_filters( 'impressum_admin_fields_callback_instance', $this, $settings_field, $id );
 			
-			if ( ! \is_callable( [ $callback_instance, $settings_field['callback'] ] ) ) {
+			if (
+				! isset( $settings_field['callback'] )
+				|| ! \is_callable( [ $callback_instance, $settings_field['callback'] ] )
+			) {
 				continue;
 			}
 			

@@ -351,7 +351,7 @@ class Impressum {
 		$this->countries = [
 			'arg' => [
 				'locale' => 'es-ar',
-				'title' => \__( 'Argentinia', 'impressum' ),
+				'title' => \__( 'Argentina', 'impressum' ),
 			],
 			'aus' => [
 				'locale' => 'en-au',
@@ -517,7 +517,7 @@ class Impressum {
 			],
 			'svn' => [
 				'locale' => 'sl',
-				'title' => \__( 'Slowenia', 'impressum' ),
+				'title' => \__( 'Slovenia', 'impressum' ),
 			],
 			'swe' => [
 				'locale' => 'sv',

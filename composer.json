@@ -18,5 +18,13 @@
 			"homepage": "https://kittsteiner.blog",
 			"role": "Developer"
 		}
-	]
+	],
+	"require-dev": {
+		"brain/monkey": "2.*",
+		"brain/faker": "dev-master",
+		"phpunit/phpunit": "^12.1"
+	},
+	"autoload": {
+		"classmap": ["inc"]
+	}
 }

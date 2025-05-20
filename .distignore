@@ -3,6 +3,7 @@
 .eslintrc
 .git
 .github
+.gitignore
 .phpcs.xml
 .prettierignore
 .prettierrc.js
@@ -14,6 +15,8 @@ node_modules/
 package-lock.json
 package.json
 phpstan.neon.dist
+phpunit.xml
 ruleset.xml
 src/
+tests/
 webpack.config.js

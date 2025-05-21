@@ -454,21 +454,25 @@ class Admin {
 				?>
 				<input type="hidden" name="_wp_http_referer" value="<?php echo \esc_url( $referer ); ?>" />
 				
-				<h2 class="nav-tab-wrapper">
+				<div class="nav-tab-wrapper" role="tablist">
 					<?php
 					foreach ( $tabs as $tab ) :
 					if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
 						continue;
 					}
+					
+					$is_active_tab = $current_tab === $tab['slug'];
 					?>
-					<a href="?page=impressum&imprint_tab=<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $current_tab === $tab['slug'] ? ' nav-tab-active' : ''; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>"><?php echo \esc_html( $tab['title'] ); ?></a>
+					<button id="tab-<?php echo \esc_attr( $tab['slug'] ); ?>" data-tab="<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>" tabindex="<?php echo $is_active_tab ? '0' : '-1'; ?>"><?php echo \esc_html( $tab['title'] ); ?></button>
 					<?php endforeach; ?>
-				</h2>
+				</div>
 				
 				<div class="impressum-content-wrapper">
 					<?php
 					foreach ( $tabs as $tab ) {
-						echo $tab['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						$is_active_tab = $current_tab === $tab['slug'];
+						
+						echo '<div id="nav-tab__content--' . \esc_attr( $tab['slug'] ) . '" class="nav-tab__content" role="tabpanel" aria-labelledby="tab-' . \esc_attr( $tab['slug'] ) . '"' . ( ! $is_active_tab ? ' hidden' : '' ) . ' tabindex="' . ( $is_active_tab ? '0' : '-1' ) . '">' . $tab['content'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					
 					\submit_button( \esc_html__( 'Save Settings', 'impressum' ) );

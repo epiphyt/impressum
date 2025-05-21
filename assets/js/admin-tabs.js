@@ -1,6 +1,6 @@
 document.addEventListener( 'DOMContentLoaded', () => {
 	const tabs = document.querySelectorAll( '.nav-tab' );
-	const tabContents = document.querySelectorAll( '.nav-tab-content' );
+	const tabContents = document.querySelectorAll( '.nav-tab__content' );
 	const tabParameter = 'imprint_tab';
 	const urlParams = new URLSearchParams( window.location.search );
 	const activeTab = urlParams.get( tabParameter );
@@ -11,15 +11,40 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	}
 
 	for ( const tab of tabs ) {
-		tab.addEventListener( 'click', onClick );
+		tab.addEventListener( 'click', onChange );
+		tab.addEventListener( 'keydown', ( event ) => {
+			const currentTab = event.currentTarget;
+			let newActiveTab;
+
+			switch ( event.key ) {
+				case 'ArrowLeft':
+					newActiveTab = currentTab.previousElementSibling;
+					break;
+				case 'ArrowRight':
+					newActiveTab = currentTab.nextElementSibling;
+					break;
+				case 'End':
+					newActiveTab = tabs[ tabs.length - 1 ];
+					break;
+				case 'Home':
+					newActiveTab = tabs[ 0 ];
+					break;
+			}
+
+			if ( newActiveTab ) {
+				event.preventDefault();
+				newActiveTab.focus();
+				setActiveTab( newActiveTab.getAttribute( 'data-tab' ) );
+			}
+		} );
 	}
 
 	/**
-	 * Function to run on tab click.
+	 * Function to run on tab change.
 	 *
-	 * @param {MouseEvent} event Click event
+	 * @param {MouseEvent} event The event triggering the change
 	 */
-	function onClick( event ) {
+	function onChange( event ) {
 		event.preventDefault();
 
 		const currentTarget = event.currentTarget;
@@ -39,11 +64,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	 */
 	function setActiveTab( currentActiveTab ) {
 		for ( const thisTab of tabs ) {
+			thisTab.ariaSelected = false;
 			thisTab.classList.remove( 'nav-tab-active' );
+			thisTab.tabIndex = -1;
 		}
 
 		for ( const tabContent of tabContents ) {
 			tabContent.classList.remove( 'nav-tab-content-active' );
+			tabContent.hidden = true;
+			tabContent.tabIndex = -1;
 			const submitButtons =
 				tabContent.querySelectorAll( '[type="submit"]' );
 
@@ -64,7 +93,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			'.nav-tab[data-slug="' + currentActiveTab + '"]'
 		);
 		let activeTabContentElement = document.getElementById(
-			'nav-tab-content-' + currentActiveTab
+			'nav-tab__content--' + currentActiveTab
 		);
 
 		if ( ! activeTabElement ) {
@@ -75,8 +104,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			activeTabContentElement = tabContents[ 0 ];
 		}
 
+		activeTabElement.ariaSelected = true;
 		activeTabElement.classList.add( 'nav-tab-active' );
+		activeTabElement.tabIndex = 0;
 		activeTabContentElement.classList.add( 'nav-tab-content-active' );
+		activeTabContentElement.hidden = false;
+		activeTabContentElement.tabIndex = 0;
 
 		const submitButtons =
 			activeTabContentElement.querySelectorAll( '[type="submit"]' );
@@ -122,5 +155,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			params,
 			urlParameters.toString()
 		);
+
+		// eslint-disable-next-line no-undef
+		if ( history.pushState ) {
+			try {
+				// eslint-disable-next-line no-undef
+				history.replaceState( null, null, refererInput.value );
+			} catch ( e ) {
+				// eslint-disable-next-line no-console
+				console.error( e );
+			}
+		}
 	}
 } );

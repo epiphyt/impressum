@@ -5,16 +5,17 @@
  * @license	GPL2
  * @package	epiphyt\Impressum
  */
+ .impressum-wrap {
+	.nav-tab {
+		cursor: pointer;
+	}
+}
+	
 .impressum-content-wrapper {
 	max-width: 692px;
 	
 	> .nav-tab-content {
-		display: none;
 		margin-top: .5em;
-		
-		&-active {
-			display: block;
-		}
 	}
 	
 	.submit {

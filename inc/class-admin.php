@@ -686,7 +686,7 @@ class Admin {
 							
 							<?php // phpcs:enable ?>
 							<div class="impressum-welcome-action">
-								<p><a class="button button-secondary button-hero impressum-welcome-notice-dismiss" data-notice="impressum_welcome_notice"><?php \esc_html_e( 'Hide this message', 'impressum' ); ?></a></p>
+								<p><button type="button" class="button button-secondary button-hero impressum-welcome-notice-dismiss" data-notice="impressum_welcome_notice"><?php \esc_html_e( 'Hide this message', 'impressum' ); ?></button></p>
 							</div>
 						</div>
 						<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit;
@@ -38,17 +39,23 @@ final class AdminTest extends MockeryTestCase
     public function testInit(): void
     {
         Admin::get_instance()->init();
-        $this->assertSame(10, \has_action( 'admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()' ) );
-        $this->assertSame(10, \has_action( 'admin_init', '\epiphyt\Impressum\Admin->init_settings()' ) );
-        $this->assertSame(10, \has_action( 'admin_menu', '\epiphyt\Impressum\Admin->options_page()' ) );
-        $this->assertSame(10, \has_action( 'admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()' ) );
-        $this->assertSame(10, \has_action( 'admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()' ) );
-        $this->assertSame(10, \has_action( 'enqueue_block_editor_assets', '\epiphyt\Impressum\Admin->block_assets()' ) );
-        $this->assertSame(10, \has_action( 'update_option_impressum_imprint_options', '\epiphyt\Impressum\Admin->reset_invalid_notice()' ) );
-        $this->assertSame(10, \has_action( 'wp_ajax_impressum_dismissed_notice_handler', '\epiphyt\Impressum\Admin->ajax_notice_handler()' ) );
-        $this->assertSame(10, \has_filter( 'impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()' ) );
+        $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
+        $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
+        $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
+        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()'));
+        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()'));
+        $this->assertSame(10, \has_action('enqueue_block_editor_assets', '\epiphyt\Impressum\Admin->block_assets()'));
+        $this->assertSame(10, \has_action(
+            'update_option_impressum_imprint_options',
+            '\epiphyt\Impressum\Admin->reset_invalid_notice()'
+        ));
+        $this->assertSame(10, \has_action(
+            'wp_ajax_impressum_dismissed_notice_handler',
+            '\epiphyt\Impressum\Admin->ajax_notice_handler()'
+        ));
+        $this->assertSame(10, \has_filter('impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()'));
     }
-    
+
     public function testGetInvalidFields(): void
     {
         $helper = Mockery::mock('alias:' . Helper::class);
@@ -107,7 +114,7 @@ final class AdminTest extends MockeryTestCase
             Admin::get_invalid_fields()
         );
     }
-    
+
     public function testIsValidImprint(): void
     {
         $helper = Mockery::mock('alias:' . Helper::class);
@@ -131,7 +138,7 @@ final class AdminTest extends MockeryTestCase
         $this->assertFalse(Admin::get_instance()->is_valid_imprint());
         $this->assertTrue(Admin::get_instance()->is_valid_imprint());
     }
-    
+
     protected function tearDown(): void
     {
         tearDown();

@@ -52,6 +52,10 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
  * @param	string	$class_name The class name of the auto-loaded class
  */
 \spl_autoload_register( static function( $class_name ) {
+	if ( \strpos( $class_name, __NAMESPACE__ . '\\' ) !== 0 ) {
+		return;
+	}
+	
 	$path = \explode( '\\', $class_name );
 	$filename = \str_replace( '_', '-', \strtolower( \array_pop( $path ) ) );
 	$class_name = \str_replace(

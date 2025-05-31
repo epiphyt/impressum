@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Unit;
@@ -39,21 +40,30 @@ final class ImpressumTest extends MockeryTestCase
         Impressum::get_instance()->init();
         $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Impressum->load_settings()'));
         $this->assertSame(5, \has_action('init', '\epiphyt\Impressum\Impressum->load_textdomain()'));
-        $this->assertSame(10, \has_action('pre_update_option_impressum_imprint_options', '\epiphyt\Impressum\Impressum->twice_daily_cron_activation()'));
+        $this->assertSame(10, \has_action(
+            'pre_update_option_impressum_imprint_options',
+            '\epiphyt\Impressum\Impressum->twice_daily_cron_activation()'
+        ));
         // frontend
         $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Frontend->register_blocks()'));
         // admin
-        $this->assertSame(10, \has_action( 'admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()' ) );
-        $this->assertSame(10, \has_action( 'admin_init', '\epiphyt\Impressum\Admin->init_settings()' ) );
-        $this->assertSame(10, \has_action( 'admin_menu', '\epiphyt\Impressum\Admin->options_page()' ) );
-        $this->assertSame(10, \has_action( 'admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()' ) );
-        $this->assertSame(10, \has_action( 'admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()' ) );
-        $this->assertSame(10, \has_action( 'enqueue_block_editor_assets', '\epiphyt\Impressum\Admin->block_assets()' ) );
-        $this->assertSame(10, \has_action( 'update_option_impressum_imprint_options', '\epiphyt\Impressum\Admin->reset_invalid_notice()' ) );
-        $this->assertSame(10, \has_action( 'wp_ajax_impressum_dismissed_notice_handler', '\epiphyt\Impressum\Admin->ajax_notice_handler()' ) );
-        $this->assertSame(10, \has_filter( 'impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()' ) );
+        $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
+        $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
+        $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
+        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()'));
+        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()'));
+        $this->assertSame(10, \has_action('enqueue_block_editor_assets', '\epiphyt\Impressum\Admin->block_assets()'));
+        $this->assertSame(10, \has_action(
+            'update_option_impressum_imprint_options',
+            '\epiphyt\Impressum\Admin->reset_invalid_notice()'
+        ));
+        $this->assertSame(10, \has_action(
+            'wp_ajax_impressum_dismissed_notice_handler',
+            '\epiphyt\Impressum\Admin->ajax_notice_handler()'
+        ));
+        $this->assertSame(10, \has_filter('impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()'));
     }
-    
+
     public function testGetBlockFields(): void
     {
         $helper = Mockery::mock('alias:' . Helper::class);
@@ -68,26 +78,26 @@ final class ImpressumTest extends MockeryTestCase
         Impressum::get_instance()->settings_fields = [
             'legal_entity' => [
                 'api' => [
-                    'description' => \esc_html__( 'The legal entity.', 'impressum' ),
+                    'description' => \esc_html__('The legal entity.', 'impressum'),
                     'enum' => [
-                        'ag' => \__( 'AG', 'impressum' ),
-                        'eg' => \__( 'eG', 'impressum' ),
-                        'einzelkaufmann' => \__( 'Einzelkaufmann', 'impressum' ),
-                        'ek' => \__( 'e.K.', 'impressum' ),
-                        'ev' => \__( 'e.V.', 'impressum' ),
-                        'freelancer' => \__( 'Freelancer', 'impressum' ),
-                        'gbr' => \__( 'GbR', 'impressum' ),
-                        'ggmbh' => \__( 'gGmbH', 'impressum' ),
-                        'gmbh' => \__( 'GmbH', 'impressum' ),
-                        'gmbh_co_kg' => \__( 'GmbH & Co. KG', 'impressum' ),
-                        'individual' => \__( 'Individual', 'impressum' ),
-                        'kg' => \__( 'KG', 'impressum' ),
-                        'kgag' => \__( 'KGaA', 'impressum' ),
-                        'ohg' => \__( 'OHG', 'impressum' ),
-                        'partnership' => \__( 'Partnership', 'impressum' ),
-                        'self' => \__( 'Self-employed', 'impressum' ),
-                        'ug' => \__( 'UG (haftungsbeschränkt)', 'impressum' ),
-                        'ug_co_kg' => \__( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ),
+                        'ag' => \__('AG', 'impressum'),
+                        'eg' => \__('eG', 'impressum'),
+                        'einzelkaufmann' => \__('Einzelkaufmann', 'impressum'),
+                        'ek' => \__('e.K.', 'impressum'),
+                        'ev' => \__('e.V.', 'impressum'),
+                        'freelancer' => \__('Freelancer', 'impressum'),
+                        'gbr' => \__('GbR', 'impressum'),
+                        'ggmbh' => \__('gGmbH', 'impressum'),
+                        'gmbh' => \__('GmbH', 'impressum'),
+                        'gmbh_co_kg' => \__('GmbH & Co. KG', 'impressum'),
+                        'individual' => \__('Individual', 'impressum'),
+                        'kg' => \__('KG', 'impressum'),
+                        'kgag' => \__('KGaA', 'impressum'),
+                        'ohg' => \__('OHG', 'impressum'),
+                        'partnership' => \__('Partnership', 'impressum'),
+                        'self' => \__('Self-employed', 'impressum'),
+                        'ug' => \__('UG (haftungsbeschränkt)', 'impressum'),
+                        'ug_co_kg' => \__('UG (haftungsbeschränkt) & Co. KG', 'impressum'),
                     ],
                     'type' => 'string',
                 ],
@@ -100,24 +110,24 @@ final class ImpressumTest extends MockeryTestCase
                 'no_output' => true,
                 'page' => 'impressum_imprint',
                 'section' => 'impressum_section_imprint',
-                'title' => \__( 'Legal Entity', 'impressum' ),
+                'title' => \__('Legal Entity', 'impressum'),
             ],
             'contact_form_page' => [
                 'api' => [
-                    'description' => \esc_html__( 'The contact form page ID.', 'impressum' ),
+                    'description' => \esc_html__('The contact form page ID.', 'impressum'),
                     'type' => 'integer',
                 ],
                 'args' => [
                     'class' => 'impressum_row',
-                    'description' => \__( 'Since you need a fast contact possibility, you either have to publish your phone number or have a contact form where you can respond within 1 hour.', 'impressum' ),
+                    'description' => \__('Since you need a fast contact possibility, you either have to publish your phone number or have a contact form where you can respond within 1 hour.', 'impressum'), // phpcs:ignore Generic.Files.LineLength.TooLong
                     'label_for' => 'contact_form_page',
                 ],
                 'callback' => 'page',
-                'field_title' => \__( 'Contact', 'impressum' ),
+                'field_title' => \__('Contact', 'impressum'),
                 'option' => 'impressum_imprint_options',
                 'page' => 'impressum_imprint',
                 'section' => 'impressum_section_imprint',
-                'title' => \__( 'Contact Form Page', 'impressum' ),
+                'title' => \__('Contact Form Page', 'impressum'),
             ],
         ];
         $this->assertEqualsCanonicalizing(
@@ -151,7 +161,7 @@ final class ImpressumTest extends MockeryTestCase
             Impressum::get_instance()->get_block_fields('impressum_imprint_options')
         );
     }
-    
+
     public function testGetCountries(): void
     {
         Impressum::get_instance()->load_textdomain();
@@ -159,206 +169,206 @@ final class ImpressumTest extends MockeryTestCase
             [
                 'arg' => [
                     'locale' => 'es-ar',
-                    'title' => \__( 'Argentina', 'impressum' ),
+                    'title' => \__('Argentina', 'impressum'),
                 ],
                 'aus' => [
                     'locale' => 'en-au',
-                    'title' => \__( 'Australia', 'impressum' ),
+                    'title' => \__('Australia', 'impressum'),
                 ],
                 'aut' => [
                     'locale' => 'de-at',
-                    'title' => \__( 'Austria', 'impressum' ),
+                    'title' => \__('Austria', 'impressum'),
                 ],
                 'bel' => [
                     'locale' => 'fr-be',
-                    'title' => \__( 'Belgium', 'impressum' ),
+                    'title' => \__('Belgium', 'impressum'),
                 ],
                 'bgr' => [
                     'locale' => 'bg',
-                    'title' => \__( 'Bulgaria', 'impressum' ),
+                    'title' => \__('Bulgaria', 'impressum'),
                 ],
                 'bra' => [
                     'locale' => 'pt-br',
-                    'title' => \__( 'Brazil', 'impressum' ),
+                    'title' => \__('Brazil', 'impressum'),
                 ],
                 'can' => [
                     'locale' => 'en-ca',
-                    'title' => \__( 'Canada', 'impressum' ),
+                    'title' => \__('Canada', 'impressum'),
                 ],
                 'che' => [
                     'locale' => 'de-ch',
-                    'title' => \__( 'Switzerland', 'impressum' ),
+                    'title' => \__('Switzerland', 'impressum'),
                 ],
                 'chl' => [
                     'locale' => 'es-cl',
-                    'title' => \__( 'Chile', 'impressum' ),
+                    'title' => \__('Chile', 'impressum'),
                 ],
                 'chn' => [
                     'locale' => 'zh',
-                    'title' => \__( 'China', 'impressum' ),
+                    'title' => \__('China', 'impressum'),
                 ],
                 'col' => [
                     'locale' => 'es-co',
-                    'title' => \__( 'Columbia', 'impressum' ),
+                    'title' => \__('Columbia', 'impressum'),
                 ],
                 'cze' => [
                     'locale' => 'cs',
-                    'title' => \__( 'Czech Republic', 'impressum' ),
+                    'title' => \__('Czech Republic', 'impressum'),
                 ],
                 'deu' => [
                     'locale' => 'de-de',
                     'locale_primary' => 'de',
-                    'title' => \__( 'Germany', 'impressum' ),
+                    'title' => \__('Germany', 'impressum'),
                 ],
                 'dnk' => [
                     'locale' => 'da',
-                    'title' => \__( 'Denmark', 'impressum' ),
+                    'title' => \__('Denmark', 'impressum'),
                 ],
                 'dza' => [
                     'locale' => 'ar-dz',
-                    'title' => \__( 'Algeria', 'impressum' ),
+                    'title' => \__('Algeria', 'impressum'),
                 ],
                 'esp' => [
                     'locale' => 'es',
                     'locale_primary' => 'es',
-                    'title' => \__( 'Spain', 'impressum' ),
+                    'title' => \__('Spain', 'impressum'),
                 ],
                 'est' => [
                     'locale' => 'et',
-                    'title' => \__( 'Estonia', 'impressum' ),
+                    'title' => \__('Estonia', 'impressum'),
                 ],
                 'fin' => [
                     'locale' => 'fi',
-                    'title' => \__( 'Finland', 'impressum' ),
+                    'title' => \__('Finland', 'impressum'),
                 ],
                 'fra' => [
                     'locale' => 'fr-fr',
                     'locale_primary' => 'fr',
-                    'title' => \__( 'France', 'impressum' ),
+                    'title' => \__('France', 'impressum'),
                 ],
                 'gbr' => [
                     'locale' => 'en-gb',
-                    'title' => \__( 'United Kingdom', 'impressum' ),
+                    'title' => \__('United Kingdom', 'impressum'),
                 ],
                 'grc' => [
                     'locale' => 'gr',
-                    'title' => \__( 'Greece', 'impressum' ),
+                    'title' => \__('Greece', 'impressum'),
                 ],
                 'hkg' => [
                     'locale' => 'zh-hans-hk',
-                    'title' => \__( 'Hong Kong', 'impressum' ),
+                    'title' => \__('Hong Kong', 'impressum'),
                 ],
                 'hrv' => [
                     'locale' => 'hr',
-                    'title' => \__( 'Croatia', 'impressum' ),
+                    'title' => \__('Croatia', 'impressum'),
                 ],
                 'hun' => [
                     'locale' => 'hu',
-                    'title' => \__( 'Hungary', 'impressum' ),
+                    'title' => \__('Hungary', 'impressum'),
                 ],
                 'idn' => [
                     'locale' => 'id',
-                    'title' => \__( 'Indonesia', 'impressum' ),
+                    'title' => \__('Indonesia', 'impressum'),
                 ],
                 'irl' => [
                     'locale' => 'en-ie',
-                    'title' => \__( 'Ireland', 'impressum' ),
+                    'title' => \__('Ireland', 'impressum'),
                 ],
                 'isr' => [
                     'locale' => 'ar-il',
-                    'title' => \__( 'Israel', 'impressum' ),
+                    'title' => \__('Israel', 'impressum'),
                 ],
                 'ita' => [
                     'locale' => 'it',
-                    'title' => \__( 'Italy', 'impressum' ),
+                    'title' => \__('Italy', 'impressum'),
                 ],
                 'jpn' => [
                     'locale' => 'ja',
-                    'title' => \__( 'Japan', 'impressum' ),
+                    'title' => \__('Japan', 'impressum'),
                 ],
                 'kor' => [
                     'locale' => 'ko-kr',
                     'locale_primary' => 'ko',
-                    'title' => \__( 'South Korea', 'impressum' ),
+                    'title' => \__('South Korea', 'impressum'),
                 ],
                 'ltu' => [
                     'locale' => 'lt',
-                    'title' => \__( 'Lithuania', 'impressum' ),
+                    'title' => \__('Lithuania', 'impressum'),
                 ],
                 'nld' => [
                     'locale' => 'nl',
-                    'title' => \__( 'Netherlands', 'impressum' ),
+                    'title' => \__('Netherlands', 'impressum'),
                 ],
                 'nor' => [
                     'locale' => 'nn',
                     'locale_primary' => 'nb',
-                    'title' => \__( 'Norway', 'impressum' ),
+                    'title' => \__('Norway', 'impressum'),
                 ],
                 'nzl' => [
                     'locale' => 'en-nz',
-                    'title' => \__( 'New Zealand', 'impressum' ),
+                    'title' => \__('New Zealand', 'impressum'),
                 ],
                 'other' => [
                     'locale' => 'none',
-                    'title' => \__( 'other', 'impressum' ),
+                    'title' => \__('other', 'impressum'),
                 ],
                 'pol' => [
                     'locale' => 'pl',
-                    'title' => \__( 'Poland', 'impressum' ),
+                    'title' => \__('Poland', 'impressum'),
                 ],
                 'prt' => [
                     'locale' => 'pt-pt',
                     'locale_primary' => 'pt',
-                    'title' => \__( 'Portugal', 'impressum' ),
+                    'title' => \__('Portugal', 'impressum'),
                 ],
                 'rou' => [
                     'locale' => 'ro',
-                    'title' => \__( 'Romania', 'impressum' ),
+                    'title' => \__('Romania', 'impressum'),
                 ],
                 'rus' => [
                     'locale' => 'ru',
-                    'title' => \__( 'Russia', 'impressum' ),
+                    'title' => \__('Russia', 'impressum'),
                 ],
                 'srb' => [
                     'locale' => 'sr',
-                    'title' => \__( 'Serbia', 'impressum' ),
+                    'title' => \__('Serbia', 'impressum'),
                 ],
                 'svn' => [
                     'locale' => 'sl',
-                    'title' => \__( 'Slovenia', 'impressum' ),
+                    'title' => \__('Slovenia', 'impressum'),
                 ],
                 'swe' => [
                     'locale' => 'sv',
-                    'title' => \__( 'Sweden', 'impressum' ),
+                    'title' => \__('Sweden', 'impressum'),
                 ],
                 'tha' => [
                     'locale' => 'th',
-                    'title' => \__( 'Thailand', 'impressum' ),
+                    'title' => \__('Thailand', 'impressum'),
                 ],
                 'tur' => [
                     'locale' => 'tr',
-                    'title' => \__( 'Turkey', 'impressum' ),
+                    'title' => \__('Turkey', 'impressum'),
                 ],
                 'twn' => [
                     'locale' => 'zh-hant-tw',
-                    'title' => \__( 'Taiwan', 'impressum' ),
+                    'title' => \__('Taiwan', 'impressum'),
                 ],
                 'usa' => [
                     'locale' => 'en-us',
                     'locale_primary' => 'en',
-                    'title' => \__( 'United States', 'impressum' ),
+                    'title' => \__('United States', 'impressum'),
                 ],
                 'ven' => [
                     'locale' => 'es-ve',
-                    'title' => \__( 'Venezuela', 'impressum' ),
+                    'title' => \__('Venezuela', 'impressum'),
                 ],
                 'vnm' => [
                     'locale' => 'vi',
-                    'title' => \__( 'Vietnam', 'impressum' ),
+                    'title' => \__('Vietnam', 'impressum'),
                 ],
                 'zaf' => [
                     'locale' => 'en-za',
-                    'title' => \__( 'South Africa', 'impressum' ),
+                    'title' => \__('South Africa', 'impressum'),
                 ],
             ],
             Impressum::get_instance()->get_countries()
@@ -366,44 +376,44 @@ final class ImpressumTest extends MockeryTestCase
         $this->assertTrue(applied('impressum_country_pre_sort') === 1);
         $this->assertTrue(applied('impressum_country_after_sort') === 1);
     }
-    
+
     public function testGetLegalEntities(): void
     {
         Impressum::get_instance()->load_textdomain();
         $this->assertEqualsCanonicalizing(
-        [
-                'ag' => \__( 'AG', 'impressum' ),
-                'eg' => \__( 'eG', 'impressum' ),
-                'einzelkaufmann' => \__( 'Einzelkaufmann', 'impressum' ),
-                'ek' => \__( 'e.K.', 'impressum' ),
-                'ev' => \__( 'e.V.', 'impressum' ),
-                'freelancer' => \__( 'Freelancer', 'impressum' ),
-                'gbr' => \__( 'GbR', 'impressum' ),
-                'ggmbh' => \__( 'gGmbH', 'impressum' ),
-                'gmbh' => \__( 'GmbH', 'impressum' ),
-                'gmbh_co_kg' => \__( 'GmbH & Co. KG', 'impressum' ),
-                'individual' => \__( 'Individual', 'impressum' ),
-                'kg' => \__( 'KG', 'impressum' ),
-                'kgag' => \__( 'KGaA', 'impressum' ),
-                'ohg' => \__( 'OHG', 'impressum' ),
-                'partnership' => \__( 'Partnership', 'impressum' ),
-                'self' => \__( 'Self-employed', 'impressum' ),
-                'ug' => \__( 'UG (haftungsbeschränkt)', 'impressum' ),
-                'ug_co_kg' => \__( 'UG (haftungsbeschränkt) & Co. KG', 'impressum' ),
+            [
+                'ag' => \__('AG', 'impressum'),
+                'eg' => \__('eG', 'impressum'),
+                'einzelkaufmann' => \__('Einzelkaufmann', 'impressum'),
+                'ek' => \__('e.K.', 'impressum'),
+                'ev' => \__('e.V.', 'impressum'),
+                'freelancer' => \__('Freelancer', 'impressum'),
+                'gbr' => \__('GbR', 'impressum'),
+                'ggmbh' => \__('gGmbH', 'impressum'),
+                'gmbh' => \__('GmbH', 'impressum'),
+                'gmbh_co_kg' => \__('GmbH & Co. KG', 'impressum'),
+                'individual' => \__('Individual', 'impressum'),
+                'kg' => \__('KG', 'impressum'),
+                'kgag' => \__('KGaA', 'impressum'),
+                'ohg' => \__('OHG', 'impressum'),
+                'partnership' => \__('Partnership', 'impressum'),
+                'self' => \__('Self-employed', 'impressum'),
+                'ug' => \__('UG (haftungsbeschränkt)', 'impressum'),
+                'ug_co_kg' => \__('UG (haftungsbeschränkt) & Co. KG', 'impressum'),
             ],
             Impressum::get_instance()->get_legal_entities()
         );
         $this->assertTrue(applied('impressum_legal_entity_pre_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_after_sort') === 1);
     }
-    
+
     public function testLoadSettings(): void
     {
         expectApplied('impressum_settings_fields')->once()->andReturnFirstArg();
         Impressum::get_instance()->load_settings();
         $this->assertTrue(applied('impressum_settings_fields') === 1);
     }
-    
+
     public function testLoadTextdomain(): void
     {
         expectApplied('impressum_country_after_sort')->once()->andReturnFirstArg();
@@ -414,7 +424,7 @@ final class ImpressumTest extends MockeryTestCase
         $this->assertTrue(applied('impressum_legal_entity_after_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_pre_sort') === 1);
     }
-    
+
     public function testTwiceDailyCronActivation(): void
     {
         when('wp_next_scheduled')->justReturn(true);
@@ -429,7 +439,7 @@ final class ImpressumTest extends MockeryTestCase
             Impressum::get_instance()->twice_daily_cron_activation(['test'])
         );
     }
-    
+
     protected function tearDown(): void
     {
         tearDown();

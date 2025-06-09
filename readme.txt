@@ -22,6 +22,7 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 
 * Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, GbR, gGmbH, GmbH, GmbH & Co. KG, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
 * a feature rich and automated Privacy Policy generator
+* an Accessibility Information generator
 * Preset for new sites in a multisite
 * Extensive REST API
 * WP-CLI support

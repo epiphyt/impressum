@@ -537,6 +537,11 @@ class Admin {
 						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 					</tr>
 					<tr>
+						<td><strong><?php \esc_html_e( 'Accessibility Information Generator', 'impressum' ); ?></strong></td>
+						<td><span class="red"><?php \esc_html_e( 'No', 'impressum' ); ?></span></td>
+						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
+					</tr>
+					<tr>
 						<td><?php \esc_html_e( 'Multisite: Base Compatibility', 'impressum' ); ?></td>
 						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>
 						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>

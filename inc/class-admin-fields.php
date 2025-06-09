@@ -17,9 +17,10 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function country( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		?>
-		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
+		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
 				<?php
 				foreach ( Impressum::get_instance()->get_countries() as $country_code => $country ) {
@@ -51,11 +52,12 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function email( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
 		?>
-		<input type="email" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="email" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -64,6 +66,16 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+	}
+	
+	/**
+	 * Get the name of the settings.
+	 * 
+	 * @param	array	$attributes Field attributes
+	 * @return	string Settings name
+	 */
+	private static function get_settings_name( array $attributes ) {
+		return ! empty( $attributes['setting'] ) ? $attributes['setting'] : 'impressum_imprint_options';
 	}
 	
 	/**
@@ -107,9 +119,10 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function legal_entity( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		?>
-		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
+		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
 				<?php
 				foreach ( Impressum::get_instance()->get_legal_entities() as $abbr => $entity ) {
@@ -132,11 +145,12 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function text( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
 		?>
-		<input type="text" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="text" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -159,7 +173,8 @@ class Admin_Fields {
 			return;
 		}
 		
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$has_pages = (bool) \get_posts( [
 			'posts_per_page' => 1,
 			'post_status' => [ 'draft', 'publish' ],
@@ -169,7 +184,7 @@ class Admin_Fields {
 		if ( $has_pages ) {
 			\wp_dropdown_pages( [
 				'id' => \esc_html( $args['label_for'] ),
-				'name' => 'impressum_imprint_options[' . \esc_html( $args['label_for'] . ']' ),
+				'name' => \esc_attr( $settings_name ) . '[' . \esc_attr( $args['label_for'] . ']' ),
 				'post_status' => [ 'draft', 'publish' ],
 				'selected' => ( isset( $options[ $args['label_for'] ] ) ? \esc_html( $options[ $args['label_for'] ] ) : ( isset( $options['default'][ $args['label_for'] ] ) ? \esc_html( $options['default'][ $args['label_for'] ] ) : '' ) ),
 				'show_option_none' => \esc_html__( '— Select —', 'impressum' ),
@@ -194,11 +209,12 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function phone( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) . '"' : '' );
 		?>
-		<input type="tel" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="tel" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?php echo $value; echo $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -215,9 +231,10 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function press_law_checkbox( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', true );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, true );
 		?>
-		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 			<?php \esc_html_e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
 		</label>
 		<?php
@@ -231,11 +248,12 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function select( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) : '' );
 		$select_options = ! empty( $args['options'] ) ? $args['options'] : [];
 		?>
-		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]">
+		<select id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '— Select —', 'impressum' ); ?></option>
 			<?php foreach ( $select_options as $option ) : ?>
 			<option<?php \selected( $option['value'], $value ); ?> value="<?php echo \esc_attr( $option['value'] ); ?>"><?php echo \esc_html( $option['label'] ); ?></option>
@@ -257,11 +275,12 @@ class Admin_Fields {
 	 * @param	array	$args The field arguments
 	 */
 	public function textarea( array $args ) {
-		$options = Helper::get_option( 'impressum_imprint_options', ! \is_network_admin() );
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_html( \str_replace( "\r\n", ', ', $options['default'][ $args['label_for'] ] ) ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( isset( $options[ $args['label_for'] ] ) ? $options[ $args['label_for'] ] : ( isset( $options['default'][ $args['label_for'] ] ) ? $options['default'][ $args['label_for'] ] : '' ) ) ) : '' );
 		?>
-		<textarea cols="50" rows="10" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="impressum_imprint_options[<?php echo \esc_attr( $args['label_for'] ); ?>]"<?php echo $placeholder; ?>><?php echo $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<textarea cols="50" rows="10" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]"<?php echo $placeholder; ?>><?php echo $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';

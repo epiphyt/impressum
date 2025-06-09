@@ -73,8 +73,13 @@ class Impressum {
 	public function get_block_fields( $option_name ) {
 		$fields = [];
 		$option = Helper::get_option( $option_name, true );
+		$page_name = \str_replace( '_options', '', $option_name );
+		$settings_fields = \array_filter( $this->settings_fields, static function( $setting ) use ( $option_name, $page_name ) {
+			return ( ! empty( $setting['page'] ) && $setting['page'] === $page_name )
+				|| ( ! empty( $setting['args']['setting'] ) && $setting['args']['setting'] === $option_name );
+		} );
 		
-		foreach ( $this->settings_fields as $name => $field ) {
+		foreach ( $settings_fields as $name => $field ) {
 			if ( $name === 'contact_form_page' && ! empty( $option[ $name ] ) ) {
 				$option[ $name ] = \get_permalink( $option[ $name ] );
 			}
@@ -120,6 +125,7 @@ class Impressum {
 				'args' => [
 					'class' => 'impressum_row',
 					'label_for' => 'page',
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'page',
 				'no_output' => true,
@@ -137,6 +143,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'country',
 					'required' => true,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'country',
 				'no_output' => true,
@@ -154,6 +161,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'legal_entity',
 					'required' => true,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'legal_entity',
 				'no_output' => true,
@@ -170,6 +178,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'name',
 					'required' => true,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'text',
 				'page' => 'impressum_imprint',
@@ -185,6 +194,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'address',
 					'required' => true,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'textarea',
 				'page' => 'impressum_imprint',
@@ -200,6 +210,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'address_alternative',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'textarea',
 				'field_title' => \__( 'Address', 'impressum' ),
@@ -216,6 +227,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'email',
 					'required' => true,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'email',
 				'page' => 'impressum_imprint',
@@ -231,6 +243,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'phone',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'phone',
 				'page' => 'impressum_imprint',
@@ -246,6 +259,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'description' => \__( 'Since you need a fast contact possibility, you either have to publish your phone number or have a contact form where you can respond within 1 hour.', 'impressum' ),
 					'label_for' => 'contact_form_page',
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'page',
 				'field_title' => \__( 'Contact', 'impressum' ),
@@ -263,6 +277,7 @@ class Impressum {
 					'class' => 'impressum_row',
 					'label_for' => 'fax',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'phone',
 				'page' => 'impressum_imprint',
@@ -278,6 +293,7 @@ class Impressum {
 					'class' => 'impressum_row impressum_press_law_checkbox',
 					'label_for' => 'press_law_checkbox',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'press_law_checkbox',
 				'no_output' => true,
@@ -294,6 +310,7 @@ class Impressum {
 					'class' => 'impressum_row impressum_press_law',
 					'label_for' => 'press_law_person',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'textarea',
 				'page' => 'impressum_imprint',
@@ -310,6 +327,7 @@ class Impressum {
 					'description' => \__( 'Your VAT ID in format XX123456789, which means at least two letters by following some numbers (the amount depends on your country).', 'impressum' ),
 					'label_for' => 'vat_id',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'text',
 				'page' => 'impressum_imprint',
@@ -326,6 +344,7 @@ class Impressum {
 					'description' => \__( 'Your business ID in format DE123456789-00001, which means two letters by following nine numbers, a dash and five additional numbers.', 'impressum' ),
 					'label_for' => 'business_id',
 					'required' => false,
+					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'text',
 				'option' => 'impressum_imprint_options',

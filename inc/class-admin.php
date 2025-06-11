@@ -376,7 +376,7 @@ class Admin {
 		// phpcs:enable
 		
 		// set form action
-		$form_action = 'options.php';
+		$form_action = \admin_url( 'options.php' );
 		
 		\ob_start();
 		?>
@@ -440,11 +440,11 @@ class Admin {
 			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
 			
 			<form action="<?php echo \esc_html( $form_action ); ?>" method="post">
-				<input type="hidden" name="option_page" value="impressum_settings" />
+				<input type="hidden" name="option_page" value="impressum_imprint" />
 				<input type="hidden" name="action" value="update" />
 				
 				<?php 
-				\wp_nonce_field( 'impressum_settings-options', '_wpnonce', false );
+				\wp_nonce_field( 'impressum_imprint-options', '_wpnonce', false );
 				
 				$referer = \remove_query_arg( '_wp_http_referer' );
 				
@@ -463,7 +463,7 @@ class Admin {
 					
 					$is_active_tab = $current_tab === $tab['slug'];
 					?>
-					<button id="tab-<?php echo \esc_attr( $tab['slug'] ); ?>" data-tab="<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>" tabindex="<?php echo $is_active_tab ? '0' : '-1'; ?>"><?php echo \esc_html( $tab['title'] ); ?></button>
+					<button type="button" id="tab-<?php echo \esc_attr( $tab['slug'] ); ?>" data-tab="<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>" tabindex="<?php echo $is_active_tab ? '0' : '-1'; ?>"><?php echo \esc_html( $tab['title'] ); ?></button>
 					<?php endforeach; ?>
 				</div>
 				

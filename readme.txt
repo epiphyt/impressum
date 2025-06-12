@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 5.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Tested up to: 6.8
 Requires PHP: 5.6
 License: GPL2
@@ -86,6 +86,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.1.2 =
+Fixed: Submitting settings form via Enter works again
+
+= 2.1.1 =
+Updated: Comparison table against Impressum Plus
+Developer: Allow defining the setting for the respective field in the render function
 
 = 2.1.0 =
 * Added: Field for contact form page as alternative for phone number

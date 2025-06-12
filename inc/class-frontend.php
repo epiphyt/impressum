@@ -38,22 +38,50 @@ class Frontend {
 	 */
 	public function render( $attributes ) {
 		$attributes = (array) $attributes;
+		$attributes['field_data'] = Helper::get_option( 'impressum_field_data', true );
 		$fields = \array_filter( (array) Helper::get_option( 'impressum_imprint_options', true ) );
 		$field_data = Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' );
+		$field_keys = \array_keys( $fields );
 		$output = '';
 		$sections = ( ! empty( $attributes['sections'] ) ? \array_map( 'trim', \explode( ',', $attributes['sections'] ) ) : [] );
 		
-		/**
-		 * Filter fields to render.
-		 * 
-		 * @since	2.1.0
-		 * 
-		 * @param	mixed[]		$fields Fields to render
-		 * @param	mixed[]		$attributes Render attributes
-		 * @param	mixed[][]	$field_data All fields with title and value
-		 * @param	string[]	$sections Sections to render
-		 */
-		$fields = (array) \apply_filters( 'impressum_render_imprint_fields', $fields, $attributes, $field_data, $sections );
+		\usort( $field_keys, static function( $a, $b ) use ( $attributes, $field_data ) {
+			if ( empty( $attributes['enabledFields'] ) ) {
+				return 0;
+			}
+			
+			$flipped = \array_flip( $attributes['enabledFields'] );
+			$left_title = isset( $field_data[ $a ]['custom_title'] ) ? $field_data[ $a ]['custom_title'] : '';
+			$right_title = isset( $field_data[ $b ]['custom_title'] ) ? $field_data[ $b ]['custom_title'] : '';
+			
+			if ( ! $left_title ) {
+				$left_title = isset( $field_data[ $a ]['title'] ) ? $field_data[ $a ]['title'] : '';
+			}
+			
+			if ( ! $right_title ) {
+				$right_title = isset( $field_data[ $b ]['title'] ) ? $field_data[ $b ]['title'] : '';
+			}
+			
+			if ( ! isset( $flipped[ $left_title ] ) && ! isset( $flipped[ $right_title ] ) ) {
+				return 0;
+			}
+			
+			if ( ! isset( $flipped[ $left_title ] ) ) {
+				return -1;
+			}
+			
+			if ( ! isset( $flipped[ $right_title ] ) ) {
+				return 1;
+			}
+			
+			if ( $flipped[ $left_title ] === $flipped[ $right_title ] ) {
+				return 0;
+			}
+			
+			return $flipped[ $left_title ] < $flipped[ $right_title ] ? -1 : 1;
+		} );
+		
+		$fields = \array_merge( \array_flip( $field_keys ), $fields );
 		
 		// merge global and local options
 		if ( ! empty( $fields['default'] ) ) {
@@ -102,10 +130,7 @@ class Frontend {
 			// check block enabled fields
 			if ( ! empty( $attributes['enabledFields'] ) ) {
 				if (
-					(
-						! isset( $field_data[ $field ]['custom_title'] )
-						|| ! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
-					)
+					! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
 					&& ! \in_array( $field_data[ $field ]['title'], $attributes['enabledFields'], true )
 					// deprecated old value
 					&& ! \in_array( $field, $attributes['enabledFields'], true )
@@ -174,7 +199,10 @@ class Frontend {
 		
 		// the field title
 		if ( $attributes['titles'] ) {
-			if ( ! empty( Impressum::get_instance()->settings_fields[ $field ]['field_title'] ) ) {
+			if ( ! empty( $attributes['field_data'][ $field ]['name'] ) ) {
+				$title = $attributes['field_data'][ $field ]['name'];
+			}
+			else if ( ! empty( Impressum::get_instance()->settings_fields[ $field ]['field_title'] ) ) {
 				$title = Impressum::get_instance()->settings_fields[ $field ]['field_title'];
 			}
 			else if ( ! empty( Impressum::get_instance()->settings_fields[ $field ]['title'] ) ) {

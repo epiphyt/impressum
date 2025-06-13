@@ -130,7 +130,10 @@ class Frontend {
 			// check block enabled fields
 			if ( ! empty( $attributes['enabledFields'] ) ) {
 				if (
-					! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
+					(
+						! isset( $field_data[ $field ]['custom_title'] )
+						|| ! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
+					)
 					&& ! \in_array( $field_data[ $field ]['title'], $attributes['enabledFields'], true )
 					// deprecated old value
 					&& ! \in_array( $field, $attributes['enabledFields'], true )

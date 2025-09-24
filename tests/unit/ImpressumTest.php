@@ -134,6 +134,7 @@ final class ImpressumTest extends MockeryTestCase
             [
                 'legal_entity' => [
                     'field_title' => '',
+                    'no_output' => true,
                     'title' => 'Legal Entity',
                     'value' => '',
                 ],
@@ -149,6 +150,7 @@ final class ImpressumTest extends MockeryTestCase
             [
                 'legal_entity' => [
                     'field_title' => '',
+                    'no_output' => true,
                     'title' => 'Legal Entity',
                     'value' => 'individual',
                 ],

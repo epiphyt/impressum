@@ -35,12 +35,7 @@ export default function getFields( enabledFields, className ) {
 			return false;
 		}
 
-		if (
-			key === 'country' ||
-			key === 'legal_entity' ||
-			key === 'page' ||
-			key === 'press_law_checkbox'
-		) {
+		if ( impressum_fields.fields[ key ].no_output ) {
 			return false;
 		}
 

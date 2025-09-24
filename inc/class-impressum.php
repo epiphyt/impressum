@@ -86,6 +86,7 @@ class Impressum {
 			
 			$fields[ $name ] = [
 				'field_title' => ( ! empty( $field['field_title'] ) ? $field['field_title'] : '' ),
+				'no_output' => isset( $field['no_output'] ) ? $field['no_output'] : false,
 				'title' => $field['title'],
 				'value' => ( ! empty( $option[ $name ] ) ? $option[ $name ] : '' ),
 			];

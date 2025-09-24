@@ -16,10 +16,7 @@ const SidebarControls = ( props ) => {
 		if (
 			typeof impressum_fields.fields[ key ].title === 'undefined' ||
 			! impressum_fields.fields[ key ].title ||
-			key === 'country' ||
-			key === 'legal_entity' ||
-			key === 'page' ||
-			key === 'press_law_checkbox'
+			impressum_fields.fields[ key ].no_output
 		) {
 			return null;
 		}

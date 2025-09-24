@@ -249,7 +249,7 @@ class Impressum {
 				'callback' => 'phone',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
-				'title' => \__( 'Telephone', 'impressum' ),
+				'title' => \__( 'Phone', 'impressum' ),
 			],
 			'contact_form_page' => [
 				'api' => [

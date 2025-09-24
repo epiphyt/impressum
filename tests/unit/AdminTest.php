@@ -82,7 +82,7 @@ final class AdminTest extends MockeryTestCase
                 'Address',
                 'Email Address',
                 'Name',
-                'Telephone or Contact Form Page',
+                'Phone or Contact Form Page',
             ],
             Admin::get_invalid_fields()
         );
@@ -108,7 +108,7 @@ final class AdminTest extends MockeryTestCase
                 'Business ID',
                 'Email Address',
                 'Name',
-                'Telephone or Contact Form Page',
+                'Phone or Contact Form Page',
                 'VAT ID',
             ],
             Admin::get_invalid_fields()

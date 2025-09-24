@@ -140,6 +140,7 @@ final class ImpressumTest extends MockeryTestCase
                 ],
                 'contact_form_page' => [
                     'field_title' => 'Contact',
+                    'no_output' => false,
                     'title' => 'Contact Form Page',
                     'value' => '',
                 ],
@@ -156,6 +157,7 @@ final class ImpressumTest extends MockeryTestCase
                 ],
                 'contact_form_page' => [
                     'field_title' => 'Contact',
+                    'no_output' => false,
                     'title' => 'Contact Form Page',
                     'value' => 'https://www.example.com/permalink',
                 ],

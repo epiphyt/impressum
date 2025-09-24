@@ -1,6 +1,6 @@
 const attributes = {
 	enabledFields: {
-		default: [],
+		default: [ 'all' ],
 		type: 'array',
 	},
 };

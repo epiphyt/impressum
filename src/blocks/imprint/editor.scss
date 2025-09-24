@@ -1,5 +1,7 @@
 .wp-block-impressum-imprint {
 	dt {
+		align-items: center;
+		display: flex;
 		font-weight: 700;
 	}
 	
@@ -8,13 +10,7 @@
 	}
 }
 
-// fix default select styling on select[multiple]
-// https://github.com/WordPress/gutenberg/issues/27166
-.impressum-select-multiple.impressum-select-multiple.impressum-select-multiple select[multiple] {
-	height: auto;
-	padding: 8px;
-	
-	+ .components-input-control__suffix {
-		display: none;
-	}
+.impressum__checkbox-select {
+	max-height: 265px;
+	overflow: auto;
 }

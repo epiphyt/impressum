@@ -292,11 +292,12 @@ class Impressum {
 				],
 				'args' => [
 					'class' => 'impressum_row impressum_press_law_checkbox',
+					'label' => \__( 'I have journalistic/editorial content on my website', 'impressum' ),
 					'label_for' => 'press_law_checkbox',
 					'required' => false,
 					'setting' => 'impressum_imprint_options',
 				],
-				'callback' => 'press_law_checkbox',
+				'callback' => 'checkbox',
 				'no_output' => true,
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',

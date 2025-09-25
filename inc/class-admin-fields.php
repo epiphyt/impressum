@@ -12,6 +12,21 @@ class Admin_Fields {
 	use Singleton;
 	
 	/**
+	 * Checkbox field callback.
+	 * 
+	 * @param	array	$args The field arguments
+	 */
+	public function checkbox( array $args ) {
+		$settings_name = self::get_settings_name( $args );
+		$options = Helper::get_option( $settings_name, true );
+		?>
+		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+			<?php echo \esc_html( isset( $args['label'] ) ? $args['label'] : '' ); ?>
+		</label>
+		<?php
+	}
+	
+	/**
 	 * Country field callback.
 	 * 
 	 * @param	array	$args The field arguments
@@ -228,16 +243,22 @@ class Admin_Fields {
 	/**
 	 * Press Law Checkbox field callback.
 	 * 
+	 * @deprecated	2.2.0 Use epiphyt\Impressum\Admin_Fields::checkbox() instead
+	 * 
 	 * @param	array	$args The field arguments
 	 */
 	public function press_law_checkbox( array $args ) {
-		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, true );
-		?>
-		<label for="<?php echo \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?php echo \esc_attr( $args['label_for'] ); ?>" name="<?php echo \esc_attr( $settings_name ); ?>[<?php echo \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-			<?php \esc_html_e( 'I have journalistic/editorial content on my website', 'impressum' ); ?>
-		</label>
-		<?php
+		\_doing_it_wrong(
+			__METHOD__,
+			\sprintf(
+				/* translators: alternative method */
+				\esc_html__( 'Use %s instead', 'impressum' ),
+				'epiphyt\Impressum\Admin_Fields::checkbox()'
+			),
+			'2.2.0'
+		);
+		
+		self::checkbox( $args );
 	}
 	
 	/**

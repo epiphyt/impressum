@@ -45,41 +45,62 @@ class Frontend {
 		$output = '';
 		$sections = ( ! empty( $attributes['sections'] ) ? \array_map( 'trim', \explode( ',', $attributes['sections'] ) ) : [] );
 		
-		\usort( $field_keys, static function( $a, $b ) use ( $attributes, $field_data ) {
-			if ( empty( $attributes['enabledFields'] ) ) {
-				return 0;
-			}
-			
-			$flipped = \array_flip( $attributes['enabledFields'] );
-			$left_title = isset( $field_data[ $a ]['custom_title'] ) ? $field_data[ $a ]['custom_title'] : '';
-			$right_title = isset( $field_data[ $b ]['custom_title'] ) ? $field_data[ $b ]['custom_title'] : '';
-			
-			if ( ! $left_title ) {
-				$left_title = isset( $field_data[ $a ]['title'] ) ? $field_data[ $a ]['title'] : '';
-			}
-			
-			if ( ! $right_title ) {
-				$right_title = isset( $field_data[ $b ]['title'] ) ? $field_data[ $b ]['title'] : '';
-			}
-			
-			if ( ! isset( $flipped[ $left_title ] ) && ! isset( $flipped[ $right_title ] ) ) {
-				return 0;
-			}
-			
-			if ( ! isset( $flipped[ $left_title ] ) ) {
-				return -1;
-			}
-			
-			if ( ! isset( $flipped[ $right_title ] ) ) {
-				return 1;
-			}
-			
-			if ( $flipped[ $left_title ] === $flipped[ $right_title ] ) {
-				return 0;
-			}
-			
-			return $flipped[ $left_title ] < $flipped[ $right_title ] ? -1 : 1;
-		} );
+		if ( ! empty( $attributes['enabledFields'] ) ) {
+			\usort( $field_keys, static function( $a, $b ) use ( $attributes, $field_data ) {
+				$flipped = \array_flip( $attributes['enabledFields'] );
+				$left_title = isset( $field_data[ $a ]['custom_title'] ) ? $field_data[ $a ]['custom_title'] : '';
+				$right_title = isset( $field_data[ $b ]['custom_title'] ) ? $field_data[ $b ]['custom_title'] : '';
+				
+				if ( ! $left_title ) {
+					$left_title = isset( $field_data[ $a ]['title'] ) ? $field_data[ $a ]['title'] : '';
+				}
+				
+				if ( ! $right_title ) {
+					$right_title = isset( $field_data[ $b ]['title'] ) ? $field_data[ $b ]['title'] : '';
+				}
+				
+				if (
+					! isset( $flipped[ $left_title ] )
+					&& ! isset( $flipped[ $right_title ] )
+					&& ! isset( $flipped[ $a ] )
+					&& ! isset( $flipped[ $b ] )
+				) {
+					return 0;
+				}
+				
+				if ( ! isset( $flipped[ $left_title ] ) && ! isset( $flipped[ $a ] ) ) {
+					return -1;
+				}
+				
+				if ( ! isset( $flipped[ $right_title ] ) && ! isset( $flipped[ $b ] ) ) {
+					return 1;
+				}
+				
+				if (
+					isset( $flipped[ $left_title ] )
+					&& isset( $flipped[ $right_title ] )
+					&& $flipped[ $left_title ] === $flipped[ $right_title ]
+				) {
+					return 0;
+				}
+				
+				if (
+					isset( $flipped[ $a ] )
+					&& isset( $flipped[ $b ] )
+					&& $flipped[ $a ] === $flipped[ $b ]
+				) {
+					return 0;
+				}
+				
+				if ( isset( $flipped[ $left_title ] ) && isset( $flipped[ $right_title ] ) ) {
+					return $flipped[ $left_title ] < $flipped[ $right_title ] ? -1 : 1;
+				}
+				
+				if ( isset( $flipped[ $a ] ) && isset( $flipped[ $b ] ) ) {
+					return $flipped[ $a ] < $flipped[ $b ] ? -1 : 1;
+				}
+			} );
+		}
 		
 		$fields = \array_merge( \array_flip( $field_keys ), $fields );
 		

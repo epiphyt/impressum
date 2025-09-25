@@ -414,6 +414,10 @@ class Impressum {
 				'locale' => 'es-co',
 				'title' => \__( 'Columbia', 'impressum' ),
 			],
+			'cyp' => [
+				'locale' => 'el',
+				'title' => \__( 'Cyprus', 'impressum' ),
+			],
 			'cze' => [
 				'locale' => 'cs',
 				'title' => \__( 'Czech Republic', 'impressum' ),
@@ -498,6 +502,18 @@ class Impressum {
 				'locale' => 'lt',
 				'title' => \__( 'Lithuania', 'impressum' ),
 			],
+			'lux' => [
+				'locale' => 'lb',
+				'title' => \__( 'Luxembourg', 'impressum' ),
+			],
+			'lva' => [
+				'locale' => 'lv',
+				'title' => \__( 'Latvia', 'impressum' ),
+			],
+			'mlt' => [
+				'locale' => 'mt',
+				'title' => \__( 'Malta', 'impressum' ),
+			],
 			'nld' => [
 				'locale' => 'nl',
 				'title' => \__( 'Netherlands', 'impressum' ),
@@ -535,6 +551,10 @@ class Impressum {
 			'srb' => [
 				'locale' => 'sr',
 				'title' => \__( 'Serbia', 'impressum' ),
+			],
+			'svk' => [
+				'locale' => 'sk',
+				'title' => \__( 'Slovakia', 'impressum' ),
 			],
 			'svn' => [
 				'locale' => 'sl',

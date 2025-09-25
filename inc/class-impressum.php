@@ -590,6 +590,7 @@ class Impressum {
 			'ev' => \__( 'e.V.', 'impressum' ),
 			'freelancer' => \__( 'Freelancer', 'impressum' ),
 			'gbr' => \__( 'GbR', 'impressum' ),
+			'gesbr' => \__( 'GesbR', 'impressum' ),
 			'ggmbh' => \__( 'gGmbH', 'impressum' ),
 			'gmbh' => \__( 'GmbH', 'impressum' ),
 			'gmbh_co_kg' => \__( 'GmbH & Co. KG', 'impressum' ),

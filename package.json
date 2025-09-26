@@ -10,9 +10,9 @@
   "devDependencies": {
     "@wordpress/block-editor": "^11.7.0",
     "@wordpress/components": "^23.7.0",
-    "@wordpress/eslint-plugin": "^22.9.0",
+    "@wordpress/eslint-plugin": "^22.17.0",
     "@wordpress/i18n": "^4.30.0",
-    "@wordpress/prettier-config": "^4.23.0",
+    "@wordpress/prettier-config": "^4.31.0",
     "@wordpress/scripts": "^26.1.0",
     "@wordpress/server-side-render": "^4.7.0",
     "extract-loader": "^5.1.0",

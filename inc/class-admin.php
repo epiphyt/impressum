@@ -88,7 +88,7 @@ class Admin {
 	public function enqueue_assets( $hook ) {
 		$is_debug = ( \defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG ) || ( \defined( 'WP_DEBUG' ) && \WP_DEBUG );
 		$suffix = $is_debug ? '' : '.min';
-		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/ajax-dismissible-notice' . $suffix . '.js';
+		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js';
 		
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
@@ -101,7 +101,7 @@ class Admin {
 			return;
 		}
 		
-		$file_path = \EPI_IMPRESSUM_BASE . '/assets/js/admin-options' . $suffix . '.js';
+		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js';
 		
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
@@ -109,7 +109,7 @@ class Admin {
 			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
 		}
 		
-		$file_path = \EPI_IMPRESSUM_BASE . '/assets/js/admin-tabs' . $suffix . '.js';
+		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js';
 		
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
@@ -117,7 +117,7 @@ class Admin {
 			\wp_enqueue_script( 'impressum-admin-tabs', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js', [], $file_version );
 		}
 		
-		$file_path = \EPI_IMPRESSUM_BASE . '/assets/style/build/style' . $suffix . '.css';
+		$file_path = \EPI_IMPRESSUM_BASE . 'assets/style/build/style' . $suffix . '.css';
 		
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;

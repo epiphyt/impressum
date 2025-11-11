@@ -2,7 +2,7 @@
 .phpunit.cache
 .vscode
 *.map
-*.min.css
+*.css
 *.min.js
 build
 node_modules

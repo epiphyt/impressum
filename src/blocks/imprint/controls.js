@@ -15,11 +15,15 @@ export default function SidebarControls( props ) {
 		.sort();
 
 	const onChangeEnabledField = ( key, value ) => {
-		const newValue = structuredClone( enabledFields );
+		let newValue = structuredClone( enabledFields );
 
 		if ( value ) {
 			newValue.push( key );
 		} else {
+			if ( newValue.indexOf( 'all' ) > -1 ) {
+				newValue = supportedFields;
+			}
+
 			const index = newValue.indexOf( key );
 
 			if ( index !== -1 ) {

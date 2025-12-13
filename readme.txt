@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 5.0
-Stable tag: 2.2.1
-Tested up to: 6.8
+Stable tag: 2.2.2
+Tested up to: 6.9
 Requires PHP: 5.6
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 2.2.2 =
+* Fixed: Disabling a single field in the block to display when "all" are selected previously.
 
 = 2.2.1 =
 * Fixed: Some assets in the backend could not be loaded and thus prevented JavaScript functionality

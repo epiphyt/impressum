@@ -93,7 +93,7 @@ class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
 		}
 		
 		// check for settings page
@@ -106,7 +106,7 @@ class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
 		}
 		
 		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js';
@@ -114,7 +114,7 @@ class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_script( 'impressum-admin-tabs', \EPI_IMPRESSUM_URL . '/assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-admin-tabs', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js', [], $file_version );
 		}
 		
 		$file_path = \EPI_IMPRESSUM_BASE . 'assets/style/build/style' . $suffix . '.css';
@@ -122,7 +122,7 @@ class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . '/assets/style/build/style' . $suffix . '.css', [], $file_version );
+			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . 'assets/style/build/style' . $suffix . '.css', [], $file_version );
 		}
 		
 		// prepare for translation

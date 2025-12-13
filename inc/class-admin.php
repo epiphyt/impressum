@@ -24,7 +24,7 @@ class Admin {
 	/**
 	 * @var		string The full path to the main plugin file
 	 */
-	public $plugin_file = '';
+	public $plugin_file = \EPI_IMPRESSUM_FILE;
 	
 	/**
 	 * Initialize the admin functions.
@@ -616,6 +616,16 @@ class Admin {
 	 * @param	string	$file The path to the file
 	 */
 	public function set_plugin_file( $file ) {
+		\_doing_it_wrong(
+			__METHOD__,
+			\sprintf(
+				/* translators: alternative method */
+				\esc_html__( 'Use %s instead', 'impressum' ),
+				'EPI_IMPRESSUM_FILE'
+			),
+			'2.1.0'
+		);
+		
 		if ( \file_exists( $file ) ) {
 			$this->plugin_file = $file;
 		}

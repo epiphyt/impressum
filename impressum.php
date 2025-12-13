@@ -78,5 +78,4 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
 // deprecated, don't use anymore
 if ( ! \defined( 'IMPRESSUM_BASE' ) ) \define( 'IMPRESSUM_BASE', \plugin_basename( __FILE__ ) );
 
-Impressum::get_instance()->set_plugin_file( __FILE__ );
 Impressum::get_instance()->init();

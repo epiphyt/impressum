@@ -15,19 +15,7 @@ class Frontend {
 	 * Initialize the frontend functions.
 	 */
 	public function init(): void {
-		\add_action( 'init', [ $this, 'register_blocks' ] );
 		\add_shortcode( 'impressum', [ $this, 'render' ] );
-	}
-	
-	/**
-	 * Register Gutenberg blocks.
-	 */
-	public function register_blocks(): void {
-		\register_block_type( 'impressum/imprint', [
-			'editor_script' => 'impressum-imprint-block',
-			'editor_style' => 'impressum-imprint-block-editor-styles',
-			'render_callback' => [ $this, 'render_block' ],
-		] );
 	}
 	
 	/**

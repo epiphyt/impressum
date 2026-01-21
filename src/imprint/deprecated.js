@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-/* global impressum_fields */
+/* global impressumImprintBlock */
 const v1 = {
 	attributes: {
 		enabledFields: {
@@ -9,13 +9,14 @@ const v1 = {
 	},
 	migrate: ( { enabledFields } ) => {
 		// merge titles to names
-		const fields = Object.keys( impressum_fields.fields );
+		const fields = Object.keys( impressumImprintBlock.fields );
 		const newFields = [];
 
 		for ( const fieldName of fields ) {
 			for ( const enabledField of enabledFields ) {
 				if (
-					impressum_fields.fields[ fieldName ].title === enabledField
+					impressumImprintBlock.fields[ fieldName ].title ===
+					enabledField
 				) {
 					newFields.push( fieldName );
 				}

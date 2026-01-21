@@ -3,13 +3,13 @@ import { CheckboxControl, PanelBody } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
-/* global impressum_fields */
+/* global impressumImprintBlock */
 export default function SidebarControls( props ) {
 	const { enabledFields, setAttributes } = props;
 	const sortedEnabledFields = structuredClone( enabledFields ).sort();
-	const supportedFields = Object.keys( impressum_fields.values )
+	const supportedFields = Object.keys( impressumImprintBlock.values )
 		.map( ( key ) => {
-			return impressum_fields.values[ key ].no_output ? null : key;
+			return impressumImprintBlock.values[ key ].no_output ? null : key;
 		} )
 		.filter( Boolean )
 		.sort();
@@ -52,7 +52,7 @@ export default function SidebarControls( props ) {
 						checked={
 							typeof enabledFields !== 'undefined' &&
 							( enabledFields.indexOf( 'all' ) !== -1 ||
-								Object.keys( impressum_fields.values )
+								Object.keys( impressumImprintBlock.values )
 									.length === enabledFields.length ||
 								sortedEnabledFields.toString() ===
 									supportedFields.toString() )
@@ -62,7 +62,8 @@ export default function SidebarControls( props ) {
 							enabledFields.indexOf( 'all' ) === -1 &&
 							enabledFields.length >= 1 &&
 							enabledFields.length <
-								Object.keys( impressum_fields.values ).length &&
+								Object.keys( impressumImprintBlock.values )
+									.length &&
 							sortedEnabledFields.toString() !==
 								supportedFields.toString()
 						}
@@ -71,9 +72,10 @@ export default function SidebarControls( props ) {
 							onChangeEnabledFieldAll( value )
 						}
 					/>
-					{ Object.keys( impressum_fields.values ).map(
+					{ Object.keys( impressumImprintBlock.values ).map(
 						( fieldKey, index ) => {
-							const field = impressum_fields.values[ fieldKey ];
+							const field =
+								impressumImprintBlock.values[ fieldKey ];
 
 							if ( field.no_output ) {
 								return null;

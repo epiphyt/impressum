@@ -27,7 +27,7 @@ const nl2br = ( value ) => {
 		} );
 };
 
-/* global impressum_fields */
+/* global impressumImprintBlock */
 export default function getFields( enabledFields, className ) {
 	deprecated( 'getFields', {
 		since: '2.5',
@@ -35,12 +35,12 @@ export default function getFields( enabledFields, className ) {
 		version: '3.0',
 	} );
 
-	return Object.keys( impressum_fields.values ).map( ( key ) => {
-		if ( ! impressum_fields.values[ key ].value.length ) {
+	return Object.keys( impressumImprintBlock.values ).map( ( key ) => {
+		if ( ! impressumImprintBlock.values[ key ].value.length ) {
 			return false;
 		}
 
-		if ( impressum_fields.fields[ key ].no_output ) {
+		if ( impressumImprintBlock.fields[ key ].no_output ) {
 			return false;
 		}
 
@@ -52,8 +52,12 @@ export default function getFields( enabledFields, className ) {
 
 		if ( key.includes( 'email' ) ) {
 			value = (
-				<a href={ 'mailto:' + impressum_fields.values[ key ].value }>
-					{ impressum_fields.values[ key ].value }
+				<a
+					href={
+						'mailto:' + impressumImprintBlock.values[ key ].value
+					}
+				>
+					{ impressumImprintBlock.values[ key ].value }
 				</a>
 			);
 		}
@@ -63,15 +67,18 @@ export default function getFields( enabledFields, className ) {
 				{ ! className.includes( 'is-style-no-title' ) && (
 					<dl>
 						<dt>
-							{ impressum_fields.values[ key ].custom_title ||
-								impressum_fields.values[ key ].field_title ||
-								impressum_fields.values[ key ].title }
+							{ impressumImprintBlock.values[ key ]
+								.custom_title ||
+								impressumImprintBlock.values[ key ]
+									.field_title ||
+								impressumImprintBlock.values[ key ].title }
 						</dt>
 						{ key !== 'free_text' ? (
 							<dd>
 								{ value ||
 									nl2br(
-										impressum_fields.values[ key ].value
+										impressumImprintBlock.values[ key ]
+											.value
 									) }
 							</dd>
 						) : (
@@ -79,7 +86,8 @@ export default function getFields( enabledFields, className ) {
 								dangerouslySetInnerHTML={ {
 									__html: (
 										value ||
-										impressum_fields.values[ key ].value
+										impressumImprintBlock.values[ key ]
+											.value
 									).replace( /(?:\r\n|\r|\n)/g, '<br />' ),
 								} }
 							/>
@@ -89,7 +97,7 @@ export default function getFields( enabledFields, className ) {
 				{ className.includes( 'is-style-no-title' ) && (
 					<p>
 						{ value ||
-							nl2br( impressum_fields.values[ key ].value ) }
+							nl2br( impressumImprintBlock.values[ key ].value ) }
 					</p>
 				) }
 			</div>
@@ -111,9 +119,9 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 
 			if (
 				! key ||
-				! impressum_fields.values[ key ] ||
-				impressum_fields.values[ key ].no_output ||
-				! impressum_fields.values[ key ].value
+				! impressumImprintBlock.values[ key ] ||
+				impressumImprintBlock.values[ key ].no_output ||
+				! impressumImprintBlock.values[ key ].value
 			) {
 				return '';
 			}
@@ -122,10 +130,11 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 				value = (
 					<a
 						href={
-							'mailto:' + impressum_fields.values[ key ].value
+							'mailto:' +
+							impressumImprintBlock.values[ key ].value
 						}
 					>
-						{ impressum_fields.values[ key ].value }
+						{ impressumImprintBlock.values[ key ].value }
 					</a>
 				);
 			}
@@ -136,7 +145,11 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 				case 'contact_form_page':
 					fieldValue = (
 						<dd>
-							<a href={ impressum_fields.values[ key ].value }>
+							<a
+								href={
+									impressumImprintBlock.values[ key ].value
+								}
+							>
 								{ __( 'To the contact form', 'impressum' ) }
 							</a>
 						</dd>
@@ -148,7 +161,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 							dangerouslySetInnerHTML={ {
 								__html: (
 									value ||
-									impressum_fields.values[ key ].value
+									impressumImprintBlock.values[ key ].value
 								).replace( /(?:\r\n|\r|\n)/g, '<br />' ),
 							} }
 						/>
@@ -158,7 +171,9 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 					fieldValue = (
 						<dd>
 							{ value ||
-								nl2br( impressum_fields.values[ key ].value ) }
+								nl2br(
+									impressumImprintBlock.values[ key ].value
+								) }
 						</dd>
 					);
 					break;
@@ -169,10 +184,11 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 					{ ! className.includes( 'is-style-no-title' ) && (
 						<dl>
 							<dt>
-								{ impressum_fields.values[ key ].custom_title ||
-									impressum_fields.values[ key ]
+								{ impressumImprintBlock.values[ key ]
+									.custom_title ||
+									impressumImprintBlock.values[ key ]
 										.field_title ||
-									impressum_fields.values[ key ].title }
+									impressumImprintBlock.values[ key ].title }
 							</dt>
 							{ fieldValue }
 						</dl>
@@ -180,7 +196,9 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 					{ className.includes( 'is-style-no-title' ) && (
 						<p>
 							{ value ||
-								nl2br( impressum_fields.values[ key ].value ) }
+								nl2br(
+									impressumImprintBlock.values[ key ].value
+								) }
 						</p>
 					) }
 				</div>

@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 // external dependencies
+import { useBlockProps } from '@wordpress/block-editor';
 import { Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extraneous-dependencies
@@ -7,27 +8,31 @@ import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extran
 import SidebarControls from './controls';
 import { getFieldsByName } from './utils';
 
-/* global impressum_fields */
+/* global impressumImprintBlock */
 const ImprintEdit = ( props ) => {
 	const {
 		attributes: { enabledFields },
-		className,
 		setAttributes,
 	} = props;
+	const blockProps = useBlockProps();
 	let printableFields = enabledFields;
 
 	if ( enabledFields.indexOf( 'all' ) !== -1 ) {
-		printableFields = Object.keys( impressum_fields.values )
+		printableFields = Object.keys( impressumImprintBlock.values )
 			.map( ( key ) =>
-				impressum_fields.values[ key ].no_output ? null : key
+				impressumImprintBlock.values[ key ].no_output ? null : key
 			)
 			.filter( Boolean );
 	}
 
-	const fields = getFieldsByName( printableFields, className, setAttributes );
+	const fields = getFieldsByName(
+		printableFields,
+		blockProps.className,
+		setAttributes
+	);
 
 	return (
-		<div className={ className }>
+		<div { ...blockProps }>
 			<SidebarControls
 				enabledFields={ enabledFields }
 				setAttributes={ setAttributes }

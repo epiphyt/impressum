@@ -1,7 +1,7 @@
 === Impressum ===
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
-Requires at least: 6.7
+Requires at least: 6.8
 Stable tag: 3.0.0-dev
 Tested up to: 6.9
 Requires PHP: 8.1

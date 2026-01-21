@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <ruleset name="Advanced Set">
 	<rule ref="EpiphytCodingStandard">
-		<exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException"/>
-		<exclude name="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch.NonCapturingCatchRequired"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.NamespaceSpacing.IncorrectLinesCountBeforeNamespace"/>
 		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing"/>
-		<exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation"/>
 		<exclude name="Universal.Classes.RequireFinalClass.NonFinalClassFound"/>
 	</rule>
 	
 	<config name="testVersion" value="8.1-"/>
-	<config name="minimum_supported_wp_version" value="6.7"/>
+	<config name="minimum_supported_wp_version" value="6.8"/>
 	
 	<rule ref="WordPress.WP.I18n">
 		<properties>

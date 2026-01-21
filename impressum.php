@@ -6,7 +6,7 @@ Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
 Version:			3.0.0-dev
-Requires at least:	6.7
+Requires at least:	6.8
 Requires PHP:		8.1
 Author:				Epiphyt
 Author URI:			https://epiph.yt/en/

@@ -35,7 +35,6 @@ class Admin {
 		\add_action( 'admin_menu', [ $this, 'options_page' ] );
 		\add_action( 'admin_notices', [ $this, 'invalid_notice' ] );
 		\add_action( 'admin_notices', [ $this, 'welcome_notice' ] );
-		\add_action( 'enqueue_block_editor_assets', [ $this, 'block_assets' ] );
 		\add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		\add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
 		\add_filter( 'impressum_admin_tab', [ $this, 'register_plus_tab' ] );
@@ -62,22 +61,6 @@ class Admin {
 		}
 		
 		\wp_send_json_error();
-	}
-	
-	/**
-	 * Enqueue block assets.
-	 */
-	public function block_assets(): void {
-		// automatically load dependencies and version
-		$asset_file = include \EPI_IMPRESSUM_BASE . 'build/index.asset.php';
-		
-		\wp_enqueue_script( 'impressum-imprint-block', \EPI_IMPRESSUM_URL . 'build/index.js', $asset_file['dependencies'], $asset_file['version'] );
-		\wp_localize_script( 'impressum-imprint-block', 'impressum_fields', [
-			'fields' => Impressum::get_instance()->settings_fields,
-			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
-		] );
-		\wp_set_script_translations( 'impressum-imprint-block', 'impressum' );
-		\wp_register_style( 'impressum-imprint-block-editor-styles', \EPI_IMPRESSUM_URL . 'build/index.css', [], $asset_file['version'] );
 	}
 	
 	/**

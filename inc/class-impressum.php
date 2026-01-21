@@ -1,6 +1,8 @@
 <?php
 namespace epiphyt\Impressum;
 
+use epiphyt\Impressum\blocks\Block_Registry;
+
 /**
  * The main Impressum class.
  * 
@@ -12,7 +14,7 @@ class Impressum {
 	use Singleton;
 	
 	/**
-	 * @var		?\epiphyt\Impressum\Admin
+	 * @var		?\epiphyt\Impressum\Admin Admin functionality
 	 */
 	public ?\epiphyt\Impressum\Admin $admin = null;
 	
@@ -22,7 +24,7 @@ class Impressum {
 	protected array $countries = [];
 	
 	/**
-	 * @var		?\epiphyt\Impressum\Frontend
+	 * @var		?\epiphyt\Impressum\Frontend Frontend functionality
 	 */
 	public ?\epiphyt\Impressum\Frontend $frontend = null;
 	
@@ -57,11 +59,13 @@ class Impressum {
 		\add_action( 'init', [ $this, 'load_settings' ], 10 );
 		\add_action( 'init', [ $this, 'load_textdomain' ], 5 );
 		\add_action( 'pre_update_option_impressum_imprint_options', [ $this, 'twice_daily_cron_activation' ] );
-		\register_activation_hook( $this->plugin_file, [ $this, 'twice_daily_cron_activation' ] );
-		\register_deactivation_hook( $this->plugin_file, [ $this, 'twice_daily_cron_deactivation' ] );
+		\register_activation_hook( \EPI_IMPRESSUM_FILE, [ $this, 'twice_daily_cron_activation' ] );
+		\register_deactivation_hook( \EPI_IMPRESSUM_FILE, [ $this, 'twice_daily_cron_deactivation' ] );
 		
 		$this->admin->init();
 		$this->frontend->init();
+		$block_registry = new Block_Registry();
+		$block_registry->init();
 	}
 	
 	/**

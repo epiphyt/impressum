@@ -14,22 +14,22 @@ class Admin {
 	/**
 	 * @var		bool Whether the backend is disabled or not
 	 */
-	private static $backend_disabled = false;
+	private static bool $backend_disabled = false;
 	
 	/**
 	 * @var		bool If admin notice is disabled or not
 	 */
-	private static $disabled_notice = false;
+	private static bool $disabled_notice = false;
 	
 	/**
 	 * @var		string The full path to the main plugin file
 	 */
-	public $plugin_file = \EPI_IMPRESSUM_FILE;
+	public string $plugin_file = \EPI_IMPRESSUM_FILE;
 	
 	/**
 	 * Initialize the admin functions.
 	 */
-	public function init() {
+	public function init(): void {
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		\add_action( 'admin_init', [ $this, 'init_settings' ] );
 		\add_action( 'admin_menu', [ $this, 'options_page' ] );
@@ -44,7 +44,7 @@ class Admin {
 	/**
 	 * AJAX handler to store the state of dismissible notices.
 	 */
-	public function ajax_notice_handler() {
+	public function ajax_notice_handler(): void {
 		if ( \apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true ) {
 			return;
 		}
@@ -67,7 +67,7 @@ class Admin {
 	/**
 	 * Enqueue block assets.
 	 */
-	public function block_assets() {
+	public function block_assets(): void {
 		// automatically load dependencies and version
 		$asset_file = include \EPI_IMPRESSUM_BASE . 'build/index.asset.php';
 		
@@ -85,7 +85,7 @@ class Admin {
 	 * 
 	 * @param	string	$hook The current admin page
 	 */
-	public function enqueue_assets( $hook ) {
+	public function enqueue_assets( string $hook ): void {
 		$is_debug = ( \defined( 'SCRIPT_DEBUG' ) && \SCRIPT_DEBUG ) || ( \defined( 'WP_DEBUG' ) && \WP_DEBUG );
 		$suffix = $is_debug ? '' : '.min';
 		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js';
@@ -143,7 +143,7 @@ class Admin {
 	/**
 	 * Custom option and settings.
 	 */
-	public function init_settings() {
+	public function init_settings(): void {
 		\register_setting( 'impressum_imprint', 'impressum_imprint_options' );
 		\add_settings_section( 'impressum_section_imprint', null, '__return_null', 'impressum_imprint' );
 		Admin_Fields::get_instance()->init_fields();
@@ -154,13 +154,13 @@ class Admin {
 	 * 
 	 * @return	array A list of invalid fields
 	 */
-	public static function get_invalid_fields() {
+	public static function get_invalid_fields(): array {
 		$invalid_fields = [];
 		$options = Helper::get_option( 'impressum_imprint_options', true );
 		
 		// get defaults
 		if ( ! isset( $options['legal_entity'] ) ) {
-			$defaults = ( isset( $options['default'] ) ? $options['default'] : [] );
+			$defaults = ( $options['default'] ?? [] );
 			$options = $defaults;
 		}
 		
@@ -231,7 +231,7 @@ class Admin {
 	/**
 	 * Add a warning notice if the current imprint is not valid yet.
 	 */
-	public function invalid_notice() {
+	public function invalid_notice(): void {
 		if ( \apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true ) {
 			return;
 		}
@@ -279,7 +279,7 @@ class Admin {
 	 * 
 	 * @return	bool True if imprint is valid, false otherwise
 	 */
-	public function is_valid_imprint() {
+	public function is_valid_imprint(): bool {
 		$options = Helper::get_option( 'impressum_imprint_options', true );
 		
 		// merge global and local options
@@ -334,7 +334,7 @@ class Admin {
 	/**
 	 * Add sub menu item in options menu.
 	 */
-	public static function options_page() {
+	public static function options_page(): void {
 		if ( \apply_filters( 'impressum_disabled_backend', self::$backend_disabled ) === true ) {
 			return;
 		}
@@ -354,7 +354,7 @@ class Admin {
 	 * Sub menu item:
 	 * callback functions
 	 */
-	public static function options_page_html() {
+	public static function options_page_html(): void {
 		// check user capabilities
 		if ( ! \current_user_can( 'manage_options' ) ) {
 			return;
@@ -435,11 +435,11 @@ class Admin {
 		$tabs = \apply_filters( 'impressum_admin_tab', $tabs, $form_action, $current_tab );
 		?>
 		<div class="wrap impressum-wrap">
-			<h1><?php echo \esc_html( \get_admin_page_title() ); ?></h1>
+			<h1><?= \esc_html( \get_admin_page_title() ); ?></h1>
 			
 			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
 			
-			<form action="<?php echo \esc_html( $form_action ); ?>" method="post">
+			<form action="<?= \esc_html( $form_action ); ?>" method="post">
 				<input type="hidden" name="option_page" value="impressum_imprint" />
 				<input type="hidden" name="action" value="update" />
 				
@@ -452,7 +452,7 @@ class Admin {
 					$referer .= '&imprint_tab=' . $current_tab;
 				}
 				?>
-				<input type="hidden" name="_wp_http_referer" value="<?php echo \esc_url( $referer ); ?>" />
+				<input type="hidden" name="_wp_http_referer" value="<?= \esc_url( $referer ); ?>" />
 				
 				<div class="nav-tab-wrapper" role="tablist">
 					<?php
@@ -463,7 +463,7 @@ class Admin {
 					
 					$is_active_tab = $current_tab === $tab['slug'];
 					?>
-					<button type="button" id="tab-<?php echo \esc_attr( $tab['slug'] ); ?>" data-tab="<?php echo \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?php echo $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?php echo $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?php echo \esc_attr( $tab['slug'] ); ?>" tabindex="<?php echo $is_active_tab ? '0' : '-1'; ?>"><?php echo \esc_html( $tab['title'] ); ?></button>
+					<button type="button" id="tab-<?= \esc_attr( $tab['slug'] ); ?>" data-tab="<?= \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?= $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?= $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?= \esc_attr( $tab['slug'] ); ?>" tabindex="<?= $is_active_tab ? '0' : '-1'; ?>"><?= \esc_html( $tab['title'] ); ?></button>
 					<?php endforeach; ?>
 				</div>
 				
@@ -491,7 +491,7 @@ class Admin {
 	 * @param	array	$tabs Currently registered tabs
 	 * @return	array All registered tabs
 	 */
-	public function register_plus_tab( $tabs ) {
+	public function register_plus_tab( array $tabs ): array {
 		$slug = 'get_plus';
 		\ob_start();
 		?>
@@ -516,7 +516,7 @@ class Admin {
 				\printf( \esc_html__( 'Even as a private website owner you can upgrade to %s anytime. Every single Plus user means the world to us, since it\'s those users who support our ongoing work on both the free and paid version. In addition, we\'ll continue to add even more nifty features to Plus.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
 				?>
 			</p>
-			<p><a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php \esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
+			<p><a href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-primary button-hero"><?php \esc_html_e( 'Get Impressum Plus now', 'impressum' ); ?></a></p>
 			
 			<h2><?php \esc_html_e( 'Compare now', 'impressum' ); ?></h2>
 			<table class="wp-list-table widefat striped impressum__compare-table">
@@ -590,8 +590,8 @@ class Admin {
 						<td><br></td>
 						<td></td>
 						<td>
-							<a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
-							<a href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?php echo \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></a>
+							<a href="<?= \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
+							<a href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?= \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></a>
 						</td>
 					</tr>
 				</tbody>
@@ -615,7 +615,7 @@ class Admin {
 	 * 
 	 * @param	string	$file The path to the file
 	 */
-	public function set_plugin_file( $file ) {
+	public function set_plugin_file( string $file ): void {
 		\_doing_it_wrong(
 			__METHOD__,
 			\sprintf(
@@ -634,7 +634,7 @@ class Admin {
 	/**
 	 * Updated option to reset the dismiss of the imprint validation notice.
 	 */
-	public function reset_invalid_notice() {
+	public function reset_invalid_notice(): void {
 		if ( \apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true ) {
 			return;
 		}
@@ -645,7 +645,7 @@ class Admin {
 	/**
 	 * Add a welcome notice.
 	 */
-	public function welcome_notice() {
+	public function welcome_notice(): void {
 		global $pagenow;
 		
 		// hide invalid notice everywhere except on impressum options|settings page
@@ -726,7 +726,7 @@ class Admin {
 							
 							<?php // phpcs:enable ?>
 							<div class="impressum-welcome-action">
-								<p><a class="button button-primary button-hero" href="<?php echo \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
+								<p><a class="button button-primary button-hero" href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
 							</div>
 						</div>
 						<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
@@ -741,7 +741,7 @@ class Admin {
 							
 							<?php // phpcs:enable ?>
 							<div class="impressum-welcome-action">
-								<p><a href="<?php echo \esc_url( \__( 'https://epiph.yt/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
+								<p><a href="<?= \esc_url( \__( 'https://epiph.yt/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
 							</div>
 						</div>
 					</div>

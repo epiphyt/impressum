@@ -24,7 +24,7 @@ class Helper {
 	 * @param	string	$page Slug title of the admin page whose settings fields you want to show.
 	 * @param	string	$section Slug title of the settings section whose fields you want to show.
 	 */
-	public static function do_settings_fields( $page, $section ) {
+	public static function do_settings_fields( string $page, string $section ): void {
 		global $wp_settings_fields;
 		
 		if ( ! isset( $wp_settings_fields[ $page ][ $section ] ) ) {
@@ -83,7 +83,7 @@ class Helper {
 	 * 
 	 * @param	string	$page The slug name of the page whose settings sections you want to output.
 	 */
-	public static function do_settings_sections( $page ) {
+	public static function do_settings_sections( string $page ): void {
 		global $wp_settings_sections, $wp_settings_fields;
 		
 		if ( ! isset( $wp_settings_sections[ $page ] ) ) {
@@ -120,7 +120,7 @@ class Helper {
 	 * @param	bool	$useless Useless in the free version
 	 * @return	mixed Option value
 	 */
-	public static function get_option( $option, $useless = false ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+	public static function get_option( string $option, bool $useless = false ): mixed { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		return \get_option( $option );
 	}
 }

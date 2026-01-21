@@ -2,16 +2,9 @@
 
 Impressum adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, Impressum takes care of your legal notices. Once legal requirements change, Impressum will update your legal content either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
 
-
 ## Requirements
 
-PHP: 5.6<br>
-WordPress: 5.0
-
-
-## Requirements
-
-PHP: 5.6 including the `php-dom` extension<br>
+PHP: 8.1 including the `php-dom` extension<br>
 WordPress: 5.9
 
 ## Building

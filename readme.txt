@@ -1,10 +1,10 @@
 === Impressum ===
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
-Requires at least: 5.0
-Stable tag: 2.2.2
+Requires at least: 6.7
+Stable tag: 3.0.0-dev
 Tested up to: 6.9
-Requires PHP: 5.6
+Requires PHP: 8.1
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 2.2.2 =
+= 3.0.0-dev =
 * Fixed: Disabling a single field in the block to display when "all" are selected previously.
 
 = 2.2.1 =

@@ -12,34 +12,34 @@ class Impressum {
 	use Singleton;
 	
 	/**
-	 * @var		\epiphyt\Impressum\Admin
+	 * @var		?\epiphyt\Impressum\Admin
 	 */
-	public $admin;
+	public ?\epiphyt\Impressum\Admin $admin = null;
 	
 	/**
 	 * @var		array Countries with their country codes in 3-digit ISO form
 	 */
-	protected $countries = [];
+	protected array $countries = [];
 	
 	/**
-	 * @var		\epiphyt\Impressum\Frontend
+	 * @var		?\epiphyt\Impressum\Frontend
 	 */
-	public $frontend;
+	public ?\epiphyt\Impressum\Frontend $frontend = null;
 	
 	/**
 	 * @var		array All legal entities we support
 	 */
-	protected $legal_entities = [];
+	protected array $legal_entities = [];
 	
 	/**
 	 * @var		string The full path to the main plugin file
 	 */
-	public $plugin_file = \EPI_IMPRESSUM_FILE;
+	public string $plugin_file = \EPI_IMPRESSUM_FILE;
 	
 	/**
 	 * @var		array All settings fields.
 	 */
-	public $settings_fields = [];
+	public array $settings_fields = [];
 	
 	/**
 	 * Impressum constructor.
@@ -53,7 +53,7 @@ class Impressum {
 	/**
 	 * Initialize the class.
 	 */
-	public function init() {
+	public function init(): void {
 		\add_action( 'init', [ $this, 'load_settings' ], 10 );
 		\add_action( 'init', [ $this, 'load_textdomain' ], 5 );
 		\add_action( 'pre_update_option_impressum_imprint_options', [ $this, 'twice_daily_cron_activation' ] );
@@ -70,7 +70,7 @@ class Impressum {
 	 * @param	string	$option_name The name of the option
 	 * @return	array The fields
 	 */
-	public function get_block_fields( $option_name ) {
+	public function get_block_fields( string $option_name ): array {
 		$fields = [];
 		$option = Helper::get_option( $option_name, true );
 		$page_name = \str_replace( '_options', '', $option_name );
@@ -86,7 +86,7 @@ class Impressum {
 			
 			$fields[ $name ] = [
 				'field_title' => ( ! empty( $field['field_title'] ) ? $field['field_title'] : '' ),
-				'no_output' => isset( $field['no_output'] ) ? $field['no_output'] : false,
+				'no_output' => $field['no_output'] ?? false,
 				'title' => $field['title'],
 				'value' => ( ! empty( $option[ $name ] ) ? $option[ $name ] : '' ),
 			];
@@ -100,7 +100,7 @@ class Impressum {
 	 * 
 	 * @return	array The country list
 	 */
-	public function get_countries() {
+	public function get_countries(): array {
 		return $this->countries;
 	}
 	
@@ -109,14 +109,14 @@ class Impressum {
 	 * 
 	 * @return	array The legal entity list
 	 */
-	public function get_legal_entities() {
+	public function get_legal_entities(): array {
 		return $this->legal_entities;
 	}
 	
 	/**
 	 * Load our settings in an array.
 	 */
-	public function load_settings() {
+	public function load_settings(): void {
 		$this->settings_fields = [ // phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 			'page' => [
 				'api' => [
@@ -367,7 +367,7 @@ class Impressum {
 	/**
 	 * Load translations.
 	 */
-	public function load_textdomain() {
+	public function load_textdomain(): void {
 		// set the value of countries
 		$this->countries = [
 			'arg' => [
@@ -667,7 +667,7 @@ class Impressum {
 	 * 
 	 * @param	string	$file The path to the file
 	 */
-	public function set_plugin_file( $file ) {
+	public function set_plugin_file( string $file ): void {
 		\_doing_it_wrong(
 			__METHOD__,
 			\sprintf(
@@ -689,7 +689,7 @@ class Impressum {
 	 * @param	array	$value The value on updating option
 	 * @return	array The (untouched) value on updating option
 	 */
-	public function twice_daily_cron_activation( $value = [] ) {
+	public function twice_daily_cron_activation( array $value = [] ): array {
 		if ( ! \wp_next_scheduled( 'impressum_twice_daily_cron' ) ) {
 			\wp_schedule_event( \time(), 'twicedaily', 'impressum_twice_daily_cron' );
 		}
@@ -701,7 +701,7 @@ class Impressum {
 	 * Deactivate the twice-daily cron.
 	 * This should be called only while deactivating the plugin.
 	 */
-	public function twice_daily_cron_deactivation() {
+	public function twice_daily_cron_deactivation(): void {
 		if ( \wp_next_scheduled( 'impressum_twice_daily_cron' ) ) {
 			\wp_clear_scheduled_hook( 'impressum_twice_daily_cron' );
 		}

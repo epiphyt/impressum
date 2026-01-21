@@ -24,14 +24,14 @@ trait Singleton {
 	/**
 	 * Initialize functionality.
 	 */
-	final protected function init() {
+	final protected function init(): void {
 		// traits have no functionality
 	}
 	
 	/**
 	 * Class wakeup functionality.
 	 */
-	final public function __wakeup() {
+	final public function __wakeup(): void {
 		// singletons can't be woken up
 	}
 	
@@ -47,7 +47,7 @@ trait Singleton {
 	 * 
 	 * @return	static Current instance
 	 */
-	final public static function get_instance() {
-		return isset( static::$instance ) ? static::$instance : static::$instance = new static();
+	final public static function get_instance(): static {
+		return static::$instance ?? static::$instance = new static();
 	}
 }

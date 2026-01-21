@@ -14,7 +14,7 @@ class Frontend {
 	/**
 	 * Initialize the frontend functions.
 	 */
-	public function init() {
+	public function init(): void {
 		\add_action( 'init', [ $this, 'register_blocks' ] );
 		\add_shortcode( 'impressum', [ $this, 'render' ] );
 	}
@@ -22,7 +22,7 @@ class Frontend {
 	/**
 	 * Register Gutenberg blocks.
 	 */
-	public function register_blocks() {
+	public function register_blocks(): void {
 		\register_block_type( 'impressum/imprint', [
 			'editor_script' => 'impressum-imprint-block',
 			'editor_style' => 'impressum-imprint-block-editor-styles',
@@ -36,7 +36,7 @@ class Frontend {
 	 * @param	array|string	$attributes A set of attributes
 	 * @return	string The imprint output
 	 */
-	public function render( $attributes ) {
+	public function render( array|string $attributes ): string {
 		$attributes = (array) $attributes;
 		$attributes['field_data'] = Helper::get_option( 'impressum_field_data', true );
 		$fields = \array_filter( (array) Helper::get_option( 'impressum_imprint_options', true ) );
@@ -48,15 +48,15 @@ class Frontend {
 		if ( ! empty( $attributes['enabledFields'] ) ) {
 			\usort( $field_keys, static function( $a, $b ) use ( $attributes, $field_data ) {
 				$flipped = \array_flip( $attributes['enabledFields'] );
-				$left_title = isset( $field_data[ $a ]['custom_title'] ) ? $field_data[ $a ]['custom_title'] : '';
-				$right_title = isset( $field_data[ $b ]['custom_title'] ) ? $field_data[ $b ]['custom_title'] : '';
+				$left_title = $field_data[ $a ]['custom_title'] ?? '';
+				$right_title = $field_data[ $b ]['custom_title'] ?? '';
 				
 				if ( ! $left_title ) {
-					$left_title = isset( $field_data[ $a ]['title'] ) ? $field_data[ $a ]['title'] : '';
+					$left_title = $field_data[ $a ]['title'] ?? '';
 				}
 				
 				if ( ! $right_title ) {
-					$right_title = isset( $field_data[ $b ]['title'] ) ? $field_data[ $b ]['title'] : '';
+					$right_title = $field_data[ $b ]['title'] ?? '';
 				}
 				
 				if (
@@ -121,7 +121,7 @@ class Frontend {
 		}
 		
 		// check for title output
-		if ( ! empty( $attributes['className'] ) && \strpos( $attributes['className'], 'is-style-no-title' ) !== false ) {
+		if ( ! empty( $attributes['className'] ) && \str_contains( $attributes['className'], 'is-style-no-title' ) ) {
 			$attributes['titles'] = false;
 		}
 		if ( ! isset( $attributes['titles'] ) ) {
@@ -200,7 +200,7 @@ class Frontend {
 	 * @param	array	$attributes The block attributes
 	 * @return	string The imprint output
 	 */
-	public function render_block( $attributes ) {
+	public function render_block( array $attributes ): string {
 		return $this->render( $attributes );
 	}
 	
@@ -213,7 +213,7 @@ class Frontend {
 	 * @param	array	$fields All available fields
 	 * @return	string The formatted field value
 	 */
-	private function render_field( $field, $value, $attributes, $fields ) {
+	private function render_field( string $field, string $value, array $attributes, array $fields ): string {
 		$output = '';
 		$title = '';
 		

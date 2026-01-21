@@ -5,9 +5,9 @@ namespace epiphyt\Impressum;
 Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
-Version:			2.2.2
-Requires at least:	5.0
-Requires PHP:		5.6
+Version:			3.0.0-dev
+Requires at least:	6.7
+Requires PHP:		8.1
 Author:				Epiphyt
 Author URI:			https://epiph.yt/en/
 License:			GPL2
@@ -44,14 +44,14 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
 
 \define( 'EPI_IMPRESSUM_FILE', \EPI_IMPRESSUM_BASE . \basename( __FILE__ ) );
 \define( 'EPI_IMPRESSUM_URL', \plugin_dir_url( \EPI_IMPRESSUM_FILE ) );
-\define( 'EPI_IMPRESSUM_VERSION', '2.2.2' );
+\define( 'EPI_IMPRESSUM_VERSION', '3.0.0-dev' );
 
 /**
  * Autoload all necessary classes.
  * 
  * @param	string	$class_name The class name of the auto-loaded class
  */
-\spl_autoload_register( static function( $class_name ) {
+\spl_autoload_register( static function( $class_name ): void {
 	if ( \strpos( $class_name, __NAMESPACE__ . '\\' ) !== 0 ) {
 		return;
 	}

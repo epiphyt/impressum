@@ -22,11 +22,6 @@ class Admin {
 	private static bool $disabled_notice = false;
 	
 	/**
-	 * @var		string The full path to the main plugin file
-	 */
-	public string $plugin_file = \EPI_IMPRESSUM_FILE;
-	
-	/**
 	 * Initialize the admin functions.
 	 */
 	public function init(): void {
@@ -589,29 +584,6 @@ class Admin {
 		];
 		
 		return $tabs;
-	}
-	
-	/**
-	 * Set the plugin file.
-	 * 
-	 * @deprecated	2.1.0 Use \EPI_IMPRESSUM_PLUS_FILE instead
-	 * 
-	 * @param	string	$file The path to the file
-	 */
-	public function set_plugin_file( string $file ): void {
-		\_doing_it_wrong(
-			__METHOD__,
-			\sprintf(
-				/* translators: alternative method */
-				\esc_html__( 'Use %s instead', 'impressum' ),
-				'EPI_IMPRESSUM_FILE'
-			),
-			'2.1.0'
-		);
-		
-		if ( \file_exists( $file ) ) {
-			$this->plugin_file = $file;
-		}
 	}
 	
 	/**

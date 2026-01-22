@@ -52,7 +52,7 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
  * @param	string	$class_name The class name of the auto-loaded class
  */
 \spl_autoload_register( static function( $class_name ): void {
-	if ( \strpos( $class_name, __NAMESPACE__ . '\\' ) !== 0 ) {
+	if ( ! \str_starts_with( $class_name, __NAMESPACE__ . '\\' ) ) {
 		return;
 	}
 	
@@ -74,8 +74,5 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
 		}
 	}
 } );
-
-// deprecated, don't use anymore
-if ( ! \defined( 'IMPRESSUM_BASE' ) ) \define( 'IMPRESSUM_BASE', \plugin_basename( __FILE__ ) );
 
 Impressum::get_instance()->init();

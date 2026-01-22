@@ -241,27 +241,6 @@ class Admin_Fields {
 	}
 	
 	/**
-	 * Press Law Checkbox field callback.
-	 * 
-	 * @deprecated	2.2.0 Use epiphyt\Impressum\Admin_Fields::checkbox() instead
-	 * 
-	 * @param	array	$args The field arguments
-	 */
-	public function press_law_checkbox( array $args ): void {
-		\_doing_it_wrong(
-			__METHOD__,
-			\sprintf(
-				/* translators: alternative method */
-				\esc_html__( 'Use %s instead', 'impressum' ),
-				'epiphyt\Impressum\Admin_Fields::checkbox()'
-			),
-			'2.2.0'
-		);
-		
-		self::checkbox( $args );
-	}
-	
-	/**
 	 * Select callback.
 	 * 
 	 * @since	2.3.0

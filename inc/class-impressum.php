@@ -34,11 +34,6 @@ class Impressum {
 	protected array $legal_entities = [];
 	
 	/**
-	 * @var		string The full path to the main plugin file
-	 */
-	public string $plugin_file = \EPI_IMPRESSUM_FILE;
-	
-	/**
 	 * @var		array All settings fields.
 	 */
 	public array $settings_fields = [];
@@ -662,29 +657,6 @@ class Impressum {
 		 * @param	array	$countries The current countries
 		 */
 		$this->legal_entities = \apply_filters( 'impressum_legal_entity_after_sort', $this->legal_entities );
-	}
-	
-	/**
-	 * Set the plugin file.
-	 * 
-	 * @deprecated	2.1.0 Use \EPI_IMPRESSUM_FILE instead
-	 * 
-	 * @param	string	$file The path to the file
-	 */
-	public function set_plugin_file( string $file ): void {
-		\_doing_it_wrong(
-			__METHOD__,
-			\sprintf(
-				/* translators: alternative method */
-				\esc_html__( 'Use %s instead', 'impressum' ),
-				'EPI_IMPRESSUM_FILE'
-			),
-			'2.1.0'
-		);
-		
-		if ( \file_exists( $file ) ) {
-			$this->plugin_file = $file;
-		}
 	}
 	
 	/**

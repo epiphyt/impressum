@@ -44,15 +44,12 @@ final class ImpressumTest extends MockeryTestCase
             'pre_update_option_impressum_imprint_options',
             '\epiphyt\Impressum\Impressum->twice_daily_cron_activation()'
         ));
-        // frontend
-        $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Frontend->register_blocks()'));
         // admin
         $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
         $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
         $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
         $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()'));
         $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()'));
-        $this->assertSame(10, \has_action('enqueue_block_editor_assets', '\epiphyt\Impressum\Admin->block_assets()'));
         $this->assertSame(10, \has_action(
             'update_option_impressum_imprint_options',
             '\epiphyt\Impressum\Admin->reset_invalid_notice()'

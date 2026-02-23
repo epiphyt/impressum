@@ -115,7 +115,7 @@ final class Plugin {
 	public function get_block_fields( string $option_name ): array {
 		$fields = [];
 		$option = Helper::get_option( $option_name, true );
-		$settings = $this->settings_registry->get_settings();
+		$settings = $this->settings_registry->get_settings( 'impressum_imprint_options' );
 		
 		foreach ( $settings as $field ) {
 			if ( $field->name === 'contact_form_page' && $field->get_value( true ) ) {

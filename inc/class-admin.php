@@ -149,7 +149,7 @@ final class Admin {
 	public function get_invalid_fields(): array {
 		$invalid_fields = [];
 		$options = Helper::get_option( 'impressum_imprint_options', true );
-		$settings = $this->settings_registry->get_settings();
+		$settings = $this->settings_registry->get_settings( 'impressum_imprint_options' );
 		$settings_prefix = 'impressum_imprint_options_';
 		
 		// get defaults

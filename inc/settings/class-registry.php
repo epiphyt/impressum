@@ -47,10 +47,23 @@ final class Registry {
 	/**
 	 * Get all registered settings.
 	 * 
+	 * @param	string	$type Settings type
 	 * @return	\epiphyt\Impressum\settings\Setting[] Registered settings
 	 */
-	public function get_settings(): array {
-		return $this->settings;
+	public function get_settings( string $type = '' ): array {
+		if ( empty( $type ) ) {
+			return $this->settings;
+		}
+		
+		$settings = $this->settings;
+		
+		foreach ( $settings as $key => $setting ) {
+			if ( $setting->get_data( 'type' ) !== $type ) {
+				unset( $settings[ $key ] );
+			}
+		}
+		
+		return $settings;
 	}
 	
 	/**

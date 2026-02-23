@@ -124,9 +124,9 @@ class Admin_Fields {
 			 * @since	2.1.0
 			 * @since	3.0.0 Second parameter is a Setting object now
 			 * 
-			 * @param	callable								$this Current instance
-			 * @param	\epiphyt\Impressum\settings\Setting		$settings_field Current settings field
-			 * @param	string									$id Current field ID
+			 * @param	object								$this Current instance
+			 * @param	\epiphyt\Impressum\settings\Setting	$settings_field Current settings field
+			 * @param	string								$id Current field ID
 			 */
 			$callback_instance = \apply_filters( 'impressum_admin_fields_callback_instance', $this, $settings_field, $id );
 			

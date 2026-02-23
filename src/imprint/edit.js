@@ -20,7 +20,7 @@ const ImprintEdit = ( props ) => {
 	if ( enabledFields.indexOf( 'all' ) !== -1 ) {
 		printableFields = Object.keys( impressumImprintBlock.values )
 			.map( ( key ) =>
-				impressumImprintBlock.values[ key ].no_output ? null : key
+				impressumImprintBlock.values[ key ].hide_output ? null : key
 			)
 			.filter( Boolean );
 	}

@@ -40,7 +40,7 @@ export default function getFields( enabledFields, className ) {
 			return false;
 		}
 
-		if ( impressumImprintBlock.fields[ key ].no_output ) {
+		if ( impressumImprintBlock.fields[ key ].data.hide_output ) {
 			return false;
 		}
 
@@ -70,7 +70,7 @@ export default function getFields( enabledFields, className ) {
 							{ impressumImprintBlock.values[ key ]
 								.custom_title ||
 								impressumImprintBlock.values[ key ]
-									.field_title ||
+									.custom_title ||
 								impressumImprintBlock.values[ key ].title }
 						</dt>
 						{ key !== 'free_text' ? (
@@ -120,7 +120,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 			if (
 				! key ||
 				! impressumImprintBlock.values[ key ] ||
-				impressumImprintBlock.values[ key ].no_output ||
+				impressumImprintBlock.values[ key ].hide_output ||
 				! impressumImprintBlock.values[ key ].value
 			) {
 				return '';
@@ -187,7 +187,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 								{ impressumImprintBlock.values[ key ]
 									.custom_title ||
 									impressumImprintBlock.values[ key ]
-										.field_title ||
+										.custom_title ||
 									impressumImprintBlock.values[ key ].title }
 							</dt>
 							{ fieldValue }

@@ -9,7 +9,7 @@ export default function SidebarControls( props ) {
 	const sortedEnabledFields = structuredClone( enabledFields ).sort();
 	const supportedFields = Object.keys( impressumImprintBlock.values )
 		.map( ( key ) => {
-			return impressumImprintBlock.values[ key ].no_output ? null : key;
+			return impressumImprintBlock.values[ key ].hide_output ? null : key;
 		} )
 		.filter( Boolean )
 		.sort();
@@ -77,7 +77,7 @@ export default function SidebarControls( props ) {
 							const field =
 								impressumImprintBlock.values[ fieldKey ];
 
-							if ( field.no_output ) {
+							if ( field.hide_output ) {
 								return null;
 							}
 

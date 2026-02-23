@@ -1,6 +1,8 @@
 <?php
 namespace epiphyt\Impressum;
 
+use epiphyt\Impressum\settings\Registry;
+
 /**
  * Represents functions for the admin in Impressum.
  * 
@@ -8,9 +10,7 @@ namespace epiphyt\Impressum;
  * @license	GPL2
  * @package	epiphyt\Impressum
  */
-class Admin {
-	use Singleton;
-	
+final class Admin {
 	/**
 	 * @var		bool Whether the backend is disabled or not
 	 */
@@ -20,6 +20,20 @@ class Admin {
 	 * @var		bool If admin notice is disabled or not
 	 */
 	private static bool $disabled_notice = false;
+	
+	/**
+	 * @var		?\epiphyt\Impressum\settings\Registry Settings registry
+	 */
+	public ?\epiphyt\Impressum\settings\Registry $settings_registry = null;
+	
+	/**
+	 * Admin constructor.
+	 * 
+	 * @param	\epiphyt\Impressum\settings\Registry		$settings_registry Settings registry
+	 */
+	public function __construct( Registry $settings_registry ) {
+		$this->settings_registry = $settings_registry;
+	}
 	
 	/**
 	 * Initialize the admin functions.
@@ -132,9 +146,11 @@ class Admin {
 	 * 
 	 * @return	array A list of invalid fields
 	 */
-	public static function get_invalid_fields(): array {
+	public function get_invalid_fields(): array {
 		$invalid_fields = [];
 		$options = Helper::get_option( 'impressum_imprint_options', true );
+		$settings = $this->settings_registry->get_settings();
+		$settings_prefix = 'impressum_imprint_options_';
 		
 		// get defaults
 		if ( ! isset( $options['legal_entity'] ) ) {
@@ -165,11 +181,11 @@ class Admin {
 		
 		foreach ( $required_fields as $field ) {
 			if ( ! \is_array( $options ) || ! \array_key_exists( $field, $options ) || empty( $options[ $field ] ) ) {
-				if ( ! isset( Impressum::get_instance()->settings_fields[ $field ] ) ) {
+				if ( ! isset( $settings[ $settings_prefix . $field ] ) ) {
 					continue;
 				}
 				
-				$invalid_fields[ $field ] = Impressum::get_instance()->settings_fields[ $field ]['title'];
+				$invalid_fields[ $field ] = $settings[ $settings_prefix . $field ]->get_title();
 			}
 		}
 		
@@ -178,8 +194,8 @@ class Admin {
 			$invalid_fields['phone_contact_form'] = \sprintf(
 				/* translators: 1: a field title, 2: a field title */
 				\__( '%1$s or %2$s', 'impressum' ),
-				Impressum::get_instance()->settings_fields['phone']['title'],
-				Impressum::get_instance()->settings_fields['contact_form_page']['title']
+				$settings[ $settings_prefix . 'phone' ]->get_title(),
+				$settings[ $settings_prefix . 'contact_form_page' ]->get_title()
 			);
 		}
 		
@@ -188,7 +204,7 @@ class Admin {
 			$regex = '/^(|ATU[0-9]{8}|BE0[0-9]{9}|BG[0-9]{9,10}|CY[0-9]{8}L|CZ[0-9]{8,10}|DE[0-9]{9}|DK[0-9]{8}|EE[0-9]{9}|(EL|GR)[0-9]{9}|ES[0-9A-Z][0-9]{7}[0-9A-Z]|FI[0-9]{8}|FR[0-9A-Z]{2}[0-9]{9}|GB([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|HU[0-9]{8}|IE[0-9]S[0-9]{5}L|IT[0-9]{11}|LT([0-9]{9}|[0-9]{12})|LU[0-9]{8}|LV[0-9]{11}|MT[0-9]{8}|NL[0-9\+\*]{9}B[0-9]{2}|PL[0-9]{10}|PT[0-9]{9}|RO[0-9]{2,10}|SE[0-9]{12}|SI[0-9]{8}|SK[0-9]{10})$/';
 			
 			if ( ! empty( $options['vat_id'] ) && ! \preg_match( $regex, $options['vat_id'] ) ) {
-				$invalid_fields['vat_id'] = Impressum::get_instance()->settings_fields['vat_id']['title'];
+				$invalid_fields['vat_id'] = $settings[ $settings_prefix . 'vat_id' ]->get_title();
 			}
 		}
 		
@@ -197,7 +213,7 @@ class Admin {
 			$regex = '/^(|(DE)?[0-9]{9}\-[0-9]{5})$/';
 			
 			if ( ! empty( $options['business_id'] ) && ! \preg_match( $regex, $options['business_id'] ) ) {
-				$invalid_fields['business_id'] = Impressum::get_instance()->settings_fields['business_id']['title'];
+				$invalid_fields['business_id'] = $settings[ $settings_prefix . 'business_id' ]->get_title();
 			}
 		}
 		
@@ -231,7 +247,7 @@ class Admin {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		
 		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) :
-		$invalid_fields = self::get_invalid_fields();
+		$invalid_fields = $this->get_invalid_fields();
 		?>
 		<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
 			<p>

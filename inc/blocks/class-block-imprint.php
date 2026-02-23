@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace epiphyt\Impressum\blocks;
 
-use epiphyt\Impressum\Impressum;
-
 /**
  * Imprint block functionality.
  * 
@@ -28,8 +26,8 @@ final class Block_Imprint {
 	 */
 	public function enqueue_assets(): void {
 		\wp_localize_script( 'impressum-imprint-editor-script', 'impressumImprintBlock', [
-			'fields' => Impressum::get_instance()->settings_fields,
-			'values' => Impressum::get_instance()->get_block_fields( 'impressum_imprint_options' ),
+			'fields' => \epiphyt\Impressum\get_container()->get( 'settings-registry' )->get_settings(),
+			'values' => \epiphyt\Impressum\get_container()->get( 'plugin' )->get_block_fields( 'impressum_imprint_options' ),
 		] );
 	}
 	
@@ -45,7 +43,7 @@ final class Block_Imprint {
 			return $arguments;
 		}
 		
-		$arguments['render_callback'] = [ Impressum::get_instance()->frontend, 'render_block' ];
+		$arguments['render_callback'] = [ \epiphyt\Impressum\get_container()->get( 'frontend' ), 'render_block' ];
 		
 		return $arguments;
 	}

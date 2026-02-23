@@ -20,10 +20,17 @@ class Admin_Fields {
 		$settings_name = self::get_settings_name( $args );
 		$options = Helper::get_option( $settings_name, true );
 		?>
-		<label for="<?= \esc_attr( $args['label_for'] ); ?>"><input type="checkbox" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
-			<?= \esc_html( $args['label'] ?? '' ); ?>
-		</label>
+		<input type="checkbox" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
+		<label for="<?= \esc_attr( $args['label_for'] ); ?>"><?= \esc_html( $args['label'] ?? '' ); ?></label>
 		<?php
+		/**
+		 * Fires after the checkbox field has been rendered.
+		 * 
+		 * @param	string	$settings_name Settings group name
+		 * @param	array	$args Field arguments
+		 * @param	array	$options Settings of this settings group
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -38,7 +45,7 @@ class Admin_Fields {
 		<select id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
 				<?php
-				foreach ( Impressum::get_instance()->get_countries() as $country_code => $country ) {
+				foreach ( \epiphyt\Impressum\get_container()->get( 'plugin' )->get_countries() as $country_code => $country ) {
 					$is_selected = ( ! empty( $options['country'] ) ? \selected( $options['country'], $country_code, false ) : ( ! empty( $options['default']['country'] ) ? \selected( $options['default']['country'], $country_code, false ) : '' ) );
 					
 					if ( empty( $options['country'] ) && ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
@@ -59,6 +66,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -81,6 +93,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -97,33 +114,36 @@ class Admin_Fields {
 	 * Initialize fields.
 	 */
 	public function init_fields(): void {
+		$settings = \epiphyt\Impressum\get_container()->get( 'settings-registry' )->get_settings();
+		
 		// register option fields
-		foreach ( Impressum::get_instance()->settings_fields as $id => $settings_field ) {
+		foreach ( $settings as $id => $settings_field ) {
 			/**
 			 * Filter the callback instance for admin fields.
 			 * 
 			 * @since	2.1.0
+			 * @since	3.0.0 Second parameter is a Setting object now
 			 * 
-			 * @param	callable	$this Current instance
-			 * @param	mixed[]		$settings_field Current settings field
-			 * @param	string		$id Current field ID
+			 * @param	callable								$this Current instance
+			 * @param	\epiphyt\Impressum\settings\Setting		$settings_field Current settings field
+			 * @param	string									$id Current field ID
 			 */
 			$callback_instance = \apply_filters( 'impressum_admin_fields_callback_instance', $this, $settings_field, $id );
 			
 			if (
-				! isset( $settings_field['callback'] )
-				|| ! \is_callable( [ $callback_instance, $settings_field['callback'] ] )
+				empty( $settings_field->get_data( 'setting_callback' ) )
+				|| ! \is_callable( [ $callback_instance, $settings_field->get_data( 'setting_callback' ) ] )
 			) {
 				continue;
 			}
 			
 			\add_settings_field(
 				$id,
-				$settings_field['title'],
-				[ $callback_instance, $settings_field['callback'] ],
-				$settings_field['page'],
-				$settings_field['section'],
-				$settings_field['args']
+				$settings_field->get_title(),
+				[ $callback_instance, $settings_field->get_data( 'setting_callback' ) ],
+				$settings_field->get_data( 'setting_page' ),
+				$settings_field->get_data( 'setting_section' ),
+				$settings_field->get_data( 'setting_attributes' )
 			);
 		}
 	}
@@ -140,7 +160,7 @@ class Admin_Fields {
 		<select id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
 				<?php
-				foreach ( Impressum::get_instance()->get_legal_entities() as $abbr => $entity ) {
+				foreach ( \epiphyt\Impressum\get_container()->get( 'plugin' )->get_legal_entities() as $abbr => $entity ) {
 					$is_selected = ( ! empty( $options['legal_entity'] ) ? \selected( $options['legal_entity'], $abbr, false ) : ( ! empty( $options['default']['legal_entity'] ) ? \selected( $options['default']['legal_entity'], $abbr, false ) : '' ) );
 					
 					echo '<option value="' . \esc_attr( $abbr ) . '"' . ( $is_selected ?: '' ) . '>' . \esc_html( $entity ) . '</option>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -152,6 +172,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -174,6 +199,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -216,6 +246,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -238,6 +273,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -267,6 +307,11 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 	
 	/**
@@ -289,5 +334,10 @@ class Admin_Fields {
 		if ( isset( $args['required'] ) && $args['required'] === true ) {
 			echo '<p class="description impressum__description impressum-required-field">' . \esc_html__( 'This is a required field.', 'impressum' ) . '</p>';
 		}
+		
+		/**
+		 * This action is described in inc/class-admin-fields.php
+		 */
+		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
 	}
 }

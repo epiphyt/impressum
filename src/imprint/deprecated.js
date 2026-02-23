@@ -15,7 +15,7 @@ const v1 = {
 		for ( const fieldName of fields ) {
 			for ( const enabledField of enabledFields ) {
 				if (
-					impressumImprintBlock.fields[ fieldName ].title ===
+					impressumImprintBlock.fields[ fieldName ].data.title ===
 					enabledField
 				) {
 					newFields.push( fieldName );

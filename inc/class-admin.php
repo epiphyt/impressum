@@ -633,7 +633,7 @@ final class Admin {
 		
 		if ( ! \get_option( 'dismissed-impressum_welcome_notice' ) ) :
 		?>
-		<div class="impressum-wrap">
+		<div class="wrap impressum-wrap">
 			<div class="impressum-welcome-panel" data-notice="impressum_welcome_notice">
 				<div class="impressum-welcome-panel-content">
 					<h2>

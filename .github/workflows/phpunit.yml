@@ -15,5 +15,6 @@ jobs:
     - name: Run PHPUnit
       uses: php-actions/phpunit@v4
       with:
+        args: --process-isolation
         configuration: phpunit.xml
         php_version: 8.3

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\blocks;
 
-use epiphyt\Impressum\blocks\Block_Imprint;
 use epiphyt\Impressum\blocks\Block_Registry;
-use epiphyt\Impressum\Impressum;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 

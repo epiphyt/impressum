@@ -26,5 +26,13 @@
 	},
 	"autoload": {
 		"classmap": ["inc"]
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse -v --memory-limit=2G",
+		"phpunit": "phpunit --process-isolation",
+		"test": [
+			"@phpstan",
+			"@phpunit"
+		]
 	}
 }

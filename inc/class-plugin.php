@@ -110,18 +110,13 @@ final class Plugin {
 	 * Get all fields from an option with their title.
 	 * 
 	 * @param	string	$option_name The name of the option
-	 * @return	array The fields
+	 * @return	array{array{custom_title: string, hide_output: bool, title: string, value: mixed}} The fields
 	 */
 	public function get_block_fields( string $option_name ): array {
 		$fields = [];
-		$option = Helper::get_option( $option_name, true );
-		$settings = $this->settings_registry->get_settings( 'impressum_imprint_options' );
+		$settings = $this->settings_registry->get_settings( $option_name );
 		
 		foreach ( $settings as $field ) {
-			if ( $field->name === 'contact_form_page' && $field->get_value( true ) ) {
-				$field->set_value( \get_permalink( $option[ $field->name ] ) );
-			}
-			
 			$fields[ $field->name ] = [
 				'custom_title' => $field->get_title(),
 				'hide_output' => $field->get_data( 'hide_output' ),

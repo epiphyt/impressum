@@ -6,7 +6,8 @@ namespace Tests\Unit;
 
 use epiphyt\Impressum\Admin;
 use epiphyt\Impressum\Helper;
-use epiphyt\Impressum\Impressum;
+use epiphyt\Impressum\settings\Registry;
+use epiphyt\Impressum\settings\Setting;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -38,7 +39,10 @@ final class AdminTest extends MockeryTestCase
 
     public function testInit(): void
     {
-        Admin::get_instance()->init();
+        $settings_registry = Mockery::mock('alias:' . Registry::class);
+        /** @disregard P1006 */
+        $admin = new Admin($settings_registry);
+        $admin->init();
         $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
         $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
         $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
@@ -75,7 +79,9 @@ final class AdminTest extends MockeryTestCase
             ]
         );
         expectApplied('impressum_required_fields')->times(4)->andReturnFirstArg();
-        Impressum::get_instance()->load_settings();
+        $settings_registry = include __DIR__ . '/helpers/SettingsRegistryMock.php';
+        /** @disregard P1006 */
+        $admin = new Admin($settings_registry);
         $this->assertEqualsCanonicalizing(
             [
                 'Address',
@@ -83,7 +89,7 @@ final class AdminTest extends MockeryTestCase
                 'Name',
                 'Phone or Contact Form Page',
             ],
-            Admin::get_invalid_fields()
+            $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
@@ -91,7 +97,7 @@ final class AdminTest extends MockeryTestCase
                 'Email Address',
                 'Name',
             ],
-            Admin::get_invalid_fields()
+            $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
@@ -99,7 +105,7 @@ final class AdminTest extends MockeryTestCase
                 'Email Address',
                 'Name',
             ],
-            Admin::get_invalid_fields()
+            $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
@@ -110,12 +116,15 @@ final class AdminTest extends MockeryTestCase
                 'Phone or Contact Form Page',
                 'VAT ID',
             ],
-            Admin::get_invalid_fields()
+            $admin->get_invalid_fields()
         );
     }
 
     public function testIsValidImprint(): void
     {
+        $settings_registry = Mockery::mock('alias:' . Registry::class);
+        /** @disregard P1006 */
+        $admin = new Admin($settings_registry);
         $helper = Mockery::mock('alias:' . Helper::class);
         $helper->shouldReceive('get_option')->andReturn(
             [],
@@ -133,9 +142,9 @@ final class AdminTest extends MockeryTestCase
         );
         expectApplied('impressum_required_fields')->times(2)->andReturnFirstArg();
         expectApplied('impressum_is_valid_imprint')->once()->andReturnFirstArg();
-        $this->assertFalse(Admin::get_instance()->is_valid_imprint());
-        $this->assertFalse(Admin::get_instance()->is_valid_imprint());
-        $this->assertTrue(Admin::get_instance()->is_valid_imprint());
+        $this->assertFalse($admin->is_valid_imprint());
+        $this->assertFalse($admin->is_valid_imprint());
+        $this->assertTrue($admin->is_valid_imprint());
     }
 
     protected function tearDown(): void

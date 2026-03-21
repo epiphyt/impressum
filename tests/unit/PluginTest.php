@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use epiphyt\Impressum\Admin;
+use epiphyt\Impressum\blocks\Block_Registry;
+use epiphyt\Impressum\Frontend;
 use epiphyt\Impressum\Helper;
-use epiphyt\Impressum\Impressum;
+use epiphyt\Impressum\Plugin;
+use epiphyt\Impressum\settings\Registry;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -19,8 +23,8 @@ use function Brain\Monkey\Functions\when;
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
-#[CoversClass(Impressum::class)]
-final class ImpressumTest extends MockeryTestCase
+#[CoversClass(Plugin::class)]
+final class PluginTest extends MockeryTestCase
 {
     protected function setUp(): void
     {
@@ -37,28 +41,30 @@ final class ImpressumTest extends MockeryTestCase
 
     public function testInit(): void
     {
-        Impressum::get_instance()->init();
-        $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Impressum->load_settings()'));
-        $this->assertSame(5, \has_action('init', '\epiphyt\Impressum\Impressum->load_textdomain()'));
+        $plugin = $this->getInstantiatedClass();
+        $plugin->init();
+        $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Plugin->load_settings()'));
+        $this->assertSame(5, \has_action('init', '\epiphyt\Impressum\Plugin->load_textdomain()'));
         $this->assertSame(10, \has_action(
             'pre_update_option_impressum_imprint_options',
-            '\epiphyt\Impressum\Impressum->twice_daily_cron_activation()'
+            '\epiphyt\Impressum\Plugin->activate()'
         ));
-        // admin
-        $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
-        $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
-        $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
-        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()'));
-        $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()'));
-        $this->assertSame(10, \has_action(
-            'update_option_impressum_imprint_options',
-            '\epiphyt\Impressum\Admin->reset_invalid_notice()'
-        ));
-        $this->assertSame(10, \has_action(
-            'wp_ajax_impressum_dismissed_notice_handler',
-            '\epiphyt\Impressum\Admin->ajax_notice_handler()'
-        ));
-        $this->assertSame(10, \has_filter('impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()'));
+    }
+
+    public function testActivate(): void
+    {
+        $plugin = $this->getInstantiatedClass();
+        when('wp_next_scheduled')->justReturn(true);
+        $this->assertEqualsCanonicalizing(
+            [],
+            $plugin->activate()
+        );
+        when('wp_next_scheduled')->justReturn(false);
+        when('wp_schedule_event')->justReturn();
+        $this->assertEqualsCanonicalizing(
+            ['test'],
+            $plugin->activate(['test'])
+        );
     }
 
     public function testGetBlockFields(): void
@@ -71,101 +77,102 @@ final class ImpressumTest extends MockeryTestCase
                 'contact_form_page' => 1,
             ]
         );
-        when('get_permalink')->justReturn('https://www.example.com/permalink');
-        Impressum::get_instance()->settings_fields = [
-            'legal_entity' => [
-                'api' => [
-                    'description' => \esc_html__('The legal entity.', 'impressum'),
-                    'enum' => [
-                        'ag' => \__('AG', 'impressum'),
-                        'eg' => \__('eG', 'impressum'),
-                        'einzelkaufmann' => \__('Einzelkaufmann', 'impressum'),
-                        'ek' => \__('e.K.', 'impressum'),
-                        'ev' => \__('e.V.', 'impressum'),
-                        'freelancer' => \__('Freelancer', 'impressum'),
-                        'gbr' => \__('GbR', 'impressum'),
-                        'ggmbh' => \__('gGmbH', 'impressum'),
-                        'gmbh' => \__('GmbH', 'impressum'),
-                        'gmbh_co_kg' => \__('GmbH & Co. KG', 'impressum'),
-                        'individual' => \__('Individual', 'impressum'),
-                        'kg' => \__('KG', 'impressum'),
-                        'kgag' => \__('KGaA', 'impressum'),
-                        'ohg' => \__('OHG', 'impressum'),
-                        'partnership' => \__('Partnership', 'impressum'),
-                        'self' => \__('Self-employed', 'impressum'),
-                        'ug' => \__('UG (haftungsbeschränkt)', 'impressum'),
-                        'ug_co_kg' => \__('UG (haftungsbeschränkt) & Co. KG', 'impressum'),
-                    ],
-                    'type' => 'string',
-                ],
-                'args' => [
-                    'class' => 'impressum_row',
-                    'label_for' => 'legal_entity',
-                    'required' => true,
-                ],
-                'callback' => 'legal_entity',
-                'no_output' => true,
-                'page' => 'impressum_imprint',
-                'section' => 'impressum_section_imprint',
-                'title' => \__('Legal Entity', 'impressum'),
-            ],
-            'contact_form_page' => [
-                'api' => [
-                    'description' => \esc_html__('The contact form page ID.', 'impressum'),
-                    'type' => 'integer',
-                ],
-                'args' => [
-                    'class' => 'impressum_row',
-                    'description' => \__('Since you need a fast contact possibility, you either have to publish your phone number or have a contact form where you can respond within 1 hour.', 'impressum'), // phpcs:ignore Generic.Files.LineLength.TooLong
-                    'label_for' => 'contact_form_page',
-                ],
-                'callback' => 'page',
-                'field_title' => \__('Contact', 'impressum'),
-                'option' => 'impressum_imprint_options',
-                'page' => 'impressum_imprint',
-                'section' => 'impressum_section_imprint',
-                'title' => \__('Contact Form Page', 'impressum'),
-            ],
-        ];
+        $plugin = $this->getInstantiatedClass();
         $this->assertEqualsCanonicalizing(
             [
+                'page' => [
+                    'custom_title' => 'Imprint Page',
+                    'hide_output' => true,
+                    'title' => 'Imprint Page',
+                    'value' => '',
+                ],
+                'country' => [
+                    'custom_title' => 'Country',
+                    'hide_output' => true,
+                    'title' => 'Country',
+                    'value' => '',
+                ],
                 'legal_entity' => [
-                    'field_title' => '',
-                    'no_output' => true,
+                    'custom_title' => 'Legal Entity',
+                    'hide_output' => true,
                     'title' => 'Legal Entity',
                     'value' => '',
                 ],
+                'name' => [
+                    'custom_title' => 'Name',
+                    'hide_output' => false,
+                    'title' => 'Name',
+                    'value' => '',
+                ],
+                'address' => [
+                    'custom_title' => 'Address',
+                    'hide_output' => false,
+                    'title' => 'Address',
+                    'value' => '',
+                ],
+                'address_alternative' => [
+                    'custom_title' => 'Alternative Address',
+                    'hide_output' => false,
+                    'title' => 'Address',
+                    'value' => '',
+                ],
+                'email' => [
+                    'custom_title' => 'Email Address',
+                    'hide_output' => false,
+                    'title' => 'Email Address',
+                    'value' => '',
+                ],
+                'phone' => [
+                    'custom_title' => 'Phone',
+                    'hide_output' => false,
+                    'title' => 'Phone',
+                    'value' => '',
+                ],
                 'contact_form_page' => [
-                    'field_title' => 'Contact',
-                    'no_output' => false,
+                    'custom_title' => 'Contact Form Page',
+                    'hide_output' => false,
                     'title' => 'Contact Form Page',
                     'value' => '',
                 ],
-            ],
-            Impressum::get_instance()->get_block_fields('impressum_imprint_options')
-        );
-        $this->assertEqualsCanonicalizing(
-            [
-                'legal_entity' => [
-                    'field_title' => '',
-                    'no_output' => true,
-                    'title' => 'Legal Entity',
-                    'value' => 'individual',
+                'fax' => [
+                    'custom_title' => 'Fax',
+                    'hide_output' => false,
+                    'title' => 'Fax',
+                    'value' => '',
                 ],
-                'contact_form_page' => [
-                    'field_title' => 'Contact',
-                    'no_output' => false,
-                    'title' => 'Contact Form Page',
-                    'value' => 'https://www.example.com/permalink',
+                'press_law_checkbox' => [
+                    'custom_title' => 'Journalistic/Editorial Content',
+                    'hide_output' => true,
+                    'title' => 'Journalistic/Editorial Content',
+                    'value' => '',
+                ],
+                'press_law_person' => [
+                    'custom_title' => 'Responsible for content',
+                    'hide_output' => true,
+                    'title' => 'Responsible for content',
+                    'value' => '',
+                ],
+                'vat_id' => [
+                    'custom_title' => 'VAT ID',
+                    'hide_output' => false,
+                    'title' => 'VAT ID',
+                    'value' => '',
+                ],
+                'business_id' => [
+                    'custom_title' => 'Business ID',
+                    'hide_output' => false,
+                    'title' => 'Business ID',
+                    'value' => '',
                 ],
             ],
-            Impressum::get_instance()->get_block_fields('impressum_imprint_options')
+            $plugin->get_block_fields('impressum_imprint_options')
         );
     }
 
     public function testGetCountries(): void
     {
-        Impressum::get_instance()->load_textdomain();
+        $plugin = $this->getInstantiatedClass();
+        $plugin->load_textdomain();
         $this->assertEqualsCanonicalizing(
             [
                 'arg' => [
@@ -392,7 +399,7 @@ final class ImpressumTest extends MockeryTestCase
                     'title' => \__('South Africa', 'impressum'),
                 ],
             ],
-            Impressum::get_instance()->get_countries()
+            $plugin->get_countries()
         );
         $this->assertTrue(applied('impressum_country_pre_sort') === 1);
         $this->assertTrue(applied('impressum_country_after_sort') === 1);
@@ -400,7 +407,8 @@ final class ImpressumTest extends MockeryTestCase
 
     public function testGetLegalEntities(): void
     {
-        Impressum::get_instance()->load_textdomain();
+        $plugin = $this->getInstantiatedClass();
+        $plugin->load_textdomain();
         $this->assertEqualsCanonicalizing(
             [
                 'ag' => \__('AG', 'impressum'),
@@ -423,7 +431,7 @@ final class ImpressumTest extends MockeryTestCase
                 'ug' => \__('UG (haftungsbeschränkt)', 'impressum'),
                 'ug_co_kg' => \__('UG (haftungsbeschränkt) & Co. KG', 'impressum'),
             ],
-            Impressum::get_instance()->get_legal_entities()
+            $plugin->get_legal_entities()
         );
         $this->assertTrue(applied('impressum_legal_entity_pre_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_after_sort') === 1);
@@ -431,40 +439,47 @@ final class ImpressumTest extends MockeryTestCase
 
     public function testLoadSettings(): void
     {
+        $plugin = $this->getInstantiatedClass();
         expectApplied('impressum_settings_fields')->once()->andReturnFirstArg();
-        Impressum::get_instance()->load_settings();
+        $plugin->load_settings();
         $this->assertTrue(applied('impressum_settings_fields') === 1);
     }
 
     public function testLoadTextdomain(): void
     {
+        $plugin = $this->getInstantiatedClass();
         expectApplied('impressum_country_after_sort')->once()->andReturnFirstArg();
         expectApplied('impressum_legal_entity_after_sort')->once()->andReturnFirstArg();
-        Impressum::get_instance()->load_textdomain();
+        $plugin->load_textdomain();
         $this->assertTrue(applied('impressum_country_after_sort') === 1);
         $this->assertTrue(applied('impressum_country_pre_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_after_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_pre_sort') === 1);
     }
 
-    public function testTwiceDailyCronActivation(): void
-    {
-        when('wp_next_scheduled')->justReturn(true);
-        $this->assertEqualsCanonicalizing(
-            [],
-            Impressum::get_instance()->twice_daily_cron_activation()
-        );
-        when('wp_next_scheduled')->justReturn(false);
-        when('wp_schedule_event')->justReturn();
-        $this->assertEqualsCanonicalizing(
-            ['test'],
-            Impressum::get_instance()->twice_daily_cron_activation(['test'])
-        );
-    }
-
     protected function tearDown(): void
     {
         tearDown();
         parent::tearDown();
+    }
+
+    private function getInstantiatedClass(): Plugin
+    {
+        $admin = Mockery::mock('alias:' . Admin::class);
+        $admin->shouldReceive('init');
+        $block_registry = Mockery::mock('alias:' . Block_Registry::class);
+        $block_registry->shouldReceive('init');
+        $frontend = Mockery::mock('alias:' . Frontend::class);
+        $frontend->shouldReceive('init');
+        $settings_registry = include __DIR__ . '/helpers/SettingsRegistryMock.php';
+        /** @disregard P1006 */
+        $plugin = new Plugin(
+            $admin,
+            $frontend,
+            $block_registry,
+            $settings_registry
+        );
+
+        return $plugin;
     }
 }

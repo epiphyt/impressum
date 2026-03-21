@@ -230,7 +230,7 @@ class Frontend {
 		$title = (string) \apply_filters( "impressum_imprint_output_title_{$field->name}", $title, $attributes, $field );
 		
 		// set the output
-		switch ( $field ) {
+		switch ( $field->name ) {
 			case 'contact_form_page':
 				$permalink = \get_permalink( $value );
 				

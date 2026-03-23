@@ -116,7 +116,7 @@ final class Setting {
 		$settings_data = [
 			'custom_title' => $field_data[ $this->name ]['name'] ?? null,
 			'data_type' => [],
-			'description' => isset( $data['api']['description'] ) ?? '',
+			'description' => $data['api']['description'] ?? '',
 			'hide_output' => $data['no_output'] ?? false,
 			'setting_attributes' => $data['args'] ?? [],
 			'setting_callback' => $data['callback'] ?? null,
@@ -146,6 +146,7 @@ final class Setting {
 	public function set_value( mixed $new_value ): bool {
 		$settings_data = $this->helper::get_option( $this->type );
 		$settings_data[ $this->name ] = $new_value;
+		$this->value = $new_value;
 		
 		return \update_option( $this->type, $settings_data );
 	}

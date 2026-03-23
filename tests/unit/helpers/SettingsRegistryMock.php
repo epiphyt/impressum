@@ -208,5 +208,8 @@ $settings_registry
     ]);
 $settings_registry
     ->shouldReceive('register_multiple');
+$settings_registry
+    ->shouldReceive('get_setting_types')
+    ->andReturn(['impressum_imprint_options']);
 
 return $settings_registry;

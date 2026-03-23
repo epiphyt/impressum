@@ -21,6 +21,11 @@ final class Registry {
 	private ?\epiphyt\Impressum\Helper $helper = null;
 	
 	/**
+	 * @var		string[] List of setting types
+	 */
+	private array $setting_types = [];
+	
+	/**
 	 * @var		\epiphyt\Impressum\settings\Setting[] List of block classes
 	 */
 	private array $settings = [];
@@ -42,6 +47,15 @@ final class Registry {
 	 */
 	public function get_setting( string $key ): ?Setting {
 		return $this->settings[ $key ] ?? null;
+	}
+	
+	/**
+	 * Get all setting types.
+	 * 
+	 * @return	string[] List of setting types
+	 */
+	public function get_setting_types(): array {
+		return $this->setting_types;
 	}
 	
 	/**
@@ -76,6 +90,10 @@ final class Registry {
 		$setting = new Setting( $setting_name, $setting_data, $this->helper );
 		$key = \sprintf( '%1$s_%2$s', $setting->type, $setting->name );
 		$this->settings[ $key ] = $setting;
+		
+		if ( ! \in_array( $setting->type, $this->setting_types, true ) ) {
+			$this->setting_types[] = $setting->type;
+		}
 	}
 	
 	/**

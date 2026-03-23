@@ -142,6 +142,10 @@ function get_container(): Plugin_Container {
  */
 function initialize_plugin(): void {
 	\epiphyt\Impressum\get_container()->get( 'plugin' )->init();
+	\epiphyt\Impressum\get_container()->get( 'admin' )->init();
+	\epiphyt\Impressum\get_container()->get( 'block-registry' )->init();
+	\epiphyt\Impressum\get_container()->get( 'frontend' )->init();
+	\epiphyt\Impressum\get_container()->get( 'settings-data' )->init();
 }
 
 \add_action( 'plugins_loaded', __NAMESPACE__ . '\initialize_plugin' );

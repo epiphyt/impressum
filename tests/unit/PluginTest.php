@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use epiphyt\Impressum\Admin;
-use epiphyt\Impressum\blocks\Block_Registry;
-use epiphyt\Impressum\Frontend;
 use epiphyt\Impressum\Helper;
 use epiphyt\Impressum\Plugin;
-use epiphyt\Impressum\settings\Registry;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -465,20 +461,9 @@ final class PluginTest extends MockeryTestCase
 
     private function getInstantiatedClass(): Plugin
     {
-        $admin = Mockery::mock('alias:' . Admin::class);
-        $admin->shouldReceive('init');
-        $block_registry = Mockery::mock('alias:' . Block_Registry::class);
-        $block_registry->shouldReceive('init');
-        $frontend = Mockery::mock('alias:' . Frontend::class);
-        $frontend->shouldReceive('init');
         $settings_registry = include __DIR__ . '/helpers/SettingsRegistryMock.php';
         /** @disregard P1006 */
-        $plugin = new Plugin(
-            $admin,
-            $frontend,
-            $block_registry,
-            $settings_registry
-        );
+        $plugin = new Plugin($settings_registry);
 
         return $plugin;
     }

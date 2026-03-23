@@ -2,6 +2,7 @@
 namespace epiphyt\Impressum;
 
 use epiphyt\Impressum\blocks\Block_Registry;
+use epiphyt\Impressum\settings\Data;
 use epiphyt\Impressum\settings\Registry;
 
 /*
@@ -119,14 +120,15 @@ function get_container(): Plugin_Container {
 			}
 		);
 		$container->set(
+			'settings-data',
+			static function(): Data {
+				return new Data( \epiphyt\Impressum\get_container()->get( 'settings-registry' ) );
+			}
+		);
+		$container->set(
 			'plugin',
 			static function(): Plugin {
-				return new Plugin(
-					\epiphyt\Impressum\get_container()->get( 'admin' ),
-					\epiphyt\Impressum\get_container()->get( 'frontend' ),
-					\epiphyt\Impressum\get_container()->get( 'block-registry' ),
-					\epiphyt\Impressum\get_container()->get( 'settings-registry' )
-				);
+				return new Plugin( \epiphyt\Impressum\get_container()->get( 'settings-registry' ) );
 			}
 		);
 		$impressum_container = $container;
@@ -139,12 +141,7 @@ function get_container(): Plugin_Container {
  * Initialize the plugin.
  */
 function initialize_plugin(): void {
-	\epiphyt\Impressum\get_container()->get( 'plugin' )->init(
-		\epiphyt\Impressum\get_container()->get( 'admin' ),
-		\epiphyt\Impressum\get_container()->get( 'frontend' ),
-		\epiphyt\Impressum\get_container()->get( 'block-registry' ),
-		\epiphyt\Impressum\get_container()->get( 'settings-registry' )
-	);
+	\epiphyt\Impressum\get_container()->get( 'plugin' )->init();
 }
 
 \add_action( 'plugins_loaded', __NAMESPACE__ . '\initialize_plugin' );

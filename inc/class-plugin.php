@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace epiphyt\Impressum;
 
-use epiphyt\Impressum\blocks\Block_Registry;
 use epiphyt\Impressum\settings\Registry;
 
 /**
@@ -15,24 +14,9 @@ use epiphyt\Impressum\settings\Registry;
  */
 final class Plugin {
 	/**
-	 * @var		?\epiphyt\Impressum\Admin Admin functionality
-	 */
-	public ?\epiphyt\Impressum\Admin $admin = null;
-	
-	/**
 	 * @var		array Countries with their country codes in 3-digit ISO form
 	 */
 	protected array $countries = [];
-	
-	/**
-	 * @var		?\epiphyt\Impressum\blocks\Block_Registry Block registry
-	 */
-	public ?\epiphyt\Impressum\blocks\Block_Registry $block_registry = null;
-	
-	/**
-	 * @var		?\epiphyt\Impressum\Frontend Frontend functionality
-	 */
-	public ?\epiphyt\Impressum\Frontend $frontend = null;
 	
 	/**
 	 * @var		array All legal entities we support
@@ -52,20 +36,9 @@ final class Plugin {
 	/**
 	 * Impressum constructor.
 	 * 
-	 * @param	\epiphyt\Impressum\Admin					$admin Admin
-	 * @param	\epiphyt\Impressum\Frontend					$frontend Frontend
-	 * @param	\epiphyt\Impressum\blocks\Block_Registry	$block_registry Block registry
 	 * @param	\epiphyt\Impressum\settings\Registry		$settings_registry Settings registry
 	 */
-	public function __construct(
-		Admin $admin,
-		Frontend $frontend,
-		Block_Registry $block_registry,
-		Registry $settings_registry
-	) {
-		$this->admin = $admin;
-		$this->block_registry = $block_registry;
-		$this->frontend = $frontend;
+	public function __construct( Registry $settings_registry ) {
 		$this->settings_registry = $settings_registry;
 	}
 	
@@ -76,10 +49,6 @@ final class Plugin {
 		\add_action( 'init', [ $this, 'load_settings' ], 10 );
 		\add_action( 'init', [ $this, 'load_textdomain' ], 5 );
 		\add_action( 'pre_update_option_impressum_imprint_options', [ $this, 'activate' ] );
-		
-		$this->admin->init();
-		$this->block_registry->init();
-		$this->frontend->init();
 	}
 	
 	/**

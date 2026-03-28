@@ -41,7 +41,7 @@ final class Admin {
 	public function init(): void {
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		\add_action( 'admin_init', [ $this, 'init_settings' ] );
-		\add_action( 'admin_menu', [ $this, 'options_page' ] );
+		\add_action( 'admin_menu', [ $this, 'register_options_page' ] );
 		\add_action( 'admin_notices', [ $this, 'invalid_notice' ] );
 		\add_action( 'admin_notices', [ $this, 'welcome_notice' ] );
 		\add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
@@ -328,7 +328,7 @@ final class Admin {
 	/**
 	 * Add sub menu item in options menu.
 	 */
-	public static function options_page(): void {
+	public static function register_options_page(): void {
 		if ( \apply_filters( 'impressum_disabled_backend', self::$backend_disabled ) === true ) {
 			return;
 		}
@@ -340,143 +340,8 @@ final class Admin {
 			'Impressum',
 			'manage_options',
 			'impressum',
-			[ self::class, 'options_page_html' ]
+			[ self::class, 'render_options_page' ]
 		);
-	}
-	
-	/**
-	 * Sub menu item:
-	 * callback functions
-	 */
-	public static function options_page_html(): void {
-		// check user capabilities
-		if ( ! \current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		
-		// show error/update messages
-		\settings_errors( 'impressum_messages' );
-		
-		/**
-		 * Filter the default tab.
-		 * 
-		 * @param	string	$default_tab The default tab
-		 */
-		$default_tab = \apply_filters( 'impressum_admin_default_tab', 'imprint' );
-		
-		// get current tab
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		$current_tab = isset( $_GET['imprint_tab'] ) ? \sanitize_text_field( \wp_unslash( $_GET['imprint_tab'] ) ) : $default_tab;
-		// phpcs:enable
-		
-		// set form action
-		$form_action = \admin_url( 'options.php' );
-		
-		\ob_start();
-		?>
-		<div class="nav-tab-content nav-tab-content-active" id="nav-tab-content-imprint">
-			<?php
-			// output setting sections and their fields
-			// (sections are registered for "impressum", each field is registered to a specific section)
-			Helper::do_settings_sections( 'impressum_imprint' );
-			?>
-			<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
-			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. This plugin helps you to fill all necessary fields.', 'impressum' ); ?></p>
-			
-			<h3><?php \esc_html_e( 'Usage', 'impressum' ); ?></h3>
-			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>
-			<ul class="impressum__regular-list">
-				<li><?php \esc_html_e( 'Add the "Imprint" block in your block editor wherever you want to output your imprint. It works everywhere the block editor is supported.', 'impressum' ); ?></li>
-				<li>
-					<?php
-					\printf(
-						/* translators: shortcode name */
-						\esc_html__( 'Add the %s in your editor wherever you want to output your imprint. It works everywhere shortcodes are supported.', 'impressum' ),
-						'<code>[impressum]</code>'
-					);
-					?>
-				</li>
-			</ul>
-		</div>
-		<?php
-		$content = \ob_get_clean();
-		
-		/**
-		 * Filter the imprint tab content.
-		 * 
-		 * @param	string	$content The imprint tab content
-		 */
-		$content = \apply_filters( 'impressum_imprint_tab_content', $content );
-		
-		$tabs = [];
-		$tabs[] = [
-			'content' => $content,
-			'slug' => 'imprint',
-			'title' => \__( 'Imprint', 'impressum' ),
-		];
-		
-		/**
-		 * Filter tabs to the content.
-		 * Make sure the following keys exist and are not empty:
-		 * - content
-		 * - slug
-		 * - title
-		 * 
-		 * @param	array	$tabs Tabs in the backend
-		 * @param	string	$form_action The current form action
-		 * @param	string	$current_tab The current active tab
-		 */
-		$tabs = \apply_filters( 'impressum_admin_tab', $tabs, $form_action, $current_tab );
-		?>
-		<div class="wrap impressum-wrap">
-			<h1><?= \esc_html( \get_admin_page_title() ); ?></h1>
-			
-			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
-			
-			<form action="<?= \esc_html( $form_action ); ?>" method="post">
-				<input type="hidden" name="option_page" value="impressum_imprint" />
-				<input type="hidden" name="action" value="update" />
-				
-				<?php 
-				\wp_nonce_field( 'impressum_imprint-options', '_wpnonce', false );
-				
-				$referer = \remove_query_arg( '_wp_http_referer' );
-				
-				if ( ! \str_contains( $referer, '&imprint_tab=' ) && $current_tab !== $default_tab ) {
-					$referer .= '&imprint_tab=' . $current_tab;
-				}
-				?>
-				<input type="hidden" name="_wp_http_referer" value="<?= \esc_url( $referer ); ?>" />
-				
-				<div class="nav-tab-wrapper" role="tablist">
-					<?php
-					foreach ( $tabs as $tab ) :
-					if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
-						continue;
-					}
-					
-					$is_active_tab = $current_tab === $tab['slug'];
-					?>
-					<button type="button" id="tab-<?= \esc_attr( $tab['slug'] ); ?>" data-tab="<?= \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?= $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?= $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?= \esc_attr( $tab['slug'] ); ?>" tabindex="<?= $is_active_tab ? '0' : '-1'; ?>"><?= \esc_html( $tab['title'] ); ?></button>
-					<?php endforeach; ?>
-				</div>
-				
-				<div class="impressum-content-wrapper">
-					<?php
-					foreach ( $tabs as $tab ) {
-						$is_active_tab = $current_tab === $tab['slug'];
-						
-						echo '<div id="nav-tab__content--' . \esc_attr( $tab['slug'] ) . '" class="nav-tab__content" role="tabpanel" aria-labelledby="tab-' . \esc_attr( $tab['slug'] ) . '"' . ( ! $is_active_tab ? ' hidden' : '' ) . ' tabindex="' . ( $is_active_tab ? '0' : '-1' ) . '">' . $tab['content'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					}
-					
-					\submit_button( \esc_html__( 'Save Settings', 'impressum' ) );
-					?>
-				</div>
-			</form>
-			
-			<?php \do_action( 'impressum_settings_form_after', $form_action, $current_tab, $default_tab ); ?>
-		</div>
-		<?php
 	}
 	
 	/**
@@ -600,6 +465,145 @@ final class Admin {
 		];
 		
 		return $tabs;
+	}
+	
+	/**
+	 * Sub menu item:
+	 * callback functions
+	 */
+	public static function render_options_page(): void {
+		// check user capabilities
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		
+		// show error/update messages
+		\settings_errors( 'impressum_messages' );
+		
+		/**
+		 * Filter the default tab.
+		 * 
+		 * @param	string	$default_tab The default tab
+		 */
+		$default_tab = \apply_filters( 'impressum_admin_default_tab', 'imprint' );
+		
+		// get current tab
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$current_tab = isset( $_GET['imprint_tab'] ) ? \sanitize_text_field( \wp_unslash( $_GET['imprint_tab'] ) ) : $default_tab;
+		// phpcs:enable
+		
+		// set form action
+		$form_action = \admin_url( 'options.php' );
+		
+		if ( \is_network_admin() ) {
+			$form_action = \network_admin_url( 'edit.php?action=impressum_imprint-options' );
+		}
+		
+		\ob_start();
+		?>
+		<div class="nav-tab-content nav-tab-content-active" id="nav-tab-content-imprint">
+			<?php
+			// output setting sections and their fields
+			// (sections are registered for "impressum", each field is registered to a specific section)
+			Helper::do_settings_sections( 'impressum_imprint' );
+			?>
+			<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
+			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. This plugin helps you to fill all necessary fields.', 'impressum' ); ?></p>
+			
+			<h3><?php \esc_html_e( 'Usage', 'impressum' ); ?></h3>
+			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>
+			<ul class="impressum__regular-list">
+				<li><?php \esc_html_e( 'Add the "Imprint" block in your block editor wherever you want to output your imprint. It works everywhere the block editor is supported.', 'impressum' ); ?></li>
+				<li>
+					<?php
+					\printf(
+						/* translators: shortcode name */
+						\esc_html__( 'Add the %s in your editor wherever you want to output your imprint. It works everywhere shortcodes are supported.', 'impressum' ),
+						'<code>[impressum]</code>'
+					);
+					?>
+				</li>
+			</ul>
+		</div>
+		<?php
+		$content = \ob_get_clean();
+		
+		/**
+		 * Filter the imprint tab content.
+		 * 
+		 * @param	string	$content The imprint tab content
+		 */
+		$content = \apply_filters( 'impressum_imprint_tab_content', $content );
+		
+		$tabs = [];
+		$tabs[] = [
+			'content' => $content,
+			'slug' => 'imprint',
+			'title' => \__( 'Imprint', 'impressum' ),
+		];
+		
+		/**
+		 * Filter tabs to the content.
+		 * Make sure the following keys exist and are not empty:
+		 * - content
+		 * - slug
+		 * - title
+		 * 
+		 * @param	array	$tabs Tabs in the backend
+		 * @param	string	$form_action The current form action
+		 * @param	string	$current_tab The current active tab
+		 */
+		$tabs = \apply_filters( 'impressum_admin_tab', $tabs, $form_action, $current_tab );
+		?>
+		<div class="wrap impressum-wrap">
+			<h1><?= \esc_html( \get_admin_page_title() ); ?></h1>
+			
+			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
+			
+			<form action="<?= \esc_html( $form_action ); ?>" method="post">
+				<input type="hidden" name="option_page" value="impressum_imprint" />
+				<input type="hidden" name="action" value="update" />
+				
+				<?php 
+				\wp_nonce_field( 'impressum_imprint-options', '_wpnonce', false );
+				
+				$referer = \remove_query_arg( '_wp_http_referer' );
+				
+				if ( ! \str_contains( $referer, '&imprint_tab=' ) && $current_tab !== $default_tab ) {
+					$referer .= '&imprint_tab=' . $current_tab;
+				}
+				?>
+				<input type="hidden" name="_wp_http_referer" value="<?= \esc_url( $referer ); ?>" />
+				
+				<div class="nav-tab-wrapper" role="tablist">
+					<?php
+					foreach ( $tabs as $tab ) :
+					if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
+						continue;
+					}
+					
+					$is_active_tab = $current_tab === $tab['slug'];
+					?>
+					<button type="button" id="tab-<?= \esc_attr( $tab['slug'] ); ?>" data-tab="<?= \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?= $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?= $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?= \esc_attr( $tab['slug'] ); ?>" tabindex="<?= $is_active_tab ? '0' : '-1'; ?>"><?= \esc_html( $tab['title'] ); ?></button>
+					<?php endforeach; ?>
+				</div>
+				
+				<div class="impressum-content-wrapper">
+					<?php
+					foreach ( $tabs as $tab ) {
+						$is_active_tab = $current_tab === $tab['slug'];
+						
+						echo '<div id="nav-tab__content--' . \esc_attr( $tab['slug'] ) . '" class="nav-tab__content" role="tabpanel" aria-labelledby="tab-' . \esc_attr( $tab['slug'] ) . '"' . ( ! $is_active_tab ? ' hidden' : '' ) . ' tabindex="' . ( $is_active_tab ? '0' : '-1' ) . '">' . $tab['content'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					}
+					
+					\submit_button( \esc_html__( 'Save Settings', 'impressum' ) );
+					?>
+				</div>
+			</form>
+			
+			<?php \do_action( 'impressum_settings_form_after', $form_action, $current_tab, $default_tab ); ?>
+		</div>
+		<?php
 	}
 	
 	/**

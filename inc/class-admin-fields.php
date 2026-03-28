@@ -18,7 +18,7 @@ class Admin_Fields {
 	 */
 	public function checkbox( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, true );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, true );
 		?>
 		<input type="checkbox" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" value="1"<?php \checked( isset( $options[ $args['label_for'] ] ) ); ?>>
 		<label for="<?= \esc_attr( $args['label_for'] ); ?>"><?= \esc_html( $args['label'] ?? '' ); ?></label>
@@ -40,7 +40,7 @@ class Admin_Fields {
 	 */
 	public function country( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		?>
 		<select id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
@@ -80,7 +80,7 @@ class Admin_Fields {
 	 */
 	public function email( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
@@ -155,7 +155,7 @@ class Admin_Fields {
 	 */
 	public function legal_entity( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		?>
 		<select id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]">
 			<option value=""><?php \esc_html_e( '- Select -', 'impressum' ); ?></option>
@@ -186,7 +186,7 @@ class Admin_Fields {
 	 */
 	public function text( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
@@ -219,7 +219,7 @@ class Admin_Fields {
 		}
 		
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$has_pages = (bool) \get_posts( [
 			'posts_per_page' => 1,
 			'post_status' => [ 'draft', 'publish' ],
@@ -260,7 +260,7 @@ class Admin_Fields {
 	 */
 	public function phone( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
@@ -289,7 +289,7 @@ class Admin_Fields {
 	 */
 	public function select( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) : '' );
 		$select_options = ! empty( $args['options'] ) ? $args['options'] : [];
 		?>
@@ -321,7 +321,7 @@ class Admin_Fields {
 	 */
 	public function textarea( array $args ): void {
 		$settings_name = self::get_settings_name( $args );
-		$options = Helper::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_html( \str_replace( "\r\n", ', ', $options['default'][ $args['label_for'] ] ) ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) : '' );
 		?>

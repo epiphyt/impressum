@@ -57,5 +57,9 @@ final class Plugin_Container {
 	 */
 	public function set( string $id, callable $factory ): void {
 		$this->services[ $id ] = $factory;
+		
+		if ( isset( $this->instances[ $id ] ) ) {
+			unset( $this->instances[ $id ] );
+		}
 	}
 }

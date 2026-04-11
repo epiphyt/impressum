@@ -10,10 +10,12 @@
   "devDependencies": {
     "@wordpress/block-editor": "^15.11.0",
     "@wordpress/blocks": "^15.11.0",
-    "@wordpress/components": "^32.0.0",
+    "@wordpress/components": "^32.4.0",
     "@wordpress/deprecated": "^4.38.0",
+    "@wordpress/element": "^6.42.0",
     "@wordpress/eslint-plugin": "^24.0.0",
     "@wordpress/i18n": "^6.11.0",
+    "@wordpress/icons": "^12.0.0",
     "@wordpress/prettier-config": "^4.38.0",
     "@wordpress/scripts": "^31.3.0",
     "@wordpress/server-side-render": "^6.14.0",

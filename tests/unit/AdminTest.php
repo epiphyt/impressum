@@ -45,7 +45,7 @@ final class AdminTest extends MockeryTestCase
         $admin->init();
         $this->assertSame(10, \has_action('admin_enqueue_scripts', '\epiphyt\Impressum\Admin->enqueue_assets()'));
         $this->assertSame(10, \has_action('admin_init', '\epiphyt\Impressum\Admin->init_settings()'));
-        $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->options_page()'));
+        $this->assertSame(10, \has_action('admin_menu', '\epiphyt\Impressum\Admin->register_options_page()'));
         $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->invalid_notice()'));
         $this->assertSame(10, \has_action('admin_notices', '\epiphyt\Impressum\Admin->welcome_notice()'));
         $this->assertSame(10, \has_action(

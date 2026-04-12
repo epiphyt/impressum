@@ -47,6 +47,7 @@ final class Admin {
 		\add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		\add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
 		\add_filter( 'impressum_admin_tab', [ $this, 'register_plus_tab' ] );
+		\add_filter( 'plugin_row_meta', [ self::class, 'render_plugin_documentation_link' ], 10, 2 );
 	}
 	
 	/**
@@ -604,6 +605,27 @@ final class Admin {
 			<?php \do_action( 'impressum_settings_form_after', $form_action, $current_tab, $default_tab ); ?>
 		</div>
 		<?php
+	}
+	
+	/**
+	 * Add plugin meta links.
+	 * 
+	 * @param	array	$input Registered links.
+	 * @param	string	$file  Current plugin file.
+	 * @return	array Merged links
+	 */
+	public static function render_plugin_documentation_link( array $input, string $file ): array {
+		if ( ! \str_ends_with( \EPI_IMPRESSUM_FILE, $file ) ) {
+			return $input;
+		}
+		
+		return \array_merge(
+			$input,
+			[
+				/* translators: plugin version */
+				'<a href="' . \esc_url( \sprintf( \__( 'https://docs.epiph.yt/impressum/?version=%s', 'impressum' ), \get_plugin_data( \EPI_IMPRESSUM_FILE )['Version'] ) ) . '" target="_blank" rel="noopener noreferrer">' . \esc_html__( 'Documentation', 'impressum' ) . '</a>',
+			]
+		);
 	}
 	
 	/**

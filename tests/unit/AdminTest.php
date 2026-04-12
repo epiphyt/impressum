@@ -13,6 +13,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 use function Brain\Monkey\Filters\expectApplied;
+use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\stubEscapeFunctions;
 use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\Functions\stubTranslationFunctions;
@@ -57,6 +58,7 @@ final class AdminTest extends MockeryTestCase
             '\epiphyt\Impressum\Admin->ajax_notice_handler()'
         ));
         $this->assertSame(10, \has_filter('impressum_admin_tab', '\epiphyt\Impressum\Admin->register_plus_tab()'));
+        $this->assertSame(10, \has_filter('plugin_row_meta', [Admin::class, 'render_plugin_documentation_link'])); // phpcs:ignore Generic.Files.LineLength.TooLong
     }
 
     public function testGetInvalidFields(): void
@@ -145,6 +147,22 @@ final class AdminTest extends MockeryTestCase
         $this->assertFalse($admin->is_valid_imprint());
         $this->assertFalse($admin->is_valid_imprint());
         $this->assertTrue($admin->is_valid_imprint());
+    }
+
+    public function restRenderPluginDocumentationLink(): void
+    {
+        expect('get_plugin_data')->andReturn(['Version' => '1.0.0']);
+        $this->assertEqualsCanonicalizing(
+            ['input'],
+            Admin::render_options_page(['input'], '')
+        );
+        $this->assertEqualsCanonicalizing(
+            [
+                'input',
+                '<a href="https://docs.epiph.yt/impressum/?version=1.0.0" target="_blank" rel="noopener noreferrer">Documentation</a>', // phpcs:ignore Generic.Files.LineLength.TooLong
+            ],
+            Admin::render_options_page(['input'], 'impressum/impressum.php')
+        );
     }
 
     protected function tearDown(): void

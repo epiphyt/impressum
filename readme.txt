@@ -32,6 +32,14 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 
 [Buy now](https://epiph.yt/en/?add-to-cart=26)
 
+### Contribution
+
+Feel free to contribute. The code is available at [GitHub](https://github.com/epiphyt/impressum).
+
+### Documentation
+
+You can find the documentation for Impressum at [docs.epiph.yt](https://docs.epiph.yt/impressum/).
+
 
 == Installation ==
 

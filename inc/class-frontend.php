@@ -135,7 +135,8 @@ class Frontend {
 			// check block enabled fields
 			if ( ! empty( $attributes['enabledFields'] ) ) {
 				if (
-					(
+					! \in_array( 'all', $attributes['enabledFields'], true )
+					&& (
 						! isset( $field_data[ $field ]['custom_title'] )
 						|| ! \in_array( $field_data[ $field ]['custom_title'], $attributes['enabledFields'], true )
 					)

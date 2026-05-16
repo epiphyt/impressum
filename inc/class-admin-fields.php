@@ -26,6 +26,8 @@ class Admin_Fields {
 		/**
 		 * Fires after the checkbox field has been rendered.
 		 * 
+		 * @since	3.0.0
+		 * 
 		 * @param	string	$settings_name Settings group name
 		 * @param	array	$args Field arguments
 		 * @param	array	$options Settings of this settings group

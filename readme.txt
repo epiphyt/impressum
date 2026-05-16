@@ -3,7 +3,7 @@ Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 6.8
 Stable tag: 3.0.0-dev
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 8.1
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -197,3 +197,5 @@ Thanks [@pixolin](https://profiles.wordpress.org/pixolin) & [@zodiac1978](https:
 * Initial release
 
 == Upgrade Notice ==
+
+TODO

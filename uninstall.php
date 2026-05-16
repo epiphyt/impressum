@@ -12,6 +12,7 @@ if ( \is_plugin_active( 'impressum-plus/impressum-plus.php' ) ) {
 }
 
 $options = [
+	'dismissed-impressum_welcome_notice',
 	'impressum_imprint_options',
 ];
 

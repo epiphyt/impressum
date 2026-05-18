@@ -11,7 +11,9 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+      with:
+        persist-credentials: false
     # Run npm build
     - uses: bahmutov/npm-install@v1
     - name: npm build
@@ -31,14 +33,14 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - run: scp ${{ github.event.repository.name }}.zip ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_PATH_BASE }}/impressum-${{ github.ref_name }}.zip
     # Create artifacts
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: ${{ github.event.repository.name }}.zip
         path: ${{ github.event.repository.name }}.zip
     # Create release
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: ${{ github.event.repository.name }}.zip
         name: Release ${{ github.ref_name }}

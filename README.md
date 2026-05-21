@@ -47,4 +47,4 @@ For security related information, please consult the [security policy](SECURITY.
 
 ## License
 
-Embed Privacy is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.
+Impressum is free software, and is released under the terms of the GNU General Public License version 2 or (at your option) any later version. See [LICENSE.md](LICENSE.md) for complete license.

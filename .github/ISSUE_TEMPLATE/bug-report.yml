@@ -1,12 +1,12 @@
 name: Bug report
-description: Report a bug or provide information about problems you have with Embed Privacy
+description: Report a bug or provide information about problems you have with Impressum
 labels: [bug]
 type: Bug
 body:
   - type: textarea
     attributes:
       label: Bug/Problem
-      description: Please add a description of the bug/problem occuring in Embed Privacy.
+      description: Please add a description of the bug/problem occuring in Impressum.
     validations:
       required: true
   
@@ -24,7 +24,7 @@ body:
   - type: input
     attributes:
       label: Version
-      description: Please provide the version of Embed Privacy you’re using.
+      description: Please provide the version of Impressum you’re using.
     validations:
       required: true
   
@@ -39,9 +39,9 @@ body:
     attributes:
       label: Environment info
       description: |
-        Please list what Embed Privacy version you are using.
+        Please list what Impressum version you are using.
       placeholder: |
-        - WordPress version, Embed Privacy version, and active Theme you are using.
+        - WordPress version, Impressum version, and active Theme you are using.
         - Browser(s) are you seeing the problem on.
         - Device you are using and operating system (e.g. "Desktop with Windows 10", "iPhone with iOS 14", etc.).
     validations:

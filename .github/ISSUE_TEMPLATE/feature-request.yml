@@ -6,14 +6,14 @@ body:
   - type: textarea
     attributes:
       label: What feature are you requesting?
-      description: Please describe what feature you want to have in Embed Privacy in an upcoming version.
+      description: Please describe what feature you want to have in Impressum in an upcoming version.
     validations:
       required: true
   
   - type: textarea
     attributes:
       label: Why is this feature necessary?
-      description: Please provide information why your requested feature improves Embed Privacy.
+      description: Please provide information why your requested feature improves Impressum.
     validations:
       required: true
   

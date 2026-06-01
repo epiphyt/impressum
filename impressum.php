@@ -9,7 +9,7 @@ use epiphyt\Impressum\settings\Registry;
 Plugin Name:		Impressum
 Plugin URI:			https://wordpress.org/plugins/impressum/
 Description:		Simple Imprint Generator
-Version:			3.0.0
+Version:			3.0.1
 Requires at least:	6.8
 Requires PHP:		8.1
 Author:				Epiphyt
@@ -48,7 +48,7 @@ if ( ! \defined( 'EPI_IMPRESSUM_BASE' ) ) {
 
 \define( 'EPI_IMPRESSUM_FILE', \EPI_IMPRESSUM_BASE . \basename( __FILE__ ) );
 \define( 'EPI_IMPRESSUM_URL', \plugin_dir_url( \EPI_IMPRESSUM_FILE ) );
-\define( 'EPI_IMPRESSUM_VERSION', '3.0.0' );
+\define( 'EPI_IMPRESSUM_VERSION', '3.0.1' );
 
 /**
  * Autoload all necessary classes.

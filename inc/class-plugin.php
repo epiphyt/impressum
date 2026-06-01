@@ -54,10 +54,10 @@ final class Plugin {
 	/**
 	 * Activate the twice-daily cron.
 	 * 
-	 * @param	array	$value The value on updating option
-	 * @return	array The (untouched) value on updating option
+	 * @param	mixed	$value The value on updating option
+	 * @return	mixed The (untouched) value on updating option
 	 */
-	public function activate( array $value = [] ): array {
+	public function activate( mixed $value = [] ): mixed {
 		if ( ! \wp_next_scheduled( 'impressum_twice_daily_cron' ) ) {
 			\wp_schedule_event( \time(), 'twicedaily', 'impressum_twice_daily_cron' );
 		}

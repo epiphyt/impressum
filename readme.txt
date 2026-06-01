@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 6.8
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Tested up to: 7.0
 Requires PHP: 8.1
 License: GPL2
@@ -94,6 +94,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 3.0.1 =
+* Fixed: An error while activating the plugin
 
 = 3.0.0 =
 * Added: Sorting fields in the imprint block

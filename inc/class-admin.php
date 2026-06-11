@@ -380,12 +380,12 @@ final class Admin {
 			
 			<h2><?php \esc_html_e( 'Compare now', 'impressum' ); ?></h2>
 			<table class="wp-list-table widefat striped impressum__compare-table">
+				<thead>
+					<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
+					<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
+					<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
+				</thead>
 				<tbody>
-					<thead>
-						<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
-						<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
-						<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
-					</thead>
 					<tr>
 						<td><strong><?php \esc_html_e( 'Imprint Generator', 'impressum' ); ?></strong></td>
 						<td><span class="green"><?php \esc_html_e( 'Yes', 'impressum' ); ?></span></td>

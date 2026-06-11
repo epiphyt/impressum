@@ -1,6 +1,8 @@
 <?php
 namespace epiphyt\Impressum;
 
+use epiphyt\Impressum\settings\Setting;
+
 /**
  * Represents functions for the frontend in Impressum.
  * 
@@ -148,15 +150,17 @@ class Frontend {
 				}
 			}
 			
-			$field = \epiphyt\Impressum\get_container()->get( 'settings-registry' )->get_setting( 'impressum_imprint_options_' . $field );
+			/** @var ?\epiphyt\Impressum\settings\Setting $setting */
+			$setting = \epiphyt\Impressum\get_container()->get( 'settings-registry' )->get_setting( 'impressum_imprint_options_' . $field );
 			
 			// check whether the field should be displayed
 			if (
 				empty( $value )
+				|| ! $setting instanceof Setting
 				|| (
-					! empty( $field->get_data()['hide_output'] )
-					&& $field->get_data()['hide_output'] === true
-					&& ! \in_array( $field, $sections, true )
+					! empty( $setting->get_data()['hide_output'] )
+					&& $setting->get_data()['hide_output'] === true
+					&& ! \in_array( $setting->name, $sections, true )
 				)
 			) {
 				continue;
@@ -164,11 +168,11 @@ class Frontend {
 			
 			// special case for press law person, which should only be displayed
 			// if the checkbox is checked
-			if ( $field === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) {
+			if ( $setting->name === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) {
 				continue;
 			}
 			
-			$output .= $this->render_field( $field, $value, $attributes, $fields );
+			$output .= $this->render_field( $setting, $value, $attributes, $fields );
 		}
 		
 		$output .= $attributes['titles'] && $attributes['markup'] ? '</dl>' : '';

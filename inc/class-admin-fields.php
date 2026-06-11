@@ -230,7 +230,7 @@ class Admin_Fields {
 		
 		if ( $has_pages ) {
 			\wp_dropdown_pages( [
-				'id' => \esc_html( $args['label_for'] ),
+				'id' => \esc_attr( $args['label_for'] ),
 				'name' => \esc_attr( $settings_name ) . '[' . \esc_attr( $args['label_for'] . ']' ),
 				'post_status' => [ 'draft', 'publish' ],
 				'selected' => ( isset( $options[ $args['label_for'] ] ) ? \esc_html( $options[ $args['label_for'] ] ) : ( isset( $options['default'][ $args['label_for'] ] ) ? \esc_html( $options['default'][ $args['label_for'] ] ) : '' ) ),

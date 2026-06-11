@@ -561,7 +561,7 @@ final class Admin {
 			
 			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
 			
-			<form action="<?= \esc_html( $form_action ); ?>" method="post">
+			<form action="<?= \esc_url( $form_action ); ?>" method="post">
 				<input type="hidden" name="option_page" value="impressum_imprint" />
 				<input type="hidden" name="action" value="update" />
 				

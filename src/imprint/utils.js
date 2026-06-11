@@ -171,7 +171,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 						) }
 						{ className.includes( 'is-style-no-title' ) && (
 							<p key={ key }>
-								{ impressumImprintBlock.value.ke.value }
+								{ impressumImprintBlock.values[ key ].value }
 								{ impressumImprintBlock.values
 									.data_protection_officer_address.value && (
 									<br />

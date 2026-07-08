@@ -209,6 +209,7 @@ class Frontend {
 	 * @return	string The formatted field value
 	 */
 	private function render_field( \epiphyt\Impressum\settings\Setting $field, string $value, array $attributes, array $fields ): string {
+		$field_output = '';
 		$output = '';
 		$title = '';
 		
@@ -247,7 +248,9 @@ class Frontend {
 				$field_output = '<a href="mailto:' . \sanitize_email( $value ) . '">' . \esc_html( $value ) . '</a>';
 				break;
 			default:
-				$field_output = \nl2br( \esc_html( $value ) );
+				if ( ! empty( $value ) ) {
+					$field_output = \nl2br( \esc_html( $value ) );
+				}
 				break;
 		}
 		

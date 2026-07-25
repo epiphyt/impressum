@@ -5,7 +5,7 @@
 	"homepage": "https://epiph.yt/en/",
 	"license": "GPL-2.0-only",
 	"require": {
-		"php": "^5.6|^7.0|^8.0"
+		"php": "^8.1"
 	},
 	"support": {
 		"email": "hey.composer@epiph.yt",

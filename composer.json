@@ -31,7 +31,7 @@
 	"scripts": {
 		"phpcs": "phpcs -s .",
 		"phpstan": "phpstan analyse -v --memory-limit=2G",
-		"phpunit": "phpunit --process-isolation",
+		"phpunit": "phpunit",
 		"test": [
 			"@phpcs",
 			"@phpstan",

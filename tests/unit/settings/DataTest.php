@@ -7,6 +7,8 @@ namespace Tests\Unit\blocks;
 use epiphyt\Impressum\settings\Data;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function Brain\Monkey\Functions\stubEscapeFunctions;
 use function Brain\Monkey\Functions\stubs;
@@ -15,6 +17,8 @@ use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
 #[CoversClass(Data::class)]
+#[RunTestsInSeparateProcesses]
+#[PreserveGlobalState(false)]
 final class DataTest extends MockeryTestCase
 {
     protected function setUp(): void

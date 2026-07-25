@@ -11,6 +11,8 @@ use epiphyt\Impressum\settings\Setting;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function Brain\Monkey\Filters\expectApplied;
 use function Brain\Monkey\Functions\expect;
@@ -21,6 +23,8 @@ use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
 #[CoversClass(Admin::class)]
+#[RunTestsInSeparateProcesses]
+#[PreserveGlobalState(false)]
 final class AdminTest extends MockeryTestCase
 {
     protected function setUp(): void

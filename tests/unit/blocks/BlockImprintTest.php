@@ -8,6 +8,8 @@ namespace Tests\Unit\blocks {
     use epiphyt\Impressum\Frontend;
     use Mockery\Adapter\Phpunit\MockeryTestCase;
     use PHPUnit\Framework\Attributes\CoversClass;
+    use PHPUnit\Framework\Attributes\PreserveGlobalState;
+    use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
     use function Brain\Monkey\Functions\stubEscapeFunctions;
     use function Brain\Monkey\Functions\stubs;
@@ -16,6 +18,8 @@ namespace Tests\Unit\blocks {
     use function Brain\Monkey\tearDown;
 
     #[CoversClass(Block_Imprint::class)]
+    #[RunTestsInSeparateProcesses]
+    #[PreserveGlobalState(false)]
     final class BlockImprintTest extends MockeryTestCase
     {
         private static $containerMock;

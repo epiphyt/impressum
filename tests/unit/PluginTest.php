@@ -9,6 +9,8 @@ use epiphyt\Impressum\Plugin;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function Brain\Monkey\Filters\applied;
 use function Brain\Monkey\Filters\expectApplied;
@@ -20,6 +22,8 @@ use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
 #[CoversClass(Plugin::class)]
+#[RunTestsInSeparateProcesses]
+#[PreserveGlobalState(false)]
 final class PluginTest extends MockeryTestCase
 {
     protected function setUp(): void

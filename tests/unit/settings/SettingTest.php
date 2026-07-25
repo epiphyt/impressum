@@ -9,6 +9,8 @@ use epiphyt\Impressum\settings\Registry;
 use epiphyt\Impressum\settings\Setting;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Functions\stubEscapeFunctions;
@@ -18,6 +20,8 @@ use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
 #[CoversClass(Setting::class)]
+#[RunTestsInSeparateProcesses]
+#[PreserveGlobalState(false)]
 final class SettingTest extends MockeryTestCase
 {
     protected function setUp(): void

@@ -29,7 +29,7 @@ final class Admin {
 	/**
 	 * Admin constructor.
 	 * 
-	 * @param	\epiphyt\Impressum\settings\Registry		$settings_registry Settings registry
+	 * @param	\epiphyt\Impressum\settings\Registry	$settings_registry Settings registry
 	 */
 	public function __construct( Registry $settings_registry ) {
 		$this->settings_registry = $settings_registry;
@@ -610,8 +610,8 @@ final class Admin {
 	/**
 	 * Add plugin meta links.
 	 * 
-	 * @param	array	$input Registered links.
-	 * @param	string	$file  Current plugin file.
+	 * @param	array	$input Registered links
+	 * @param	string	$file Current plugin file
 	 * @return	array Merged links
 	 */
 	public static function render_plugin_documentation_link( array $input, string $file ): array {

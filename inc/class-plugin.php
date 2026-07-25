@@ -36,7 +36,7 @@ final class Plugin {
 	/**
 	 * Impressum constructor.
 	 * 
-	 * @param	\epiphyt\Impressum\settings\Registry		$settings_registry Settings registry
+	 * @param	\epiphyt\Impressum\settings\Registry	$settings_registry Settings registry
 	 */
 	public function __construct( Registry $settings_registry ) {
 		$this->settings_registry = $settings_registry;

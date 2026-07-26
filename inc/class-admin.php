@@ -86,7 +86,14 @@ final class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version );
+			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version, [
+				'in_footer' => true,
+				'strategy' => 'defer',
+			] );
+			\wp_localize_script( 'impressum-dismissible-notice', 'imprintNotice', [
+				'ajaxUrl' => \admin_url( 'admin-ajax.php' ),
+				'nonce' => \wp_create_nonce( 'impressum_dismiss_notice' ),
+			] );
 		}
 		
 		// check for settings page

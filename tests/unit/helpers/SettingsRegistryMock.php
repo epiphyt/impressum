@@ -110,6 +110,10 @@ $setting_page
     ->andReturn(true);
 $setting_page
     ->shouldReceive('get_data')
+    ->with('setting_callback')
+    ->andReturn('page');
+$setting_page
+    ->shouldReceive('get_data')
     ->with('title')
     ->andReturn('Imprint Page');
 $setting_page
@@ -120,6 +124,10 @@ $setting_country
     ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(true);
+$setting_country
+    ->shouldReceive('get_data')
+    ->with('setting_callback')
+    ->andReturn('country');
 $setting_country
     ->shouldReceive('get_data')
     ->with('title')

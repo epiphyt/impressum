@@ -31,6 +31,9 @@ final class DataTest extends MockeryTestCase
             'add_shortcode' => '__return_null',
             'register_activation_hook' => '__return_null',
             'register_deactivation_hook' => '__return_null',
+            'sanitize_email' => static fn ($value) => $value,
+            'sanitize_text_field' => static fn ($value) => $value,
+            'sanitize_textarea_field' => static fn ($value) => $value,
         ]);
     }
 

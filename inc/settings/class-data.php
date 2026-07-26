@@ -60,12 +60,40 @@ final class Data {
 			return [];
 		}
 		
-		foreach ( \array_keys( $value ) as $option_name ) {
+		foreach ( $value as $option_name => $option_value ) {
 			if ( ! isset( $settings[ "{$option}_{$option_name}" ] ) ) {
 				unset( $value[ $option_name ] );
+				
+				continue;
 			}
+			
+			$value[ $option_name ] = $this->sanitize_value( $settings[ "{$option}_{$option_name}" ], $option_value );
 		}
 		
 		return $value;
+	}
+	
+	/**
+	 * Sanitize a single setting value depending on its field type.
+	 * 
+	 * @param	\epiphyt\Impressum\settings\Setting	$setting Setting the value belongs to
+	 * @param	mixed								$value Value to sanitize
+	 * @return	mixed Sanitized value
+	 */
+	private function sanitize_value( Setting $setting, mixed $value ): mixed {
+		if ( \is_array( $value ) ) {
+			return \map_deep( $value, 'sanitize_text_field' );
+		}
+		
+		// leave non-string scalars (booleans, integers) untouched
+		if ( ! \is_string( $value ) ) {
+			return $value;
+		}
+		
+		return match ( $setting->get_data( 'setting_callback' ) ) {
+			'email' => \sanitize_email( $value ),
+			'textarea' => \sanitize_textarea_field( $value ),
+			default => \sanitize_text_field( $value ),
+		};
 	}
 }

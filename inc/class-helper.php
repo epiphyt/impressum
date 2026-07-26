@@ -10,6 +10,16 @@ namespace epiphyt\Impressum;
  */
 class Helper {
 	/**
+	 * @var		bool Whether the option cache invalidation hooks are registered
+	 */
+	private static bool $cache_hooks_registered = false;
+	
+	/**
+	 * @var		array<string, mixed> Memoized option values, keyed by option name
+	 */
+	private static array $options = [];
+	
+	/**
 	 * Print out the settings fields for a particular settings section.
 	 * 
 	 * Part of the Settings API. Use this in a settings page to output
@@ -121,6 +131,37 @@ class Helper {
 	 * @return	mixed Option value
 	 */
 	public static function get_option( string $option, bool $useless = false ): mixed { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
-		return \get_option( $option );
+		self::register_cache_hooks();
+		
+		if ( ! \array_key_exists( $option, self::$options ) ) {
+			self::$options[ $option ] = \get_option( $option );
+		}
+		
+		return self::$options[ $option ];
+	}
+	
+	/**
+	 * Invalidate a memoized option value.
+	 * Hooked to option write actions so the memo never serves stale data.
+	 * 
+	 * @param	string	$option Name of the option that changed
+	 */
+	public static function clear_option_cache( string $option ): void {
+		unset( self::$options[ $option ] );
+	}
+	
+	/**
+	 * Register the option cache invalidation hooks once.
+	 */
+	private static function register_cache_hooks(): void {
+		if ( self::$cache_hooks_registered ) {
+			return;
+		}
+		
+		self::$cache_hooks_registered = true;
+		
+		foreach ( [ 'added_option', 'deleted_option', 'updated_option' ] as $hook ) {
+			\add_action( $hook, [ self::class, 'clear_option_cache' ] );
+		}
 	}
 }

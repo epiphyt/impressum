@@ -45,6 +45,29 @@ final class HelperTest extends MockeryTestCase
         $this->assertFalse(Helper::get_option('impressum_field_data', true));
     }
 
+    public function testGetOptionMemoizesValue(): void
+    {
+        // get_option() must only hit the database once for repeated reads.
+        expect('get_option')
+            ->once()
+            ->with('impressum_field_data')
+            ->andReturn(['field' => 'data']);
+        $this->assertSame(['field' => 'data'], Helper::get_option('impressum_field_data'));
+        $this->assertSame(['field' => 'data'], Helper::get_option('impressum_field_data'));
+    }
+
+    public function testClearOptionCacheForcesReload(): void
+    {
+        // After invalidation, the next read hits the database again.
+        expect('get_option')
+            ->twice()
+            ->with('impressum_field_data')
+            ->andReturn(['field' => 'old'], ['field' => 'new']);
+        $this->assertSame(['field' => 'old'], Helper::get_option('impressum_field_data'));
+        Helper::clear_option_cache('impressum_field_data');
+        $this->assertSame(['field' => 'new'], Helper::get_option('impressum_field_data'));
+    }
+
     protected function tearDown(): void
     {
         tearDown();

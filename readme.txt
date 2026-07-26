@@ -95,6 +95,17 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.0.2 =
+* Added: Capability and nonce checks for notice dismiss functionality
+* Added: Sanitize setting values
+* Added: Additional unit tests
+* Improved: Overall plugin performance
+* Fixed: Missing output escaping in certain occasions
+* Fixed: Invalid HTML in certain backend occasions
+* Fixed: Output of data protection officer without field title
+* Fixed: Some smaller bugs and edge cases
+* Fixed: Removing orphaned data on uninstallation
+
 = 3.0.1 =
 * Fixed: An error while activating the plugin
 

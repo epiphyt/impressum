@@ -6,6 +6,10 @@ if ( ! \defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	die;
 }
 
+if ( ! \function_exists( 'is_plugin_active' ) ) {
+	require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
 // do nothing if Impressum Plus is also installed
 if ( \is_plugin_active( 'impressum-plus/impressum-plus.php' ) ) {
 	return;

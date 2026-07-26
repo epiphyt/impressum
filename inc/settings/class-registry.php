@@ -31,6 +31,11 @@ final class Registry {
 	private array $settings = [];
 	
 	/**
+	 * @var		array<string, \epiphyt\Impressum\settings\Setting[]> Settings memoized per type
+	 */
+	private array $settings_by_type = [];
+	
+	/**
 	 * Settings registry constructor.
 	 * 
 	 * @param	\epiphyt\Impressum\Helper	$helper Helper class
@@ -69,15 +74,19 @@ final class Registry {
 			return $this->settings;
 		}
 		
-		$settings = $this->settings;
-		
-		foreach ( $settings as $key => $setting ) {
-			if ( $setting->get_data( 'type' ) !== $type ) {
-				unset( $settings[ $key ] );
+		if ( ! isset( $this->settings_by_type[ $type ] ) ) {
+			$settings = [];
+			
+			foreach ( $this->settings as $key => $setting ) {
+				if ( $setting->get_data( 'type' ) === $type ) {
+					$settings[ $key ] = $setting;
+				}
 			}
+			
+			$this->settings_by_type[ $type ] = $settings;
 		}
 		
-		return $settings;
+		return $this->settings_by_type[ $type ];
 	}
 	
 	/**
@@ -90,6 +99,7 @@ final class Registry {
 		$setting = new Setting( $setting_name, $setting_data, $this->helper );
 		$key = \sprintf( '%1$s_%2$s', $setting->type, $setting->name );
 		$this->settings[ $key ] = $setting;
+		unset( $this->settings_by_type[ $setting->type ] );
 		
 		if ( ! \in_array( $setting->type, $this->setting_types, true ) ) {
 			$this->setting_types[] = $setting->type;

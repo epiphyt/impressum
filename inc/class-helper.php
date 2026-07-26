@@ -58,7 +58,7 @@ class Helper {
 				echo '<label for="' . \esc_attr( $field['args']['label_for'] ) . '">' . \esc_html( $title ) . '</label></th>';
 			}
 			else {
-				echo '<th scope="row">' . $field['title'] . '</th>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<th scope="row">' . \esc_html( $field['title'] ) . '</th>';
 			}
 			
 			echo '<td>';

@@ -58,13 +58,25 @@ final class Admin {
 			return;
 		}
 		
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+		if ( ! \current_user_can( 'manage_options' ) ) {
+			\wp_send_json_error();
+		}
+		
+		\check_ajax_referer( 'impressum_dismiss_notice', 'nonce' );
+		
 		if ( ! isset( $_POST['type'] ) ) {
 			\wp_send_json_error();
 		}
 		
-		$type = \esc_attr( \sanitize_text_field( \wp_unslash( $_POST['type'] ) ) );
-		// phpcs:enable
+		$type = \sanitize_text_field( \wp_unslash( $_POST['type'] ) );
+		$allowed_types = [
+			'impressum_validation_notice',
+			'impressum_welcome_notice',
+		];
+		
+		if ( ! \in_array( $type, $allowed_types, true ) ) {
+			\wp_send_json_error();
+		}
 		
 		if ( \update_option( 'dismissed-' . $type, true ) ) {
 			\wp_send_json_success();
@@ -234,7 +246,10 @@ final class Admin {
 	 * Add a warning notice if the current imprint is not valid yet.
 	 */
 	public function invalid_notice(): void {
-		if ( \apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true ) {
+		if (
+			\apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true
+			|| ! \current_user_can( 'manage_options' )
+		) {
 			return;
 		}
 		

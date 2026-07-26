@@ -222,20 +222,17 @@ class Admin_Fields {
 		
 		$settings_name = self::get_settings_name( $args );
 		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
-		$has_pages = (bool) \get_posts( [
-			'posts_per_page' => 1,
+		$dropdown = \wp_dropdown_pages( [
+			'echo' => 0,
+			'id' => \esc_attr( $args['label_for'] ),
+			'name' => \esc_attr( $settings_name ) . '[' . \esc_attr( $args['label_for'] . ']' ),
 			'post_status' => [ 'draft', 'publish' ],
-			'post_type' => 'page',
+			'selected' => ( isset( $options[ $args['label_for'] ] ) ? \esc_html( $options[ $args['label_for'] ] ) : ( isset( $options['default'][ $args['label_for'] ] ) ? \esc_html( $options['default'][ $args['label_for'] ] ) : '' ) ),
+			'show_option_none' => \esc_html__( '— Select —', 'impressum' ),
 		] );
 		
-		if ( $has_pages ) {
-			\wp_dropdown_pages( [
-				'id' => \esc_attr( $args['label_for'] ),
-				'name' => \esc_attr( $settings_name ) . '[' . \esc_attr( $args['label_for'] . ']' ),
-				'post_status' => [ 'draft', 'publish' ],
-				'selected' => ( isset( $options[ $args['label_for'] ] ) ? \esc_html( $options[ $args['label_for'] ] ) : ( isset( $options['default'][ $args['label_for'] ] ) ? \esc_html( $options['default'][ $args['label_for'] ] ) : '' ) ),
-				'show_option_none' => \esc_html__( '— Select —', 'impressum' ),
-			] );
+		if ( ! empty( $dropdown ) ) {
+			echo $dropdown; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 		else {
 			echo '<p>' . \esc_html__( 'There are no pages. Please create a page first.', 'impressum' ) . '</p>';

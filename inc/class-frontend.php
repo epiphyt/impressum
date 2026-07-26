@@ -85,6 +85,8 @@ class Frontend {
 				if ( isset( $flipped[ $a ] ) && isset( $flipped[ $b ] ) ) {
 					return $flipped[ $a ] < $flipped[ $b ] ? -1 : 1;
 				}
+				
+				return 0;
 			} );
 		}
 		

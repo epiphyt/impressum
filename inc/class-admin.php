@@ -383,7 +383,7 @@ final class Admin {
 		\ob_start();
 		?>
 		<div class="nav-tab-content" id="nav-tab-content-get_plus">
-			<h3><?php \esc_html_e( 'Get an imprint for your company website!', 'impressum' ); ?></h3>
+			<h2><?php \esc_html_e( 'Get an imprint for your company website!', 'impressum' ); ?></h2>
 			<p>
 				<?php
 				/* translators: 1: plugin name, 2: commercial plugin name */
@@ -396,7 +396,7 @@ final class Admin {
 				\printf( \esc_html__( 'For a small fee, %s will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
 				?>
 			</p>
-			<h3><?php \esc_html_e( 'Go Plus to support development', 'impressum' ); ?></h3>
+			<h2><?php \esc_html_e( 'Go Plus to support development', 'impressum' ); ?></h2>
 			<p>
 				<?php
 				/* translators: commercial plugin name */
@@ -477,8 +477,8 @@ final class Admin {
 						<td><br></td>
 						<td></td>
 						<td>
-							<a href="<?= \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?> <span class="screen-reader-text"><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></span></a>
-							<a href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?> <span class="screen-reader-text"><?= \esc_html_x( 'about Impressum Plus', 'more information about the plugin', 'impressum' ); ?></span></a>
+							<a href="<?= \esc_url( \__( 'https://epiph.yt/en/?add-to-cart=26', 'impressum' ) ); ?>" class="button button-primary"><?php \esc_html_e( 'Purchase', 'impressum' ); ?></a>
+							<a href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'More information', 'impressum' ); ?></a>
 						</td>
 					</tr>
 				</tbody>
@@ -535,10 +535,10 @@ final class Admin {
 			// (sections are registered for "impressum", each field is registered to a specific section)
 			Helper::do_settings_sections( 'impressum_imprint' );
 			?>
-			<h3><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h3>
+			<h2><?php \esc_html_e( 'Disclaimer', 'impressum' ); ?></h2>
 			<p><?php \esc_html_e( 'Please keep in mind that this plugin does not guarantee any legal compliance. You are responsible for the data you enter here. This plugin helps you to fill all necessary fields.', 'impressum' ); ?></p>
 			
-			<h3><?php \esc_html_e( 'Usage', 'impressum' ); ?></h3>
+			<h2><?php \esc_html_e( 'Usage', 'impressum' ); ?></h2>
 			<p><?php \esc_html_e( 'There are two methods available on how to output the imprint:', 'impressum' ); ?></p>
 			<ul class="impressum__regular-list">
 				<li><?php \esc_html_e( 'Add the "Imprint" block in your block editor wherever you want to output your imprint. It works everywhere the block editor is supported.', 'impressum' ); ?></li>

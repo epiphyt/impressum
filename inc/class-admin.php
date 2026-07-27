@@ -414,9 +414,11 @@ final class Admin {
 			<h2><?php \esc_html_e( 'Compare now', 'impressum' ); ?></h2>
 			<table class="wp-list-table widefat striped impressum__compare-table">
 				<thead>
-					<th><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
-					<th><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
-					<th><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
+					<tr>
+						<th scope="col"><strong><?php \esc_html_e( 'Feature', 'impressum' ); ?></strong></th>
+						<th scope="col"><strong><?php \esc_html_e( 'Impressum', 'impressum' ); ?></strong></th>
+						<th scope="col"><strong><?php \esc_html_e( 'Impressum Plus', 'impressum' ); ?></strong></th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr>

@@ -414,6 +414,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	 */
 	function toggleMessage( hideMessage, container, text ) {
 		var noticeElement = container.nextElementSibling;
+		var noticeId = ( container.id || 'impressum-field' ) + '-message';
 
 		if (
 			! hideMessage &&
@@ -424,18 +425,30 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			var notice = document.createElement( 'div' );
 
 			message.innerText = text;
+			notice.id = noticeId;
+			notice.setAttribute( 'role', 'alert' );
 			notice.style.maxWidth = '436px';
 			notice.classList.add( 'notice' );
 			notice.classList.add( 'inline' ); // prevent moving the notice below the headline
 			notice.classList.add( 'notice-warning' );
 			notice.appendChild( message );
 			container.after( notice );
+
+			// associate the message with its field for assistive technology
+			container.setAttribute( 'aria-invalid', 'true' );
+			container.setAttribute( 'aria-describedby', noticeId );
 		} else if ( hideMessage ) {
 			if (
 				noticeElement !== null &&
 				noticeElement.classList.contains( 'notice' )
 			) {
 				noticeElement.remove();
+			}
+
+			container.removeAttribute( 'aria-invalid' );
+
+			if ( container.getAttribute( 'aria-describedby' ) === noticeId ) {
+				container.removeAttribute( 'aria-describedby' );
 			}
 		}
 	}

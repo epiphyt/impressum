@@ -100,6 +100,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Added: Sanitize setting values
 * Added: Additional unit tests
 * Improved: Overall plugin performance
+* Improved: Admin accessibility (correct heading structure, autocomplete attributes for input fields and alert roles for validation notices)
 * Fixed: Missing output escaping in certain occasions
 * Fixed: Invalid HTML in certain backend occasions
 * Fixed: Output of data protection officer without field title

@@ -396,6 +396,12 @@ final class Admin {
 				\printf( \esc_html__( 'For a small fee, %s will provide you with the same seamless user experience as the free version. But in addition to the free versions features it will also cover a load of different legal entities and their quite diverse need for imprint data.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
 				?>
 			</p>
+			<p>
+				<?php
+				/* translators: commercial plugin name */
+				\printf( \esc_html__( 'Additionally, %s comes with additional generators for managing the privacy policy and accessibility information.', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+				?>
+			</p>
 			<h2><?php \esc_html_e( 'Go Plus to support development', 'impressum' ); ?></h2>
 			<p>
 				<?php

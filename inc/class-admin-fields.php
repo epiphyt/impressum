@@ -86,7 +86,7 @@ class Admin_Fields {
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
-		<input type="email" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="email" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder . self::get_autocomplete_attribute( $args ); ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -100,6 +100,18 @@ class Admin_Fields {
 		 * This action is described in inc/class-admin-fields.php
 		 */
 		\do_action( "impressum_option_description_{$args['label_for']}", $settings_name, $args, $options );
+	}
+	
+	/**
+	 * Get the autocomplete attribute markup for a field.
+	 * 
+	 * @since	3.0.2
+	 * 
+	 * @param	array	$args Field arguments
+	 * @return	string The autocomplete attribute markup, or an empty string
+	 */
+	private static function get_autocomplete_attribute( array $args ): string {
+		return ! empty( $args['autocomplete'] ) ? ' autocomplete="' . \esc_attr( $args['autocomplete'] ) . '"' : '';
 	}
 	
 	/**
@@ -192,7 +204,7 @@ class Admin_Fields {
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
-		<input type="text" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="text" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder . self::get_autocomplete_attribute( $args ); ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -263,7 +275,7 @@ class Admin_Fields {
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_attr( $options['default'][ $args['label_for'] ] ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? ' value="' . \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) . '"' : '' );
 		?>
-		<input type="tel" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder; ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<input type="tel" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]" class="regular-text"<?= $value . $placeholder . self::get_autocomplete_attribute( $args ); ?>><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';
@@ -324,7 +336,7 @@ class Admin_Fields {
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_html( \str_replace( "\r\n", ', ', $options['default'][ $args['label_for'] ] ) ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) : '' );
 		?>
-		<textarea cols="50" rows="10" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder; ?>><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<textarea cols="50" rows="10" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder . self::get_autocomplete_attribute( $args ); ?>><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';

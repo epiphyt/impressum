@@ -178,6 +178,7 @@ final class Plugin {
 					'type' => 'string',
 				],
 				'args' => [
+					'autocomplete' => 'name',
 					'class' => 'impressum_row',
 					'label_for' => 'name',
 					'required' => true,
@@ -194,6 +195,7 @@ final class Plugin {
 					'type' => 'string',
 				],
 				'args' => [
+					'autocomplete' => 'street-address',
 					'class' => 'impressum_row',
 					'label_for' => 'address',
 					'required' => true,
@@ -210,6 +212,7 @@ final class Plugin {
 					'type' => 'string',
 				],
 				'args' => [
+					'autocomplete' => 'street-address',
 					'class' => 'impressum_row',
 					'label_for' => 'address_alternative',
 					'required' => false,
@@ -227,6 +230,7 @@ final class Plugin {
 					'type' => 'string',
 				],
 				'args' => [
+					'autocomplete' => 'email',
 					'class' => 'impressum_row',
 					'label_for' => 'email',
 					'required' => true,
@@ -243,6 +247,7 @@ final class Plugin {
 					'type' => 'string',
 				],
 				'args' => [
+					'autocomplete' => 'tel',
 					'class' => 'impressum_row',
 					'label_for' => 'phone',
 					'required' => false,

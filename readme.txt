@@ -2,8 +2,8 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 6.8
-Stable tag: 3.0.1
-Tested up to: 7.0
+Stable tag: 3.0.2
+Tested up to: 7.1
 Requires PHP: 8.1
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,11 +14,11 @@ Impressum provides you with a full-fledged easy to use imprint generator right w
 
 Impressum adds a full-fledged and easy to use imprint generator in your WordPress dashboard. Once setup, Impressum takes care of your legal notices. Once legal requirements change, Impressum will update your legal content either on its own or asks for your help if the changes can't be made automatically. Your imprint is generated right within WordPress, so your personal information won't be sent to a third party server.
 
-### Impressum Plus
+= Impressum Plus =
 
 Impressum Plus is the pro version of Impressum, which not only adds support for a wide variety of additional legal entities, but also provides a modular privacy policy and the opportunity to update your data via an extensive REST API endpoint.
 
-#### All features of Impressum Plus
+== All features of Impressum Plus ==
 
 * Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, GbR, GesbR, gGmbH, GmbH, GmbH & Co. KG, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
 * a feature rich and automated Privacy Policy generator
@@ -32,11 +32,11 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 
 [Buy now](https://epiph.yt/en/?add-to-cart=26)
 
-### Contribution
+= Contribution =
 
 Feel free to contribute. The code is available at [GitHub](https://github.com/epiphyt/impressum).
 
-### Documentation
+= Documentation =
 
 You can find the documentation for Impressum at [docs.epiph.yt](https://docs.epiph.yt/impressum/).
 
@@ -79,9 +79,15 @@ No. Impressum keeps all your data inside your own WordPress install. There is no
 
 Yes. Since version 2.0.0 there is a block "Imprint" for this exact purpose.
 
+= Is Impressum accessible? =
+
+Yes. During development, I test each feature against the Web Content Accessibility Guidelines (WCAG). You can find the [Accessibility Conformance Report](https://docs.epiph.yt/impressum/acr/free.html) in the documentation.
+
+If you find an issue, please don't hesitate to contact me via the support forums or via my [contact page](https://epiph.yt/en/contact/).
+
 = Who are you folks? =
 
-We are [Epiphyt](https://epiph.yt/en/), your friendly neighborhood WordPress plugin shop from southern Germany.
+[Epiphyt](https://epiph.yt/en/) is your friendly neighborhood WordPress plugin shop from southern Germany.
 
 = How can I report security bugs? =
 

@@ -335,8 +335,9 @@ class Admin_Fields {
 		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
 		$placeholder = ( ! empty( $options['default'][ $args['label_for'] ] ) && ! \is_network_admin() ? ' placeholder="' . \esc_html( \str_replace( "\r\n", ', ', $options['default'][ $args['label_for'] ] ) ) . '"' : '' );
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) : '' );
+		$rows = ! empty( $args['rows'] ) && \is_int( $args['rows'] ) ? $args['rows'] : 10;
 		?>
-		<textarea cols="50" rows="10" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder . self::get_autocomplete_attribute( $args ); ?>><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<textarea cols="50" rows="<?= \esc_attr( $rows ) ?>" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder . self::get_autocomplete_attribute( $args ); ?>><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';

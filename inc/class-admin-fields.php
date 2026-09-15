@@ -337,7 +337,7 @@ class Admin_Fields {
 		$value = ( isset( $options[ $args['label_for'] ] ) ? \esc_attr( ( $options[ $args['label_for'] ] ?? ( $options['default'][ $args['label_for'] ] ?? '' ) ) ) : '' );
 		$rows = ! empty( $args['rows'] ) && \is_int( $args['rows'] ) ? $args['rows'] : 10;
 		?>
-		<textarea rows="<?= \esc_attr( $rows ) ?>" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder . self::get_autocomplete_attribute( $args ); ?> class="large-text"><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<textarea rows="<?= \esc_attr( (string) $rows ) ?>" id="<?= \esc_attr( $args['label_for'] ); ?>" name="<?= \esc_attr( $settings_name ); ?>[<?= \esc_attr( $args['label_for'] ); ?>]"<?= $placeholder . self::get_autocomplete_attribute( $args ); ?> class="large-text"><?= $value; ?></textarea><?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		<?php
 		if ( ! empty( $args['description'] ) ) {
 			echo '<p class="description impressum__description">' . \esc_html( $args['description'] ) . '</p>';

@@ -184,7 +184,7 @@ final class Plugin {
 					'required' => true,
 					'setting' => 'impressum_imprint_options',
 				],
-				'callback' => 'text',
+				'callback' => 'textarea',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Name', 'impressum' ),

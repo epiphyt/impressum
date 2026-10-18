@@ -1,0 +1,104 @@
+.settings_page_impressum {
+	#wpcontent:not(:has(.impressum__is-legacy)) {
+		padding-left: 0;
+	}
+}
+
+.impressum__header-container {
+	background-color: #fff;
+	padding: .33em 20px;
+	text-align: center;
+}
+
+.impressum-settings-root {
+	.impressum-settings__rename {
+		margin-inline-start: 0.25em;
+		vertical-align: middle;
+	}
+	
+	.impressum-settings__control-wrapper {
+		align-items: center;
+		display: flex;
+		gap: .5em;
+	}
+	
+	.components-notice {
+		margin: .5em 0 0;
+	}
+	
+	.components-tab-panel__tab-content {
+		padding-block-start: 1em;
+	}
+	
+	.form-table th {
+		padding-inline-start: 0;
+	}
+}
+
+.impressum-settings-root__fallback {
+	background-color: #fff;
+	border-block-end: 1px solid #dcdcde;
+	margin: 0 20px;
+	padding: 1em 0;
+	text-align: center;
+}
+
+.impressum-settings__tabs {
+	.components-tab-panel__tabs {
+		--wpds-color-foreground-interactive-neutral-active: rgb(23.6923076923, 58.1538461538, 214.3076923077);
+		background-color: #fff;
+		border-block-end: 1px solid #dcdcde;
+		justify-content: center;
+		margin-block-end: 1em;
+		
+		.components-tab-panel__tabs-item.is-active {
+			--wpds-color-stroke-interactive-neutral-strong: #3582c4;
+			font-weight: 600;
+			
+			&::after {
+				height: calc(2 * var(--wpds-border-width-focus, var(--wp-admin-border-width-focus, 2px)));
+				
+			}
+		}
+	}
+}
+
+.impressum-settings__legacy-tab,
+.impressum-settings__section {
+	margin-inline: auto;
+	padding-inline: 12px;
+	
+	> .submit {
+		margin-block-start: 0;
+	}
+}
+
+.impressum-settings__snackbars {
+	bottom: 20px;
+	inset-inline-start: 180px;
+	position: fixed;
+	z-index: 100000;
+	
+	.components-snackbar {
+		max-width: 600px;
+	}
+}
+
+.folded .impressum-settings__snackbars {
+	inset-inline-start: 56px;
+}
+
+@media (max-width: 960px) {
+	.auto-fold .impressum-settings__snackbars {
+		inset-inline-start: 56px;
+	}
+}
+
+@media (max-width: 782px) {
+	.impressum-settings__snackbars,
+	.folded .impressum-settings__snackbars,
+	.auto-fold .impressum-settings__snackbars {
+		inset-inline-end: 12px;
+		inset-inline-start: 12px;
+	}
+}

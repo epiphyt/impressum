@@ -21,7 +21,7 @@ final class Setting {
 	private ?\epiphyt\Impressum\Helper $helper = null;
 	
 	/**
-	 * @var		array{data_type: array{enum?: string[], type?: string}, description: string, hide_output: bool, setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string} Setting data 
+	 * @var		array{conditions: mixed[], data_type: array{enum?: string[], type?: string}, description: string, field_title: ?string, hide_output: bool, network_supported: bool, notices: mixed[], setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string, validation: mixed[]} Setting data
 	 */
 	public array $data = [];
 	
@@ -58,7 +58,7 @@ final class Setting {
 	 * Get the setting's data
 	 * 
 	 * @param	string	$key Optional setting key to get the data from
-	 * @return	array{custom_title?: string, data_type: array{enum?: string[], type?: string}, description: string, hide_output: bool, setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string}|mixed Setting data
+	 * @return	array{conditions: mixed[], custom_title?: string, data_type: array{enum?: string[], type?: string}, description: string, field_title: ?string, hide_output: bool, network_supported: bool, notices: mixed[], setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string, validation: mixed[]}|mixed Setting data
 	 */
 	public function get_data( string $key = '' ): mixed {
 		if ( empty( $key ) ) {
@@ -109,21 +109,26 @@ final class Setting {
 	 * Migrate old data to current structure.
 	 * 
 	 * @param	mixed[]	$data Old data format
-	 * @return	array{data_type: array{enum?: string[], type?: string}, description: string, hide_output: bool, setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string} New data format
+	 * @return	array{conditions: mixed[], data_type: array{enum?: string[], type?: string}, description: string, field_title: ?string, hide_output: bool, network_supported: bool, notices: mixed[], setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string, validation: mixed[]} New data format
 	 */
 	private function migrate_old_data( array $data ): array {
 		$field_data = Helper::get_option( 'impressum_field_data', ! \is_network_admin() );
 		$settings_data = [
+			'conditions' => $data['conditions'] ?? [],
 			'custom_title' => $field_data[ $this->name ]['name'] ?? null,
 			'data_type' => [],
 			'description' => $data['api']['description'] ?? '',
+			'field_title' => $data['field_title'] ?? null,
 			'hide_output' => $data['no_output'] ?? false,
+			'network_supported' => $data['network_supported'] ?? true,
+			'notices' => $data['notices'] ?? [],
 			'setting_attributes' => $data['args'] ?? [],
 			'setting_callback' => $data['callback'] ?? null,
 			'setting_page' => $data['page'] ?? '',
 			'setting_section' => $data['section'] ?? '',
 			'title' => $data['title'] ?? '',
 			'type' => $data['option'] ?? ( $data['args']['setting'] ?? 'impressum_imprint_options' ),
+			'validation' => $data['validation'] ?? [],
 		];
 		
 		if ( isset( $data['api']['enum'] ) ) {

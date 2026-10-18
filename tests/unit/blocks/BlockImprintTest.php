@@ -36,6 +36,7 @@ namespace Tests\Unit\blocks {
             'register_deactivation_hook' => '__return_null',
             ]);
             self::$containerMock = \Mockery::mock('Container');
+            $GLOBALS['impressum_test_container'] = self::$containerMock;
         }
 
         public static function getMockContainer()
@@ -92,13 +93,5 @@ namespace Tests\Unit\blocks {
             tearDown();
             parent::tearDown();
         }
-    }
-}
-
-namespace epiphyt\Impressum {
-
-    function get_container()
-    {
-        return \Tests\Unit\blocks\BlockImprintTest::getMockContainer();
     }
 }

@@ -24,8 +24,20 @@ const scssFiles = {
 };
 
 module.exports = [
-	// blocks
-	{ ...defaultConfig },
+	// blocks and the settings app
+	{
+		...defaultConfig,
+		// the default entry is a function, and block.json scanning replaces the
+		// src/index.* fallback, so the settings app has to be added explicitly
+		entry: () => ( {
+			...defaultConfig.entry(),
+			'settings/index': path.resolve(
+				process.cwd(),
+				'src/settings',
+				'index.js'
+			),
+		} ),
+	},
 	// JavaScript minification
 	{
 		mode,

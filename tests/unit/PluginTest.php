@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use epiphyt\Impressum\Helper;
 use epiphyt\Impressum\Plugin;
+use epiphyt\Impressum\settings\Validator;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -82,84 +83,98 @@ final class PluginTest extends MockeryTestCase
             [
                 'page' => [
                     'custom_title' => 'Imprint Page',
+                    'field_title' => null,
                     'hide_output' => true,
                     'title' => 'Imprint Page',
                     'value' => '',
                 ],
                 'country' => [
                     'custom_title' => 'Country',
+                    'field_title' => null,
                     'hide_output' => true,
                     'title' => 'Country',
                     'value' => '',
                 ],
                 'legal_entity' => [
                     'custom_title' => 'Legal Entity',
+                    'field_title' => null,
                     'hide_output' => true,
                     'title' => 'Legal Entity',
                     'value' => '',
                 ],
                 'name' => [
                     'custom_title' => 'Name',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Name',
                     'value' => '',
                 ],
                 'address' => [
                     'custom_title' => 'Address',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Address',
                     'value' => '',
                 ],
                 'address_alternative' => [
                     'custom_title' => 'Alternative Address',
+                    'field_title' => 'Address',
                     'hide_output' => false,
                     'title' => 'Address',
                     'value' => '',
                 ],
                 'email' => [
                     'custom_title' => 'Email Address',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Email Address',
                     'value' => '',
                 ],
                 'phone' => [
                     'custom_title' => 'Phone',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Phone',
                     'value' => '',
                 ],
                 'contact_form_page' => [
                     'custom_title' => 'Contact Form Page',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Contact Form Page',
                     'value' => '',
                 ],
                 'fax' => [
                     'custom_title' => 'Fax',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Fax',
                     'value' => '',
                 ],
                 'press_law_checkbox' => [
                     'custom_title' => 'Journalistic/Editorial Content',
+                    'field_title' => null,
                     'hide_output' => true,
                     'title' => 'Journalistic/Editorial Content',
                     'value' => '',
                 ],
                 'press_law_person' => [
                     'custom_title' => 'Responsible for content',
+                    'field_title' => null,
                     'hide_output' => true,
                     'title' => 'Responsible for content',
                     'value' => '',
                 ],
                 'vat_id' => [
                     'custom_title' => 'VAT ID',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'VAT ID',
                     'value' => '',
                 ],
                 'business_id' => [
                     'custom_title' => 'Business ID',
+                    'field_title' => null,
                     'hide_output' => false,
                     'title' => 'Business ID',
                     'value' => '',
@@ -455,6 +470,58 @@ final class PluginTest extends MockeryTestCase
         $this->assertTrue(applied('impressum_country_pre_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_after_sort') === 1);
         $this->assertTrue(applied('impressum_legal_entity_pre_sort') === 1);
+    }
+
+    public function testBusinessOrVatIdNoticeIsConditionalOnBothBeingEmpty(): void
+    {
+        $plugin = $this->getInstantiatedClass();
+        $plugin->load_textdomain();
+        $plugin->load_settings();
+
+        foreach (['business_id', 'vat_id'] as $name) {
+            $conditions = $plugin->settings_fields[$name]['notices'][0]['when']['all'];
+            $checked = array_column($conditions, 'operator', 'field');
+
+            $this->assertSame('in', $checked['country']);
+            $this->assertSame('empty', $checked['business_id']);
+            $this->assertSame('empty', $checked['vat_id']);
+        }
+    }
+
+    public function testLegalEntityPlusNoticeOnlyAppliesToSelectedPlusEntities(): void
+    {
+        $plugin = $this->getInstantiatedClass();
+        $plugin->load_textdomain();
+        $plugin->load_settings();
+        $condition = $plugin->settings_fields['legal_entity']['notices'][0]['when'];
+        // evaluating a condition doesn't need the registry
+        $validator = (new \ReflectionClass(Validator::class))->newInstanceWithoutConstructor();
+
+        $this->assertFalse($validator->evaluate($condition, []));
+        $this->assertFalse($validator->evaluate($condition, ['legal_entity' => '']));
+        $this->assertFalse($validator->evaluate($condition, ['legal_entity' => 'individual']));
+        $this->assertFalse($validator->evaluate($condition, ['legal_entity' => 'self']));
+        $this->assertTrue($validator->evaluate($condition, ['legal_entity' => 'ag']));
+    }
+
+    public function testValidationPatternsMatchTheLegacyScript(): void
+    {
+        // the settings app compiles these with RegExp, so they have to stay
+        // literally identical to the ones the legacy script used
+        $plugin = $this->getInstantiatedClass();
+        $plugin->load_textdomain();
+        $plugin->load_settings();
+        $script = \file_get_contents(__DIR__ . '/../../assets/js/admin-options.js');
+
+        $this->assertIsString($script);
+        $this->assertStringContainsString(
+            $plugin->settings_fields['vat_id']['validation']['pattern'],
+            $script
+        );
+        $this->assertStringContainsString(
+            $plugin->settings_fields['business_id']['validation']['pattern'],
+            $script
+        );
     }
 
     protected function tearDown(): void

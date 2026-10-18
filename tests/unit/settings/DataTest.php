@@ -13,6 +13,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use function Brain\Monkey\Functions\stubEscapeFunctions;
 use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\Functions\stubTranslationFunctions;
+use function Brain\Monkey\Functions\when;
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
@@ -29,6 +30,7 @@ final class DataTest extends MockeryTestCase
         stubTranslationFunctions();
         stubs([
             'add_shortcode' => '__return_null',
+            'is_multisite' => false,
             'register_activation_hook' => '__return_null',
             'register_deactivation_hook' => '__return_null',
             'sanitize_email' => static fn ($value) => $value,
@@ -57,6 +59,36 @@ final class DataTest extends MockeryTestCase
             10,
             \has_filter(
                 'pre_update_option_impressum_imprint_options',
+                '\epiphyt\Impressum\settings\Data->sanitize_update_option()'
+            )
+        );
+    }
+
+    public function testRegisterFiltersSkipsSiteOptionFilterOnSingleSite(): void
+    {
+        $settings_registry = include __DIR__ . '/../helpers/SettingsRegistryMock.php';
+        $settings_data = new Data($settings_registry);
+        $settings_data->register_filters();
+        $this->assertFalse(
+            \has_filter(
+                'pre_update_site_option_impressum_imprint_options',
+                '\epiphyt\Impressum\settings\Data->sanitize_update_option()'
+            )
+        );
+    }
+
+    public function testRegisterFiltersAddsSiteOptionFilterOnMultisite(): void
+    {
+        // network writes go through pre_update_site_option_* and need the same sanitizing
+        when('is_multisite')->justReturn(true);
+
+        $settings_registry = include __DIR__ . '/../helpers/SettingsRegistryMock.php';
+        $settings_data = new Data($settings_registry);
+        $settings_data->register_filters();
+        $this->assertSame(
+            10,
+            \has_filter(
+                'pre_update_site_option_impressum_imprint_options',
                 '\epiphyt\Impressum\settings\Data->sanitize_update_option()'
             )
         );

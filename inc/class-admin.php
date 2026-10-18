@@ -1,7 +1,10 @@
 <?php
+declare(strict_types = 1);
+
 namespace epiphyt\Impressum;
 
 use epiphyt\Impressum\settings\Registry;
+use epiphyt\Impressum\settings\Validator;
 
 /**
  * Represents functions for the admin in Impressum.
@@ -27,12 +30,19 @@ final class Admin {
 	public ?\epiphyt\Impressum\settings\Registry $settings_registry = null;
 	
 	/**
+	 * @var		?\epiphyt\Impressum\settings\Validator Settings validator
+	 */
+	public ?\epiphyt\Impressum\settings\Validator $settings_validator = null;
+	
+	/**
 	 * Admin constructor.
 	 * 
 	 * @param	\epiphyt\Impressum\settings\Registry	$settings_registry Settings registry
+	 * @param	\epiphyt\Impressum\settings\Validator	$settings_validator Settings validator
 	 */
-	public function __construct( Registry $settings_registry ) {
+	public function __construct( Registry $settings_registry, Validator $settings_validator ) {
 		$this->settings_registry = $settings_registry;
+		$this->settings_validator = $settings_validator;
 	}
 	
 	/**
@@ -42,11 +52,12 @@ final class Admin {
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		\add_action( 'admin_init', [ $this, 'init_settings' ] );
 		\add_action( 'admin_menu', [ $this, 'register_options_page' ] );
-		\add_action( 'admin_notices', [ $this, 'invalid_notice' ] );
-		\add_action( 'admin_notices', [ $this, 'welcome_notice' ] );
+		\add_action( 'admin_notices', [ $this, 'render_invalid_notice' ] );
 		\add_action( 'update_option_impressum_imprint_options', [ $this, 'reset_invalid_notice' ] );
 		\add_action( 'wp_ajax_impressum_dismissed_notice_handler', [ $this, 'ajax_notice_handler' ] );
 		\add_filter( 'impressum_admin_tab', [ $this, 'register_plus_tab' ] );
+		// must run last, after every option specific filter
+		\add_filter( 'pre_update_option', [ $this, 'keep_omitted_option' ], \PHP_INT_MAX, 3 );
 		\add_filter( 'plugin_row_meta', [ self::class, 'render_plugin_documentation_link' ], 10, 2 );
 	}
 	
@@ -113,20 +124,23 @@ final class Admin {
 			return;
 		}
 		
-		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js';
+		$asset_file = \EPI_IMPRESSUM_BASE . 'build/settings/index.asset.php';
 		
-		if ( \file_exists( $file_path ) ) {
-			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+		if ( \file_exists( $asset_file ) ) {
+			$asset = require $asset_file;
 			
-			\wp_enqueue_script( 'impressum-admin-options', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-options' . $suffix . '.js', [], $file_version );
-		}
-		
-		$file_path = \EPI_IMPRESSUM_BASE . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js';
-		
-		if ( \file_exists( $file_path ) ) {
-			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
+			// must stay in the footer, so that the settings payload can still be
+			// attached while the page is rendered
+			\wp_enqueue_script( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/index.js', $asset['dependencies'], $asset['version'], [
+				'in_footer' => true,
+			] );
+			\wp_set_script_translations( 'impressum-settings', 'impressum' );
 			
-			\wp_enqueue_script( 'impressum-admin-tabs', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'admin-tabs' . $suffix . '.js', [], $file_version );
+			$style_path = \EPI_IMPRESSUM_BASE . 'build/settings/style-index.css';
+			
+			if ( \file_exists( $style_path ) ) {
+				\wp_enqueue_style( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/style-index.css', [ 'wp-components' ], $asset['version'] );
+			}
 		}
 		
 		$file_path = \EPI_IMPRESSUM_BASE . 'assets/style/build/style' . $suffix . '.css';
@@ -136,20 +150,6 @@ final class Admin {
 			
 			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . 'assets/style/build/style' . $suffix . '.css', [], $file_version );
 		}
-		
-		// prepare for translation
-		\wp_localize_script( 'impressum-admin-options', 'imprintL10n', [
-			'addressErrorMessage' => \esc_html__( 'You need to enter an address.', 'impressum' ),
-			'businessIdErrorMessage' => \esc_html__( 'The entered value is not valid. Please use a valid format for your business ID.', 'impressum' ),
-			'businessIdOrVatIdMessage' => \esc_html__( 'Either the business ID or the VAT ID have to be set, if one of them is available.', 'impressum' ),
-			'contactFormPageErrorMessage' => \esc_html__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
-			'countryErrorMessage' => \esc_html__( 'You need to select a country.', 'impressum' ),
-			'emailErrorMessage' => \esc_html__( 'You need to enter an email address.', 'impressum' ),
-			'legalEntityErrorMessage' => \esc_html__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),
-			'nameErrorMessage' => \esc_html__( 'You need to enter a name.', 'impressum' ),
-			'phoneErrorMessage' => \esc_html__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
-			'vatIdErrorMessage' => \esc_html__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
-		] );
 	}
 	
 	/**
@@ -167,10 +167,7 @@ final class Admin {
 	 * @return	array A list of invalid fields
 	 */
 	public function get_invalid_fields(): array {
-		$invalid_fields = [];
 		$options = Helper::get_option( 'impressum_imprint_options', true );
-		$settings = $this->settings_registry->get_settings( 'impressum_imprint_options' );
-		$settings_prefix = 'impressum_imprint_options_';
 		
 		// get defaults
 		if ( ! isset( $options['legal_entity'] ) ) {
@@ -183,116 +180,18 @@ final class Admin {
 			$options['legal_entity'] = 'individual';
 		}
 		
-		$required_fields = [
-			'address',
-			'email',
-			'name',
-		];
-		
-		/**
-		 * Filter required fields.
-		 * 
-		 * @since	2.1.0
-		 * 
-		 * @param	string[]	$required_fields List of required fields
-		 * @param	array		$options Imprint options
-		 */
-		$required_fields = (array) \apply_filters( 'impressum_required_fields', $required_fields, $options );
-		
-		foreach ( $required_fields as $field ) {
-			if ( ! \is_array( $options ) || ! \array_key_exists( $field, $options ) || empty( $options[ $field ] ) ) {
-				if ( ! isset( $settings[ $settings_prefix . $field ] ) ) {
-					continue;
-				}
-				
-				$invalid_fields[ $field ] = $settings[ $settings_prefix . $field ]->get_title();
-			}
-		}
-		
-		// special case for phone and contact_form_page
-		if (
-			empty( $options['phone'] )
-			&& empty( $options['contact_form_page'] )
-			&& isset( $settings[ $settings_prefix . 'phone' ] )
-			&& isset( $settings[ $settings_prefix . 'contact_form_page' ] )
-		) {
-			$invalid_fields['phone_contact_form'] = \sprintf(
-				/* translators: 1: a field title, 2: a field title */
-				\__( '%1$s or %2$s', 'impressum' ),
-				$settings[ $settings_prefix . 'phone' ]->get_title(),
-				$settings[ $settings_prefix . 'contact_form_page' ]->get_title()
-			);
-		}
-		
-		// special case for VAT ID
-		if ( ! isset( $invalid_fields['vat_id'] ) && isset( $settings[ $settings_prefix . 'vat_id' ] ) ) {
-			$regex = '/^(|ATU[0-9]{8}|BE0[0-9]{9}|BG[0-9]{9,10}|CY[0-9]{8}L|CZ[0-9]{8,10}|DE[0-9]{9}|DK[0-9]{8}|EE[0-9]{9}|(EL|GR)[0-9]{9}|ES[0-9A-Z][0-9]{7}[0-9A-Z]|FI[0-9]{8}|FR[0-9A-Z]{2}[0-9]{9}|GB([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|HU[0-9]{8}|IE[0-9]S[0-9]{5}L|IT[0-9]{11}|LT([0-9]{9}|[0-9]{12})|LU[0-9]{8}|LV[0-9]{11}|MT[0-9]{8}|NL[0-9\+\*]{9}B[0-9]{2}|PL[0-9]{10}|PT[0-9]{9}|RO[0-9]{2,10}|SE[0-9]{12}|SI[0-9]{8}|SK[0-9]{10})$/';
-			
-			if ( ! empty( $options['vat_id'] ) && ! \preg_match( $regex, $options['vat_id'] ) ) {
-				$invalid_fields['vat_id'] = $settings[ $settings_prefix . 'vat_id' ]->get_title();
-			}
-		}
-		
-		// special case for business ID
-		if ( ! isset( $invalid_fields['business_id'] ) && isset( $settings[ $settings_prefix . 'business_id' ] ) ) {
-			$regex = '/^(|(DE)?[0-9]{9}\-[0-9]{5})$/';
-			
-			if ( ! empty( $options['business_id'] ) && ! \preg_match( $regex, $options['business_id'] ) ) {
-				$invalid_fields['business_id'] = $settings[ $settings_prefix . 'business_id' ]->get_title();
-			}
-		}
-		
-		\asort( $invalid_fields, \SORT_NATURAL );
-		
-		return $invalid_fields;
+		return $this->settings_validator->get_errors( 'impressum_imprint_options', (array) $options );
 	}
 	
 	/**
 	 * Add a warning notice if the current imprint is not valid yet.
+	 * 
+	 * @deprecated	3.1.0 Use epiphyt\Impressum\Admin::render_invalid_notice() instead
 	 */
 	public function invalid_notice(): void {
-		if (
-			\apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true
-			|| ! \current_user_can( 'manage_options' )
-		) {
-			return;
-		}
+		\_deprecated_function( __METHOD__, '3.1.0', 'epiphyt\Impressum\Admin::render_invalid_notice()' );
 		
-		global $pagenow;
-		
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
-		// hide invalid notice on impressum options|settings page
-		if (
-			(
-				$pagenow === 'options-general.php'
-				|| $pagenow === 'settings.php'
-			)
-			&& isset( $_GET['page'] )
-			&& $_GET['page'] === 'impressum'
-		) {
-			return;
-		}
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
-		
-		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) :
-		$invalid_fields = $this->get_invalid_fields();
-		?>
-		<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
-			<p>
-				<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
-				<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
-			</p>
-			<?php if ( ! empty( $invalid_fields ) ) : ?>
-			<p>
-				<?php
-				\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
-				echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
-				?>
-			</p>
-			<?php endif; ?>
-		</div>
-		<?php
-		endif;
+		$this->render_invalid_notice();
 	}
 	
 	/**
@@ -316,21 +215,7 @@ final class Admin {
 			return false;
 		}
 		
-		$required_fields = [
-			'address',
-			'email',
-			'name',
-		];
-		
-		/**
-		 * Filter required fields.
-		 * 
-		 * @since	2.1.0
-		 * 
-		 * @param	string[]	$required_fields List of required fields
-		 * @param	array		$options Imprint options
-		 */
-		$required_fields = (array) \apply_filters( 'impressum_required_fields', $required_fields, $options );
+		$required_fields = $this->settings_validator->get_required_fields( 'impressum_imprint_options', $options );
 		
 		foreach ( $required_fields as $required_field ) {
 			if ( empty( $options[ $required_field ] ) ) {
@@ -338,7 +223,7 @@ final class Admin {
 			}
 		}
 		
-		$is_valid = ! ( empty( $options['phone'] ) && empty( $options['contact_form_page'] ) );
+		$is_valid = $this->settings_validator->get_pair_errors( 'impressum_imprint_options', $options ) === [];
 		
 		/**
 		 * Filter whether the imprint fields are valid.
@@ -351,6 +236,55 @@ final class Admin {
 		$is_valid = \apply_filters( 'impressum_is_valid_imprint', $is_valid, $options );
 		
 		return $is_valid;
+	}
+	
+	/**
+	 * Keep an option the classic settings form did not submit.
+	 * 
+	 * The classic form is only submitted by tabs rendered as markup, which do
+	 * not contain the fields rendered by the settings app. options.php clears
+	 * every option of the option page that is missing in the request, so saving
+	 * such a tab would erase the imprint otherwise.
+	 * 
+	 * An option is missing as well if the submitted tab only contains unchecked
+	 * checkboxes of it, which is why the settings app lists every option the
+	 * submitted tab contains fields of.
+	 * 
+	 * @since	3.1.0
+	 * 
+	 * @param	mixed	$value New value
+	 * @param	string	$option Option name
+	 * @param	mixed	$old_value Old value
+	 * @return	mixed The new value, or the old value if the option has not been submitted
+	 */
+	public function keep_omitted_option( mixed $value, string $option, mixed $old_value ): mixed {
+		global $pagenow;
+		
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- verified by options.php before any option is updated
+		if (
+			$pagenow !== 'options.php'
+			|| ! isset( $_POST['option_page'] )
+			|| $_POST['option_page'] !== 'impressum_imprint'
+			|| isset( $_POST[ $option ] )
+		) {
+			return $value;
+		}
+		
+		$submitted_options = isset( $_POST['impressum_submitted_options'] ) ? \array_map( 'sanitize_text_field', (array) \wp_unslash( $_POST['impressum_submitted_options'] ) ) : [];
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+		
+		if ( \in_array( $option, $submitted_options, true ) ) {
+			return $value;
+		}
+		
+		if (
+			$option !== 'impressum_field_data'
+			&& ! \in_array( $option, $this->settings_registry->get_setting_types(), true )
+		) {
+			return $value;
+		}
+		
+		return $old_value;
 	}
 	
 	/**
@@ -508,10 +442,132 @@ final class Admin {
 	}
 	
 	/**
+	 * Render a warning notice if the current imprint is not valid yet.
+	 * 
+	 * @since	3.1.0
+	 */
+	public function render_invalid_notice(): void {
+		if (
+			\apply_filters( 'impressum_disabled_notice', self::$disabled_notice ) === true
+			|| ! \current_user_can( 'manage_options' )
+		) {
+			return;
+		}
+		
+		global $pagenow;
+		
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		// hide invalid notice on impressum options|settings page
+		if (
+			(
+				$pagenow === 'options-general.php'
+				|| $pagenow === 'settings.php'
+			)
+			&& isset( $_GET['page'] )
+			&& $_GET['page'] === 'impressum'
+		) {
+			return;
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		
+		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) :
+		$invalid_fields = $this->get_invalid_fields();
+		?>
+		<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
+			<p>
+				<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
+				<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
+			</p>
+			<?php if ( ! empty( $invalid_fields ) ) : ?>
+			<p>
+				<?php
+				\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
+				echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
+				?>
+			</p>
+			<?php endif; ?>
+		</div>
+		<?php
+		endif;
+	}
+	
+	/**
 	 * Sub menu item:
 	 * callback functions
 	 */
 	public static function render_options_page(): void {
+		if ( ! \current_user_can( \is_network_admin() ? 'manage_network_options' : 'manage_options' ) ) {
+			return;
+		}
+		
+		self::print_bootstrap_data();
+		?>
+		<div class="impressum-wrap">
+			<div class="impressum__header-container">
+				<?php \settings_errors( 'impressum_messages' ); ?>
+				<h1><?= \esc_html( \get_admin_page_title() ); ?></h1>
+			</div>
+
+			<div class="impressum-settings-root" id="impressum-settings-root">
+				<p class="impressum-settings-root__fallback"><?php \esc_html_e( 'Loading settings…', 'impressum' ); ?></p>
+			</div>
+		</div>
+		<?php
+	}
+	
+	/**
+	 * Print the settings payload the settings app is initialized with.
+	 * 
+	 * The payload is printed while the page is rendered rather than while the
+	 * assets are enqueued, since the settings API is only fully registered at
+	 * this point and the server side rendered markup depends on it. This works
+	 * because the script is registered for the footer.
+	 * 
+	 * @since	3.1.0
+	 */
+	private static function print_bootstrap_data(): void {
+		$is_network = \is_network_admin();
+		$default_tab = \apply_filters( 'impressum_admin_default_tab', 'imprint' );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$current_tab = isset( $_GET['imprint_tab'] ) ? \sanitize_text_field( \wp_unslash( $_GET['imprint_tab'] ) ) : $default_tab;
+		// phpcs:enable
+		$form_action = $is_network ? \network_admin_url( 'edit.php?action=impressum_imprint-options' ) : \admin_url( 'options.php' );
+		$referer = \remove_query_arg( '_wp_http_referer' );
+		
+		if ( $current_tab !== $default_tab ) {
+			$referer = \add_query_arg( 'imprint_tab', \rawurlencode( $current_tab ), $referer );
+		}
+		
+		$payload = \epiphyt\Impressum\get_container()->get( 'settings-schema' )->get_payload( [
+			'current_tab' => $current_tab,
+			'default_tab' => $default_tab,
+			'form_action' => $form_action,
+			'is_network' => $is_network,
+			'nonce' => \wp_create_nonce( 'impressum_imprint-options' ),
+			'option_page' => 'impressum_imprint',
+			'referer' => $referer,
+			'with_legacy' => true,
+		] );
+		$data = 'window.impressumSettings = ' . \wp_json_encode( $payload ) . ';';
+		
+		if ( \wp_script_is( 'impressum-settings', 'done' ) ) {
+			\wp_print_inline_script_tag( $data );
+			
+			return;
+		}
+		
+		\wp_add_inline_script( 'impressum-settings', $data, 'before' );
+	}
+	
+	/**
+	 * Sub menu item:
+	 * callback functions
+	 * 
+	 * @deprecated	3.1.0 The settings page is rendered by the settings app.
+	 */
+	public static function render_options_page_legacy(): void {
+		\_deprecated_function( __METHOD__, '3.1.0' );
+		
 		// check user capabilities
 		if ( ! \current_user_can( 'manage_options' ) ) {
 			return;
@@ -595,7 +651,7 @@ final class Admin {
 		 */
 		$tabs = \apply_filters( 'impressum_admin_tab', $tabs, $form_action, $current_tab );
 		?>
-		<div class="wrap impressum-wrap">
+		<div class="wrap impressum-wrap impressum__is-legacy">
 			<h1><?= \esc_html( \get_admin_page_title() ); ?></h1>
 			
 			<?php \do_action( 'impressum_settings_form_before', $form_action, $current_tab, $default_tab ); ?>
@@ -680,8 +736,12 @@ final class Admin {
 	
 	/**
 	 * Add a welcome notice.
+	 * 
+	 * @deprecated	3.1.0
 	 */
 	public function welcome_notice(): void {
+		\_deprecated_function( __METHOD__, '3.1.0' );
+		
 		global $pagenow;
 		
 		// hide invalid notice everywhere except on impressum options|settings page

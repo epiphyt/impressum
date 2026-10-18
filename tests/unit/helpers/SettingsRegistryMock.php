@@ -22,6 +22,22 @@ $setting_press_law_person = clone $setting;
 $setting_address->name = 'address';
 $setting_address
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_address
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_address
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['messages' => ['required' => 'required'], 'required' => true]);
+$setting_address
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_address
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(false);
 $setting_address
@@ -32,6 +48,22 @@ $setting_address
     ->shouldReceive('get_title')
     ->andReturn('Address');
 $setting_email->name = 'email';
+$setting_email
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_email
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_email
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['messages' => ['required' => 'required'], 'required' => true]);
+$setting_email
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
 $setting_email
     ->shouldReceive('get_data')
     ->with('hide_output')
@@ -46,6 +78,22 @@ $setting_email
 $setting_name->name = 'name';
 $setting_name
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_name
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_name
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['messages' => ['required' => 'required'], 'required' => true]);
+$setting_name
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_name
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(false);
 $setting_name
@@ -56,6 +104,27 @@ $setting_name
     ->shouldReceive('get_title')
     ->andReturn('Name');
 $setting_phone->name = 'phone';
+$setting_phone
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_phone
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_phone
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([
+        'client_only' => true,
+        'pair_key' => 'phone_contact_form',
+        'pair_title' => '%1$s or %2$s',
+        'pair_with' => 'contact_form_page',
+    ]);
+$setting_phone
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
 $setting_phone
     ->shouldReceive('get_data')
     ->with('hide_output')
@@ -70,6 +139,22 @@ $setting_phone
 $setting_contact_form_page->name = 'contact_form_page';
 $setting_contact_form_page
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_contact_form_page
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_contact_form_page
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['client_only' => true]);
+$setting_contact_form_page
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_contact_form_page
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(false);
 $setting_contact_form_page
@@ -80,6 +165,22 @@ $setting_contact_form_page
     ->shouldReceive('get_title')
     ->andReturn('Contact Form Page');
 $setting_vat_id->name = 'vat_id';
+$setting_vat_id
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_vat_id
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_vat_id
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['pattern' => '^(|ATU[0-9]{8}|BE0[0-9]{9}|BG[0-9]{9,10}|CY[0-9]{8}L|CZ[0-9]{8,10}|DE[0-9]{9}|DK[0-9]{8}|EE[0-9]{9}|(EL|GR)[0-9]{9}|ES[0-9A-Z][0-9]{7}[0-9A-Z]|FI[0-9]{8}|FR[0-9A-Z]{2}[0-9]{9}|GB([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|HU[0-9]{8}|IE[0-9]S[0-9]{5}L|IT[0-9]{11}|LT([0-9]{9}|[0-9]{12})|LU[0-9]{8}|LV[0-9]{11}|MT[0-9]{8}|NL[0-9+*]{9}B[0-9]{2}|PL[0-9]{10}|PT[0-9]{9}|RO[0-9]{2,10}|SE[0-9]{12}|SI[0-9]{8}|SK[0-9]{10})$']);
+$setting_vat_id
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
 $setting_vat_id
     ->shouldReceive('get_data')
     ->with('hide_output')
@@ -94,6 +195,22 @@ $setting_vat_id
 $setting_business_id->name = 'business_id';
 $setting_business_id
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_business_id
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_business_id
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['pattern' => '^(|DE[0-9]{9}-[0-9]{5})$']);
+$setting_business_id
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_business_id
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(false);
 $setting_business_id
@@ -104,6 +221,22 @@ $setting_business_id
     ->shouldReceive('get_title')
     ->andReturn('Business ID');
 $setting_page->name = 'page';
+$setting_page
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_page
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_page
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_page
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
 $setting_page
     ->shouldReceive('get_data')
     ->with('hide_output')
@@ -122,6 +255,22 @@ $setting_page
 $setting_country->name = 'country';
 $setting_country
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_country
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_country
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn(['client_only' => true, 'required' => true]);
+$setting_country
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_country
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(true);
 $setting_country
@@ -138,6 +287,22 @@ $setting_country
 $setting_legal_entity->name = 'legal_entity';
 $setting_legal_entity
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_legal_entity
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_legal_entity
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_legal_entity
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_legal_entity
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(true);
 $setting_legal_entity
@@ -148,6 +313,22 @@ $setting_legal_entity
     ->shouldReceive('get_title')
     ->andReturn('Legal Entity');
 $setting_address_alternative->name = 'address_alternative';
+$setting_address_alternative
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_address_alternative
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_address_alternative
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_address_alternative
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn('Address');
 $setting_address_alternative
     ->shouldReceive('get_data')
     ->with('hide_output')
@@ -162,6 +343,22 @@ $setting_address_alternative
 $setting_fax->name = 'fax';
 $setting_fax
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_fax
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_fax
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_fax
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_fax
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(false);
 $setting_fax
@@ -174,6 +371,22 @@ $setting_fax
 $setting_press_law_checkbox->name = 'press_law_checkbox';
 $setting_press_law_checkbox
     ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_press_law_checkbox
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_press_law_checkbox
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_press_law_checkbox
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
+$setting_press_law_checkbox
+    ->shouldReceive('get_data')
     ->with('hide_output')
     ->andReturn(true);
 $setting_press_law_checkbox
@@ -184,6 +397,22 @@ $setting_press_law_checkbox
     ->shouldReceive('get_title')
     ->andReturn('Journalistic/Editorial Content');
 $setting_press_law_person->name = 'press_law_person';
+$setting_press_law_person
+    ->shouldReceive('get_data')
+    ->with('conditions')
+    ->andReturn([]);
+$setting_press_law_person
+    ->shouldReceive('get_data')
+    ->with('notices')
+    ->andReturn([]);
+$setting_press_law_person
+    ->shouldReceive('get_data')
+    ->with('validation')
+    ->andReturn([]);
+$setting_press_law_person
+    ->shouldReceive('get_data')
+    ->with('field_title')
+    ->andReturn(null);
 $setting_press_law_person
     ->shouldReceive('get_data')
     ->with('hide_output')

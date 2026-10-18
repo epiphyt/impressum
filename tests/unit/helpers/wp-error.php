@@ -16,11 +16,29 @@ if (!\class_exists('WP_Error')) {
          */
         private array $errors = [];
 
-        public function __construct(string $code = '', string $message = '')
+        /**
+         * @var array<string, mixed>
+         */
+        private array $error_data = [];
+
+        public function __construct(string $code = '', string $message = '', mixed $data = '')
         {
             if ($code !== '') {
                 $this->errors[$code][] = $message;
+
+                if ($data !== '') {
+                    $this->error_data[$code] = $data;
+                }
             }
+        }
+
+        public function get_error_data(string $code = ''): mixed
+        {
+            if ($code === '') {
+                $code = $this->get_error_code();
+            }
+
+            return $this->error_data[$code] ?? null;
         }
 
         public function get_error_code(): string

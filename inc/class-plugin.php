@@ -79,7 +79,7 @@ final class Plugin {
 	 * Get all fields from an option with their title.
 	 * 
 	 * @param	string	$option_name The name of the option
-	 * @return	array{array{custom_title: string, hide_output: bool, title: string, value: mixed}} The fields
+	 * @return	array{array{custom_title: string, field_title: ?string, hide_output: bool, title: string, value: mixed}} The fields
 	 */
 	public function get_block_fields( string $option_name ): array {
 		$fields = [];
@@ -88,6 +88,7 @@ final class Plugin {
 		foreach ( $settings as $field ) {
 			$fields[ $field->name ] = [
 				'custom_title' => $field->get_title(),
+				'field_title' => $field->get_data( 'field_title' ),
 				'hide_output' => $field->get_data( 'hide_output' ),
 				'title' => $field->get_data( 'title' ),
 				'value' => $field->get_value( true ),
@@ -119,6 +120,36 @@ final class Plugin {
 	 * Load our settings in an array.
 	 */
 	public function load_settings(): void {
+		// fields that only apply to German imprints
+		$german_only = [
+			'all' => [
+				[
+					'field' => 'country',
+					'operator' => 'in',
+					'value' => [ 'de-de', 'deu' ],
+				],
+			],
+		];
+		$business_or_vat_id_notice = [
+			'id' => 'business-or-vat-id',
+			'status' => 'warning',
+			'text' => \__( 'Either the business ID or the VAT ID have to be set, if one of them is available.', 'impressum' ),
+			'when' => [
+				'all' => \array_merge(
+					$german_only['all'],
+					[
+						[
+							'field' => 'business_id',
+							'operator' => 'empty',
+						],
+						[
+							'field' => 'vat_id',
+							'operator' => 'empty',
+						],
+					]
+				),
+			],
+		];
 		$this->settings_fields = [ // phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 			'page' => [
 				'api' => [
@@ -153,6 +184,14 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Country', 'impressum' ),
+				'validation' => [
+					// the country has never been enforced server side
+					'client_only' => true,
+					'messages' => [
+						'required' => \__( 'You need to select a country.', 'impressum' ),
+					],
+					'required' => true,
+				],
 			],
 			'legal_entity' => [
 				'api' => [
@@ -167,6 +206,26 @@ final class Plugin {
 					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'legal_entity',
+				'notices' => [
+					[
+						'id' => 'legal-entity-plus',
+						'status' => 'warning',
+						'text' => \__( 'The Free version doesn’t contain the needed features for your selection. If your legal entity is not “Individual” or “Self-employed”, you need to purchase the Plus version.', 'impressum' ),
+						'when' => [
+							'all' => [
+								[
+									'field' => 'legal_entity',
+									'operator' => 'not_empty',
+								],
+								[
+									'field' => 'legal_entity',
+									'operator' => 'not_in',
+									'value' => [ 'individual', 'self' ],
+								],
+							],
+						],
+					],
+				],
 				'no_output' => true,
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
@@ -189,6 +248,12 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Name', 'impressum' ),
+				'validation' => [
+					'messages' => [
+						'required' => \__( 'You need to enter a name.', 'impressum' ),
+					],
+					'required' => true,
+				],
 			],
 			'address' => [
 				'api' => [
@@ -207,6 +272,12 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Address', 'impressum' ),
+				'validation' => [
+					'messages' => [
+						'required' => \__( 'You need to enter an address.', 'impressum' ),
+					],
+					'required' => true,
+				],
 			],
 			'address_alternative' => [
 				'api' => [
@@ -243,6 +314,12 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Email Address', 'impressum' ),
+				'validation' => [
+					'messages' => [
+						'required' => \__( 'You need to enter an email address.', 'impressum' ),
+					],
+					'required' => true,
+				],
 			],
 			'phone' => [
 				'api' => [
@@ -260,6 +337,25 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Phone', 'impressum' ),
+				'validation' => [
+					// server side this pair is reported as a single combined error, not per field
+					'client_only' => true,
+					'messages' => [
+						'required' => \__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
+					],
+					'pair_key' => 'phone_contact_form',
+					/* translators: 1: a field title, 2: a field title */
+					'pair_title' => \__( '%1$s or %2$s', 'impressum' ),
+					'pair_with' => 'contact_form_page',
+					'required_unless' => [
+						'any' => [
+							[
+								'field' => 'contact_form_page',
+								'operator' => 'not_empty',
+							],
+						],
+					],
+				],
 			],
 			'contact_form_page' => [
 				'api' => [
@@ -278,6 +374,21 @@ final class Plugin {
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Contact Form Page', 'impressum' ),
+				'validation' => [
+					// the combined error is declared on the phone field
+					'client_only' => true,
+					'messages' => [
+						'required' => \__( 'You need to enter a phone number or a contact form page.', 'impressum' ),
+					],
+					'required_unless' => [
+						'any' => [
+							[
+								'field' => 'phone',
+								'operator' => 'not_empty',
+							],
+						],
+					],
+				],
 			],
 			'fax' => [
 				'api' => [
@@ -308,6 +419,9 @@ final class Plugin {
 					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'checkbox',
+				'conditions' => [
+					'visible' => $german_only,
+				],
 				'no_output' => true,
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
@@ -326,6 +440,21 @@ final class Plugin {
 					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'textarea',
+				'conditions' => [
+					'visible' => [
+						'all' => [
+							[
+								'field' => 'country',
+								'operator' => 'in',
+								'value' => [ 'de-de', 'deu' ],
+							],
+							[
+								'field' => 'press_law_checkbox',
+								'operator' => 'truthy',
+							],
+						],
+					],
+				],
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Responsible for content', 'impressum' ),
@@ -343,9 +472,19 @@ final class Plugin {
 					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'text',
+				'notices' => [
+					$business_or_vat_id_notice,
+				],
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'VAT ID', 'impressum' ),
+				'validation' => [
+					'messages' => [
+						'pattern' => \__( 'The entered value is not valid. Please use a valid format for your VAT ID.', 'impressum' ),
+					],
+					'pattern' => '^(|ATU[0-9]{8}|BE0[0-9]{9}|BG[0-9]{9,10}|CY[0-9]{8}L|CZ[0-9]{8,10}|DE[0-9]{9}|DK[0-9]{8}|EE[0-9]{9}|(EL|GR)[0-9]{9}|ES[0-9A-Z][0-9]{7}[0-9A-Z]|FI[0-9]{8}|FR[0-9A-Z]{2}[0-9]{9}|GB([0-9]{9}([0-9]{3})?|[A-Z]{2}[0-9]{3})|HU[0-9]{8}|IE[0-9]S[0-9]{5}L|IT[0-9]{11}|LT([0-9]{9}|[0-9]{12})|LU[0-9]{8}|LV[0-9]{11}|MT[0-9]{8}|NL[0-9+*]{9}B[0-9]{2}|PL[0-9]{10}|PT[0-9]{9}|RO[0-9]{2,10}|SE[0-9]{12}|SI[0-9]{8}|SK[0-9]{10})$',
+					'sanitize_pattern' => '[^A-Za-z0-9*+]+',
+				],
 			],
 			'business_id' => [
 				'api' => [
@@ -360,10 +499,23 @@ final class Plugin {
 					'setting' => 'impressum_imprint_options',
 				],
 				'callback' => 'text',
+				'conditions' => [
+					'visible' => $german_only,
+				],
+				'notices' => [
+					$business_or_vat_id_notice,
+				],
 				'option' => 'impressum_imprint_options',
 				'page' => 'impressum_imprint',
 				'section' => 'impressum_section_imprint',
 				'title' => \__( 'Business ID', 'impressum' ),
+				'validation' => [
+					'messages' => [
+						'pattern' => \__( 'The entered value is not valid. Please use a valid format for your business ID.', 'impressum' ),
+					],
+					'pattern' => '^(|DE[0-9]{9}-[0-9]{5})$',
+					'sanitize_pattern' => '[^A-Za-z0-9*+\-]+',
+				],
 			],
 		];
 		

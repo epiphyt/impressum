@@ -65,7 +65,8 @@ final class SchemaTest extends MockeryTestCase
         foreach ($definitions as $name => $definition) {
             $setting = clone $base;
             $setting->name = $name;
-            $setting->type = 'impressum_imprint_options';
+            $setting->type = $definition['type'] ?? 'impressum_imprint_options';
+            unset($definition['type']);
 
             $data = $definition + [
                 'conditions' => [],
@@ -94,7 +95,7 @@ final class SchemaTest extends MockeryTestCase
             $setting
                 ->shouldReceive('get_title')
                 ->andReturn($data['title']);
-            $settings['impressum_imprint_options_' . $name] = $setting;
+            $settings[$setting->type . '_' . $name] = $setting;
         }
 
         $registry = Mockery::mock('alias:' . Registry::class);
@@ -187,6 +188,25 @@ final class SchemaTest extends MockeryTestCase
     {
         $payload = $this->buildSchema(['vat_id' => []])->get_payload();
         $this->assertArrayHasKey('impressum_imprint_options_vat_id', $payload['fields']);
+    }
+
+    public function testCustomTitlesAreOnlySupportedForImprintFields(): void
+    {
+        $GLOBALS['new_allowed_options'] = ['impressum_imprint' => ['impressum_field_data']];
+        $fields = $this->buildSchema([
+            'name' => [],
+            'usage' => ['type' => 'impressum_privacy_options'],
+        ])->get_payload()['fields'];
+
+        $this->assertTrue($fields['impressum_imprint_options_name']['supportsCustomTitle']);
+        $this->assertFalse($fields['impressum_privacy_options_usage']['supportsCustomTitle']);
+    }
+
+    public function testCustomTitlesAreNotSupportedWithoutWritableFieldData(): void
+    {
+        $field = $this->getField($this->buildSchema(['name' => []]), 'name');
+
+        $this->assertFalse($field['supportsCustomTitle']);
     }
 
     public function testSettingCallbackBecomesTheFieldType(): void

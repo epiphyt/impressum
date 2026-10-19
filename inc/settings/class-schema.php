@@ -524,7 +524,7 @@ final class Schema {
 	/**
 	 * Get the full settings payload.
 	 * 
-	 * @param	array{current_tab?: string, default_tab?: string, form_action?: string, group?: string, is_network?: bool, with_legacy?: bool, with_pages?: bool}	$args Payload arguments
+	 * @param	array{current_tab?: string, default_tab?: string, form_action?: string, group?: string, is_network?: bool, nonce?: string, option_page?: string, referer?: string, with_legacy?: bool, with_pages?: bool}	$args Payload arguments
 	 * @return	mixed[] Settings payload
 	 */
 	public function get_payload( array $args = [] ): array {

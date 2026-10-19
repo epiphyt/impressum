@@ -138,7 +138,7 @@ function get_container(): Plugin_Container {
 		$container->set(
 			'settings-legacy-renderer',
 			static function(): Legacy_Renderer {
-				return new Legacy_Renderer( \epiphyt\Impressum\get_container()->get( 'settings-registry' ) );
+				return new Legacy_Renderer();
 			}
 		);
 		$container->set(

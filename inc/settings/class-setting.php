@@ -21,9 +21,9 @@ final class Setting {
 	private ?\epiphyt\Impressum\Helper $helper = null;
 	
 	/**
-	 * @var		array{conditions: mixed[], data_type: array{enum?: string[], type?: string}, description: string, field_title: ?string, hide_output: bool, network_supported: bool, notices: mixed[], setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string, validation: mixed[]} Setting data
+	 * @var		array{conditions: mixed[], custom_title?: string, data_type: array{enum?: string[], type?: string}, description: string, field_title: ?string, hide_output: bool, network_supported: bool, notices: mixed[], setting_attributes: mixed[], setting_callback: ?callable, setting_page: string, setting_section: string, title: string, type: string, validation: mixed[]} Setting data
 	 */
-	public array $data = [];
+	public array $data;
 	
 	/**
 	 * @var		string Setting name

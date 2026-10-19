@@ -109,7 +109,7 @@ final class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version, [
+			\wp_enqueue_script( 'impressum-dismissible-notice', \EPI_IMPRESSUM_URL . 'assets/js/' . ( $is_debug ? '' : 'build/' ) . 'ajax-dismissible-notice' . $suffix . '.js', [], $file_version, [ // @phpstan-ignore constant.notFound
 				'in_footer' => true,
 				'strategy' => 'defer',
 			] );
@@ -131,7 +131,7 @@ final class Admin {
 			
 			// must stay in the footer, so that the settings payload can still be
 			// attached while the page is rendered
-			\wp_enqueue_script( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/index.js', $asset['dependencies'], $asset['version'], [
+			\wp_enqueue_script( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/index.js', $asset['dependencies'], $asset['version'], [ // @phpstan-ignore constant.notFound
 				'in_footer' => true,
 			] );
 			\wp_set_script_translations( 'impressum-settings', 'impressum' );
@@ -139,7 +139,7 @@ final class Admin {
 			$style_path = \EPI_IMPRESSUM_BASE . 'build/settings/style-index.css';
 			
 			if ( \file_exists( $style_path ) ) {
-				\wp_enqueue_style( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/style-index.css', [ 'wp-components' ], $asset['version'] );
+				\wp_enqueue_style( 'impressum-settings', \EPI_IMPRESSUM_URL . 'build/settings/style-index.css', [ 'wp-components' ], $asset['version'] ); // @phpstan-ignore constant.notFound
 			}
 		}
 		
@@ -148,7 +148,7 @@ final class Admin {
 		if ( \file_exists( $file_path ) ) {
 			$file_version = $is_debug ? (string) \filemtime( $file_path ) : \EPI_IMPRESSUM_VERSION;
 			
-			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . 'assets/style/build/style' . $suffix . '.css', [], $file_version );
+			\wp_enqueue_style( 'impressum-admin-style', \EPI_IMPRESSUM_URL . 'assets/style/build/style' . $suffix . '.css', [], $file_version ); // @phpstan-ignore constant.notFound
 		}
 	}
 	
@@ -157,7 +157,7 @@ final class Admin {
 	 */
 	public function init_settings(): void {
 		\register_setting( 'impressum_imprint', 'impressum_imprint_options' );
-		\add_settings_section( 'impressum_section_imprint', null, '__return_null', 'impressum_imprint' );
+		\add_settings_section( 'impressum_section_imprint', '', '__return_null', 'impressum_imprint' );
 		Admin_Fields::get_instance()->init_fields();
 	}
 	

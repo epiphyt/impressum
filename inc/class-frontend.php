@@ -243,7 +243,7 @@ class Frontend {
 		// set the output
 		switch ( $field->name ) {
 			case 'contact_form_page':
-				$permalink = \get_permalink( $value );
+				$permalink = \get_permalink( (int) $value );
 				
 				if ( $permalink ) {
 					$field_output = '<a href="' . \esc_url( $permalink ) . '">' . \esc_html__( 'To the contact form', 'impressum' ) . '</a>';

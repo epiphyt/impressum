@@ -1,7 +1,7 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
-import TabContent from './tab-content';
+import TabContent, { TabIntro } from './tab-content';
 
 /**
  * A tab whose content is rendered on the server.
@@ -31,6 +31,8 @@ export default function LegacyTab( { tab } ) {
 
 	return (
 		<>
+			<TabIntro tab={ tab } />
+
 			<div
 				className="impressum-settings__legacy-tab impressum-content-wrapper"
 				dangerouslySetInnerHTML={ { __html: tab.html ?? '' } }

@@ -10,6 +10,24 @@
 	}
 }
 
+.impressum__mover--button.is-drag-handle {
+	cursor: grab;
+}
+
+.impressum__field {
+	&.is-dragged {
+		opacity: 0.5;
+	}
+
+	&.is-drop-target-before {
+		box-shadow: 0 -2px 0 var(--wp-admin-theme-color, #3858e9);
+	}
+
+	&.is-drop-target-after {
+		box-shadow: 0 2px 0 var(--wp-admin-theme-color, #3858e9);
+	}
+}
+
 .impressum__checkbox-select {
 	max-height: 265px;
 	overflow: auto;

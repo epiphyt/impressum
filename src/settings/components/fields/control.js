@@ -58,7 +58,6 @@ export default function ControlField( {
 		case 'checkbox':
 			element = (
 				<CheckboxControl
-					__nextHasNoMarginBottom
 					checked={ !! current && current !== '0' }
 					disabled={ disabled }
 					id={ id }
@@ -84,7 +83,6 @@ export default function ControlField( {
 			element = (
 				<SelectControl
 					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 					className="impressum-settings__control"
 					disabled={ disabled }
 					id={ id }
@@ -113,7 +111,6 @@ export default function ControlField( {
 		case 'textarea':
 			element = (
 				<TextareaControl
-					__nextHasNoMarginBottom
 					className="impressum-settings__control"
 					disabled={ disabled }
 					id={ id }
@@ -129,7 +126,6 @@ export default function ControlField( {
 			element = (
 				<TextControl
 					__next40pxDefaultSize
-					__nextHasNoMarginBottom
 					className="impressum-settings__control"
 					disabled={ disabled }
 					id={ id }

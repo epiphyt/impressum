@@ -238,7 +238,8 @@ final class Schema {
 			'rows' => isset( $attributes['rows'] ) ? (int) $attributes['rows'] : null,
 			'section' => (string) $setting->get_data( 'setting_section' ),
 			'suggestedValue' => $this->get_suggested_value( $type, $label_for, $options ),
-			'supportsCustomTitle' => ! empty( $context['field_data_writable'] ),
+			// custom titles are only stored for the imprint
+			'supportsCustomTitle' => ! empty( $context['field_data_writable'] ) && $setting->type === 'impressum_imprint_options',
 			'title' => $setting->get_title(),
 			'type' => $type,
 			'validation' => (array) $setting->get_data( 'validation' ),

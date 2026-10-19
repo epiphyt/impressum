@@ -1,5 +1,5 @@
 import FieldRow from './field-row';
-import TabContent from './tab-content';
+import TabContent, { TabIntro } from './tab-content';
 import { getActiveNotices } from '../lib/conditions';
 import { isRequired } from '../lib/validate';
 
@@ -61,6 +61,8 @@ export default function SettingsTab( {
 
 	return (
 		<>
+			<TabIntro tab={ tab } />
+
 			{ sections.map( ( section ) => {
 				const sectionFields = fields.filter(
 					( field ) => ! section.id || field.section === section.id

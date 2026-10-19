@@ -10,6 +10,7 @@ import { isRequired } from '../lib/validate';
  * @param {Object}   props.tab                 Tab to render
  * @param {Object[]} props.fields              Visible fields of the tab
  * @param {Object}   props.values              Values of the tab's settings group
+ * @param {Object}   props.effectiveValues     Values of the tab's settings group, falling back to the network wide ones
  * @param {Object}   props.fieldData           Custom field titles
  * @param {Object}   props.errors              Validation errors, keyed by group and name
  * @param {Object}   props.serverErrors        Errors the server reported, keyed by group and name
@@ -25,6 +26,7 @@ export default function SettingsTab( {
 	tab,
 	fields,
 	values,
+	effectiveValues,
 	fieldData,
 	errors,
 	serverErrors,
@@ -94,7 +96,7 @@ export default function SettingsTab( {
 										key={ field.key }
 										notices={ getActiveNotices(
 											field,
-											values
+											effectiveValues
 										) }
 										onChange={ onChange }
 										onCustomTitleChange={
@@ -102,7 +104,10 @@ export default function SettingsTab( {
 										}
 										onLegacyInput={ onLegacyInput }
 										onTouch={ onTouch }
-										required={ isRequired( field, values ) }
+										required={ isRequired(
+											field,
+											effectiveValues
+										) }
 										value={ values[ field.name ] }
 									/>
 								) ) }

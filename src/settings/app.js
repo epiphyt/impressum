@@ -13,7 +13,7 @@ import LegacyTab from './components/legacy-tab';
 import SettingsTab from './components/tab-panel';
 import { addSubmittedOptions, getLegacyValue } from './lib/form';
 import { getErrorMessage, getFieldErrors } from './lib/error';
-import { getErrors } from './lib/validate';
+import { getEffectiveValues, getErrors } from './lib/validate';
 import { getSubmittableValues, useSettingsState } from './store';
 import { isVisible } from './lib/conditions';
 import { saveSettings } from './lib/api';
@@ -117,23 +117,36 @@ export default function App( { bootstrap } ) {
 		return grouped;
 	}, [ payload.fields ] );
 
+	const effectiveValues = useMemo( () => {
+		const effective = {};
+
+		for ( const group of Object.keys( fieldsByGroup ) ) {
+			effective[ group ] = getEffectiveValues(
+				values[ group ],
+				payload.defaults?.[ group ]
+			);
+		}
+
+		return effective;
+	}, [ fieldsByGroup, payload.defaults, values ] );
+
 	const visibleByGroup = useMemo( () => {
 		const visible = {};
 
 		for ( const [ group, fields ] of Object.entries( fieldsByGroup ) ) {
 			visible[ group ] = fields.filter( ( field ) =>
-				isVisible( field, values[ group ] ?? {} )
+				isVisible( field, effectiveValues[ group ] )
 			);
 		}
 
 		return visible;
-	}, [ fieldsByGroup, values ] );
+	}, [ effectiveValues, fieldsByGroup ] );
 
 	const errors = useMemo( () => {
 		const next = {};
 
 		for ( const [ group, fields ] of Object.entries( visibleByGroup ) ) {
-			const groupErrors = getErrors( fields, values[ group ] ?? {} );
+			const groupErrors = getErrors( fields, effectiveValues[ group ] );
 
 			for ( const [ name, message ] of Object.entries( groupErrors ) ) {
 				next[ `${ group }.${ name }` ] = message;
@@ -141,7 +154,7 @@ export default function App( { bootstrap } ) {
 		}
 
 		return next;
-	}, [ values, visibleByGroup ] );
+	}, [ effectiveValues, visibleByGroup ] );
 
 	useEffect( () => {
 		if ( ! focusTarget ) {
@@ -363,6 +376,9 @@ export default function App( { bootstrap } ) {
 							<LegacyTab tab={ tab } />
 						) : (
 							<SettingsTab
+								effectiveValues={
+									effectiveValues[ tab.group ] ?? {}
+								}
 								errors={ errors }
 								fieldData={ fieldData }
 								fields={ visibleByGroup[ tab.group ] ?? [] }

@@ -394,6 +394,26 @@ final class Schema {
 	}
 	
 	/**
+	 * Get the validation errors of the imprint.
+	 * 
+	 * Empty values fall back to the network wide ones, as they do when the
+	 * imprint is output.
+	 * 
+	 * @param	mixed[]	$values Values, keyed by settings group
+	 * @param	mixed[]	$defaults Network wide values, keyed by settings group
+	 * @return	mixed[] Validation errors
+	 */
+	private function get_imprint_errors( array $values, array $defaults ): array {
+		return $this->validator->get_errors(
+			'impressum_imprint_options',
+			\array_merge(
+				(array) ( $defaults['impressum_imprint_options'] ?? [] ),
+				\array_filter( (array) ( $values['impressum_imprint_options'] ?? [] ) )
+			)
+		);
+	}
+	
+	/**
 	 * Get the network wide values of a settings group, used as placeholders.
 	 * 
 	 * Impressum Plus already merges them into the option as 'default' outside
@@ -564,10 +584,7 @@ final class Schema {
 			'optionPage' => (string) ( $args['option_page'] ?? 'impressum_imprint' ),
 			'referer' => (string) ( $args['referer'] ?? '' ),
 			'tabs' => $this->tabs->get_tabs( $args ),
-			'validation' => $this->validator->get_errors(
-				'impressum_imprint_options',
-				(array) ( $values['impressum_imprint_options'] ?? [] )
-			),
+			'validation' => $this->get_imprint_errors( $values, $defaults ),
 			'values' => $values,
 			'version' => \EPI_IMPRESSUM_VERSION,
 		];
@@ -804,10 +821,7 @@ final class Schema {
 		return [
 			'defaults' => $defaults,
 			'fieldData' => $this->get_option_values( 'impressum_field_data', $is_network ),
-			'validation' => $this->validator->get_errors(
-				'impressum_imprint_options',
-				(array) ( $values['impressum_imprint_options'] ?? [] )
-			),
+			'validation' => $this->get_imprint_errors( $values, $defaults ),
 			'values' => $values,
 		];
 	}

@@ -126,6 +126,9 @@ final class AdminTest extends MockeryTestCase
     public function testGetInvalidFields(): void
     {
         $helper = Mockery::mock('alias:' . Helper::class);
+        $container = Mockery::mock('Container');
+        $container->shouldReceive('get')->with('helper')->andReturn($helper);
+        $GLOBALS['impressum_test_container'] = $container;
         $helper->shouldReceive('get_option')->andReturn(
             [],
             [
@@ -190,6 +193,9 @@ final class AdminTest extends MockeryTestCase
         /** @disregard P1006 */
         $admin = new Admin($settings_registry, new Validator($settings_registry));
         $helper = Mockery::mock('alias:' . Helper::class);
+        $container = Mockery::mock('Container');
+        $container->shouldReceive('get')->with('helper')->andReturn($helper);
+        $GLOBALS['impressum_test_container'] = $container;
         $helper->shouldReceive('get_option')->andReturn(
             [],
             [

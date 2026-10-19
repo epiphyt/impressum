@@ -28,8 +28,8 @@ class Frontend {
 	 */
 	public function render( array|string $attributes ): string {
 		$attributes = (array) $attributes;
-		$attributes['field_data'] = Helper::get_option( 'impressum_field_data', true );
-		$fields = \array_filter( (array) Helper::get_option( 'impressum_imprint_options', true ) );
+		$attributes['field_data'] = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_field_data', true );
+		$fields = \array_filter( (array) \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_imprint_options', true ) );
 		$field_data = \epiphyt\Impressum\get_container()->get( 'plugin' )->get_block_fields( 'impressum_imprint_options' );
 		$field_keys = \array_keys( $fields );
 		$output = '';

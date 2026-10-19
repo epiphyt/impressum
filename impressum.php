@@ -212,6 +212,28 @@ function initialize_plugin(): void {
 	\epiphyt\Impressum\get_container()->get( 'rest-api' )->init();
 }
 
+/**
+ * Activate the plugin.
+ * 
+ * The plugin is resolved not before the activation, since resolving it while
+ * loading the plugin would instantiate its dependencies before Impressum Plus
+ * has been able to replace them.
+ * 
+ * @since	3.1.0
+ */
+function activate_plugin(): void {
+	\epiphyt\Impressum\get_container()->get( 'plugin' )->activate();
+}
+
+/**
+ * Deactivate the plugin.
+ * 
+ * @since	3.1.0
+ */
+function deactivate_plugin(): void {
+	\epiphyt\Impressum\get_container()->get( 'plugin' )->deactivate();
+}
+
 \add_action( 'plugins_loaded', __NAMESPACE__ . '\initialize_plugin' );
-\register_activation_hook( \EPI_IMPRESSUM_FILE, [ \epiphyt\Impressum\get_container()->get( 'plugin' ), 'activate' ] );
-\register_deactivation_hook( \EPI_IMPRESSUM_FILE, [ \epiphyt\Impressum\get_container()->get( 'plugin' ), 'deactivate' ] );
+\register_activation_hook( \EPI_IMPRESSUM_FILE, __NAMESPACE__ . '\activate_plugin' );
+\register_deactivation_hook( \EPI_IMPRESSUM_FILE, __NAMESPACE__ . '\deactivate_plugin' );

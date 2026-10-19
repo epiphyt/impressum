@@ -167,7 +167,7 @@ final class Admin {
 	 * @return	array A list of invalid fields
 	 */
 	public function get_invalid_fields(): array {
-		$options = Helper::get_option( 'impressum_imprint_options', true );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_imprint_options', true );
 		
 		// get defaults
 		if ( ! isset( $options['legal_entity'] ) ) {
@@ -201,7 +201,7 @@ final class Admin {
 	 * @return	bool True if imprint is valid, false otherwise
 	 */
 	public function is_valid_imprint(): bool {
-		$options = Helper::get_option( 'impressum_imprint_options', true );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_imprint_options', true );
 		
 		// merge global and local options
 		if ( ! empty( $options['default'] ) ) {

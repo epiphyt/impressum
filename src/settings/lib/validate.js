@@ -1,6 +1,28 @@
 import { evaluate, isEmpty, matchesPattern } from './conditions';
 
 /**
+ * Get the values that are in effect for a group.
+ *
+ * Empty values fall back to the network wide ones, as they do when the
+ * imprint is output.
+ *
+ * @param {Object} values   Current values of the group
+ * @param {Object} defaults Network wide values of the group
+ * @return {Object} Effective values
+ */
+export function getEffectiveValues( values, defaults ) {
+	const effective = { ...( defaults ?? {} ) };
+
+	for ( const [ name, value ] of Object.entries( values ?? {} ) ) {
+		if ( ! isEmpty( value ) || ! ( name in effective ) ) {
+			effective[ name ] = value;
+		}
+	}
+
+	return effective;
+}
+
+/**
  * Check whether a field is currently required.
  *
  * @param {Object} field  Field to check

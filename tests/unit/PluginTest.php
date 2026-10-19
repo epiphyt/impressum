@@ -438,6 +438,7 @@ final class PluginTest extends MockeryTestCase
                 'gmbh' => \__('GmbH', 'impressum'),
                 'gmbh_co_kg' => \__('GmbH & Co. KG', 'impressum'),
                 'individual' => \__('Individual', 'impressum'),
+                'kdoer' => \__('KdöR', 'impressum'),
                 'kg' => \__('KG', 'impressum'),
                 'kgag' => \__('KGaA', 'impressum'),
                 'ohg' => \__('OHG', 'impressum'),

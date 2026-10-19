@@ -23,7 +23,12 @@
 		"brain/monkey": "2.*",
 		"brain/faker": "dev-master",
 		"phpunit/phpunit": "^12.1",
-		"epiphyt/coding-standard": "^1.0"
+		"epiphyt/coding-standard": "^1.0",
+		"phpstan/phpstan": "^2.2",
+		"szepeviktor/phpstan-wordpress": "^2.0",
+		"phpstan/extension-installer": "^1.4",
+		"swissspidy/phpstan-no-private": "^1.0",
+		"phpstan/phpstan-deprecation-rules": "^2.0"
 	},
 	"autoload": {
 		"classmap": ["inc"]
@@ -40,7 +45,8 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
 		}
 	}
 }

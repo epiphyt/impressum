@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\settings {
 
     use epiphyt\Impressum\settings\Legacy_Renderer;
-    use epiphyt\Impressum\settings\Registry;
     use epiphyt\Impressum\settings\Setting;
     use Mockery;
     use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -51,15 +50,9 @@ namespace Tests\Unit\settings {
             return $setting;
         }
 
-        private function buildRenderer(array $settings = []): Legacy_Renderer
+        private function buildRenderer(): Legacy_Renderer
         {
-            $registry = Mockery::mock('alias:' . Registry::class);
-            $registry
-                ->shouldReceive('get_settings')
-                ->andReturn($settings);
-
-            /** @disregard P1006 */
-            return new Legacy_Renderer($registry);
+            return new Legacy_Renderer();
         }
 
         public function testRenderFieldAppliesCallbackInstanceFilter(): void
@@ -139,9 +132,7 @@ namespace Tests\Unit\settings {
         {
             // field markup is attached to the field itself, not duplicated here
             expectApplied('impressum_admin_tab')->once()->andReturnFirstArg();
-            $payload = $this->buildRenderer([
-                'impressum_imprint_options_custom_field' => $this->buildSetting('custom_type'),
-            ])->get_legacy_payload();
+            $payload = $this->buildRenderer()->get_legacy_payload();
             $this->assertArrayNotHasKey('fields', $payload);
             $this->assertArrayHasKey('form', $payload);
             $this->assertArrayHasKey('tabs', $payload);

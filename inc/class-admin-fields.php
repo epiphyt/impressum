@@ -161,7 +161,7 @@ class Admin_Fields {
 			 * @since	2.1.0
 			 * @since	3.0.0 Second parameter is a Setting object now
 			 * 
-			 * @param	object								$this Current instance
+			 * @param	object								$callback_instance Current instance
 			 * @param	\epiphyt\Impressum\settings\Setting	$settings_field Current settings field
 			 * @param	string								$id Current field ID
 			 */
@@ -256,7 +256,7 @@ class Admin_Fields {
 		}
 		
 		$settings_name = self::get_settings_name( $args );
-		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, true );
 		$dropdown = \wp_dropdown_pages( [
 			'echo' => 0,
 			'id' => \esc_attr( $args['label_for'] ),

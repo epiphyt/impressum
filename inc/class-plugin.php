@@ -48,7 +48,7 @@ final class Plugin {
 	public function init(): void {
 		\add_action( 'init', [ $this, 'load_settings' ], 10 );
 		\add_action( 'init', [ $this, 'load_textdomain' ], 5 );
-		\add_action( 'pre_update_option_impressum_imprint_options', [ $this, 'activate' ] );
+		\add_filter( 'pre_update_option_impressum_imprint_options', [ $this, 'activate' ] );
 	}
 	
 	/**
@@ -79,7 +79,7 @@ final class Plugin {
 	 * Get all fields from an option with their title.
 	 * 
 	 * @param	string	$option_name The name of the option
-	 * @return	array{array{custom_title: string, field_title: ?string, hide_output: bool, title: string, value: mixed}} The fields
+	 * @return	array<string, array{custom_title: string, field_title: ?string, hide_output: bool, title: string, value: mixed}> The fields
 	 */
 	public function get_block_fields( string $option_name ): array {
 		$fields = [];

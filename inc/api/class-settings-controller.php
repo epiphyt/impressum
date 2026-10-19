@@ -31,7 +31,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 	/**
 	 * @var		?\epiphyt\Impressum\settings\Schema Settings schema
 	 */
-	protected $schema = null; // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+	private ?Schema $settings_schema = null;
 	
 	/**
 	 * @var		?\epiphyt\Impressum\settings\Validator Settings validator
@@ -49,7 +49,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 		$this->namespace = 'impressum/v1';
 		$this->registry = $registry;
 		$this->rest_base = 'settings';
-		$this->schema = $schema;
+		$this->settings_schema = $schema;
 		$this->validator = $validator;
 	}
 	
@@ -99,7 +99,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 				continue;
 			}
 			
-			foreach ( $this->schema->get_invalid_values( $group, (array) $group_values ) as $name => $error ) {
+			foreach ( $this->settings_schema->get_invalid_values( $group, (array) $group_values ) as $name => $error ) {
 				$fields[ $group . '.' . $name ] = $error + [
 					'group' => $group,
 					'name' => $name,
@@ -142,7 +142,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 		return \rest_ensure_response(
 			Helper::with_scope(
 				$is_network ? 'network' : 'site',
-				fn (): array => $this->schema->get_payload( [
+				fn (): array => $this->settings_schema->get_payload( [
 					// the settings API is not registered during a REST request
 					'bootstrap' => (bool) $request->get_param( 'legacy' ),
 					'group' => (string) $request->get_param( 'group' ),
@@ -267,7 +267,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 	private function update_field_data( \WP_REST_Request $request, bool $is_network ): void {
 		$field_data = (array) $request->get_param( 'field_data' );
 		
-		if ( empty( $field_data ) || ! $this->schema->is_field_data_writable() ) {
+		if ( empty( $field_data ) || ! $this->settings_schema->is_field_data_writable() ) {
 			return;
 		}
 		
@@ -333,7 +333,7 @@ final class Settings_Controller extends \WP_REST_Controller {
 		return \rest_ensure_response(
 			Helper::with_scope(
 				$is_network ? 'network' : 'site',
-				fn (): array => $this->schema->get_values_payload( [
+				fn (): array => $this->settings_schema->get_values_payload( [
 					'is_network' => $is_network,
 				] )
 			)

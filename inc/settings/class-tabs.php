@@ -159,7 +159,7 @@ final class Tabs {
 			static fn ( array $a, array $b ): int => $a['priority'] <=> $b['priority']
 		);
 		
-		return \array_values( $tabs );
+		return $tabs;
 	}
 	
 	/**

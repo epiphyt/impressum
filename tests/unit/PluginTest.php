@@ -48,7 +48,7 @@ final class PluginTest extends MockeryTestCase
         $plugin->init();
         $this->assertSame(10, \has_action('init', '\epiphyt\Impressum\Plugin->load_settings()'));
         $this->assertSame(5, \has_action('init', '\epiphyt\Impressum\Plugin->load_textdomain()'));
-        $this->assertSame(10, \has_action(
+        $this->assertSame(10, \has_filter(
             'pre_update_option_impressum_imprint_options',
             '\epiphyt\Impressum\Plugin->activate()'
         ));

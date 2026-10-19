@@ -22,20 +22,6 @@ use epiphyt\Impressum\Admin_Fields;
  */
 final class Legacy_Renderer {
 	/**
-	 * @var		?\epiphyt\Impressum\settings\Registry Settings registry
-	 */
-	private ?Registry $registry = null;
-	
-	/**
-	 * Legacy renderer constructor.
-	 * 
-	 * @param	\epiphyt\Impressum\settings\Registry	$registry Settings registry
-	 */
-	public function __construct( Registry $registry ) {
-		$this->registry = $registry;
-	}
-	
-	/**
 	 * Register the settings API outside of an admin request.
 	 * 
 	 * admin_init does not run during a REST request, so the global settings

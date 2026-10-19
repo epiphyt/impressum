@@ -194,6 +194,12 @@ function get_container(): Plugin_Container {
 				return new REST_API();
 			}
 		);
+		$container->set(
+			'site-health',
+			static function(): Site_Health {
+				return new Site_Health( \epiphyt\Impressum\get_container()->get( 'admin' ) );
+			}
+		);
 		$impressum_container = $container;
 	}
 	
@@ -210,6 +216,7 @@ function initialize_plugin(): void {
 	\epiphyt\Impressum\get_container()->get( 'block-registry' )->init();
 	\epiphyt\Impressum\get_container()->get( 'settings-data' )->init();
 	\epiphyt\Impressum\get_container()->get( 'rest-api' )->init();
+	\epiphyt\Impressum\get_container()->get( 'site-health' )->init();
 }
 
 /**

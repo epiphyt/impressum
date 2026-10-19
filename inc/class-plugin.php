@@ -84,14 +84,23 @@ final class Plugin {
 	public function get_block_fields( string $option_name ): array {
 		$fields = [];
 		$settings = $this->settings_registry->get_settings( $option_name );
+		/** @var \epiphyt\Impressum\settings\Validator $validator */
+		$validator = \epiphyt\Impressum\get_container()->get( 'settings-validator' );
+		$values = [];
+		
+		foreach ( $settings as $field ) {
+			$values[ $field->name ] = $field->get_value( true );
+		}
 		
 		foreach ( $settings as $field ) {
 			$fields[ $field->name ] = [
 				'custom_title' => $field->get_title(),
 				'field_title' => $field->get_data( 'field_title' ),
-				'hide_output' => $field->get_data( 'hide_output' ),
+				// fields hidden in the settings, e.g. because they don't apply to
+				// the current legal entity or country, must not be displayed either
+				'hide_output' => $field->get_data( 'hide_output' ) || ! $validator->is_visible( $field, $values ),
 				'title' => $field->get_data( 'title' ),
-				'value' => $field->get_value( true ),
+				'value' => $values[ $field->name ],
 			];
 		}
 		

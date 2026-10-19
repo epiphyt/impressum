@@ -6,6 +6,8 @@ namespace Tests\Unit;
 
 use epiphyt\Impressum\Helper;
 use epiphyt\Impressum\Plugin;
+use epiphyt\Impressum\settings\Registry;
+use epiphyt\Impressum\settings\Setting;
 use epiphyt\Impressum\settings\Validator;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -79,6 +81,7 @@ final class PluginTest extends MockeryTestCase
             ]
         );
         $plugin = $this->getInstantiatedClass();
+        $this->setUpValidator($plugin);
         $this->assertEqualsCanonicalizing(
             [
                 'page' => [
@@ -182,6 +185,55 @@ final class PluginTest extends MockeryTestCase
             ],
             $plugin->get_block_fields('impressum_imprint_options')
         );
+    }
+
+    public function testGetBlockFieldsHidesFieldsHiddenByTheirConditions(): void
+    {
+        $base = Mockery::mock('alias:' . Setting::class);
+        $definitions = [
+            'legal_entity' => [
+                'hide_output' => true,
+                'value' => 'individual',
+            ],
+            'name' => [
+                'value' => 'Jane Doe',
+            ],
+            'register' => [
+                'conditions' => [
+                    'visible' => [
+                        'field' => 'legal_entity',
+                        'operator' => 'not_in',
+                        'value' => ['individual', 'self'],
+                    ],
+                ],
+                'value' => 'HRB 12345',
+            ],
+        ];
+        $settings = [];
+
+        foreach ($definitions as $name => $definition) {
+            $setting = clone $base;
+            $setting->name = $name;
+            $setting->shouldReceive('get_value')->with(true)->andReturn($definition['value']);
+            $setting->shouldReceive('get_title')->andReturn($name);
+            $setting->shouldReceive('get_data')->with('conditions')->andReturn($definition['conditions'] ?? []);
+            $setting->shouldReceive('get_data')->with('field_title')->andReturn(null);
+            $setting->shouldReceive('get_data')->with('hide_output')->andReturn($definition['hide_output'] ?? false);
+            $setting->shouldReceive('get_data')->with('title')->andReturn($name);
+            $settings['impressum_imprint_options_' . $name] = $setting;
+        }
+
+        $registry = Mockery::mock('alias:' . Registry::class);
+        $registry->shouldReceive('get_settings')->with('impressum_imprint_options')->andReturn($settings);
+        /** @disregard P1006 */
+        $plugin = new Plugin($registry);
+        $this->setUpValidator($plugin);
+        $fields = $plugin->get_block_fields('impressum_imprint_options');
+
+        $this->assertTrue($fields['legal_entity']['hide_output']);
+        $this->assertFalse($fields['name']['hide_output']);
+        $this->assertTrue($fields['register']['hide_output']);
+        $this->assertSame('HRB 12345', $fields['register']['value']);
     }
 
     public function testGetCountries(): void
@@ -539,5 +591,18 @@ final class PluginTest extends MockeryTestCase
         $plugin = new Plugin($settings_registry);
 
         return $plugin;
+    }
+
+    /**
+     * Set up a container handing out a validator for the plugin's settings.
+     */
+    private function setUpValidator(Plugin $plugin): void
+    {
+        $container = Mockery::mock('Container');
+        $container
+            ->shouldReceive('get')
+            ->with('settings-validator')
+            ->andReturn(new Validator($plugin->settings_registry));
+        $GLOBALS['impressum_test_container'] = $container;
     }
 }

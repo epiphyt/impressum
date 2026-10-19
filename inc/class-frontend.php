@@ -130,6 +130,9 @@ class Frontend {
 		
 		$output .= $attributes['titles'] && $attributes['markup'] ? '<dl>' : '';
 		
+		/** @var \epiphyt\Impressum\settings\Validator $validator */
+		$validator = \epiphyt\Impressum\get_container()->get( 'settings-validator' );
+		
 		foreach ( $fields as $field => $value ) {
 			// check shortcode sections
 			if ( ! empty( $sections ) && ! \in_array( $field, $sections, true ) ) {
@@ -168,9 +171,9 @@ class Frontend {
 				continue;
 			}
 			
-			// special case for press law person, which should only be displayed
-			// if the checkbox is checked
-			if ( $setting->name === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) {
+			// fields hidden in the settings, e.g. because they don't apply to
+			// the current legal entity or country, must not be displayed either
+			if ( ! $validator->is_visible( $setting, $fields ) ) {
 				continue;
 			}
 			

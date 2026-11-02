@@ -27,7 +27,38 @@ class Frontend {
 	 * @return	string The imprint output
 	 */
 	public function render( array|string $attributes ): string {
-		$attributes = (array) $attributes;
+		return $this->render_imprint( (array) $attributes, 'class="impressum__imprint-container"' );
+	}
+	
+	/**
+	 * Render the block output.
+	 * 
+	 * @param	array	$attributes The block attributes
+	 * @return	string The imprint output
+	 */
+	public function render_block( array $attributes ): string {
+		$extra_attributes = [
+			'class' => 'impressum__imprint-container',
+		];
+		
+		// anchor support is only applied by WordPress itself since 7.0.0
+		if ( ! \function_exists( 'wp_apply_anchor_support' ) && ! empty( $attributes['anchor'] ) ) {
+			$extra_attributes['id'] = $attributes['anchor'];
+		}
+		
+		return $this->render_imprint( $attributes, \get_block_wrapper_attributes( $extra_attributes ) );
+	}
+	
+	/**
+	 * Render the imprint.
+	 * 
+	 * @since	3.1.0
+	 * 
+	 * @param	array	$attributes A set of attributes
+	 * @param	string	$wrapper_attributes HTML attributes of the imprint container
+	 * @return	string The imprint output
+	 */
+	private function render_imprint( array $attributes, string $wrapper_attributes ): string {
 		$attributes['field_data'] = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_field_data', true );
 		$fields = \array_filter( (array) \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_imprint_options', true ) );
 		$field_data = \epiphyt\Impressum\get_container()->get( 'plugin' )->get_block_fields( 'impressum_imprint_options' );
@@ -125,7 +156,7 @@ class Frontend {
 		
 		if ( $attributes['markup'] ) {
 			// open imprint container
-			$output .= '<div class="impressum__imprint-container">';
+			$output .= '<div ' . $wrapper_attributes . '>';
 		}
 		
 		$output .= $attributes['titles'] && $attributes['markup'] ? '<dl>' : '';
@@ -192,16 +223,6 @@ class Frontend {
 		}
 		
 		return $output;
-	}
-	
-	/**
-	 * Render the block output.
-	 * 
-	 * @param	array	$attributes The block attributes
-	 * @return	string The imprint output
-	 */
-	public function render_block( array $attributes ): string {
-		return $this->render( $attributes );
 	}
 	
 	/**

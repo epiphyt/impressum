@@ -103,6 +103,29 @@ class Admin_Fields {
 	}
 	
 	/**
+	 * Describe a field type for the settings app.
+	 * 
+	 * A callback instance can describe its field types here instead of relying
+	 * on the markup its callback prints, which makes the settings app render
+	 * them like its built-in fields. Returning null falls back to the markup.
+	 * 
+	 * The descriptor needs a 'type' – one of 'checkbox', 'number', 'password',
+	 * 'radio', 'select', 'text', 'textarea' or 'url' – and may carry 'options'
+	 * as a list of label and value pairs, 'multiple', 'min', 'max', 'step',
+	 * 'suffix', 'disabled' and a 'notice' with a 'status' and a 'text'.
+	 * 
+	 * @since	3.1.0
+	 * 
+	 * @param	string								$type Field type
+	 * @param	mixed[]								$attributes Field attributes
+	 * @param	\epiphyt\Impressum\settings\Setting	$setting Setting to describe
+	 * @return	?mixed[] Control descriptor, or null to render the field's markup
+	 */
+	public function get_field_descriptor( string $type, array $attributes, \epiphyt\Impressum\settings\Setting $setting ): ?array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+		return null;
+	}
+	
+	/**
 	 * Get the autocomplete attribute markup for a field.
 	 * 
 	 * @since	3.0.2
@@ -138,7 +161,7 @@ class Admin_Fields {
 			 * @since	2.1.0
 			 * @since	3.0.0 Second parameter is a Setting object now
 			 * 
-			 * @param	object								$this Current instance
+			 * @param	object								$callback_instance Current instance
 			 * @param	\epiphyt\Impressum\settings\Setting	$settings_field Current settings field
 			 * @param	string								$id Current field ID
 			 */
@@ -233,7 +256,7 @@ class Admin_Fields {
 		}
 		
 		$settings_name = self::get_settings_name( $args );
-		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, ! \is_network_admin() );
+		$options = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( $settings_name, true );
 		$dropdown = \wp_dropdown_pages( [
 			'echo' => 0,
 			'id' => \esc_attr( $args['label_for'] ),

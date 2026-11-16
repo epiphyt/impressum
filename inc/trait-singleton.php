@@ -10,7 +10,7 @@ namespace epiphyt\Impressum;
  */
 trait Singleton {
 	/**
-	 * @var		static Current instance
+	 * @var		?static Current instance
 	 */
 	protected static $instance;
 	

@@ -6,6 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extraneous-dependencies
 
 import SidebarControls from './controls';
+import useFieldDragging from './use-field-dragging';
 import { getFieldsByName } from './utils';
 
 /* global impressumImprintBlock */
@@ -14,7 +15,6 @@ const ImprintEdit = ( props ) => {
 		attributes: { enabledFields },
 		setAttributes,
 	} = props;
-	const blockProps = useBlockProps();
 	let printableFields = enabledFields;
 
 	if ( enabledFields.indexOf( 'all' ) !== -1 ) {
@@ -25,10 +25,16 @@ const ImprintEdit = ( props ) => {
 			.filter( Boolean );
 	}
 
+	const { getRowProps, ref } = useFieldDragging( {
+		fields: printableFields,
+		setAttributes,
+	} );
+	const blockProps = useBlockProps( { ref } );
 	const fields = getFieldsByName(
 		printableFields,
 		blockProps.className,
-		setAttributes
+		setAttributes,
+		getRowProps
 	);
 
 	return (

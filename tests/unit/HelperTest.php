@@ -11,6 +11,7 @@ use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 use function Brain\Monkey\Functions\expect;
+use function Brain\Monkey\Functions\stubs;
 use function Brain\Monkey\setUp;
 use function Brain\Monkey\tearDown;
 
@@ -23,6 +24,9 @@ final class HelperTest extends MockeryTestCase
     {
         parent::setUp();
         setUp();
+        stubs([
+            'is_network_admin' => false,
+        ]);
     }
 
     public function testGetOptionReturnsOptionValue(): void
@@ -66,6 +70,93 @@ final class HelperTest extends MockeryTestCase
         $this->assertSame(['field' => 'old'], Helper::get_option('impressum_field_data'));
         Helper::clear_option_cache('impressum_field_data');
         $this->assertSame(['field' => 'new'], Helper::get_option('impressum_field_data'));
+    }
+
+    public function testGetScopeDefaultsToSite(): void
+    {
+        $this->assertSame('site', Helper::get_scope());
+    }
+
+    public function testWithScopeSetsAndRestoresScope(): void
+    {
+        $this->assertSame(
+            'network',
+            Helper::with_scope('network', static fn (): string => Helper::get_scope())
+        );
+        $this->assertSame('site', Helper::get_scope());
+    }
+
+    public function testWithScopeRestoresScopeAfterException(): void
+    {
+        try {
+            Helper::with_scope('network', static function (): void {
+                throw new \RuntimeException('failure inside the scope');
+            });
+        } catch (\RuntimeException) {
+            // the scope must be restored even when the callback throws
+        }
+
+        $this->assertSame('site', Helper::get_scope());
+    }
+
+    public function testGetOptionMemoizesPerScope(): void
+    {
+        // A network scoped read must not poison a later site scoped read.
+        expect('get_site_option')
+            ->once()
+            ->with('impressum_imprint_options')
+            ->andReturn(['scope' => 'network']);
+        expect('get_option')
+            ->once()
+            ->with('impressum_imprint_options')
+            ->andReturn(['scope' => 'site']);
+        $this->assertSame(
+            ['scope' => 'network'],
+            Helper::with_scope(
+                'network',
+                static fn (): mixed => Helper::get_option('impressum_imprint_options')
+            )
+        );
+        $this->assertSame(['scope' => 'site'], Helper::get_option('impressum_imprint_options'));
+    }
+
+    public function testGetOptionReadsTheNetworkOptionInNetworkScope(): void
+    {
+        expect('get_option')->never();
+        expect('get_site_option')
+            ->once()
+            ->with('impressum_field_data')
+            ->andReturn(['field' => 'network']);
+        $this->assertSame(
+            ['field' => 'network'],
+            Helper::with_scope(
+                'network',
+                static fn (): mixed => Helper::get_option('impressum_field_data')
+            )
+        );
+    }
+
+    public function testClearOptionCacheClearsAllScopes(): void
+    {
+        expect('get_site_option')
+            ->twice()
+            ->with('impressum_imprint_options')
+            ->andReturn(['value' => 'old'], ['value' => 'new']);
+        $this->assertSame(
+            ['value' => 'old'],
+            Helper::with_scope(
+                'network',
+                static fn (): mixed => Helper::get_option('impressum_imprint_options')
+            )
+        );
+        Helper::clear_option_cache('impressum_imprint_options');
+        $this->assertSame(
+            ['value' => 'new'],
+            Helper::with_scope(
+                'network',
+                static fn (): mixed => Helper::get_option('impressum_imprint_options')
+            )
+        );
     }
 
     protected function tearDown(): void

@@ -39,8 +39,16 @@ final class Data {
 	 * Register filters.
 	 */
 	public function register_filters(): void {
+		$is_multisite = \is_multisite();
+		
 		foreach ( $this->registry->get_setting_types() as $setting_type ) {
 			\add_filter( "pre_update_option_{$setting_type}", [ $this, 'sanitize_update_option' ], 10, 3 );
+			
+			if ( ! $is_multisite ) {
+				continue;
+			}
+			
+			\add_filter( "pre_update_site_option_{$setting_type}", [ $this, 'sanitize_update_option' ], 10, 3 );
 		}
 	}
 	

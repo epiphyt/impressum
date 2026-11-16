@@ -27,9 +27,40 @@ class Frontend {
 	 * @return	string The imprint output
 	 */
 	public function render( array|string $attributes ): string {
-		$attributes = (array) $attributes;
-		$attributes['field_data'] = Helper::get_option( 'impressum_field_data', true );
-		$fields = \array_filter( (array) Helper::get_option( 'impressum_imprint_options', true ) );
+		return $this->render_imprint( (array) $attributes, 'class="impressum__imprint-container"' );
+	}
+	
+	/**
+	 * Render the block output.
+	 * 
+	 * @param	array	$attributes The block attributes
+	 * @return	string The imprint output
+	 */
+	public function render_block( array $attributes ): string {
+		$extra_attributes = [
+			'class' => 'impressum__imprint-container',
+		];
+		
+		// anchor support is only applied by WordPress itself since 7.0.0
+		if ( ! \function_exists( 'wp_apply_anchor_support' ) && ! empty( $attributes['anchor'] ) ) {
+			$extra_attributes['id'] = $attributes['anchor'];
+		}
+		
+		return $this->render_imprint( $attributes, \get_block_wrapper_attributes( $extra_attributes ) );
+	}
+	
+	/**
+	 * Render the imprint.
+	 * 
+	 * @since	3.1.0
+	 * 
+	 * @param	array	$attributes A set of attributes
+	 * @param	string	$wrapper_attributes HTML attributes of the imprint container
+	 * @return	string The imprint output
+	 */
+	private function render_imprint( array $attributes, string $wrapper_attributes ): string {
+		$attributes['field_data'] = \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_field_data', true );
+		$fields = \array_filter( (array) \epiphyt\Impressum\get_container()->get( 'helper' )::get_option( 'impressum_imprint_options', true ) );
 		$field_data = \epiphyt\Impressum\get_container()->get( 'plugin' )->get_block_fields( 'impressum_imprint_options' );
 		$field_keys = \array_keys( $fields );
 		$output = '';
@@ -125,10 +156,13 @@ class Frontend {
 		
 		if ( $attributes['markup'] ) {
 			// open imprint container
-			$output .= '<div class="impressum__imprint-container">';
+			$output .= '<div ' . $wrapper_attributes . '>';
 		}
 		
 		$output .= $attributes['titles'] && $attributes['markup'] ? '<dl>' : '';
+		
+		/** @var \epiphyt\Impressum\settings\Validator $validator */
+		$validator = \epiphyt\Impressum\get_container()->get( 'settings-validator' );
 		
 		foreach ( $fields as $field => $value ) {
 			// check shortcode sections
@@ -168,9 +202,9 @@ class Frontend {
 				continue;
 			}
 			
-			// special case for press law person, which should only be displayed
-			// if the checkbox is checked
-			if ( $setting->name === 'press_law_person' && empty( $fields['press_law_checkbox'] ) ) {
+			// fields hidden in the settings, e.g. because they don't apply to
+			// the current legal entity or country, must not be displayed either
+			if ( ! $validator->is_visible( $setting, $fields ) ) {
 				continue;
 			}
 			
@@ -189,16 +223,6 @@ class Frontend {
 		}
 		
 		return $output;
-	}
-	
-	/**
-	 * Render the block output.
-	 * 
-	 * @param	array	$attributes The block attributes
-	 * @return	string The imprint output
-	 */
-	public function render_block( array $attributes ): string {
-		return $this->render( $attributes );
 	}
 	
 	/**
@@ -240,7 +264,7 @@ class Frontend {
 		// set the output
 		switch ( $field->name ) {
 			case 'contact_form_page':
-				$permalink = \get_permalink( $value );
+				$permalink = \get_permalink( (int) $value );
 				
 				if ( $permalink ) {
 					$field_output = '<a href="' . \esc_url( $permalink ) . '">' . \esc_html__( 'To the contact form', 'impressum' ) . '</a>';

@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 6.8
-Stable tag: 3.0.2
+Stable tag: 3.1.0
 Tested up to: 7.1
 Requires PHP: 8.1
 License: GPL2
@@ -20,7 +20,7 @@ Impressum Plus is the pro version of Impressum, which not only adds support for 
 
 == All features of Impressum Plus ==
 
-* Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, GbR, GesbR, gGmbH, GmbH, GmbH & Co. KG, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
+* Support for a wide variety of legal entities (AG, e.K., e.V., eG, Einzelkaufmann, Freelancer, GbR, GesbR, gGmbH, GmbH, GmbH & Co. KG, KdöR, KG, KGaA, OHG, Partnership, UG (haftungsbeschränkt) and UG (haftungsbeschränkt) & Co. KG)
 * a feature rich and automated Privacy Policy generator
 * an Accessibility Information generator
 * Preset for new sites in a multisite
@@ -100,6 +100,18 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 3. Your imprint will be formatted for you. Change its design with just a couple of lines of CSS.
 
 == Changelog ==
+
+= 3.1.0 =
+* Added: Moving fields in the imprint block via drag and drop
+* Added: Block supports for the imprint block (anchor, border, colors, spacing and typography)
+* Added: Site Health test for required imprint fields
+* Added: Legal entity KdöR
+* Improved: The settings page has been rebuilt in React
+* Improved: The name field is now a textarea
+* Fixed: Fields that are hidden in the settings are now also hidden in the frontend and in the imprint block
+* Fixed: Validation in a multisite now falls back to network-wide values
+* Fixed: Restored the legal entity Freelancer (medical)
+* Developer: New filter `impressum.settings.tabIntros` to add text above the fields of a settings tab
 
 = 3.0.2 =
 * Added: Capability and nonce checks for notice dismiss functionality

@@ -2,7 +2,7 @@
 import { Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-import { MoverDownButton, MoverUpButton } from './mover';
+import { DragHandle, MoverDownButton, MoverUpButton } from './mover';
 
 /**
  * Inserts HTML line breaks before all newlines in a string.
@@ -28,7 +28,12 @@ const nl2br = ( value ) => {
 		} );
 };
 
-export function getFieldsByName( enabledFields, className, setAttributes ) {
+export function getFieldsByName(
+	enabledFields,
+	className,
+	setAttributes,
+	getRowProps = () => ( {} )
+) {
 	const displayedFields = enabledFields;
 
 	if ( ! displayedFields.length ) {
@@ -93,7 +98,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 
 			if ( key === 'data_protection_officer_name' ) {
 				return (
-					<div key={ key }>
+					<div key={ key } { ...getRowProps( key ) }>
 						{ ! className.includes( 'is-style-no-title' ) && (
 							<dl>
 								<dt>
@@ -120,6 +125,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 										fields={ enabledFields }
 										setAttributes={ setAttributes }
 									/>
+									<DragHandle />
 								</dt>
 								<dd>
 									{
@@ -259,7 +265,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 			}
 
 			return (
-				<div key={ key }>
+				<div key={ key } { ...getRowProps( key ) }>
 					{ ! className.includes( 'is-style-no-title' ) && (
 						<dl>
 							<dt>
@@ -285,6 +291,7 @@ export function getFieldsByName( enabledFields, className, setAttributes ) {
 									fields={ enabledFields }
 									setAttributes={ setAttributes }
 								/>
+								<DragHandle />
 							</dt>
 							{ fieldValue }
 						</dl>

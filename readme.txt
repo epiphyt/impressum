@@ -2,7 +2,7 @@
 Contributors: epiphyt, kittmedia, krafit
 Tags: impressum, legal notice, imprint, privacy policy
 Requires at least: 6.8
-Stable tag: 3.0.2
+Stable tag: 3.1.0
 Tested up to: 7.1
 Requires PHP: 8.1
 License: GPL2

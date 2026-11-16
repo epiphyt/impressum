@@ -101,6 +101,18 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 3.1.0 =
+* Added: Moving fields in the imprint block via drag and drop
+* Added: Block supports for the imprint block (anchor, border, colors, spacing and typography)
+* Added: Site Health test for required imprint fields
+* Added: Legal entity KdöR
+* Improved: The settings page has been rebuilt in React
+* Improved: The name field is now a textarea
+* Fixed: Fields that are hidden in the settings are now also hidden in the frontend and in the imprint block
+* Fixed: Validation in a multisite now falls back to network-wide values
+* Fixed: Restored the legal entity Freelancer (medical)
+* Developer: New filter `impressum.settings.tabIntros` to add text above the fields of a settings tab
+
 = 3.0.2 =
 * Added: Capability and nonce checks for notice dismiss functionality
 * Added: Sanitize setting values

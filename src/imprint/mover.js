@@ -1,5 +1,7 @@
+import { speak } from '@wordpress/a11y';
 import { Button } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { useEffect, useRef } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
 import { chevronDown, chevronUp, dragHandle } from '@wordpress/icons';
 
 const getDirectionArrow = ( direction ) => {
@@ -89,21 +91,49 @@ const MoverButton = ( {
 	fields,
 	setAttributes,
 } ) => {
+	const ref = useRef( null );
+	const shouldFocus = useRef( false );
+
+	// moving the field moves its row in the DOM, which loses the focus
+	useEffect( () => {
+		if ( ! shouldFocus.current ) {
+			return;
+		}
+
+		shouldFocus.current = false;
+		ref.current?.focus();
+	} );
+
 	return (
 		<Button
+			accessibleWhenDisabled
 			className={ 'impressum__mover--button is-' + direction + '-button' }
 			disabled={ isDisabled }
 			icon={ getDirectionArrow( direction ) }
 			label={ getDirectionLabel( direction ) }
-			onClick={ () =>
+			onClick={ () => {
+				const newIndex =
+					availableFields.indexOf( field ) +
+					( direction === 'up' ? -1 : 1 );
+
+				shouldFocus.current = true;
 				onClick(
 					availableFields,
 					direction,
 					field,
 					fields,
 					setAttributes
-				)
-			}
+				);
+				speak(
+					sprintf(
+						/* translators: 1: new position, 2: number of fields */
+						__( 'Moved to position %1$d of %2$d', 'impressum' ),
+						newIndex + 1,
+						availableFields.length
+					)
+				);
+			} }
+			ref={ ref }
 		/>
 	);
 };
@@ -114,7 +144,9 @@ export const DragHandle = () => {
 			className="impressum__mover--button is-drag-handle"
 			draggable
 			icon={ dragHandle }
-			label={ __( 'Drag to resort', 'impressum' ) }
+			label={ __( 'Drag to reorder', 'impressum' ) }
+			// the mover buttons are the alternative for keyboard users
+			tabIndex={ -1 }
 		/>
 	);
 };

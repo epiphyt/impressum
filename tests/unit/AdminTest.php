@@ -217,19 +217,20 @@ final class AdminTest extends MockeryTestCase
         $this->assertTrue($admin->is_valid_imprint());
     }
 
-    public function restRenderPluginDocumentationLink(): void
+    public function testRenderPluginDocumentationLink(): void
     {
-        expect('get_plugin_data')->andReturn(['Version' => '1.0.0']);
-        $this->assertEqualsCanonicalizing(
+        expect('get_plugin_data')->once()->with(\EPI_IMPRESSUM_FILE)->andReturn(['Version' => '1.0.0']);
+        $this->assertSame(
             ['input'],
-            Admin::render_options_page(['input'], '')
+            Admin::render_plugin_documentation_link(['input'], 'other-plugin/other-plugin.php')
         );
-        $this->assertEqualsCanonicalizing(
+        // in tests, the plugin file is the unit test bootstrap
+        $this->assertSame(
             [
                 'input',
                 '<a href="https://docs.epiph.yt/impressum/?version=1.0.0" target="_blank" rel="noopener noreferrer">Documentation</a>', // phpcs:ignore Generic.Files.LineLength.TooLong
             ],
-            Admin::render_options_page(['input'], 'impressum/impressum.php')
+            Admin::render_plugin_documentation_link(['input'], 'unit/bootstrap.php')
         );
     }
 

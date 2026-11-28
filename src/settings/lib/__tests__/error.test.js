@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { getErrorMessage, getFieldErrors } from '../error';
 
 // exactly what the REST API answers when a page that does not exist is submitted
@@ -66,7 +67,8 @@ describe( 'getFieldErrors', () => {
 		expect( getFieldErrors( error ) ).toEqual( [
 			{
 				group: 'impressum_imprint_options',
-				message: 'values[impressum_imprint_options][vat_id] is invalid.',
+				message:
+					'values[impressum_imprint_options][vat_id] is invalid.',
 				name: 'vat_id',
 			},
 		] );

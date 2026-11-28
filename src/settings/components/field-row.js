@@ -81,20 +81,20 @@ function arePropsEqual( previous, next ) {
 /**
  * A single row of the settings table.
  *
- * @param {Object}   props                     Component properties
- * @param {Object}   props.field               Field to render
- * @param {*}        props.value               Current value
- * @param {Function} props.onChange            Value change handler, called with the field and the value
- * @param {?string}  props.error               Validation error of this field
- * @param {string}   props.customTitle         Custom title of this field
- * @param {Function} props.onCustomTitleChange Custom title change handler, called with the field and the title
- * @param {Function} props.onTouch             Handler called with the field when it loses focus
- * @param {Object}   props.choices             Shared choice lists
- * @param {Object}   props.i18n                Shared strings
- * @param {boolean}  props.isNetwork           Whether the network wide settings are edited
- * @param {boolean}  props.required            Whether the field is currently required
- * @param {Object[]} props.notices             Notices of the field that currently apply
- * @param {Function} props.onLegacyInput       Handler called when the server side rendered markup changes
+ * @param {Object}                                  props                     Component properties
+ * @param {Object}                                  props.field               Field to render
+ * @param {unknown}                                 props.value               Current value
+ * @param {(field: Object, value: unknown) => void} props.onChange            Value change handler, called with the field and the value
+ * @param {?string}                                 props.error               Validation error of this field
+ * @param {string}                                  props.customTitle         Custom title of this field
+ * @param {(field: Object, title: string) => void}  props.onCustomTitleChange Custom title change handler, called with the field and the title
+ * @param {(field: Object) => void}                 props.onTouch             Handler called with the field when it loses focus
+ * @param {Object}                                  props.choices             Shared choice lists
+ * @param {Object}                                  props.i18n                Shared strings
+ * @param {boolean}                                 props.isNetwork           Whether the network wide settings are edited
+ * @param {boolean}                                 props.required            Whether the field is currently required
+ * @param {Object[]}                                props.notices             Notices of the field that currently apply
+ * @param {() => void}                              props.onLegacyInput       Handler called when the server side rendered markup changes
  */
 function FieldRow( {
 	field,
@@ -113,6 +113,7 @@ function FieldRow( {
 } ) {
 	const [ isEditingTitle, setIsEditingTitle ] = useState( false );
 	const editButtonRef = useRef( null );
+	const titleInputRef = useRef( null );
 	const shouldRestoreFocus = useRef( false );
 	const Component = getFieldComponent( field );
 	const labelMode = getLabelMode( field, { choices, isNetwork } );
@@ -140,7 +141,14 @@ function FieldRow( {
 	} );
 
 	useEffect( () => {
-		if ( ! isEditingTitle && shouldRestoreFocus.current ) {
+		// the title input only appears after editing has been requested
+		if ( isEditingTitle ) {
+			titleInputRef.current?.focus();
+
+			return;
+		}
+
+		if ( shouldRestoreFocus.current ) {
 			shouldRestoreFocus.current = false;
 			editButtonRef.current?.focus();
 		}
@@ -182,16 +190,16 @@ function FieldRow( {
 					<TextControl
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
-						autoFocus
 						hideLabelFromVision
 						label={ sprintf(
-							/* translators: field title */
+							/* translators: %s: field title */
 							__( 'Title of the field “%s”', 'impressum' ),
 							field.title
 						) }
 						onBlur={ () => setIsEditingTitle( false ) }
 						onChange={ onTitleChange }
 						onKeyDown={ onTitleKeyDown }
+						ref={ titleInputRef }
 						value={ customTitle || field.title }
 					/>
 				) }
@@ -200,8 +208,11 @@ function FieldRow( {
 						className="impressum-settings__rename"
 						icon={ pencil }
 						label={ sprintf(
-							/* translators: field title */
-							__( 'Edit the title of the field “%s”', 'impressum' ),
+							/* translators: %s: field title */
+							__(
+								'Edit the title of the field “%s”',
+								'impressum'
+							),
 							title
 						) }
 						onClick={ () => setIsEditingTitle( true ) }

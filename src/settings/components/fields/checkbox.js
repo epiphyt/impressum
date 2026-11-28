@@ -7,11 +7,11 @@ import { CheckboxControl } from '@wordpress/components';
  * and an empty string when not, so that an unchecked box actually clears the
  * option instead of leaving the previous value in place.
  *
- * @param {Object}   props          Component properties
- * @param {Object}   props.field    Field to render
- * @param {*}        props.value    Current value
- * @param {Function} props.onChange Value change handler
- * @param {string}   props.id       Identifier of the input
+ * @param {Object}                  props          Component properties
+ * @param {Object}                  props.field    Field to render
+ * @param {?string}                 props.value    Current value
+ * @param {(value: string) => void} props.onChange Value change handler
+ * @param {string}                  props.id       Identifier of the input
  */
 export default function CheckboxField( { field, value, onChange, id } ) {
 	return (

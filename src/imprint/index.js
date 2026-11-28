@@ -3,8 +3,8 @@
  */
 
 // external dependencies
-import { registerBlockType } from '@wordpress/blocks'; // eslint-disable-line import/no-extraneous-dependencies
-import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extraneous-dependencies
+import { registerBlockType } from '@wordpress/blocks';
+import { page } from '@wordpress/icons';
 
 // internal dependencies
 import deprecated from './deprecated';

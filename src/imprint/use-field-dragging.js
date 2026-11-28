@@ -53,9 +53,9 @@ const getDropTarget = ( event ) => {
  * Native listeners are used so that the block list drop zone, which listens
  * on an ancestor element, ignores field drags inside the block.
  *
- * @param {Object}   props               Hook properties
- * @param {string[]} props.fields        List of field names in their order
- * @param {Function} props.setAttributes Block attribute setter
+ * @param {Object}                       props               Hook properties
+ * @param {string[]}                     props.fields        List of field names in their order
+ * @param {(attributes: Object) => void} props.setAttributes Block attribute setter
  * @return {Object} Ref for the block element and a getter for row properties
  */
 export default function useFieldDragging( { fields, setAttributes } ) {

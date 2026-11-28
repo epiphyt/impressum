@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { CheckboxControl, PanelBody } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';

@@ -1,6 +1,4 @@
 .distignore
-.eslintignore
-.eslintrc
 .git
 .github
 .gitignore
@@ -13,6 +11,7 @@
 composer.json
 composer.lock
 DOCKER_ENV
+eslint.config.mjs
 docker_tag
 Dockerfile-php-build
 node_modules/
@@ -24,4 +23,5 @@ phpunit.xml
 ruleset.xml
 src/
 tests/
+vitest.config.mjs
 webpack.config.js

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /* global impressumImprintBlock */
 const v1 = {
 	attributes: {

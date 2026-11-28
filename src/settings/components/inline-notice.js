@@ -6,11 +6,11 @@
  * belonging to a field are announced with the field instead, since they are
  * associated with its controls.
  *
- * @param {Object}  props           Component properties
- * @param {*}       props.children  Notice content
- * @param {string}  props.className Additional class name
- * @param {?string} props.id        Identifier of the notice
- * @param {string}  props.status    Status of the notice
+ * @param {Object}          props           Component properties
+ * @param {React.ReactNode} props.children  Notice content
+ * @param {string}          props.className Additional class name
+ * @param {?string}         props.id        Identifier of the notice
+ * @param {string}          props.status    Status of the notice
  */
 export default function InlineNotice( {
 	children,

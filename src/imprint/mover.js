@@ -92,7 +92,7 @@ const onClick = (
  * button again instead of the new position. Remounting the other row instead
  * keeps the moved row and thus the focus in place.
  *
- * @return {{getRowKey: Function, remountRow: Function}} Row key functions
+ * @return {{getRowKey: (field: string) => string, remountRow: (field: string) => void}} Row key functions
  */
 export const useRowKeys = () => {
 	const [ versions, setVersions ] = useState( {} );

@@ -545,9 +545,9 @@ if ( ! Array.prototype.inArray ) {
 /**
  * Debounce a function.
  *
- * @param {Function} func    Function to debounce
- * @param {number}   timeout Debouncing timeout
- * @return {Function} return value
+ * @param {(...args: unknown[]) => void} func    Function to debounce
+ * @param {number}                       timeout Debouncing timeout
+ * @return {(...args: unknown[]) => void} return value
  */
 function debounce( func, timeout = 300 ) {
 	let timer;

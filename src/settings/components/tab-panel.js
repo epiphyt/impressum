@@ -6,21 +6,21 @@ import { isRequired } from '../lib/validate';
 /**
  * A tab rendered by the settings app.
  *
- * @param {Object}   props                     Component properties
- * @param {Object}   props.tab                 Tab to render
- * @param {Object[]} props.fields              Visible fields of the tab
- * @param {Object}   props.values              Values of the tab's settings group
- * @param {Object}   props.effectiveValues     Values of the tab's settings group, falling back to the network wide ones
- * @param {Object}   props.fieldData           Custom field titles
- * @param {Object}   props.errors              Validation errors, keyed by group and name
- * @param {Object}   props.serverErrors        Errors the server reported, keyed by group and name
- * @param {Object}   props.touched             Fields that have lost focus, keyed by group and name
- * @param {boolean}  props.isSubmitted         Whether saving has been attempted
- * @param {Object}   props.payload             Settings payload
- * @param {Function} props.onChange            Value change handler
- * @param {Function} props.onCustomTitleChange Custom title change handler
- * @param {Function} props.onTouch             Handler called when a field loses focus
- * @param {Function} props.onLegacyInput       Handler called when server side rendered markup changes
+ * @param {Object}                                  props                     Component properties
+ * @param {Object}                                  props.tab                 Tab to render
+ * @param {Object[]}                                props.fields              Visible fields of the tab
+ * @param {Object}                                  props.values              Values of the tab's settings group
+ * @param {Object}                                  props.effectiveValues     Values of the tab's settings group, falling back to the network wide ones
+ * @param {Object}                                  props.fieldData           Custom field titles
+ * @param {Object}                                  props.errors              Validation errors, keyed by group and name
+ * @param {Object}                                  props.serverErrors        Errors the server reported, keyed by group and name
+ * @param {Object}                                  props.touched             Fields that have lost focus, keyed by group and name
+ * @param {boolean}                                 props.isSubmitted         Whether saving has been attempted
+ * @param {Object}                                  props.payload             Settings payload
+ * @param {(field: Object, value: unknown) => void} props.onChange            Value change handler
+ * @param {(field: Object, title: string) => void}  props.onCustomTitleChange Custom title change handler
+ * @param {(field: Object) => void}                 props.onTouch             Handler called when a field loses focus
+ * @param {() => void}                              props.onLegacyInput       Handler called when server side rendered markup changes
  */
 export default function SettingsTab( {
 	tab,
@@ -58,7 +58,7 @@ export default function SettingsTab( {
 			return serverErrors[ key ];
 		}
 
-		return isSubmitted || touched[ key ] ? errors[ key ] ?? null : null;
+		return isSubmitted || touched[ key ] ? ( errors[ key ] ?? null ) : null;
 	};
 
 	return (

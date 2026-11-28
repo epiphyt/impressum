@@ -1,6 +1,6 @@
 import { speak } from '@wordpress/a11y';
 import { Button } from '@wordpress/components';
-import { useEffect, useRef } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { chevronDown, chevronUp, dragHandle } from '@wordpress/icons';
 
@@ -83,27 +83,41 @@ const onClick = (
 	setAttributes( { enabledFields: newFields } );
 };
 
+/**
+ * Get keys for the field rows, which can be changed to remount a row.
+ *
+ * When moving a field down, React moves the DOM node of the moved row instead
+ * of the one of the row it is moved after, which blurs the focused mover button.
+ * Even though React restores the focus, screen readers then announce the
+ * button again instead of the new position. Remounting the other row instead
+ * keeps the moved row and thus the focus in place.
+ *
+ * @return {{getRowKey: Function, remountRow: Function}} Row key functions
+ */
+export const useRowKeys = () => {
+	const [ versions, setVersions ] = useState( {} );
+
+	const getRowKey = ( field ) =>
+		versions[ field ] ? field + '-' + versions[ field ] : field;
+
+	const remountRow = ( field ) =>
+		setVersions( ( currentVersions ) => ( {
+			...currentVersions,
+			[ field ]: ( currentVersions[ field ] || 0 ) + 1,
+		} ) );
+
+	return { getRowKey, remountRow };
+};
+
 const MoverButton = ( {
 	availableFields,
 	direction,
 	isDisabled,
 	field,
 	fields,
+	remountRow,
 	setAttributes,
 } ) => {
-	const ref = useRef( null );
-	const shouldFocus = useRef( false );
-
-	// moving the field moves its row in the DOM, which loses the focus
-	useEffect( () => {
-		if ( ! shouldFocus.current ) {
-			return;
-		}
-
-		shouldFocus.current = false;
-		ref.current?.focus();
-	} );
-
 	return (
 		<Button
 			accessibleWhenDisabled
@@ -116,7 +130,11 @@ const MoverButton = ( {
 					availableFields.indexOf( field ) +
 					( direction === 'up' ? -1 : 1 );
 
-				shouldFocus.current = true;
+				if ( direction === 'down' ) {
+					// must be batched with the attribute update to take effect
+					remountRow( availableFields[ newIndex ] );
+				}
+
 				onClick(
 					availableFields,
 					direction,
@@ -133,7 +151,6 @@ const MoverButton = ( {
 					)
 				);
 			} }
-			ref={ ref }
 		/>
 	);
 };
@@ -156,6 +173,7 @@ export const MoverDownButton = ( {
 	isDisabled,
 	field,
 	fields,
+	remountRow,
 	setAttributes,
 } ) => {
 	return (
@@ -165,6 +183,7 @@ export const MoverDownButton = ( {
 			isDisabled={ isDisabled }
 			field={ field }
 			fields={ fields }
+			remountRow={ remountRow }
 			setAttributes={ setAttributes }
 		/>
 	);

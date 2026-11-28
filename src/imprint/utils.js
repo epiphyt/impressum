@@ -32,7 +32,8 @@ export function getFieldsByName(
 	enabledFields,
 	className,
 	setAttributes,
-	getRowProps = () => ( {} )
+	getRowProps = () => ( {} ),
+	{ getRowKey = ( key ) => key, remountRow = () => {} } = {}
 ) {
 	const displayedFields = enabledFields;
 
@@ -98,7 +99,7 @@ export function getFieldsByName(
 
 			if ( key === 'data_protection_officer_name' ) {
 				return (
-					<div key={ key } { ...getRowProps( key ) }>
+					<div key={ getRowKey( key ) } { ...getRowProps( key ) }>
 						{ ! className.includes( 'is-style-no-title' ) && (
 							<dl>
 								<dt>
@@ -123,6 +124,7 @@ export function getFieldsByName(
 										}
 										field={ key }
 										fields={ enabledFields }
+										remountRow={ remountRow }
 										setAttributes={ setAttributes }
 									/>
 									<DragHandle />
@@ -265,7 +267,7 @@ export function getFieldsByName(
 			}
 
 			return (
-				<div key={ key } { ...getRowProps( key ) }>
+				<div key={ getRowKey( key ) } { ...getRowProps( key ) }>
 					{ ! className.includes( 'is-style-no-title' ) && (
 						<dl>
 							<dt>
@@ -289,6 +291,7 @@ export function getFieldsByName(
 									}
 									field={ key }
 									fields={ enabledFields }
+									remountRow={ remountRow }
 									setAttributes={ setAttributes }
 								/>
 								<DragHandle />

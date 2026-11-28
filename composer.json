@@ -22,13 +22,13 @@
 	"require-dev": {
 		"brain/monkey": "2.*",
 		"brain/faker": "dev-master",
-		"phpunit/phpunit": "^12.1",
-		"epiphyt/coding-standard": "^1.0",
-		"phpstan/phpstan": "^2.2",
-		"szepeviktor/phpstan-wordpress": "^2.0",
-		"phpstan/extension-installer": "^1.4",
+		"phpunit/phpunit": "^12.5.45",
+		"epiphyt/coding-standard": "^1.2",
+		"phpstan/phpstan": "^2.3.7",
+		"szepeviktor/phpstan-wordpress": "^2.0.4",
+		"phpstan/extension-installer": "^1.4.3",
 		"swissspidy/phpstan-no-private": "^1.0",
-		"phpstan/phpstan-deprecation-rules": "^2.0"
+		"phpstan/phpstan-deprecation-rules": "^2.0.6"
 	},
 	"autoload": {
 		"classmap": ["inc"]

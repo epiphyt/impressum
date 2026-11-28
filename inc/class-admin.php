@@ -470,25 +470,25 @@ final class Admin {
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		
-		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) :
-		$invalid_fields = $this->get_invalid_fields();
-		?>
-		<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
-			<p>
-				<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
-				<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
-			</p>
-			<?php if ( ! empty( $invalid_fields ) ) : ?>
-			<p>
-				<?php
-				\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
-				echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
-				?>
-			</p>
-			<?php endif; ?>
-		</div>
-		<?php
-		endif;
+		if ( ! \get_option( 'dismissed-impressum_validation_notice' ) && ! $this->is_valid_imprint() ) {
+			$invalid_fields = $this->get_invalid_fields();
+			?>
+			<div class="notice notice-warning is-dismissible impressum-validation-notice" data-notice="impressum_validation_notice">
+				<p>
+					<?php \esc_html_e( 'Your imprint has not been configured successfully, yet.', 'impressum' ); ?>
+					<a href="options-general.php?page=impressum&imprint_tab=imprint"><?php \esc_html_e( 'Configure now!', 'impressum' ); ?></a>
+				</p>
+				<?php if ( ! empty( $invalid_fields ) ) : ?>
+				<p>
+					<?php
+					\esc_html_e( 'Please make sure, you fill out at least the following fields:', 'impressum' );
+					echo '<br>' . \esc_html( \implode( ', ', $invalid_fields ) );
+					?>
+				</p>
+				<?php endif; ?>
+			</div>
+			<?php
+		}
 	}
 	
 	/**
@@ -673,15 +673,15 @@ final class Admin {
 				
 				<div class="nav-tab-wrapper" role="tablist">
 					<?php
-					foreach ( $tabs as $tab ) :
-					if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
-						continue;
-					}
-					
-					$is_active_tab = $current_tab === $tab['slug'];
-					?>
-					<button type="button" id="tab-<?= \esc_attr( $tab['slug'] ); ?>" data-tab="<?= \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?= $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?= $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?= \esc_attr( $tab['slug'] ); ?>" tabindex="<?= $is_active_tab ? '0' : '-1'; ?>"><?= \esc_html( $tab['title'] ); ?></button>
-					<?php endforeach; ?>
+					foreach ( $tabs as $tab ) {
+						if ( empty( $tab['slug'] ) || empty( $tab['title'] ) ) {
+							continue;
+						}
+						
+						$is_active_tab = $current_tab === $tab['slug'];
+						?>
+						<button type="button" id="tab-<?= \esc_attr( $tab['slug'] ); ?>" data-tab="<?= \esc_attr( $tab['slug'] ); ?>" class="nav-tab<?= $is_active_tab ? ' nav-tab-active' : ''; ?>" role="tab" aria-selected="<?= $is_active_tab ? 'true' : 'false'; ?>" data-slug="<?= \esc_attr( $tab['slug'] ); ?>" tabindex="<?= $is_active_tab ? '0' : '-1'; ?>"><?= \esc_html( $tab['title'] ); ?></button>
+					<?php } ?>
 				</div>
 				
 				<div class="impressum-content-wrapper">
@@ -756,95 +756,95 @@ final class Admin {
 		}
 		// phpcs:enable
 		
-		if ( ! \get_option( 'dismissed-impressum_welcome_notice' ) ) :
-		?>
-		<div class="wrap impressum-wrap">
-			<div class="impressum-welcome-panel" data-notice="impressum_welcome_notice">
-				<div class="impressum-welcome-panel-content">
-					<h2>
-						<?php
-						/* translators: plugin name */
-						\printf( \esc_html__( 'Welcome to %s, we’re glad you’re here!', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
-						?>
-					</h2>
-					<p class="about-description">
-						<?php
-						/* translators: plugin name */
-						\printf( \esc_html__( '%s is a generator for legal content, integrated into your WordPress interface.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
-						?>
-					</p>
-					<hr>
-					<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
-					
-					<?php // phpcs:enable ?>
-					<div class="impressum-welcome-panel-column-container">
-						<div class="impressum-welcome-panel-column">
-							<div>
-								<h3>
-									<?php
-									/* translators: plugin name */
-									\printf( \esc_html__( '%s is free, because we love you ❤️', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
-									?>
-								</h3>
-								<p>
-									<?php
-									/* translators: plugin name */
-									\printf( \esc_html__( 'Best things in life are free. That’s why we decided to make this plugin available for free for everyone running a WordPress site as private person or single person business. That’s you? Awesome, then give %s a spin and generate your first legal content without leaving your site.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
-									?>
-								</p>
-							</div>
-							<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
-							
-							<?php // phpcs:enable ?>
-							<div class="impressum-welcome-action">
-								<p><button type="button" class="button button-secondary button-hero impressum-welcome-notice-dismiss" data-notice="impressum_welcome_notice"><?php \esc_html_e( 'Hide this message', 'impressum' ); ?></button></p>
-							</div>
-						</div>
+		if ( ! \get_option( 'dismissed-impressum_welcome_notice' ) ) {
+			?>
+			<div class="wrap impressum-wrap">
+				<div class="impressum-welcome-panel" data-notice="impressum_welcome_notice">
+					<div class="impressum-welcome-panel-content">
+						<h2>
+							<?php
+							/* translators: plugin name */
+							\printf( \esc_html__( 'Welcome to %s, we’re glad you’re here!', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
+							?>
+						</h2>
+						<p class="about-description">
+							<?php
+							/* translators: plugin name */
+							\printf( \esc_html__( '%s is a generator for legal content, integrated into your WordPress interface.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
+							?>
+						</p>
+						<hr>
 						<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 						
 						<?php // phpcs:enable ?>
-						<div class="impressum-welcome-panel-column">
-							<div>
-								<h3>
-									<?php
-									/* translators: commercial plugin name */
-									\printf( \esc_html__( 'Got bigger plans? %s is here for you', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
-									?>
-								</h3>
-								<p>
-									<?php
-									/* translators: 1: plugin name, 2: commercial plugin name */
-									\printf( \esc_html__( 'If this site is run by a corporation or partnership, you might like %1$s’s bigger brother %2$s. With advanced features and support for multiple kinds of legal entities, %2$s covers business from your local book shop to bigger multi-location corporations.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
-									?>
-								</p>
+						<div class="impressum-welcome-panel-column-container">
+							<div class="impressum-welcome-panel-column">
+								<div>
+									<h3>
+										<?php
+										/* translators: plugin name */
+										\printf( \esc_html__( '%s is free, because we love you ❤️', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
+										?>
+									</h3>
+									<p>
+										<?php
+										/* translators: plugin name */
+										\printf( \esc_html__( 'Best things in life are free. That’s why we decided to make this plugin available for free for everyone running a WordPress site as private person or single person business. That’s you? Awesome, then give %s a spin and generate your first legal content without leaving your site.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ) );
+										?>
+									</p>
+								</div>
+								<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
+								
+								<?php // phpcs:enable ?>
+								<div class="impressum-welcome-action">
+									<p><button type="button" class="button button-secondary button-hero impressum-welcome-notice-dismiss" data-notice="impressum_welcome_notice"><?php \esc_html_e( 'Hide this message', 'impressum' ); ?></button></p>
+								</div>
 							</div>
 							<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 							
 							<?php // phpcs:enable ?>
-							<div class="impressum-welcome-action">
-								<p><a class="button button-primary button-hero" href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
-							</div>
-						</div>
-						<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
-						
-						<?php // phpcs:enable ?>
-						<div class="impressum-welcome-panel-column">
-							<div>
-								<h3><?php \esc_html_e( 'Hi there, we are Epiphyt 👋', 'impressum' ); ?></h3>
-								<p><?php \esc_html_e( 'Epiphyt is a small WordPress coding shop from southern Germany. As members of the German WordPress community we value clean code, straight forward communication and the GPL.', 'impressum' ); ?></p>
+							<div class="impressum-welcome-panel-column">
+								<div>
+									<h3>
+										<?php
+										/* translators: commercial plugin name */
+										\printf( \esc_html__( 'Got bigger plans? %s is here for you', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+										?>
+									</h3>
+									<p>
+										<?php
+										/* translators: 1: plugin name, 2: commercial plugin name */
+										\printf( \esc_html__( 'If this site is run by a corporation or partnership, you might like %1$s’s bigger brother %2$s. With advanced features and support for multiple kinds of legal entities, %2$s covers business from your local book shop to bigger multi-location corporations.', 'impressum' ), \esc_html__( 'Impressum', 'impressum' ), \esc_html__( 'Impressum Plus', 'impressum' ) );
+										?>
+									</p>
+								</div>
+								<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
+								
+								<?php // phpcs:enable ?>
+								<div class="impressum-welcome-action">
+									<p><a class="button button-primary button-hero" href="<?= \esc_url( \__( 'https://impressum.plus/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Learn more about Plus', 'impressum' ); ?></a></p>
+								</div>
 							</div>
 							<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
 							
 							<?php // phpcs:enable ?>
-							<div class="impressum-welcome-action">
-								<p><a href="<?= \esc_url( \__( 'https://epiph.yt/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
+							<div class="impressum-welcome-panel-column">
+								<div>
+									<h3><?php \esc_html_e( 'Hi there, we are Epiphyt 👋', 'impressum' ); ?></h3>
+									<p><?php \esc_html_e( 'Epiphyt is a small WordPress coding shop from southern Germany. As members of the German WordPress community we value clean code, straight forward communication and the GPL.', 'impressum' ); ?></p>
+								</div>
+								<?php // phpcs:disable WordPress.WhiteSpace.PrecisionAlignment.Found ?>
+								
+								<?php // phpcs:enable ?>
+								<div class="impressum-welcome-action">
+									<p><a href="<?= \esc_url( \__( 'https://epiph.yt/en/', 'impressum' ) ); ?>"><?php \esc_html_e( 'Get in touch with us or read more on epiph.yt', 'impressum' ); ?></a></p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<?php
-		endif;
+			<?php
+		}
 	}
 }

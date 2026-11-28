@@ -151,37 +151,37 @@ final class AdminTest extends MockeryTestCase
         $admin = new Admin($settings_registry, new Validator($settings_registry));
         $this->assertEqualsCanonicalizing(
             [
-                'Address',
-                'Email Address',
-                'Name',
-                'Phone or Contact Form Page',
+                'address' => 'Address',
+                'email' => 'Email Address',
+                'name' => 'Name',
+                'phone_contact_form' => 'Phone or Contact Form Page',
             ],
             $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
-                'Address',
-                'Email Address',
-                'Name',
+                'address' => 'Address',
+                'email' => 'Email Address',
+                'name' => 'Name',
             ],
             $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
-                'Address',
-                'Email Address',
-                'Name',
+                'address' => 'Address',
+                'email' => 'Email Address',
+                'name' => 'Name',
             ],
             $admin->get_invalid_fields()
         );
         $this->assertEqualsCanonicalizing(
             [
-                'Address',
-                'Business ID',
-                'Email Address',
-                'Name',
-                'Phone or Contact Form Page',
-                'VAT ID',
+                'address' => 'Address',
+                'business_id' => 'Business ID',
+                'email' => 'Email Address',
+                'name' => 'Name',
+                'phone_contact_form' => 'Phone or Contact Form Page',
+                'vat_id' => 'VAT ID',
             ],
             $admin->get_invalid_fields()
         );

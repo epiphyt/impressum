@@ -22,13 +22,13 @@ const INPUT_TYPES = {
  * This is what lets a field type registered in PHP look exactly like a built-in
  * one: the callback describes the control it wants, and it is rendered here.
  *
- * @param {Object}   props          Component properties
- * @param {Object}   props.field    Field to render
- * @param {*}        props.value    Current value
- * @param {Function} props.onChange Value change handler
- * @param {string}   props.id       Identifier of the input
- * @param {Object}   props.i18n     Shared strings
- * @param {string}   props.label    Title of the field
+ * @param {Object}                           props          Component properties
+ * @param {Object}                           props.field    Field to render
+ * @param {?(string|number|string[])}        props.value    Current value
+ * @param {(value: string|string[]) => void} props.onChange Value change handler
+ * @param {string}                           props.id       Identifier of the input
+ * @param {Object}                           props.i18n     Shared strings
+ * @param {string}                           props.label    Title of the field
  */
 export default function ControlField( {
 	field,
@@ -97,7 +97,7 @@ export default function ControlField( {
 										value: '',
 									},
 									...options,
-							  ]
+								]
 					}
 					value={
 						control.multiple

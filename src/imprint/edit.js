@@ -1,9 +1,8 @@
-/* eslint-disable camelcase */
 // external dependencies
 import { useBlockProps } from '@wordpress/block-editor';
 import { Placeholder } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extraneous-dependencies
+import { page } from '@wordpress/icons';
 
 import SidebarControls from './controls';
 import { useRowKeys } from './mover';

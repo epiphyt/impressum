@@ -21,13 +21,13 @@ function getOptions( field, choices ) {
 /**
  * A select field.
  *
- * @param {Object}   props          Component properties
- * @param {Object}   props.field    Field to render
- * @param {*}        props.value    Current value
- * @param {Function} props.onChange Value change handler
- * @param {string}   props.id       Identifier of the input
- * @param {Object}   props.choices  Shared choice lists
- * @param {Object}   props.i18n     Shared strings
+ * @param {Object}                  props          Component properties
+ * @param {Object}                  props.field    Field to render
+ * @param {?string}                 props.value    Current value
+ * @param {(value: string) => void} props.onChange Value change handler
+ * @param {string}                  props.id       Identifier of the input
+ * @param {Object}                  props.choices  Shared choice lists
+ * @param {Object}                  props.i18n     Shared strings
  */
 export default function ChoiceField( {
 	field,

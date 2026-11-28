@@ -1,6 +1,5 @@
-/**
- * @jest-environment jsdom
- */
+// @vitest-environment jsdom
+import { describe, expect, it } from 'vitest';
 import { addSubmittedOptions, getLegacyValue, getOptionNames } from '../form';
 
 function createForm( html ) {

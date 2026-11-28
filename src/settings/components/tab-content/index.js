@@ -18,7 +18,7 @@ const TAB_INTROS = {};
  * Get the component rendering the static text of a tab.
  *
  * @param {string} slug Tab slug
- * @return {?Function} Content component, or null if the tab has no text
+ * @return {?React.ComponentType} Content component, or null if the tab has no text
  */
 export function getTabContentComponent( slug ) {
 	/**
@@ -42,7 +42,7 @@ export function getTabContentComponent( slug ) {
  * Get the component rendering the introduction of a tab.
  *
  * @param {string} slug Tab slug
- * @return {?Function} Introduction component, or null if the tab has none
+ * @return {?React.ComponentType} Introduction component, or null if the tab has none
  */
 export function getTabIntroComponent( slug ) {
 	/**
@@ -65,9 +65,9 @@ export function getTabIntroComponent( slug ) {
 /**
  * Render a text component of a tab in its section.
  *
- * @param {Object}    props           Component properties
- * @param {?Function} props.component Component to render
- * @param {Object}    props.tab       Tab to render the text of
+ * @param {Object}               props           Component properties
+ * @param {?React.ComponentType} props.component Component to render
+ * @param {Object}               props.tab       Tab to render the text of
  */
 function TabText( { component: Component, tab } ) {
 	if ( ! Component ) {

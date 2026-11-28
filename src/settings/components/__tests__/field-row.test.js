@@ -1,12 +1,15 @@
-/**
- * @jest-environment jsdom
- */
-import { render } from '@testing-library/react';
+// @vitest-environment jsdom
+import { describe, expect, it } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
 import FieldRow from '../field-row';
 
 const base = {
 	choices: {},
-	i18n: { requiredNotice: 'Required.', selectPlaceholder: '— Select —', selectPlaceholderShort: '- Select -' },
+	i18n: {
+		requiredNotice: 'Required.',
+		selectPlaceholder: '— Select —',
+		selectPlaceholderShort: '- Select -',
+	},
 	isNetwork: false,
 	onChange: () => {},
 	onCustomTitleChange: () => {},
@@ -53,8 +56,19 @@ describe( 'the error message is associated with its input', () => {
 		[ 'textarea', { type: 'textarea' } ],
 		[ 'email', { type: 'email' } ],
 		[ 'checkbox', { type: 'checkbox' } ],
-		[ 'select', { type: 'select', options: [ { label: 'A', value: 'a' } ] } ],
-		[ 'descriptor', { control: { type: 'radio', options: [ { label: 'A', value: 'a' } ] } } ],
+		[
+			'select',
+			{ type: 'select', options: [ { label: 'A', value: 'a' } ] },
+		],
+		[
+			'descriptor',
+			{
+				control: {
+					type: 'radio',
+					options: [ { label: 'A', value: 'a' } ],
+				},
+			},
+		],
 	] )( '%s', ( _name, overrides ) => {
 		const { container } = renderRow( {
 			error: 'Something is wrong.',
@@ -67,12 +81,16 @@ describe( 'the error message is associated with its input', () => {
 		expect( message ).not.toBeNull();
 		expect( message.id ).toBeTruthy();
 
-		const controls = container.querySelectorAll( 'input, select, textarea' );
+		const controls = container.querySelectorAll(
+			'input, select, textarea'
+		);
 
 		expect( controls.length ).toBeGreaterThan( 0 );
 
 		for ( const control of controls ) {
-			expect( control.getAttribute( 'aria-describedby' ) ).toBe( message.id );
+			expect( control.getAttribute( 'aria-describedby' ) ).toBe(
+				message.id
+			);
 			expect( control.getAttribute( 'aria-invalid' ) ).toBe( 'true' );
 		}
 	} );
@@ -95,17 +113,28 @@ describe( 'the error message is associated with its input', () => {
 	} );
 
 	it( 'is absent without an error', () => {
-		const { container } = renderRow( { error: null, field: field(), value: '' } );
+		const { container } = renderRow( {
+			error: null,
+			field: field(),
+			value: '',
+		} );
 
-		expect( container.querySelector( '.impressum-settings__error' ) ).toBeNull();
 		expect(
-			container.querySelector( 'input' ).getAttribute( 'aria-describedby' )
+			container.querySelector( '.impressum-settings__error' )
+		).toBeNull();
+		expect(
+			container
+				.querySelector( 'input' )
+				.getAttribute( 'aria-describedby' )
 		).toBeNull();
 	} );
 
 	it( 'is removed again once the error is resolved', () => {
 		const props = { field: field(), value: '' };
-		const { container, rerender } = renderRow( { ...props, error: 'Wrong.' } );
+		const { container, rerender } = renderRow( {
+			...props,
+			error: 'Wrong.',
+		} );
 
 		rerender(
 			<table>
@@ -155,7 +184,9 @@ describe( 'the field is described', () => {
 		const message = container.querySelector( '.impressum-settings__error' );
 
 		expect(
-			container.querySelector( '#legacy' ).getAttribute( 'aria-describedby' )
+			container
+				.querySelector( '#legacy' )
+				.getAttribute( 'aria-describedby' )
 		).toBe( `${ message.id } own-help` );
 	} );
 
@@ -199,7 +230,7 @@ describe( 'the field is labeled', () => {
 			value: '',
 		} );
 
-		expect( getByRole( 'group', { name: 'Name' } ) ).not.toBeNull();
+		expect( getByRole( 'radiogroup', { name: 'Name' } ) ).not.toBeNull();
 	} );
 
 	it( 'by its title in server rendered markup', () => {
@@ -224,8 +255,37 @@ describe( 'the field is labeled', () => {
 			value: '',
 		} );
 
-		expect(
-			getByRole( 'button', { name: /Owner/ } )
-		).not.toBeNull();
+		expect( getByRole( 'button', { name: /Owner/ } ) ).not.toBeNull();
+	} );
+} );
+
+describe( 'editing the title', () => {
+	it( 'moves the focus to the title input', () => {
+		const { getByRole } = renderRow( {
+			error: null,
+			field: field( { supportsCustomTitle: true } ),
+			value: '',
+		} );
+
+		fireEvent.click( getByRole( 'button', { name: /Name/ } ) );
+
+		expect( document.activeElement ).toBe(
+			getByRole( 'textbox', { name: 'Title of the field “Name”' } )
+		);
+	} );
+
+	it( 'moves the focus back to the edit button when done', () => {
+		const { getByRole } = renderRow( {
+			error: null,
+			field: field( { supportsCustomTitle: true } ),
+			value: '',
+		} );
+
+		fireEvent.click( getByRole( 'button', { name: /Name/ } ) );
+		fireEvent.keyDown( document.activeElement, { key: 'Escape' } );
+
+		expect( document.activeElement ).toBe(
+			getByRole( 'button', { name: /Name/ } )
+		);
 	} );
 } );

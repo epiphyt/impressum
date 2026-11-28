@@ -33,7 +33,7 @@ const FIELD_COMPONENTS = {
  * statement of the two.
  *
  * @param {Object} field Field to render
- * @return {?Function} Field component, or null if the field is not rendered natively
+ * @return {?React.ComponentType} Field component, or null if the field is not rendered natively
  */
 export function getFieldComponent( field ) {
 	if ( field.control ) {
@@ -89,7 +89,7 @@ export function getLabelMode( field, { choices, isNetwork } ) {
  * Get the component rendering a field type.
  *
  * @param {string} type Field type
- * @return {?Function} Field component, or null if the type is not rendered natively
+ * @return {?React.ComponentType} Field component, or null if the type is not rendered natively
  */
 export function getComponentForType( type ) {
 	/**

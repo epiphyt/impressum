@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { getInitialState } from '../store';
 
 const COUNTRY = {

@@ -6,9 +6,9 @@
  * their PHP callback and injected here. Their inputs carry the real option
  * names, so their current values are read from the form while saving.
  *
- * @param {Object}    props         Component properties
- * @param {Object}    props.field   Field to render
- * @param {?Function} props.onInput Handler called when a value of the markup changes
+ * @param {Object}        props         Component properties
+ * @param {Object}        props.field   Field to render
+ * @param {?(() => void)} props.onInput Handler called when a value of the markup changes
  */
 export default function LegacyField( { field, onInput } ) {
 	if ( ! field.legacyHtml ) {

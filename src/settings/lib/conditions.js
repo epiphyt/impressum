@@ -11,8 +11,8 @@
  * Option values come back from the database as strings, so scalars are compared
  * as strings to avoid type juggling surprises.
  *
- * @param {*} actual   Actual value
- * @param {*} expected Expected value
+ * @param {unknown} actual   Actual value
+ * @param {unknown} expected Expected value
  * @return {boolean} Whether both values are considered equal
  */
 function isEqual( actual, expected ) {
@@ -32,7 +32,7 @@ function isEqual( actual, expected ) {
  *
  * Mirrors the semantics of empty() in PHP, where '0' counts as empty.
  *
- * @param {*} value Value to check
+ * @param {unknown} value Value to check
  * @return {boolean} Whether the value is empty
  */
 export function isEmpty( value ) {
@@ -106,7 +106,9 @@ export function evaluate( condition, values ) {
 		case 'falsy':
 			return isEmpty( actual );
 		case 'in':
-			return [].concat( expected ?? [] ).some( ( one ) => isEqual( actual, one ) );
+			return []
+				.concat( expected ?? [] )
+				.some( ( one ) => isEqual( actual, one ) );
 		case 'is':
 			return isEqual( actual, expected );
 		case 'is_not':
@@ -114,9 +116,9 @@ export function evaluate( condition, values ) {
 		case 'matches':
 			return matchesPattern( String( expected ), String( actual ?? '' ) );
 		case 'not_in':
-			return ! [].concat( expected ?? [] ).some( ( one ) =>
-				isEqual( actual, one )
-			);
+			return ! []
+				.concat( expected ?? [] )
+				.some( ( one ) => isEqual( actual, one ) );
 		default:
 			return ! isEmpty( actual );
 	}

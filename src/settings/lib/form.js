@@ -20,7 +20,7 @@ function belongsTo( name, inputName ) {
  *
  * @param {HTMLFormElement} form      Form containing the field
  * @param {string}          inputName Input name of the field
- * @return {*} Current value, or undefined if the form contains no control of the field
+ * @return {string|string[]|Object<string, string>|undefined} Current value, or undefined if the form contains no control of the field
  */
 export function getLegacyValue( form, inputName ) {
 	if ( ! form || ! inputName ) {
@@ -50,7 +50,10 @@ export function getLegacyValue( form, inputName ) {
 			continue;
 		}
 
-		const key = name.slice( prefix.length, name.indexOf( ']', prefix.length ) );
+		const key = name.slice(
+			prefix.length,
+			name.indexOf( ']', prefix.length )
+		);
 
 		if ( key === '' ) {
 			value = Array.isArray( value ) ? [ ...value, entry ] : [ entry ];

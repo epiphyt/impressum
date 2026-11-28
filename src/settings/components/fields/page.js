@@ -14,15 +14,15 @@ import InlineNotice from '../inline-notice';
  * Sites with a manageable number of pages get the full list in the payload.
  * Above that the list is left out and pages are searched for on demand.
  *
- * @param {Object}   props           Component properties
- * @param {Object}   props.field     Field to render
- * @param {*}        props.value     Current value
- * @param {Function} props.onChange  Value change handler
- * @param {string}   props.id        Identifier of the input
- * @param {Object}   props.choices   Shared choice lists
- * @param {Object}   props.i18n      Shared strings
- * @param {boolean}  props.isNetwork Whether the network wide settings are edited
- * @param {string}   props.label     Title of the field
+ * @param {Object}                  props           Component properties
+ * @param {Object}                  props.field     Field to render
+ * @param {?(string|number)}        props.value     Current value
+ * @param {(value: string) => void} props.onChange  Value change handler
+ * @param {string}                  props.id        Identifier of the input
+ * @param {Object}                  props.choices   Shared choice lists
+ * @param {Object}                  props.i18n      Shared strings
+ * @param {boolean}                 props.isNetwork Whether the network wide settings are edited
+ * @param {string}                  props.label     Title of the field
  */
 export default function PageField( {
 	field,
@@ -74,7 +74,9 @@ export default function PageField( {
 
 	if ( isNetwork ) {
 		return (
-			<InlineNotice status="info">{ i18n.networkUnavailable }</InlineNotice>
+			<InlineNotice status="info">
+				{ i18n.networkUnavailable }
+			</InlineNotice>
 		);
 	}
 

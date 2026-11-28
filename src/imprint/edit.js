@@ -6,6 +6,7 @@ import { __ } from '@wordpress/i18n';
 import { page } from '@wordpress/icons'; // eslint-disable-line import/no-extraneous-dependencies
 
 import SidebarControls from './controls';
+import { useRowKeys } from './mover';
 import useFieldDragging from './use-field-dragging';
 import { getFieldsByName } from './utils';
 
@@ -29,12 +30,14 @@ const ImprintEdit = ( props ) => {
 		fields: printableFields,
 		setAttributes,
 	} );
+	const rowKeys = useRowKeys();
 	const blockProps = useBlockProps( { ref } );
 	const fields = getFieldsByName(
 		printableFields,
 		blockProps.className,
 		setAttributes,
-		getRowProps
+		getRowProps,
+		rowKeys
 	);
 
 	return (
